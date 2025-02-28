@@ -79,9 +79,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           phoneNumber: event.phone ?? state.userModel.phoneNumber,
           tgLink: event.tgName ?? '/test',
           base64: event.images,
-          mail: event.email == null
-              ? (state.userModel.mail.isEmpty ? null : state.userModel.mail)
-              : null,
+          mail: event.email ?? (state.userModel.mail.isEmpty ? null : state.userModel.mail),
           securityCode: event.securityCode,
           sessionToken: event.sessionToken,
           smsType: event.securityCode != null

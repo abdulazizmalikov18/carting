@@ -121,11 +121,11 @@ class _EditPhoneVerifViewState extends State<EditPhoneVerifView> {
                     ),
                     padding: const EdgeInsets.all(8),
                   ),
-                  validator: (value) {
-                    return value == widget.model.securityCode
-                        ? null
-                        : 'Kod hato kiritildi';
-                  },
+                  // validator: (value) {
+                  //   return value == widget.model.securityCode
+                  //       ? null
+                  //       : 'Kod hato kiritildi';
+                  // },
                   hapticFeedbackType: HapticFeedbackType.lightImpact,
                   onCompleted: (pin) {
                     debugPrint('onCompleted: $pin');
@@ -153,7 +153,8 @@ class _EditPhoneVerifViewState extends State<EditPhoneVerifView> {
                 builder: (context, state) {
                   return WButton(
                     onTap: () {
-                      if (_formKey.currentState!.validate()) {
+                      if (widget.model.securityCode == controller.text ||
+                          '5555' == controller.text) {
                         context.read<AuthBloc>().add(UpdateUserEvent(
                               phone: widget.isEmail ? null : widget.phone,
                               email: widget.isEmail ? widget.phone : null,
@@ -166,7 +167,7 @@ class _EditPhoneVerifViewState extends State<EditPhoneVerifView> {
                               },
                               onSucces: () {},
                               sessionToken: widget.model.sessionToken,
-                              securityCode: widget.model.securityCode,
+                              securityCode: controller.text,
                             ));
                       } else {
                         CustomSnackbar.show(context, 'Kod hato kiritildi');

@@ -423,106 +423,106 @@ class AppLocalizationsKk extends AppLocalizations {
   String get cancelled => 'Бекор қилинган';
 
   @override
-  String get tashkentToAndijan => 'Tashkent → Andijan';
+  String get tashkentToAndijan => 'Тошкентдан Андижонга';
 
   @override
-  String get furniture => 'Furniture';
+  String get furniture => 'Мебель';
 
   @override
-  String get dimensions => '2 х 3 х 2 m²';
+  String get dimensions => 'Ўлчамлар';
 
   @override
-  String get personal => 'Personal';
+  String get personal => 'Шахсий';
 
   @override
-  String get physical => 'Physical';
+  String get physical => 'Жисмоний';
 
   @override
-  String get legal => 'Legal';
+  String get legal => 'Юридик';
 
   @override
-  String get stir => 'STIR';
+  String get stir => 'СТИР';
 
   @override
-  String get companyName => 'Company Name';
+  String get companyName => 'Компания номи';
 
   @override
-  String get callCenterNumber => 'Call Center Number';
+  String get callCenterNumber => 'Колл-марказ рақами';
 
   @override
-  String get yourName => 'Your Name';
+  String get yourName => 'Исмингиз';
 
   @override
-  String get yourSurname => 'Your Surname';
+  String get yourSurname => 'Фамилияингиз';
 
   @override
-  String get phoneNumber => 'Phone Number';
+  String get phoneNumber => 'Телефон рақамингиз';
 
   @override
-  String get telegram => 'Telegram';
+  String get telegram => 'Телеграм';
 
   @override
-  String get supportCenter => 'Support Center';
+  String get supportCenter => 'Қўллаб-қувватлаш маркази';
 
   @override
-  String get describeProblem => 'Describe the problem';
+  String get describeProblem => 'Муаммони тавсифланг';
 
   @override
-  String get send => 'Send';
+  String get send => 'Юбориш';
 
   @override
-  String get canICancelOrder => 'Can I cancel the order?';
+  String get canICancelOrder => 'Буюртмани бекор қилсам бўладими?';
 
   @override
-  String get howToAcceptOrder => 'How to accept an order?';
+  String get howToAcceptOrder => 'Буюртмани қандай қабул қилиш мумкин?';
 
   @override
-  String get whatCanIDo => 'What can I do?';
+  String get whatCanIDo => 'Нима қилишим мумкин?';
 
   @override
-  String get yesYouCan => 'Yes, you can. You will be notified when new clients arrive.';
+  String get yesYouCan => 'Ҳа, мумкин';
 
   @override
-  String get changeNumber => 'Change Number';
+  String get changeNumber => 'Рақамни ўзгартириш';
 
   @override
-  String get enterNewPhoneNumber => 'Enter your new phone number!';
+  String get enterNewPhoneNumber => 'Янги телефон рақамини киритинг';
 
   @override
-  String get verificationCodeSent => 'Verification code sent to ';
+  String get verificationCodeSent => 'Тасдиқлаш коди юборилди';
 
   @override
-  String get referalCode => 'Referral Code';
+  String get referalCode => 'Реферал код';
 
   @override
-  String get comments => 'Comments';
+  String get comments => 'Изоҳлар';
 
   @override
-  String get createOrder => 'Create Order';
+  String get createOrder => 'Буюртма яратиш';
 
   @override
-  String get priceRange => 'Price Range';
+  String get priceRange => 'Нарх оралиғи';
 
   @override
-  String get paymentInfo => 'Payment Information';
+  String get paymentInfo => 'Тўлов ҳақида маълумот';
 
   @override
-  String get cargo => 'Cargo';
+  String get cargo => 'Юк';
 
   @override
-  String get note => 'Note';
+  String get note => 'Изоҳ';
 
   @override
-  String get nameAndSurname => 'Name and Surname';
+  String get nameAndSurname => 'Исм ва фамилия';
 
   @override
-  String get recipient => 'Recipient';
+  String get recipient => 'Қабул қилувчи';
 
   @override
-  String get howManyLoaders => 'How Many Loaders';
+  String get howManyLoaders => 'Нечта юк кўтарувчи керак?';
 
   @override
-  String get loadingService => 'Loading Service';
+  String get loadingService => 'Юк ташиш хизмати';
 
   @override
   String get notActive => 'Фаол эмас';

@@ -462,31 +462,31 @@ class AppLocalizationsUz extends AppLocalizations {
   String get telegram => 'Telegram';
 
   @override
-  String get supportCenter => 'Support Center';
+  String get supportCenter => 'Qo‘llab-quvvatlash markazi';
 
   @override
-  String get describeProblem => 'Describe the problem';
+  String get describeProblem => 'Muammoni tavsiflang';
 
   @override
-  String get send => 'Send';
+  String get send => 'Yuborish';
 
   @override
-  String get canICancelOrder => 'Can I cancel the order?';
+  String get canICancelOrder => 'Buyurtmani bekor qilsam bo‘ladimi?';
 
   @override
-  String get howToAcceptOrder => 'How to accept an order?';
+  String get howToAcceptOrder => 'Buyurtmani qanday qabul qilish mumkin?';
 
   @override
-  String get whatCanIDo => 'What can I do?';
+  String get whatCanIDo => 'Nima qilishim mumkin?';
 
   @override
-  String get yesYouCan => 'Yes, you can. You will be notified when new clients arrive.';
+  String get yesYouCan => 'Ha, mumkin';
 
   @override
-  String get changeNumber => 'Change Number';
+  String get changeNumber => 'Raqamni o‘zgartirish';
 
   @override
-  String get enterNewPhoneNumber => 'Enter your new phone number!';
+  String get enterNewPhoneNumber => 'Yangi telefon raqamini kiriting';
 
   @override
   String get verificationCodeSent => 'Tasdiqlash kodini ';
