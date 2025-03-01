@@ -32,7 +32,7 @@ class _IdentityChooseViewState extends State<IdentityChooseView> {
         child: Padding(
           padding: EdgeInsets.only(bottom: Platform.isIOS ? 0 : 16),
           child: AppScope.of(context).themeMode == ThemeMode.dark
-              ? AppImages.logoText.imgAsset(height: 24)
+              ? AppIcons.logoWhite.svg(height: 24)
               : AppImages.logoTextDark.imgAsset(height: 24),
         ),
       ),

@@ -86,6 +86,7 @@ class AppIcons {
   static const share = "assets/icons/share.svg";
   static const copy = "assets/icons/copy.svg";
   static const trash = "assets/icons/trash.svg";
+  static const logoWhite = "assets/icons/logo_white.svg";
 }
 
 extension SvgExt on String {

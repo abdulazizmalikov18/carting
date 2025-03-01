@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/themes/theme_changer.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
@@ -55,7 +56,7 @@ class _AuthViewState extends State<AuthView>
         child: Padding(
           padding: EdgeInsets.only(bottom: Platform.isIOS ? 0 : 16),
           child: AppScope.of(context).themeMode == ThemeMode.dark
-              ? AppImages.logoText.imgAsset(height: 24)
+              ? AppIcons.logoWhite.svg(height: 24)
               : AppImages.logoTextDark.imgAsset(height: 24),
         ),
       ),

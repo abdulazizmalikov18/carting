@@ -1,3 +1,4 @@
+import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/themes/theme_changer.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
@@ -8,7 +9,6 @@ import 'package:carting/assets/assets/images.dart';
 import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/presentation/routes/route_name.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
-
 
 class LendingView extends StatefulWidget {
   const LendingView({super.key});
@@ -27,7 +27,7 @@ class _LendingViewState extends State<LendingView> {
           height: 24,
           width: 128,
           child: AppScope.of(context).themeMode == ThemeMode.dark
-              ? AppImages.logoText.imgAsset()
+              ? AppIcons.logoWhite.svg()
               : AppImages.logoTextDark.imgAsset(),
         ),
         backgroundColor: scaffoldBackground,
@@ -68,7 +68,7 @@ class _LendingViewState extends State<LendingView> {
               onTap: () {
                 context.pushReplacement(AppRouteName.lenguage);
               },
-              text: AppLocalizations.of(context)!.start, 
+              text: AppLocalizations.of(context)!.start,
             ),
           )
         ],

@@ -211,6 +211,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(state.copyWith(statusSms: FormzSubmissionStatus.inProgress));
       await StorageRepository.putString(StorageKeys.TOKEN, "");
       await StorageRepository.putString(StorageKeys.REFRESH, "");
+      await StorageRepository.putBool(StorageKeys.LENDING, true);
       emit(state.copyWith(
         statusSms: FormzSubmissionStatus.success,
         status: AuthenticationStatus.unauthenticated,

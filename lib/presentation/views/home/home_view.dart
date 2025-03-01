@@ -107,7 +107,7 @@ class _HomeViewState extends State<HomeView> {
           height: 24,
           width: 128,
           child: AppScope.of(context).themeMode == ThemeMode.dark
-              ? AppImages.logoText.imgAsset()
+              ? AppIcons.logoWhite.svg()
               : AppImages.logoTextDark.imgAsset(),
         ),
         bottom: PreferredSize(

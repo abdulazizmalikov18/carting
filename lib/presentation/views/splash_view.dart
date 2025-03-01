@@ -1,4 +1,3 @@
-import 'package:carting/assets/assets/images.dart';
 import 'package:carting/assets/themes/theme_changer.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +29,7 @@ class _SplashViewState extends State<SplashView> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 48),
                   child: AppScope.of(context).themeMode == ThemeMode.dark
-                      ? AppImages.logoText.imgAsset(height: 24)
+                      ? AppIcons.logoWhite.svg(height: 24)
                       : AppIcons.logoCarting.svg(height: 24),
                 ),
                 const SizedBox(height: 100),
