@@ -1,3 +1,4 @@
+import 'package:carting/presentation/views/lenguage_view.dart';
 import 'package:carting/presentation/views/profile/edit_phone_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +34,10 @@ sealed class AppRouts {
       GoRoute(
         path: AppRouteName.errorFound,
         builder: (context, state) => const ErrorView(),
+      ),
+      GoRoute(
+        path: AppRouteName.lenguage,
+        builder: (context, state) => const LenguageView(),
       ),
       GoRoute(
         path: AppRouteName.lending,
@@ -77,38 +82,58 @@ sealed class AppRouts {
         builder: (context, state) => const OrderView(),
       ),
       mainView,
-      // mainViewDeliver,
+      mainViewAuth,
     ],
   );
 
-  // static final mainView = StatefulShellRoute.indexedStack(
-  //   builder: (context, state, navigationShell) {
-  //     return MainView(navigationShell: navigationShell);
-  //   },
-  //   branches: <StatefulShellBranch>[
-  //     StatefulShellBranch(
-  //       routes: [
-  //         GoRoute(
-  //           path: AppRouteName.home,
-  //           builder: (context, state) => const HomeView(),
-  //         ),
-  //       ],
-  //     ),
-  //     StatefulShellBranch(
-  //       routes: [
-
-  //       ],
-  //     ),
-  //     StatefulShellBranch(
-  //       routes: [
-  //         GoRoute(
-  //           path: AppRouteName.profile,
-  //           builder: (context, state) => const ProfileView(),
-  //         ),
-  //       ],
-  //     ),
-  //   ],
-  // );
+  static final mainViewAuth = StatefulShellRoute.indexedStack(
+    builder: (context, state, navigationShell) {
+      return BlocProvider(
+        create: (context) => AdvertisementBloc(
+          serviceLocator<AdvertisementRepo>(),
+        ),
+        child: MainView(navigationShell: navigationShell),
+      );
+    },
+    branches: <StatefulShellBranch>[
+      StatefulShellBranch(
+        routes: [
+          GoRoute(
+            path: AppRouteName.homeAuth,
+            builder: (context, state) => const HomeView(),
+          ),
+        ],
+      ),
+      StatefulShellBranch(
+        routes: [
+          GoRoute(
+            path: AppRouteName.announcementsAuth,
+            builder: (context, state) => const AnnouncementsView(),
+          ),
+        ],
+      ),
+      StatefulShellBranch(
+        routes: [
+          GoRoute(
+            path: AppRouteName.carsAuth,
+            builder: (context, state) => const CarsView(),
+          ),
+        ],
+      ),
+      StatefulShellBranch(
+        routes: [
+          GoRoute(
+            path: AppRouteName.profileAuth,
+            builder: (context, state) => const ProfileView(),
+          ),
+          GoRoute(
+            path: AppRouteName.ordersHistoryAuth,
+            builder: (context, state) => const OrderHistoryView(),
+          ),
+        ],
+      ),
+    ],
+  );
 
   static final mainView = StatefulShellRoute.indexedStack(
     builder: (context, state, navigationShell) {

@@ -691,4 +691,7 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get about_us_slogan => 'Siz istalgan joyga – biz yetkazib beramiz!';
+
+  @override
+  String get select_language => 'Tilni tanlang!';
 }

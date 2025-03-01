@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:carting/assets/constants/storage_keys.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/infrastructure/repo/storage_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -33,6 +35,14 @@ class _MainViewState extends State<MainView> {
     return Scaffold(
       body: widget.navigationShell,
       extendBody: true,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          StorageRepository.putString(
+            StorageKeys.TOKEN,
+            "05e625ae-94e7-469a-8d6e-ad6d135e0e2a",
+          );
+        },
+      ),
       bottomNavigationBar: SafeArea(
         child: Container(
           height: 64,

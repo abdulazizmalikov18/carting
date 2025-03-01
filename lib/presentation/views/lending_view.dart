@@ -66,7 +66,7 @@ class _LendingViewState extends State<LendingView> {
             child: WButton(
               margin: const EdgeInsets.all(16),
               onTap: () {
-                context.pushReplacement(AppRouteName.auth);
+                context.pushReplacement(AppRouteName.lenguage);
               },
               text: AppLocalizations.of(context)!.start, 
             ),

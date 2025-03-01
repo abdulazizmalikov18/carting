@@ -691,4 +691,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get about_us_slogan => 'Wherever you need – we deliver!';
+
+  @override
+  String get select_language => 'Select Language!';
 }

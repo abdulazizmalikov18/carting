@@ -691,4 +691,7 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get about_us_slogan => 'Сиз исталган жойга – биз етказиб берамиз!';
+
+  @override
+  String get select_language => 'Тилни танланг!';
 }

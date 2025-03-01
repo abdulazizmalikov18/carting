@@ -1466,6 +1466,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Wherever you need – we deliver!'**
   String get about_us_slogan;
+
+  /// No description provided for @select_language.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Language!'**
+  String get select_language;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -216,6 +216,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                             if (isActive.value) {
                               _openDocxFromAssets('carting.docx');
                             }
+                            setState(() {});
                           }
                         },
                         child: value
@@ -264,7 +265,12 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                                   tin: controllerTin.text,
                                   referredBy: controllerReferal.text,
                                   orgName: controllerOrgName.text,
-                                  onSucces: () {},
+                                  onSucces: () {
+                                    CustomSnackbar.show(
+                                      context,
+                                      "Malumotlar yangilandi",
+                                    );
+                                  },
                                   onError: () {
                                     CustomSnackbar.show(
                                       context,
@@ -283,7 +289,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                           );
                         }
                       },
-                      isDisabled: !isChange.value,
+                      isDisabled: !isChange.value || !isActive.value,
                       isLoading: state.statusSms.isInProgress,
                       text: AppLocalizations.of(context)!.save,
                     );

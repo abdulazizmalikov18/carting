@@ -7,6 +7,7 @@ class StorageKeys {
   static const CHUCK = 'chuck';
   static const MODE = 'mode';
   static const LANGUAGE = 'language';
+  static const LENDING = 'lending';
   static const TOKEN = 'token';
   static const REFRESH = 'refresh';
   static const ON_BOARDING = 'onboarding';
