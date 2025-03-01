@@ -23,12 +23,12 @@ class UserUpdateModel {
   final String? sessionToken;
   @JsonKey(name: "security_code", includeIfNull: false)
   final String? securityCode;
-  @JsonKey(name: "first_name")
-  final String firstName;
-  @JsonKey(name: "last_name")
-  final String lastName;
-  @JsonKey(name: "user_type")
-  final String userType;
+  @JsonKey(name: "first_name", includeIfNull: false)
+  final String? firstName;
+  @JsonKey(name: "last_name", includeIfNull: false)
+  final String? lastName;
+  @JsonKey(name: "user_type", includeIfNull: false)
+  final String? userType;
   @JsonKey(name: "phone_number")
   final String phoneNumber;
   @JsonKey(name: "tg_link", includeIfNull: false)
@@ -45,9 +45,9 @@ class UserUpdateModel {
   final String? referredBy;
 
   UserUpdateModel({
-    required this.firstName,
-    required this.lastName,
-    required this.userType,
+    this.firstName,
+    this.lastName,
+    this.userType,
     required this.phoneNumber,
     this.tin,
     this.tgLink,

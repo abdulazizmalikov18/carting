@@ -68,44 +68,51 @@ class _SpecialTechnicalServicesViewState
           builder: (context, state) {
             return WButton(
               onTap: () {
-                Log.i(point != null);
-                if (point != null &&
-                    controller2.text.isNotEmpty &&
-                    controllerPrice.text.isNotEmpty &&
-                    controller.text.isNotEmpty) {
-                  final model = SpecialEquipmentModel(
-                    toLocation: ToLocation(
-                      lat: point!.latitude,
-                      lng: point!.longitude,
-                      name: point!.name,
-                    ),
-                    serviceName: 'Maxsus texnika',
-                    details: DetailsSpecial(
-                      transportationTypeId: 1,
-                      fromDate: controller.text,
-                      toDate: controller2.text,
-                    ),
-                    advType: 'RECEIVE',
-                    serviceTypeId: 3,
-                    note: controllerCommet.text,
-                    payType: payDate.value ? 'CASH' : 'CARD',
-                    price: int.tryParse(
-                            controllerPrice.text.replaceAll(' ', '')) ??
-                        0,
-                  ).toJson();
-                  context.read<AdvertisementBloc>().add(CreateDeliveryEvent(
-                        model: model,
-                        images: images,
-                        onSucces: (id) {
-                          Navigator.pop(context);
-                        },
-                      ));
-                } else {
+                List<String> missingFields = [];
+
+                if (point == null) missingFields.add("Manzil");
+                if (controller2.text.isEmpty) {
+                  missingFields.add("Tugash sanasi");
+                }
+                if (controllerPrice.text.isEmpty) missingFields.add("Narx");
+                if (controller.text.isEmpty) {
+                  missingFields.add("Boshlanish sanasi");
+                }
+
+                if (missingFields.isNotEmpty) {
                   CustomSnackbar.show(
                     context,
-                    "Kerakli ma'lumotlarni kirgazing",
+                    "Quyidagi maydonlarni to'ldiring: ${missingFields.join(', ')}",
                   );
+                  return;
                 }
+                final model = SpecialEquipmentModel(
+                  toLocation: ToLocation(
+                    lat: point!.latitude,
+                    lng: point!.longitude,
+                    name: point!.name,
+                  ),
+                  serviceName: 'Maxsus texnika',
+                  details: DetailsSpecial(
+                    transportationTypeId: 1,
+                    fromDate: controller.text,
+                    toDate: controller2.text,
+                  ),
+                  advType: 'RECEIVE',
+                  serviceTypeId: 3,
+                  note: controllerCommet.text,
+                  payType: payDate.value ? 'CASH' : 'CARD',
+                  price:
+                      int.tryParse(controllerPrice.text.replaceAll(' ', '')) ??
+                          0,
+                ).toJson();
+                context.read<AdvertisementBloc>().add(CreateDeliveryEvent(
+                      model: model,
+                      images: images,
+                      onSucces: (id) {
+                        Navigator.pop(context);
+                      },
+                    ));
               },
               isLoading: state.statusCreate.isInProgress,
               margin: const EdgeInsets.all(16),
@@ -218,7 +225,8 @@ class _SpecialTechnicalServicesViewState
                   fontWeight: FontWeight.w400,
                   color: dark,
                 ),
-                subtitle:  Text("${AppLocalizations.of(context)!.description}, to‘lov turi, narx"),
+                subtitle: Text(
+                    "${AppLocalizations.of(context)!.description}, to‘lov turi, narx"),
                 trailing: AppIcons.arrowForward.svg(),
               ),
             ),

@@ -73,55 +73,62 @@ class _DeliveryViewState extends State<DeliveryView> {
           builder: (context, state) {
             return WButton(
               onTap: () {
-                if (point1 != null &&
-                    point2 != null &&
-                    controllerCount.text.isNotEmpty &&
-                    controllerPrice.text.isNotEmpty &&
-                    controller.text.isNotEmpty) {
-                  final model = DeliveryCreateModel(
-                    toLocation: LocationModel(
-                      lat: point2!.latitude,
-                      lng: point2!.longitude,
-                      name: point2!.name,
-                    ),
-                    fromLocation: LocationModel(
-                      lat: point1!.latitude,
-                      lng: point1!.longitude,
-                      name: point1!.name,
-                    ),
-                    serviceName: 'Yetkazib berish',
-                    details: Details(
-                      transportationTypeId:
-                          state.transportationTypes[trTypeId.value].id,
-                      loadTypeId: '${loadTypeId.value}',
-                      loadServiceId: '${loadServiceId.value}',
-                      loadWeight: LoadWeight(
-                        amount: int.tryParse(controllerCount.text) ?? 0,
-                        name: selectedUnit,
-                      ),
-                    ),
-                    advType: 'RECEIVE',
-                    serviceTypeId: 9,
-                    shipmentDate: controller.text,
-                    note: controllerCommet.text,
-                    payType: payDate.value ? 'CASH' : 'CARD',
-                    price: int.tryParse(
-                            controllerPrice.text.replaceAll(' ', '')) ??
-                        0,
-                  ).toJson();
-                  context.read<AdvertisementBloc>().add(CreateDeliveryEvent(
-                        model: model,
-                        images: images,
-                        onSucces: (id) {
-                          Navigator.pop(context);
-                        },
-                      ));
-                } else {
+                List<String> missingFields = [];
+                if (point1 == null) missingFields.add("Jo'natiladigan manzil");
+                if (point2 == null) missingFields.add("Qabul qiluvchi manzil");
+                if (controllerCount.text.isEmpty) {
+                  missingFields.add("Yuk miqdori");
+                }
+                if (controllerPrice.text.isEmpty) missingFields.add("Narx");
+                if (controller.text.isEmpty) {
+                  missingFields.add("Yuborish sanasi");
+                }
+
+                if (missingFields.isNotEmpty) {
                   CustomSnackbar.show(
                     context,
-                    "Kerakli ma'lumotlarni kirgazing",
+                    "Quyidagi ma'lumotlarni kiriting: ${missingFields.join(", ")}",
                   );
+                  return;
                 }
+                final model = DeliveryCreateModel(
+                  toLocation: LocationModel(
+                    lat: point2!.latitude,
+                    lng: point2!.longitude,
+                    name: point2!.name,
+                  ),
+                  fromLocation: LocationModel(
+                    lat: point1!.latitude,
+                    lng: point1!.longitude,
+                    name: point1!.name,
+                  ),
+                  serviceName: 'Yetkazib berish',
+                  details: Details(
+                    transportationTypeId:
+                        state.transportationTypes[trTypeId.value].id,
+                    loadTypeId: '${loadTypeId.value}',
+                    loadServiceId: '${loadServiceId.value}',
+                    loadWeight: LoadWeight(
+                      amount: int.tryParse(controllerCount.text) ?? 0,
+                      name: selectedUnit,
+                    ),
+                  ),
+                  advType: 'RECEIVE',
+                  serviceTypeId: 9,
+                  shipmentDate: controller.text,
+                  note: controllerCommet.text,
+                  payType: payDate.value ? 'CASH' : 'CARD',
+                  price:
+                      int.tryParse(controllerPrice.text.replaceAll(' ', '')) ??
+                          0,
+                ).toJson();
+                context.read<AdvertisementBloc>().add(CreateDeliveryEvent(
+                      model: model,
+                      images: images,
+                      onSucces: (id) {
+                        Navigator.pop(context);
+                      },
+                    ));
               },
               margin: const EdgeInsets.all(16),
               isLoading: state.statusCreate.isInProgress,

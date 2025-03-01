@@ -79,7 +79,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           phoneNumber: event.phone ?? state.userModel.phoneNumber,
           tgLink: event.tgName ?? '/test',
           base64: event.images,
-          mail: event.email ?? (state.userModel.mail.isEmpty ? null : state.userModel.mail),
+          mail: event.email ??
+              (state.userModel.mail.isEmpty ? null : state.userModel.mail),
           securityCode: event.securityCode,
           sessionToken: event.sessionToken,
           smsType: event.securityCode != null
@@ -94,14 +95,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ),
       );
       if (response.isRight) {
-        await Future.delayed(const Duration(seconds: 5), () {
-          emit(state.copyWith(
-            statusSms: FormzSubmissionStatus.inProgress,
-            status: AuthenticationStatus.loading,
-          ));
-          add(GetMeEvent(isNotAuth: event.sessionToken?.isEmpty ?? true));
-          // event.onSucces();
-        });
+        emit(state.copyWith(
+          statusSms: FormzSubmissionStatus.inProgress,
+          status: AuthenticationStatus.loading,
+        ));
+        event.onSucces();
+        add(GetMeEvent(isNotAuth: event.sessionToken?.isEmpty ?? true));
       } else {
         event.onError();
         emit(state.copyWith(statusSms: FormzSubmissionStatus.failure));

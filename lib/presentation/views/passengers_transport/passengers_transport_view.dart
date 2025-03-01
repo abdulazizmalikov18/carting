@@ -62,56 +62,63 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text( AppLocalizations.of(context)!.delivery)),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.delivery)),
       bottomNavigationBar: SafeArea(
         child: BlocBuilder<AdvertisementBloc, AdvertisementState>(
           builder: (context, state) {
             return WButton(
               onTap: () {
-                if (point1 != null &&
-                    point2 != null &&
-                    controllerCount.text.isNotEmpty &&
-                    controllerPrice.text.isNotEmpty &&
-                    controller.text.isNotEmpty) {
-                  final model = PassengerTransportationCreateModel(
-                    toLocation: LocationModel(
-                      lat: point2!.latitude,
-                      lng: point2!.longitude,
-                      name: point2!.name,
-                    ),
-                    fromLocation: LocationModel(
-                      lat: point1!.latitude,
-                      lng: point1!.longitude,
-                      name: point1!.name,
-                    ),
-                    serviceName: 'Yo‘lovchilarni tashish',
-                    details: DetailsModel(
-                      transportationTypeId:
-                          state.transportationTypes[trTypeId.value].id,
-                      passengerCount: int.tryParse(controllerCount.text) ?? 0,
-                    ),
-                    advType: 'RECEIVE',
-                    serviceTypeId: 2,
-                    shipmentDate: controller.text,
-                    note: controllerCommet.text,
-                    payType: payDate.value ? 'CASH' : 'CARD',
-                    price: int.tryParse(
-                            controllerPrice.text.replaceAll(' ', '')) ??
-                        0,
-                  ).toJson();
-                  context.read<AdvertisementBloc>().add(CreateDeliveryEvent(
-                        model: model,
-                        images: images,
-                        onSucces: (id) {
-                          Navigator.pop(context);
-                        },
-                      ));
-                } else {
+                List<String> missingFields = [];
+                if (point1 == null) missingFields.add("Jo'natiladigan manzil");
+                if (point2 == null) missingFields.add("Qabul qiluvchi manzil");
+                if (controllerCount.text.isEmpty) {
+                  missingFields.add("Yuk miqdori");
+                }
+                if (controllerPrice.text.isEmpty) missingFields.add("Narx");
+                if (controller.text.isEmpty) {
+                  missingFields.add("Yuborish sanasi");
+                }
+
+                if (missingFields.isNotEmpty) {
                   CustomSnackbar.show(
                     context,
-                    "Kerakli ma'lumotlarni kirgazing",
+                    "Quyidagi ma'lumotlarni kiriting: ${missingFields.join(", ")}",
                   );
+                  return;
                 }
+                final model = PassengerTransportationCreateModel(
+                  toLocation: LocationModel(
+                    lat: point2!.latitude,
+                    lng: point2!.longitude,
+                    name: point2!.name,
+                  ),
+                  fromLocation: LocationModel(
+                    lat: point1!.latitude,
+                    lng: point1!.longitude,
+                    name: point1!.name,
+                  ),
+                  serviceName: 'Yo‘lovchilarni tashish',
+                  details: DetailsModel(
+                    transportationTypeId:
+                        state.transportationTypes[trTypeId.value].id,
+                    passengerCount: int.tryParse(controllerCount.text) ?? 0,
+                  ),
+                  advType: 'RECEIVE',
+                  serviceTypeId: 2,
+                  shipmentDate: controller.text,
+                  note: controllerCommet.text,
+                  payType: payDate.value ? 'CASH' : 'CARD',
+                  price:
+                      int.tryParse(controllerPrice.text.replaceAll(' ', '')) ??
+                          0,
+                ).toJson();
+                context.read<AdvertisementBloc>().add(CreateDeliveryEvent(
+                      model: model,
+                      images: images,
+                      onSucces: (id) {
+                        Navigator.pop(context);
+                      },
+                    ));
               },
               margin: const EdgeInsets.all(16),
               isLoading: state.statusCreate.isInProgress,
@@ -191,7 +198,7 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
                     ),
                   ));
                 },
-                title:   Text(AppLocalizations.of(context)!.additionalInfo),
+                title: Text(AppLocalizations.of(context)!.additionalInfo),
                 minVerticalPadding: 0,
                 titleTextStyle: TextStyle(
                   fontSize: 12,
@@ -203,7 +210,8 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
                   fontWeight: FontWeight.w400,
                   color: dark,
                 ),
-                subtitle:  Text("${AppLocalizations.of(context)!.description}, to‘lov turi, narx"),
+                subtitle: Text(
+                    "${AppLocalizations.of(context)!.description}, to‘lov turi, narx"),
                 trailing: AppIcons.arrowForward.svg(),
               ),
             ),

@@ -12,7 +12,6 @@ import 'package:provider/provider.dart';
 
 import 'package:carting/app/auth/auth_bloc.dart';
 import 'package:carting/infrastructure/core/service_locator.dart';
-import 'package:carting/infrastructure/repo/auth_repo.dart';
 import 'package:carting/infrastructure/repo/storage_repository.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/routes/app_routes.dart';
@@ -56,8 +55,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          AuthBloc(serviceLocator<AuthRepo>())..add(CheckUserEvent()),
+      create: (context) => serviceLocator<AuthBloc>()..add(CheckUserEvent()),
       child: ChangeNotifierProvider<LocaleProvider>(
         create: (_) => LocaleProvider(),
         builder: (context, child) {
@@ -81,8 +79,11 @@ class MyApp extends StatelessWidget {
                 debugPrint('STATE LISTENER ============> ${state.status}');
                 switch (state.status) {
                   case AuthenticationStatus.unauthenticated:
-                    // AppRouts.router.pushReplacement(AppRouteName.auth);
-                    AppRouts.router.pushReplacement(AppRouteName.home);
+                    if (StorageRepository.getBool(StorageKeys.LENDING)) {
+                      AppRouts.router.pushReplacement(AppRouteName.lending);
+                    } else {
+                      AppRouts.router.pushReplacement(AppRouteName.home);
+                    }
                     break;
                   case AuthenticationStatus.authenticated:
                     AppRouts.router.go(AppRouteName.home);

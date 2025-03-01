@@ -58,43 +58,48 @@ class _PeregonServiceViewState extends State<PeregonServiceView> {
       bottomNavigationBar: SafeArea(
         child: WButton(
           onTap: () {
-            if (point1 != null &&
-                point2 != null &&
-                controllerPrice.text.isNotEmpty &&
-                controller.text.isNotEmpty) {
-              final model = PeregonModel(
-                toLocation: Location(
-                  lat: point2!.latitude,
-                  lng: point2!.longitude,
-                  name: point2!.name,
-                ),
-                fromLocation: Location(
-                  lat: point1!.latitude,
-                  lng: point1!.longitude,
-                  name: point1!.name,
-                ),
-                serviceName: 'Peregon xizmati',
-                advType: 'RECEIVE',
-                serviceTypeId: 10,
-                shipmentDate: controller.text,
-                note: controllerCommet.text,
-                payType: payDate.value ? 'CASH' : 'CARD',
-                price:
-                    int.tryParse(controllerPrice.text.replaceAll(' ', '')) ?? 0,
-              ).toJson();
-              context.read<AdvertisementBloc>().add(CreateDeliveryEvent(
-                    model: model,
-                    images: images,
-                    onSucces: (id) {
-                      Navigator.pop(context);
-                    },
-                  ));
-            } else {
+            List<String> missingFields = [];
+            if (point1 == null) missingFields.add("Jo'natiladigan manzil");
+            if (point2 == null) missingFields.add("Qabul qiluvchi manzil");
+            if (controllerPrice.text.isEmpty) missingFields.add("Narx");
+            if (controller.text.isEmpty) {
+              missingFields.add("Yuborish sanasi");
+            }
+            if (missingFields.isNotEmpty) {
               CustomSnackbar.show(
                 context,
-                "Kerakli ma'lumotlarni kirgazing",
+                "Quyidagi ma'lumotlarni kiriting: ${missingFields.join(", ")}",
               );
+              return;
             }
+            
+            final model = PeregonModel(
+              toLocation: Location(
+                lat: point2!.latitude,
+                lng: point2!.longitude,
+                name: point2!.name,
+              ),
+              fromLocation: Location(
+                lat: point1!.latitude,
+                lng: point1!.longitude,
+                name: point1!.name,
+              ),
+              serviceName: 'Peregon xizmati',
+              advType: 'RECEIVE',
+              serviceTypeId: 10,
+              shipmentDate: controller.text,
+              note: controllerCommet.text,
+              payType: payDate.value ? 'CASH' : 'CARD',
+              price:
+                  int.tryParse(controllerPrice.text.replaceAll(' ', '')) ?? 0,
+            ).toJson();
+            context.read<AdvertisementBloc>().add(CreateDeliveryEvent(
+                  model: model,
+                  images: images,
+                  onSucces: (id) {
+                    Navigator.pop(context);
+                  },
+                ));
           },
           margin: const EdgeInsets.all(16),
           text: AppLocalizations.of(context)!.register,
