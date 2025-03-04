@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:carting/assets/assets/images.dart';
-import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/presentation/routes/route_name.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 
@@ -21,7 +20,6 @@ class _LendingViewState extends State<LendingView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: scaffoldBackground,
       appBar: AppBar(
         title: SizedBox(
           height: 24,
@@ -30,7 +28,6 @@ class _LendingViewState extends State<LendingView> {
               ? AppIcons.logoWhite.svg()
               : AppImages.logoTextDark.imgAsset(),
         ),
-        backgroundColor: scaffoldBackground,
         elevation: 0,
       ),
       body: Column(

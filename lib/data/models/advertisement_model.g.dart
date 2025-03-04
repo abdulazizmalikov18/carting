@@ -9,10 +9,10 @@ part of 'advertisement_model.dart';
 AdvertisementModel _$AdvertisementModelFromJson(Map<String, dynamic> json) =>
     AdvertisementModel(
       id: (json['id'] as num).toInt(),
-      advType: json['adv_type'] as String,
+      advType: json['adv_type'] as String? ?? '',
       shipmentDate: json['shipment_date'] as String?,
-      status: json['status'] as String,
-      serviceTypeId: (json['service_type_id'] as num).toInt(),
+      status: json['status'] as String? ?? '',
+      serviceTypeId: (json['service_type_id'] as num?)?.toInt() ?? 0,
       serviceName: json['service_name'] as String?,
       fromLocation: json['from_location'] == null
           ? null

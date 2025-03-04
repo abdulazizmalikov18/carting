@@ -8,9 +8,9 @@ part of 'user_update_model.dart';
 
 UserUpdateModel _$UserUpdateModelFromJson(Map<String, dynamic> json) =>
     UserUpdateModel(
-      firstName: json['first_name'] as String,
-      lastName: json['last_name'] as String,
-      userType: json['user_type'] as String,
+      firstName: json['first_name'] as String?,
+      lastName: json['last_name'] as String?,
+      userType: json['user_type'] as String?,
       phoneNumber: json['phone_number'] as String,
       tin: (json['tin'] as num?)?.toInt(),
       tgLink: json['tg_link'] as String?,
@@ -30,9 +30,9 @@ Map<String, dynamic> _$UserUpdateModelToJson(UserUpdateModel instance) =>
       if (instance.tin case final value?) 'tin': value,
       if (instance.sessionToken case final value?) 'session_token': value,
       if (instance.securityCode case final value?) 'security_code': value,
-      'first_name': instance.firstName,
-      'last_name': instance.lastName,
-      'user_type': instance.userType,
+      if (instance.firstName case final value?) 'first_name': value,
+      if (instance.lastName case final value?) 'last_name': value,
+      if (instance.userType case final value?) 'user_type': value,
       'phone_number': instance.phoneNumber,
       if (instance.tgLink case final value?) 'tg_link': value,
       if (instance.base64 case final value?) 'base64': value,
