@@ -56,16 +56,16 @@ class _ReferalEditViewState extends State<ReferalEditView> {
                     height: 40,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: const Color(0xFFF3F3F3),
+                      color: context.color.scaffoldBackground,
                     ),
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     alignment: Alignment.center,
                     child: Text(
                       '${index + 1}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
-                        color: Color(0xFF292D32),
+                        color: context.color.white,
                       ),
                     ),
                   ),
@@ -74,16 +74,16 @@ class _ReferalEditViewState extends State<ReferalEditView> {
                       height: 40,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        color: const Color(0xFFF3F3F3),
+                        color: context.color.scaffoldBackground,
                       ),
                       alignment: Alignment.centerLeft,
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
                         widget.referralCodes[index].code,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
-                          color: Color(0xFF292D32),
+                          color: context.color.white,
                         ),
                       ),
                     ),
@@ -98,6 +98,7 @@ class _ReferalEditViewState extends State<ReferalEditView> {
                 controller: list[index],
                 hintText: AppLocalizations.of(context)!.leaveOrderComment,
                 title: AppLocalizations.of(context)!.description,
+                fillColor: context.color.scaffoldBackground,
               ),
               Row(
                 spacing: 16,

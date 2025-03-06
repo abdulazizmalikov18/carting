@@ -257,7 +257,9 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                                   callPhone: MyFunction.convertPhoneNumber(
                                     controllerCallPhone.text,
                                   ),
-                                  email: controllerEmail.text,
+                                  email: controllerEmail.text.isEmpty
+                                      ? null
+                                      : controllerEmail.text,
                                   userType:
                                       isLegal.value ? 'LEGAL' : 'PHYSICAL',
                                   images: images == null ? null : text,

@@ -31,7 +31,7 @@ class EditPhoneVerifView extends StatefulWidget {
 class _EditPhoneVerifViewState extends State<EditPhoneVerifView> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController controller;
-  ValueNotifier<int> start = ValueNotifier(60);
+  ValueNotifier<int> start = ValueNotifier(300);
   late Timer _timer;
   void startTimer() {
     const oneSec = Duration(seconds: 1);
@@ -50,7 +50,7 @@ class _EditPhoneVerifViewState extends State<EditPhoneVerifView> {
 
   void resetAndStartTimer() {
     setState(() {
-      start.value = 60; // Boshlang'ich qiymatni qayta o'rnating
+      start.value = 300; // Boshlang'ich qiymatni qayta o'rnating
     });
     startTimer(); // Taymerni qayta ishga tushiring
   }

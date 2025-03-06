@@ -7,12 +7,15 @@ import 'package:carting/data/models/user_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/profile/referal_edit_view.dart';
+import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_scale_animation.dart';
 import 'package:carting/presentation/widgets/w_tabbar.dart';
 import 'package:carting/utils/my_function.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ReferralProgramView extends StatefulWidget {
   const ReferralProgramView({super.key});
@@ -55,13 +58,13 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                           children: [
                             Row(
                               children: [
-                                const Expanded(
+                                Expanded(
                                   child: Text(
                                     'Referal link',
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
-                                      color: Color(0xFF292D32),
+                                      color: context.color.iron,
                                     ),
                                   ),
                                 ),
@@ -82,15 +85,16 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                   },
                                   child: Row(
                                     children: [
-                                      AppIcons.edit.svg(),
+                                      AppIcons.edit.svg(
+                                        color: context.color.iron,
+                                      ),
                                       const SizedBox(width: 4),
                                       Text(
                                         AppLocalizations.of(context)!.edit,
                                         style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w400,
-                                          color: const Color(0xFF292D32)
-                                              .withValues(alpha: .3),
+                                          color: context.color.iron,
                                         ),
                                       ),
                                     ],
@@ -147,10 +151,10 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                 Expanded(
                                   child: Text(
                                     AppLocalizations.of(context)!.invitedUsers,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
-                                      color: Color(0xFF292D32),
+                                      color: context.color.iron,
                                     ),
                                   ),
                                 ),
@@ -159,8 +163,7 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
-                                    color: const Color(0xFF292D32)
-                                        .withValues(alpha: .3),
+                                    color: context.color.iron,
                                   ),
                                 ),
                               ],
@@ -337,7 +340,7 @@ class ReferalIteam extends StatelessWidget {
                 height: 40,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  color: context.color.contGrey,
+                  color: context.color.scaffoldBackground,
                 ),
                 padding: const EdgeInsets.only(left: 16),
                 child: Row(
@@ -353,7 +356,17 @@ class ReferalIteam extends StatelessWidget {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await Clipboard.setData(
+                          ClipboardData(
+                            text:
+                                "https://carting.com/referral?code=${model.code}",
+                          ),
+                        );
+                        if (context.mounted) {
+                          CustomSnackbar.show(context, "Kod nusxalandi!");
+                        }
+                      },
                       icon: AppIcons.copy.svg(color: context.color.iron),
                     ),
                   ],
@@ -361,8 +374,13 @@ class ReferalIteam extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () {},
-              icon: AppIcons.share.svg(),
+              onPressed: () async {
+                await Share.share(
+                  "https://carting.com/referral?code=${model.code}",
+                  subject: 'Look what I made!',
+                );
+              },
+              icon: AppIcons.share.svg(color: context.color.iron),
             ),
           ],
         ),
@@ -370,7 +388,7 @@ class ReferalIteam extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: context.color.contGrey,
+            color: context.color.scaffoldBackground,
           ),
           width: double.infinity,
           padding: const EdgeInsets.all(16),
