@@ -90,7 +90,7 @@ Details _$DetailsFromJson(Map<String, dynamic> json) => Details(
       loadWeight: json['load_weight'] == null
           ? null
           : LoadWeight.fromJson(json['load_weight'] as Map<String, dynamic>),
-      passengerCount: (json['passenger_count'] as num?)?.toInt(),
+      passengerCount: json['passenger_count'],
       transportTypeId: (json['transport_type_id'] as num?)?.toInt(),
       characteristics: json['characteristics'] == null
           ? null
@@ -106,8 +106,8 @@ Details _$DetailsFromJson(Map<String, dynamic> json) => Details(
       specialistLastName: json['specialist_last_name'] as String?,
       transportCount: (json['transport_count'] as num?)?.toInt(),
       area: json['area'] as String?,
-      loadTypeId: json['load_type_id'] as String?,
-      loadServiceId: json['load_service_id'] as String?,
+      loadTypeId: json['load_type_id'],
+      loadServiceId: json['load_service_id'],
       fuelAmount: (json['fuel_amount'] as num?)?.toInt(),
       fuelTypeId: (json['fuel_type_id'] as num?)?.toInt(),
       advertisementId: (json['advertisement_id'] as num?)?.toInt(),
@@ -185,8 +185,8 @@ Map<String, dynamic> _$FuelToJson(Fuel instance) => <String, dynamic>{
     };
 
 LoadWeight _$LoadWeightFromJson(Map<String, dynamic> json) => LoadWeight(
-      amount: (json['amount'] as num).toInt(),
-      name: json['name'] as String,
+      amount: (json['amount'] as num?)?.toInt(),
+      name: json['name'] as String?,
     );
 
 Map<String, dynamic> _$LoadWeightToJson(LoadWeight instance) =>

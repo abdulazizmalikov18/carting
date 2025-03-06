@@ -125,3 +125,13 @@ class PostRefCodeEvent extends AdvertisementEvent {
 
   PostRefCodeEvent({required this.note, required this.onSucces});
 }
+
+class PostCommentEvent extends AdvertisementEvent {
+  final Map<String, dynamic> model;
+  final VoidCallback onSucces;
+
+  PostCommentEvent({
+    required this.model,
+    required this.onSucces,
+  });
+}

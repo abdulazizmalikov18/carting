@@ -426,6 +426,7 @@ class _CarsRenatlDitealsViewState extends State<CarsRenatlDitealsView> {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => CommentsView(
                         comments: widget.model.comments ?? [],
+                        id: widget.model.id,
                       ),
                     ));
                   },

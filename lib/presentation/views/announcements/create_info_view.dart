@@ -618,6 +618,7 @@ class _CreateInfoViewState extends State<CreateInfoView> {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => CommentsView(
                             comments: widget.model.comments ?? [],
+                            id: widget.model.id,
                           ),
                         ));
                       },

@@ -178,12 +178,11 @@ class _AnnouncementsCreateInfoViewState
                                       borderRadius: BorderRadius.circular(24),
                                     ),
                                     child: ListTile(
-                                      title: Text(
+                                      title: const Text(
                                         "Maydon",
                                         style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w400,
-                                          color: context.color.darkText,
                                         ),
                                       ),
                                       subtitle: Text(
@@ -193,14 +192,12 @@ class _AnnouncementsCreateInfoViewState
                                         style: const TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w400,
-                                          color: dark,
                                         ),
                                       ),
                                       trailing: const Text(
                                         "m2",
                                         style: TextStyle(
                                           fontSize: 16,
-                                          color: dark,
                                         ),
                                       ),
                                     ),
@@ -430,6 +427,7 @@ class _AnnouncementsCreateInfoViewState
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => CommentsView(
                             comments: widget.model.comments ?? [],
+                            id: widget.model.id,
                           ),
                         ));
                       },

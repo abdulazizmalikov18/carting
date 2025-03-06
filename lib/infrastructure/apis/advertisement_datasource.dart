@@ -41,6 +41,7 @@ abstract class AdvertisementDatasource {
   Future<bool> postReferrealCde(String note);
   Future<bool> putReferrealCde(String note, String code);
   Future<bool> deleteReferrealCde(String code);
+  Future<bool> postComment(Map<String, dynamic> model);
 }
 
 class AdvertisementDatasourceImpl implements AdvertisementDatasource {
@@ -411,6 +412,25 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
       request: () => dio.put(
         'referreal_code',
         data: {"note": note, "referral_code": code},
+        options: Options(
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
+              ? {
+                  'Authorization':
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                }
+              : {},
+        ),
+      ),
+      body: (response) => true,
+    );
+  }
+
+  @override
+  Future<bool> postComment(Map<String, dynamic> model) {
+    return _handle.apiCantrol(
+      request: () => dio.post(
+        'advertisement/comments',
+        data: model,
         options: Options(
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {

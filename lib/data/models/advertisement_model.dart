@@ -111,7 +111,7 @@ class Details {
   @JsonKey(name: "load_weight")
   final LoadWeight? loadWeight;
   @JsonKey(name: "passenger_count")
-  final int? passengerCount;
+  final dynamic passengerCount;
   @JsonKey(name: "transport_type_id")
   final int? transportTypeId;
   @JsonKey(name: "characteristics")
@@ -137,9 +137,9 @@ class Details {
   @JsonKey(name: "area")
   final String? area;
   @JsonKey(name: "load_type_id")
-  final String? loadTypeId;
+  final dynamic loadTypeId;
   @JsonKey(name: "load_service_id")
-  final String? loadServiceId;
+  final dynamic loadServiceId;
   @JsonKey(name: "fuel_amount")
   final int? fuelAmount;
   @JsonKey(name: "fuel_type_id")
@@ -253,13 +253,13 @@ class Fuel {
 @JsonSerializable()
 class LoadWeight {
   @JsonKey(name: "amount")
-  final int amount;
+  final int? amount;
   @JsonKey(name: "name")
-  final String name;
+  final String? name;
 
   LoadWeight({
-    required this.amount,
-    required this.name,
+    this.amount,
+    this.name,
   });
 
   factory LoadWeight.fromJson(Map<String, dynamic> json) =>

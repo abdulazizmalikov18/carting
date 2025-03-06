@@ -167,6 +167,7 @@ class _StorageServiceInfoViewState extends State<StorageServiceInfoView> {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => CommentsView(
                         comments: widget.model.comments ?? [],
+                        id: widget.model.id,
                       ),
                     ));
                   },
