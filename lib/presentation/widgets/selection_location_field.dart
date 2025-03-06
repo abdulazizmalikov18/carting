@@ -40,7 +40,7 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
                 ),
               ),
               subtitle: Text(
-                point1?.name ?? AppLocalizations.of(context)!.unknown,
+                point1?.name ?? "Manzilni tanlang",
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
@@ -94,7 +94,7 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
                 ),
               ),
               subtitle: Text(
-                point2?.name ?? AppLocalizations.of(context)!.unknown,
+                point2?.name ?? "Manzilni tanlang",
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,

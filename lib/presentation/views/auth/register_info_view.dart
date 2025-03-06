@@ -180,11 +180,8 @@ class _RegisterInfoViewState extends State<RegisterInfoView> {
                                 ),
                                 userType: widget.isLegal ? 'LEGAL' : 'PHYSICAL',
                                 onSucces: () {},
-                                onError: () {
-                                  CustomSnackbar.show(
-                                    context,
-                                    AppLocalizations.of(context)!.infoNotFound,
-                                  );
+                                onError: (message) {
+                                  CustomSnackbar.show(context, message);
                                 },
                               ));
                         } else {

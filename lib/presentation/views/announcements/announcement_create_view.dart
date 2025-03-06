@@ -289,6 +289,9 @@ class _AnnouncementCreateViewState extends State<AnnouncementCreateView> {
                   bloc.add(CreateDeliveryEvent(
                     model: model,
                     images: images,
+                    onError: () {
+                      Navigator.of(context).pop();
+                    },
                     onSucces: (id) {
                       bloc.add(GetAdvertisementsIdEvent(
                         id: id,
@@ -391,12 +394,25 @@ class _AnnouncementCreateViewState extends State<AnnouncementCreateView> {
                     ),
                   );
                 }
-                return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    image: DecorationImage(
-                      image: FileImage(images[index]),
-                      fit: BoxFit.cover,
+                return Badge(
+                  label: GestureDetector(
+                    onTap: () {
+                      images.removeAt(index);
+                      setState(() {});
+                    },
+                    child: const Icon(
+                      Icons.close,
+                      color: white,
+                      size: 16,
+                    ),
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: DecorationImage(
+                        image: FileImage(images[index]),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 );
@@ -613,49 +629,46 @@ class _AnnouncementCreateViewState extends State<AnnouncementCreateView> {
                                         color: white,
                                         shadowColor:
                                             black.withValues(alpha: .3),
-                                        menuPadding: const EdgeInsets.symmetric(
-                                            vertical: 4),
+                                        // menuPadding: const EdgeInsets.symmetric(vertical: 4),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(16),
                                         ),
-                                        items: ['kg', 'm³', 'litr']
-                                            .map((String choice) {
-                                          return PopupMenuItem<String>(
-                                            value: choice,
-                                            height: 24,
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 12,
-                                              vertical: 2,
-                                            ),
-                                            child: SizedBox(
-                                              width: 140,
-                                              child: Row(
-                                                children: [
-                                                  Text(choice),
-                                                  const Spacer(),
-                                                  SizedBox(
-                                                    height: 16,
-                                                    width: 16,
-                                                    child: choice ==
-                                                            selectedUnit
-                                                        ? AppIcons.checkboxRadio
-                                                            .svg(
-                                                            height: 16,
-                                                            width: 16,
-                                                          )
-                                                        : AppIcons
-                                                            .checkboxRadioDis
-                                                            .svg(
-                                                            height: 16,
-                                                            width: 16,
-                                                          ),
-                                                  )
-                                                ],
+                                        items: ['kg', 'm³', 'litr'].map(
+                                          (String choice) {
+                                            return PopupMenuItem<String>(
+                                              value: choice,
+                                              height: 40,
+                                              child: SizedBox(
+                                                width: 140,
+                                                child: Row(
+                                                  children: [
+                                                    Text(choice),
+                                                    const Spacer(),
+                                                    SizedBox(
+                                                      height: 20,
+                                                      width: 20,
+                                                      child: choice ==
+                                                              selectedUnit
+                                                          ? AppIcons
+                                                              .checkboxRadio
+                                                              .svg(
+                                                              height: 20,
+                                                              width: 20,
+                                                            )
+                                                          : AppIcons
+                                                              .checkboxRadioDis
+                                                              .svg(
+                                                              height: 20,
+                                                              width: 20,
+                                                            ),
+                                                    )
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        }).toList(),
+                                            );
+                                          },
+                                        ).toList(),
                                       );
 
                                       if (selected != null) {

@@ -44,7 +44,7 @@ class _WClaendarState extends State<WClaendar> {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(24),
-                  color: context.color.contGrey,
+                  color: context.color.scaffoldBackground,
                 ),
                 padding: const EdgeInsets.all(16),
                 child: TableCalendar(
@@ -113,12 +113,12 @@ class _WClaendarState extends State<WClaendar> {
                     outsideDecoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    weekendTextStyle: const TextStyle(color: Colors.black),
-                    defaultTextStyle: const TextStyle(color: Colors.black),
+                    weekendTextStyle: TextStyle(color: context.color.white),
+                    defaultTextStyle: TextStyle(color: context.color.white),
                   ),
                   daysOfWeekStyle: DaysOfWeekStyle(
-                    weekendStyle: const TextStyle(color: Colors.black),
-                    weekdayStyle: const TextStyle(color: Colors.black),
+                    weekendStyle: TextStyle(color: context.color.white),
+                    weekdayStyle: TextStyle(color: context.color.white),
                     dowTextFormatter: (date, locale) {
                       switch (date.weekday) {
                         case DateTime.monday:

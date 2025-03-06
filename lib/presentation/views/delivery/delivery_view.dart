@@ -79,7 +79,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                 if (controllerCount.text.isEmpty) {
                   missingFields.add("Yuk miqdori");
                 }
-                if (controllerPrice.text.isEmpty) missingFields.add("Narx");
+                // if (controllerPrice.text.isEmpty) missingFields.add("Narx");
                 if (controller.text.isEmpty) {
                   missingFields.add("Yuborish sanasi");
                 }
@@ -125,6 +125,9 @@ class _DeliveryViewState extends State<DeliveryView> {
                 context.read<AdvertisementBloc>().add(CreateDeliveryEvent(
                       model: model,
                       images: images,
+                      onError: () {
+                        Navigator.of(context).pop();
+                      },
                       onSucces: (id) {
                         Navigator.pop(context);
                       },

@@ -2,6 +2,8 @@ import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
+import 'package:carting/presentation/views/common/w_select_servis_iteam.dart';
+import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_scale_animation.dart';
 import 'package:carting/utils/enum_filtr.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +25,7 @@ class _FilterViewState extends State<FilterView> {
     "Bo’yoq",
     "Myatina",
   ];
+  int servisIndex = 0;
 
   @override
   void initState() {
@@ -39,6 +42,7 @@ class _FilterViewState extends State<FilterView> {
           TextButton(
             onPressed: () {
               listActive = [true, true, true, true, true];
+              servisIndex = 0;
               setState(() {});
             },
             child: const Text(
@@ -47,6 +51,13 @@ class _FilterViewState extends State<FilterView> {
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: SafeArea(
+        child: WButton(
+          margin: const EdgeInsets.all(16),
+          text: AppLocalizations.of(context)!.save,
+          onTap: () {},
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -114,16 +125,11 @@ class _FilterViewState extends State<FilterView> {
                     ),
                   );
                 case FilterType.services:
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(24),
-                      color: context.color.contColor,
-                    ),
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
+                  return WselectServisIteam(
+                    onTap: (index) {
+                      servisIndex = index;
+                      setState(() {});
+                    },
                   );
                 default:
                   return const SizedBox();

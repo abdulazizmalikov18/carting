@@ -543,7 +543,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get fuelDelivery => 'Yoqilg‘i yetkazish';
 
   @override
-  String get passengerTransport => 'Yo\'lovchilarni tashish';
+  String get passengerTransport => 'Yo\'lovchi tashish';
 
   @override
   String get carRental => 'Transport ijarasi';

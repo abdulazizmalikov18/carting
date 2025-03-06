@@ -93,11 +93,8 @@ class _AnnouncementsCreateInfoViewState
                           RichText(
                             text: TextSpan(
                               text:
-                                  "${MyFunction.calculateAverageRating(widget.model.comments ?? [])}, ",
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: dark,
-                              ),
+                                  " ${MyFunction.calculateAverageRating(widget.model.comments ?? [])}, ",
+                              style: const TextStyle(fontSize: 14),
                               children: [
                                 TextSpan(
                                   text:
@@ -119,7 +116,6 @@ class _AnnouncementsCreateInfoViewState
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
-                      color: dark,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -426,7 +422,7 @@ class _AnnouncementsCreateInfoViewState
                   const SizedBox(height: 16),
                   Container(
                     decoration: BoxDecoration(
-                      color: scaffoldSecondaryBackground,
+                      color: context.color.scaffoldBackground,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: ListTile(
@@ -437,7 +433,7 @@ class _AnnouncementsCreateInfoViewState
                           ),
                         ));
                       },
-                      leading: AppIcons.message.svg(),
+                      leading: AppIcons.message.svg(color: context.color.iron),
                       title: Row(
                         children: [
                           Expanded(

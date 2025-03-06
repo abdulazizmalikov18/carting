@@ -154,11 +154,8 @@ class _AuthViewState extends State<AuthView>
                               ? MyFunction.convertPhoneNumber(controller.text)
                               : controllerEmail.text,
                           isPhone: _tabController.index == 0,
-                          onError: () {
-                            CustomSnackbar.show(
-                              context,
-                              AppLocalizations.of(context)!.infoNotFound,
-                            );
+                          onError: (message) {
+                            CustomSnackbar.show(context, message);
                           },
                           onSucces: (model) {
                             Navigator.of(context).push(MaterialPageRoute(

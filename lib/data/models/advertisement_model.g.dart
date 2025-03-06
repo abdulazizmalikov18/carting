@@ -26,6 +26,7 @@ AdvertisementModel _$AdvertisementModelFromJson(Map<String, dynamic> json) =>
           : Details.fromJson(json['details'] as Map<String, dynamic>),
       images:
           (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      isOwner: json['is_owner'] as bool? ?? false,
       note: json['note'] as String? ?? "",
       comments: (json['comments'] as List<dynamic>?)
           ?.map((e) => Comment.fromJson(e as Map<String, dynamic>))
@@ -55,6 +56,7 @@ Map<String, dynamic> _$AdvertisementModelToJson(AdvertisementModel instance) =>
       'from_location': instance.fromLocation,
       'to_location': instance.toLocation,
       'price': instance.price,
+      'is_owner': instance.isOwner,
       'details': instance.details,
       'images': instance.images,
       'note': instance.note,

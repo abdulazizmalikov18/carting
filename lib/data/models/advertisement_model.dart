@@ -22,6 +22,8 @@ class AdvertisementModel {
   final Location? toLocation;
   @JsonKey(name: "price")
   final int? price;
+  @JsonKey(name: "is_owner")
+  final bool isOwner;
   @JsonKey(name: "details")
   final Details? details;
   @JsonKey(name: "images")
@@ -59,6 +61,7 @@ class AdvertisementModel {
     this.price,
     this.details,
     this.images,
+    this.isOwner = false,
     this.note = "",
     this.comments,
     this.transportName,

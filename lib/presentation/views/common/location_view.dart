@@ -49,10 +49,10 @@ class _LocationViewState extends State<LocationView> {
   void initState() {
     getMerk();
     controllerLat = TextEditingController(
-      text: widget.point1?.name ?? 'Nomalum',
+      text: widget.point1?.name ?? "Manzilni tanlang",
     );
     controllerLong = TextEditingController(
-      text: widget.point2?.name ?? 'Nomalum',
+      text: widget.point2?.name ?? "Manzilni tanlang",
     );
 
     super.initState();
@@ -216,7 +216,7 @@ class _LocationViewState extends State<LocationView> {
                       controller: controllerLat,
                       decoration: InputDecoration(
                         labelText: AppLocalizations.of(context)!.from,
-                        hintText: 'Toshkent, Yakkasaroy tumani',
+                        hintText: AppLocalizations.of(context)!.from,
                         border: InputBorder.none,
                       ),
                     ),
@@ -227,7 +227,7 @@ class _LocationViewState extends State<LocationView> {
                     controller: controllerLong,
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context)!.to,
-                      hintText: 'Manzilni tanlang',
+                      hintText: AppLocalizations.of(context)!.to,
                       border: InputBorder.none,
                     ),
                   ),

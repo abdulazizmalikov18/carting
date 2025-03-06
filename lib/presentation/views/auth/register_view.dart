@@ -153,11 +153,8 @@ class _RegisterViewState extends State<RegisterView>
                               ? MyFunction.convertPhoneNumber(controller.text)
                               : controller.text,
                           isPhone: _tabController.index == 0,
-                          onError: () {
-                            CustomSnackbar.show(
-                              context,
-                              AppLocalizations.of(context)!.infoNotFound,
-                            );
+                          onError: (message) {
+                            CustomSnackbar.show(context, message);
                           },
                           onSucces: (model) {
                             Navigator.of(context).push(MaterialPageRoute(

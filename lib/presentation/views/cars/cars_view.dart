@@ -4,6 +4,7 @@ import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/routes/route_name.dart';
 import 'package:carting/presentation/views/transport_rental/cars_type_view.dart';
+import 'package:carting/presentation/widgets/custom_text_field.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,6 @@ import 'package:carting/presentation/views/cars/special_technique_view.dart';
 import 'package:carting/presentation/views/cars/transportation_of_passengers_view.dart';
 import 'package:carting/presentation/views/orders/type_of_service_view.dart';
 import 'package:carting/presentation/views/transport_transfer/transport_transfer_view.dart';
-import 'package:carting/presentation/widgets/custom_text_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -25,8 +25,35 @@ class CarsView extends StatefulWidget {
   State<CarsView> createState() => _CarsViewState();
 }
 
-class _CarsViewState extends State<CarsView> {
+class _CarsViewState extends State<CarsView> with WidgetsBindingObserver {
+  List<TypeOfService> products = [];
   late List<TypeOfService> list;
+  late TextEditingController searchController;
+
+  @override
+  void initState() {
+    searchController = TextEditingController();
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    searchController.addListener(() {
+      searchProduct();
+    });
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  void searchProduct() {
+    String searchText = searchController.text.toLowerCase();
+    setState(() {
+      products = list.where((person) {
+        return person.text.toLowerCase().contains(searchText);
+      }).toList();
+    });
+  }
 
   @override
   void didChangeDependencies() {
@@ -89,13 +116,15 @@ class _CarsViewState extends State<CarsView> {
             child: CustomTextField(
               prefixIcon: AppIcons.searchNormal.svg(color: context.color.iron),
               hintText: AppLocalizations.of(context)!.searchTransport,
+              controller: searchController,
+              onChanged: (value) {},
             ),
           ),
         ),
       ),
       body: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
-          if (state.status == AuthenticationStatus.unauthenticated ) {
+          if (state.status == AuthenticationStatus.unauthenticated) {
             return Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -123,7 +152,8 @@ class _CarsViewState extends State<CarsView> {
               crossAxisSpacing: 12,
               mainAxisExtent: 120,
             ),
-            itemCount: list.length,
+            itemCount:
+                searchController.text.isEmpty ? list.length : products.length,
             itemBuilder: (context, index) => GestureDetector(
               onTap: () {
                 final bloc = context.read<AdvertisementBloc>();
@@ -131,7 +161,9 @@ class _CarsViewState extends State<CarsView> {
                     .push(MaterialPageRoute(
                   builder: (context) => BlocProvider.value(
                     value: bloc,
-                    child: list[index].screen,
+                    child: searchController.text.isEmpty
+                        ? list[index].screen
+                        : products[index].screen,
                   ),
                 ));
               },
@@ -148,10 +180,14 @@ class _CarsViewState extends State<CarsView> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    list[index].icon,
+                    searchController.text.isEmpty
+                        ? list[index].icon
+                        : products[index].icon,
                     const SizedBox(height: 4),
                     Text(
-                      list[index].text,
+                      searchController.text.isEmpty
+                          ? list[index].text
+                          : products[index].text,
                       textAlign: TextAlign.center,
                       maxLines: 2,
                     )

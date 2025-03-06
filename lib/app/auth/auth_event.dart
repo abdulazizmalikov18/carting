@@ -53,7 +53,7 @@ class UpdateUserEvent extends AuthEvent {
   final String? userType;
   final bool isEmail;
   final VoidCallback onSucces;
-  final VoidCallback onError;
+  final Function(String message) onError;
 
   UpdateUserEvent({
     this.name,
@@ -78,7 +78,7 @@ class UpdateUserEvent extends AuthEvent {
 
 class SendCodeEvent extends AuthEvent {
   final String phone;
-  final VoidCallback onError;
+  final Function(String message) onError;
   final bool isLogin;
   final bool isPhone;
   final Function(SendCodeModel model) onSucces;
@@ -98,7 +98,7 @@ class VerifyEvent extends AuthEvent {
   final String securityCode;
   final bool isLogin;
   final bool isPhone;
-  final VoidCallback onError;
+  final Function(String message) onError;
   final Function() onSucces;
 
   VerifyEvent({

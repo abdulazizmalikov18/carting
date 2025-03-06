@@ -105,11 +105,8 @@ class _EditPhoneViewState extends State<EditPhoneView> {
                               ? MyFunction.convertPhoneNumber(controller.text)
                               : controller.text,
                           isPhone: !widget.isEmail,
-                          onError: () {
-                            CustomSnackbar.show(
-                              context,
-                              AppLocalizations.of(context)!.infoNotFound,
-                            );
+                         onError: (message) {
+                            CustomSnackbar.show(context, message);
                           },
                           onSucces: (model) {
                             Navigator.of(context).push(MaterialPageRoute(

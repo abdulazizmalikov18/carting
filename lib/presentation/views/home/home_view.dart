@@ -2,6 +2,8 @@ import 'package:carting/assets/themes/theme_changer.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/transport_rental/cars_type_view.dart';
+import 'package:carting/presentation/widgets/custom_text_field.dart';
+
 import 'package:carting/utils/my_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +22,6 @@ import 'package:carting/presentation/views/passengers_transport/passengers_trans
 import 'package:carting/presentation/views/peregon_service/peregon_service_view.dart';
 import 'package:carting/presentation/views/special_technical_services/special_technical_services_view.dart';
 import 'package:carting/presentation/views/storage_service/storage_service_view.dart';
-import 'package:carting/presentation/widgets/custom_text_field.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -29,8 +30,35 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
+  List<TypeOfService> products = [];
   late List<TypeOfService> list;
+  late TextEditingController searchController;
+
+  @override
+  void initState() {
+    searchController = TextEditingController();
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    searchController.addListener(() {
+      searchProduct();
+    });
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  void searchProduct() {
+    String searchText = searchController.text.toLowerCase();
+    setState(() {
+      products = list.where((person) {
+        return person.text.toLowerCase().contains(searchText);
+      }).toList();
+    });
+  }
 
   @override
   void didChangeDependencies() {
@@ -117,6 +145,8 @@ class _HomeViewState extends State<HomeView> {
             child: CustomTextField(
               prefixIcon: AppIcons.searchNormal.svg(color: context.color.iron),
               hintText: AppLocalizations.of(context)!.searchTransport,
+              controller: searchController,
+              onChanged: (value) {},
             ),
           ),
         ),
@@ -145,7 +175,8 @@ class _HomeViewState extends State<HomeView> {
                 crossAxisSpacing: 12,
                 mainAxisExtent: 120,
               ),
-              itemCount: list.length,
+              itemCount:
+                  searchController.text.isEmpty ? list.length : products.length,
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
                   MyFunction.authChek(
@@ -153,19 +184,28 @@ class _HomeViewState extends State<HomeView> {
                     onTap: () {
                       final bloc = context.read<AdvertisementBloc>();
                       bloc.add(GetTransportationTypesEvent(
-                          serviceId: list[index].serviceId));
+                        serviceId: searchController.text.isEmpty
+                            ? list[index].serviceId
+                            : products[index].serviceId,
+                      ));
                       Navigator.of(context, rootNavigator: true)
                           .push(MaterialPageRoute(
                         builder: (context) => BlocProvider.value(
                           value: bloc,
-                          child: list[index].screen,
+                          child: searchController.text.isEmpty
+                              ? list[index].screen
+                              : products[index].screen,
                         ),
                       ));
                     },
                     isFull: (index != 5 && index != 7 && index != 9),
                   );
                 },
-                child: ServisLocIteam(typeOfService: list[index]),
+                child: ServisLocIteam(
+                  typeOfService: searchController.text.isEmpty
+                      ? list[index]
+                      : products[index],
+                ),
               ),
             ),
           ),

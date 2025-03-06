@@ -257,7 +257,9 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                                   callPhone: MyFunction.convertPhoneNumber(
                                     controllerCallPhone.text,
                                   ),
-                                  email: controllerEmail.text.isEmpty
+                                  email: controllerEmail.text.isEmpty ||
+                                          controllerEmail.text ==
+                                              state.userModel.mail
                                       ? null
                                       : controllerEmail.text,
                                   userType:
@@ -273,14 +275,8 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                                       "Malumotlar yangilandi",
                                     );
                                   },
-                                  onError: () {
-                                    CustomSnackbar.show(
-                                      context,
-                                      controllerPhone.text.isEmpty
-                                          ? "Telefon raqam majburiy"
-                                          : AppLocalizations.of(context)!
-                                              .infoNotFound,
-                                    );
+                                  onError: (message) {
+                                    CustomSnackbar.show(context, message);
                                   },
                                 ));
                           }

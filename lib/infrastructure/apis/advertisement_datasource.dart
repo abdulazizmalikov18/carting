@@ -372,8 +372,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
   Future<bool> deleteReferrealCde(String code) {
     return _handle.apiCantrol(
       request: () => dio.delete(
-        'referreal_code',
-        queryParameters: {'referreal_code': code},
+        'referreal_code?referral_code=$code',
         options: Options(
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {

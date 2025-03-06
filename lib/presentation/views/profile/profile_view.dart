@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/app/auth/auth_bloc.dart';
@@ -6,10 +8,10 @@ import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/routes/route_name.dart';
-import 'package:carting/presentation/views/profile/call_view.dart';
 import 'package:carting/presentation/views/profile/info_view.dart';
 import 'package:carting/presentation/views/profile/quest_view.dart';
 import 'package:carting/presentation/views/profile/referral_program_view.dart';
+import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_lenguage.dart';
 import 'package:carting/presentation/widgets/w_theme.dart';
@@ -17,6 +19,7 @@ import 'package:carting/utils/my_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -26,6 +29,20 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
+  Future<void> _launchTelegram() async {
+    final Uri url = Uri.parse("https://t.me/carting_support");
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } else {
+      if (mounted) {
+        CustomSnackbar.show(
+          context,
+          "Telegram'ga yo‘naltirib bo‘lmadi.",
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(
@@ -144,13 +161,8 @@ class _ProfileViewState extends State<ProfileView> {
                                     const SizedBox(width: 8),
                                     Expanded(
                                       child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.of(context,
-                                                  rootNavigator: true)
-                                              .push(MaterialPageRoute(
-                                            builder: (context) =>
-                                                const CallView(),
-                                          ));
+                                        onTap: () async {
+                                          await _launchTelegram();
                                         },
                                         child: Container(
                                           height: 84,
@@ -277,9 +289,16 @@ class _ProfileViewState extends State<ProfileView> {
                   title: AppLocalizations.of(context)!.rateTheApp,
                   leading: AppIcons.lovely.svg(height: 28, width: 28),
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const QuestView(),
-                    ));
+                    if (Platform.isAndroid) {
+                      launchUrl(Uri.parse(
+                          "https://play.google.com/store/apps/details?id=uz.realsoft.carting"));
+                    } else if (Platform.isIOS) {
+                      launchUrl(Uri.parse(
+                          "https://apps.apple.com/uz/app/carting/id6742141732"));
+                    } else {
+                      CustomSnackbar.show(
+                          context, "Sizning qurulmangiz topilmadi");
+                    }
                   },
                 ),
                 const SizedBox(height: 8),

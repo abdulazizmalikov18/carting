@@ -168,12 +168,9 @@ class _SmsViewState extends State<SmsView> {
                         context.read<AuthBloc>().add(VerifyEvent(
                               phone: widget.phone,
                               isPhone: widget.isPhone,
-                              onError: () {
-                                CustomSnackbar.show(
-                                  context,
-                                  AppLocalizations.of(context)!.infoNotFound,
-                                );
-                              },
+                             onError: (message) {
+                            CustomSnackbar.show(context, message);
+                          },
                               onSucces: () {},
                               sessionToken: widget.model.sessionToken,
                               securityCode: controller.text,

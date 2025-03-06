@@ -74,7 +74,7 @@ class _SpecialTechnicalServicesViewState
                 if (controller2.text.isEmpty) {
                   missingFields.add("Tugash sanasi");
                 }
-                if (controllerPrice.text.isEmpty) missingFields.add("Narx");
+                // if (controllerPrice.text.isEmpty) missingFields.add("Narx");
                 if (controller.text.isEmpty) {
                   missingFields.add("Boshlanish sanasi");
                 }
@@ -109,6 +109,9 @@ class _SpecialTechnicalServicesViewState
                 context.read<AdvertisementBloc>().add(CreateDeliveryEvent(
                       model: model,
                       images: images,
+                      onError: () {
+                        Navigator.of(context).pop();
+                      },
                       onSucces: (id) {
                         Navigator.pop(context);
                       },

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:carting/infrastructure/core/exceptions/failures.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -79,8 +80,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           phoneNumber: event.phone ?? state.userModel.phoneNumber,
           tgLink: event.tgName ?? '/test',
           base64: event.images,
-          mail: event.email ??
-              (state.userModel.mail.isEmpty ? null : state.userModel.mail),
+          mail: event.email,
           securityCode: event.securityCode,
           sessionToken: event.sessionToken,
           smsType: event.securityCode != null
@@ -102,7 +102,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         event.onSucces();
         add(GetMeEvent(isNotAuth: event.sessionToken?.isEmpty ?? true));
       } else {
-        event.onError();
+        if (response.isLeft) {
+          if (response.left is ServerFailure) {
+            final stim = (response.left as ServerFailure).errorMessage;
+            event.onError(stim);
+          } else {
+            event.onError("Ma'lumot topilmadi");
+          }
+        }
         emit(state.copyWith(statusSms: FormzSubmissionStatus.failure));
       }
     });
@@ -139,7 +146,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           statusSms: FormzSubmissionStatus.failure,
           status: AuthenticationStatus.loading,
         ));
-        event.onError();
+        if (response.isLeft) {
+          if (response.left is ServerFailure) {
+            final stim = (response.left as ServerFailure).errorMessage;
+            event.onError(stim);
+          } else {
+            event.onError("Ma'lumot topilmadi");
+          }
+        }
       }
     });
 
@@ -163,7 +177,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
       } else {
         emit(state.copyWith(statusSms: FormzSubmissionStatus.failure));
-        event.onError();
+        if (response.isLeft) {
+          if (response.left is ServerFailure) {
+            final stim = (response.left as ServerFailure).errorMessage;
+            event.onError(stim);
+          } else {
+            event.onError("Ma'lumot topilmadi");
+          }
+        }
       }
     });
 

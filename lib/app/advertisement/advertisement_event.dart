@@ -58,11 +58,13 @@ class CreateDeliveryEvent extends AdvertisementEvent {
   final Map<String, dynamic> model;
   final List<File> images;
   final Function(int id) onSucces;
+  final VoidCallback onError;
 
   CreateDeliveryEvent({
     required this.model,
     required this.onSucces,
     required this.images,
+    required this.onError,
   });
 }
 

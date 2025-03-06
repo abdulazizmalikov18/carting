@@ -61,7 +61,7 @@ class _PeregonServiceViewState extends State<PeregonServiceView> {
             List<String> missingFields = [];
             if (point1 == null) missingFields.add("Jo'natiladigan manzil");
             if (point2 == null) missingFields.add("Qabul qiluvchi manzil");
-            if (controllerPrice.text.isEmpty) missingFields.add("Narx");
+            // if (controllerPrice.text.isEmpty) missingFields.add("Narx");
             if (controller.text.isEmpty) {
               missingFields.add("Yuborish sanasi");
             }
@@ -72,7 +72,7 @@ class _PeregonServiceViewState extends State<PeregonServiceView> {
               );
               return;
             }
-            
+
             final model = PeregonModel(
               toLocation: Location(
                 lat: point2!.latitude,
@@ -96,6 +96,9 @@ class _PeregonServiceViewState extends State<PeregonServiceView> {
             context.read<AdvertisementBloc>().add(CreateDeliveryEvent(
                   model: model,
                   images: images,
+                  onError: () {
+                    Navigator.of(context).pop();
+                  },
                   onSucces: (id) {
                     Navigator.pop(context);
                   },
