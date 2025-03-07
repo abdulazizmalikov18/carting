@@ -9,6 +9,7 @@ import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/profile/referal_edit_view.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
+import 'package:carting/presentation/widgets/w_claendar.dart';
 import 'package:carting/presentation/widgets/w_scale_animation.dart';
 import 'package:carting/presentation/widgets/w_tabbar.dart';
 import 'package:carting/utils/my_function.dart';
@@ -25,6 +26,16 @@ class ReferralProgramView extends StatefulWidget {
 }
 
 class _ReferralProgramViewState extends State<ReferralProgramView> {
+  late DateTime firstDate;
+  late DateTime lastDate;
+
+  @override
+  void initState() {
+    firstDate = DateTime.now();
+    lastDate = DateTime.now().subtract(const Duration(days: 7));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -211,6 +222,77 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                     child: Column(
                       spacing: 16,
                       children: [
+                        Row(
+                          spacing: 16,
+                          children: [
+                            Expanded(
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(24),
+                                  border: Border.all(color: context.color.iron),
+                                ),
+                                child: ListTile(
+                                  title: Text(MyFunction.dateFormat(lastDate)),
+                                  trailing: GestureDetector(
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                        context: context,
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        builder: (context) => WClaendar(
+                                          isOldDate: true,
+                                          selectedDate: lastDate,
+                                        ),
+                                      ).then((value) {
+                                        if (value != null) {
+                                          lastDate = value;
+                                          setState(() {});
+                                        }
+                                      });
+                                    },
+                                    child: AppIcons.calendar.svg(
+                                      height: 24,
+                                      width: 24,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(24),
+                                  border: Border.all(color: context.color.iron),
+                                ),
+                                child: ListTile(
+                                  title: Text(MyFunction.dateFormat(firstDate)),
+                                  trailing: GestureDetector(
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                        context: context,
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        builder: (context) => WClaendar(
+                                          isOldDate: true,
+                                          selectedDate: firstDate,
+                                        ),
+                                      ).then((value) {
+                                        if (value != null) {
+                                          firstDate = value;
+                                          setState(() {});
+                                        }
+                                      });
+                                    },
+                                    child: AppIcons.calendar.svg(
+                                      height: 24,
+                                      width: 24,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                         BlocBuilder<AuthBloc, AuthState>(
                           builder: (context, state) {
                             return Container(

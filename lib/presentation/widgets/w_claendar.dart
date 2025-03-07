@@ -6,15 +6,28 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 
 class WClaendar extends StatefulWidget {
-  const WClaendar({super.key});
+  const WClaendar({
+    super.key,
+    this.isOldDate = false,
+    this.selectedDate,
+  });
+  final bool isOldDate;
+  final DateTime? selectedDate;
 
   @override
   State<WClaendar> createState() => _WClaendarState();
 }
 
 class _WClaendarState extends State<WClaendar> {
-  DateTime _focusedDay = DateTime.now();
+  late DateTime _focusedDay;
   DateTime? _selectedDay;
+
+  @override
+  void initState() {
+    _focusedDay = widget.selectedDate ?? DateTime.now();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -50,7 +63,9 @@ class _WClaendarState extends State<WClaendar> {
                 child: TableCalendar(
                   daysOfWeekHeight: 40,
                   rowHeight: 40,
-                  firstDay: DateTime.now(),
+                  firstDay: widget.isOldDate
+                      ? DateTime.utc(1990, 12, 31)
+                      : DateTime.now(),
                   lastDay: DateTime.utc(2030, 12, 31),
                   focusedDay: _focusedDay,
                   calendarFormat: CalendarFormat.month,

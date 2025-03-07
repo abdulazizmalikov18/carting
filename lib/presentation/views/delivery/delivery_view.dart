@@ -279,7 +279,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => AdditionalInformationView(
-                      isDelivery: true,
+                      isDelivery: false,
                       controllerCommet: controllerCommet,
                       controllerPrice: controllerPrice,
                       loadServiceId: loadServiceId,
