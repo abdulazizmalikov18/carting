@@ -7,6 +7,7 @@ import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/common/comments_view.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
+import 'package:carting/utils/caller.dart';
 import 'package:carting/utils/my_function.dart';
 import 'package:flutter/material.dart';
 
@@ -172,7 +173,11 @@ class _OrderDetailViewState extends State<OrderDetailView> {
                 const SizedBox(height: 32),
                 if (widget.model.createdByPhone != null)
                   WButton(
-                    onTap: () {},
+                    onTap: () async {
+                      await Caller.makePhoneCall(
+                        widget.model.createdByPhone!,
+                      );
+                    },
                     text: MyFunction.formatPhoneNumber(
                       widget.model.createdByPhone ?? "",
                     ),
@@ -180,7 +185,11 @@ class _OrderDetailViewState extends State<OrderDetailView> {
                 const SizedBox(height: 8),
                 if (widget.model.createdByTgLink != null)
                   WButton(
-                    onTap: () {},
+                    onTap: () async {
+                      await Caller.launchTelegram(
+                        widget.model.createdByTgLink!,
+                      );
+                    },
                     color: blue,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

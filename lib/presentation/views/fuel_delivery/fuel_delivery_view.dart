@@ -86,6 +86,8 @@ class _FuelDeliveryViewState extends State<FuelDeliveryView> {
                   child: Builder(builder: (context) {
                     return GestureDetector(
                       onTap: () async {
+                        final state =
+                            context.read<AdvertisementBloc>().state.fuelsModel;
                         final RenderBox button =
                             context.findRenderObject() as RenderBox;
                         final RenderBox overlay = Overlay.of(context)
@@ -124,10 +126,15 @@ class _FuelDeliveryViewState extends State<FuelDeliveryView> {
                                   children: [
                                     Text(
                                       choice.type,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w400,
-                                        color: dark,
+                                        color: state
+                                                .where((e) =>
+                                                    e.type == choice.type)
+                                                .isEmpty
+                                            ? dark.withValues(alpha: .3)
+                                            : dark,
                                       ),
                                     ),
                                     const Spacer(),

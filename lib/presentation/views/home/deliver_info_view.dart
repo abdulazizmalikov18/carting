@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
+import 'package:carting/presentation/views/common/location_info_view.dart';
+import 'package:carting/presentation/widgets/w_scale_animation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:carting/assets/assets/icons.dart';
@@ -185,16 +187,27 @@ class DeliverInfoView extends StatelessWidget {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      trailing: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: green,
-                        ),
-                        padding: const EdgeInsets.all(8),
-                        child: AppIcons.location.svg(
-                          height: 24,
-                          width: 24,
-                          color: white,
+                      trailing: WScaleAnimation(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => LocationInfoView(
+                              point1: model.fromLocation,
+                              point2: model.toLocation,
+                              isFirst: true,
+                            ),
+                          ));
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: green,
+                          ),
+                          padding: const EdgeInsets.all(8),
+                          child: AppIcons.location.svg(
+                            height: 24,
+                            width: 24,
+                            color: white,
+                          ),
                         ),
                       ),
                     ),
@@ -223,16 +236,27 @@ class DeliverInfoView extends StatelessWidget {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      trailing: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: green,
-                        ),
-                        padding: const EdgeInsets.all(8),
-                        child: AppIcons.location.svg(
-                          height: 24,
-                          width: 24,
-                          color: white,
+                      trailing: WScaleAnimation(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => LocationInfoView(
+                              point1: model.fromLocation,
+                              point2: model.toLocation,
+                              isFirst: false,
+                            ),
+                          ));
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: green,
+                          ),
+                          padding: const EdgeInsets.all(8),
+                          child: AppIcons.location.svg(
+                            height: 24,
+                            width: 24,
+                            color: white,
+                          ),
                         ),
                       ),
                     ),
@@ -303,7 +327,6 @@ class DeliverInfoView extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w400,
-                              color: dark,
                             ),
                           ),
                         ],

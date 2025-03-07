@@ -3,6 +3,8 @@ import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/common/comments_view.dart';
+import 'package:carting/presentation/views/common/location_info_view.dart';
+import 'package:carting/utils/caller.dart';
 import 'package:carting/utils/my_function.dart';
 import 'package:flutter/material.dart';
 
@@ -210,7 +212,14 @@ class _WorkshopsInfoViewState extends State<WorkshopsInfoView> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => LocationInfoView(
+                        point2: widget.model.fromLocation,
+                        isFirst: false,
+                      ),
+                    ));
+                  },
                   leading: AppIcons.location.svg(
                     height: 24,
                     width: 24,
@@ -218,7 +227,7 @@ class _WorkshopsInfoViewState extends State<WorkshopsInfoView> {
                   title: Text(
                     widget.model.fromLocation?.name ??
                         AppLocalizations.of(context)!.unknown,
-                    maxLines: 1,
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   trailing: AppIcons.arrowCircle.svg(),
@@ -257,7 +266,11 @@ class _WorkshopsInfoViewState extends State<WorkshopsInfoView> {
                   const SizedBox(width: 12),
                   Expanded(
                     child: WButton(
-                      onTap: () {},
+                      onTap: () async {
+                        await Caller.makePhoneCall(
+                          widget.model.createdByPhone!,
+                        );
+                      },
                       text: AppLocalizations.of(context)!.call,
                     ),
                   ),
@@ -266,7 +279,9 @@ class _WorkshopsInfoViewState extends State<WorkshopsInfoView> {
               const SizedBox(height: 8),
               if (widget.model.createdByTgLink != null)
                 WButton(
-                  onTap: () {},
+                  onTap: () async {
+                    await Caller.launchTelegram(widget.model.createdByTgLink!);
+                  },
                   color: blue,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

@@ -4,7 +4,6 @@ import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/common/comments_view.dart';
-import 'package:carting/presentation/views/common/map_point.dart';
 import 'package:carting/presentation/widgets/info_location_field.dart';
 import 'package:carting/utils/my_function.dart';
 import 'package:flutter/material.dart';
@@ -132,20 +131,8 @@ class _AnnouncementsCreateInfoViewState
                     switch (widget.filter) {
                       case TypeOfServiceEnum.shipping:
                         return InfoLocationField(
-                          point1: widget.model.fromLocation != null
-                              ? MapPoint(
-                                  name: widget.model.fromLocation!.name,
-                                  latitude: widget.model.fromLocation!.lat,
-                                  longitude: widget.model.fromLocation!.lng,
-                                )
-                              : null,
-                          point2: widget.model.toLocation != null
-                              ? MapPoint(
-                                  name: widget.model.toLocation!.name,
-                                  latitude: widget.model.toLocation!.lat,
-                                  longitude: widget.model.toLocation!.lng,
-                                )
-                              : null,
+                          point1: widget.model.fromLocation,
+                          point2: widget.model.toLocation,
                         );
                       case TypeOfServiceEnum.transportationOfPassengers ||
                             TypeOfServiceEnum.transportTransfer ||
@@ -153,20 +140,8 @@ class _AnnouncementsCreateInfoViewState
                         return Column(
                           children: [
                             InfoLocationField(
-                              point1: widget.model.fromLocation != null
-                                  ? MapPoint(
-                                      name: widget.model.fromLocation!.name,
-                                      latitude: widget.model.fromLocation!.lat,
-                                      longitude: widget.model.fromLocation!.lng,
-                                    )
-                                  : null,
-                              point2: widget.model.toLocation != null
-                                  ? MapPoint(
-                                      name: widget.model.toLocation!.name,
-                                      latitude: widget.model.toLocation!.lat,
-                                      longitude: widget.model.toLocation!.lng,
-                                    )
-                                  : null,
+                              point1: widget.model.fromLocation,
+                              point2: widget.model.toLocation,
                             ),
                             const SizedBox(height: 16),
                             Builder(builder: (context) {
@@ -397,20 +372,8 @@ class _AnnouncementsCreateInfoViewState
                       case TypeOfServiceEnum.specialTechnique ||
                             TypeOfServiceEnum.fuelDelivery:
                         return InfoLocationField(
-                          point1: widget.model.fromLocation != null
-                              ? MapPoint(
-                                  name: widget.model.fromLocation!.name,
-                                  latitude: widget.model.fromLocation!.lat,
-                                  longitude: widget.model.fromLocation!.lng,
-                                )
-                              : null,
-                          point2: widget.model.toLocation != null
-                              ? MapPoint(
-                                  name: widget.model.toLocation!.name,
-                                  latitude: widget.model.toLocation!.lat,
-                                  longitude: widget.model.toLocation!.lng,
-                                )
-                              : null,
+                          point1: widget.model.fromLocation,
+                          point2: widget.model.toLocation,
                         );
                       default:
                         return const SizedBox();

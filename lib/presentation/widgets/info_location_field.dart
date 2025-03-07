@@ -1,9 +1,9 @@
 import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/colors/colors.dart';
+import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
-import 'package:carting/presentation/views/common/location_view.dart';
-import 'package:carting/presentation/views/common/map_point.dart';
+import 'package:carting/presentation/views/common/location_info_view.dart';
 import 'package:flutter/material.dart';
 
 class InfoLocationField extends StatefulWidget {
@@ -12,8 +12,8 @@ class InfoLocationField extends StatefulWidget {
     this.point1,
     this.point2,
   });
-  final MapPoint? point1;
-  final MapPoint? point2;
+  final Location? point1;
+  final Location? point2;
 
   @override
   State<InfoLocationField> createState() => _InfoLocationFieldState();
@@ -50,13 +50,10 @@ class _InfoLocationFieldState extends State<InfoLocationField> {
               trailing: GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => LocationView(
+                    builder: (context) => LocationInfoView(
                       isFirst: true,
                       point1: widget.point1,
                       point2: widget.point2,
-                      onTap: (mapPoint) {
-                        Navigator.pop(context);
-                      },
                     ),
                   ));
                 },
@@ -101,13 +98,10 @@ class _InfoLocationFieldState extends State<InfoLocationField> {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => LocationView(
+                      builder: (context) => LocationInfoView(
                         isFirst: false,
                         point1: widget.point1,
                         point2: widget.point2,
-                        onTap: (mapPoint) {
-                          Navigator.pop(context);
-                        },
                       ),
                     ),
                   );

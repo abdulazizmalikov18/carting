@@ -4,6 +4,8 @@ import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/common/comments_view.dart';
+import 'package:carting/presentation/views/common/location_info_view.dart';
+import 'package:carting/utils/caller.dart';
 import 'package:carting/utils/my_function.dart';
 import 'package:flutter/material.dart';
 
@@ -155,7 +157,14 @@ class _MasterInfoViewState extends State<MasterInfoView> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => LocationInfoView(
+                        point2: widget.model.fromLocation,
+                        isFirst: false,
+                      ),
+                    ));
+                  },
                   leading: AppIcons.location.svg(
                     height: 24,
                     width: 24,
@@ -163,7 +172,7 @@ class _MasterInfoViewState extends State<MasterInfoView> {
                   title: Text(
                     widget.model.fromLocation?.name ??
                         AppLocalizations.of(context)!.unknown,
-                    maxLines: 1,
+                    maxLines: 2,
                   ),
                   trailing: AppIcons.arrowCircle.svg(),
                 ),
@@ -203,7 +212,11 @@ class _MasterInfoViewState extends State<MasterInfoView> {
                   if (widget.model.createdByPhone != null)
                     Expanded(
                       child: WButton(
-                        onTap: () {},
+                        onTap: () async {
+                          await Caller.makePhoneCall(
+                            widget.model.createdByPhone!,
+                          );
+                        },
                         text: AppLocalizations.of(context)!.call,
                       ),
                     ),
@@ -213,7 +226,9 @@ class _MasterInfoViewState extends State<MasterInfoView> {
                 const SizedBox(height: 8),
               if (widget.model.createdByTgLink != null)
                 WButton(
-                  onTap: () {},
+                  onTap: () async {
+                    await Caller.launchTelegram(widget.model.createdByTgLink!);
+                  },
                   color: blue,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
