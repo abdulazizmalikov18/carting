@@ -7,6 +7,7 @@ import 'package:carting/presentation/views/auth/identity_choose_view.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/utils/log_service.dart';
 import 'package:carting/utils/resize_image.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -225,14 +226,36 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                       );
                     },
                   ),
-                  const Text(
-                    "Foydalanish shartlariga roziman",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: blue,
+                  RichText(
+                    text: TextSpan(
+                      text: AppLocalizations.of(context)!.terms_of_use,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: blue,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          if (!isActive.value) {
+                            isActive.value = !isActive.value;
+                            if (isActive.value) {
+                              _openDocxFromAssets('carting.docx');
+                            }
+                            setState(() {});
+                          }
+                        },
+                      children: [
+                        TextSpan(
+                          text: AppLocalizations.of(context)!.agree_to,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: context.color.iron,
+                          ),
+                        )
+                      ],
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

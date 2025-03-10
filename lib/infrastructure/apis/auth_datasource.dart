@@ -109,6 +109,14 @@ class AuthDataSourcheImpl implements AuthDatasourche {
       request: () {
         return dio.put(
           'user',
+          options: Options(
+            headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
+                ? {
+                    'Authorization':
+                        'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                  }
+                : {},
+          ),
           data: body.toJson(),
         );
       },

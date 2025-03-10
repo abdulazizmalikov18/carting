@@ -694,4 +694,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get select_language => 'Выберите язык!';
+
+  @override
+  String get terms_of_use => 'Согласен';
+
+  @override
+  String get agree_to => 'с условиям';
 }

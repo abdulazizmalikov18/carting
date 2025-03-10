@@ -694,4 +694,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get select_language => 'Select Language!';
+
+  @override
+  String get terms_of_use => 'Terms of use';
+
+  @override
+  String get agree_to => 'i agree to';
 }

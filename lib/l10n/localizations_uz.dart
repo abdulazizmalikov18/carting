@@ -105,7 +105,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get enter => 'Kirish';
 
   @override
-  String get register => 'Ro\'yxatdan o\'ting';
+  String get register => 'E\'lonni joylash';
 
   @override
   String get enterCode => 'Kodni kiriting';
@@ -694,4 +694,10 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get select_language => 'Tilni tanlang!';
+
+  @override
+  String get terms_of_use => 'Foydalanish shartlari';
+
+  @override
+  String get agree_to => 'ga roziman';
 }

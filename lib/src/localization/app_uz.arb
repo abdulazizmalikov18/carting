@@ -31,7 +31,7 @@
   "infoNotFound": "Malumot topilmadi",
   "haveRegisteredBefore": "Avval ro‘yhatdan o‘tganmisiz? ",
   "enter": "Kirish",
-  "register": "Ro'yxatdan o'ting",
+  "register": "E'lonni joylash",
   "enterCode": "Kodni kiriting",
   "verificationCodeSentToPhone": "Tasdiqlash kodini ",
   "verificationCodeSentToEmail": "Tasdiqlash kodini ",
@@ -228,5 +228,7 @@
   "about_us_why_title": "Nega aynan Carting?",
   "about_us_why_points": "✅ Tez va qulay buyurtma berish – ilova orqali bir necha bosqichda yuk tashish xizmati buyurtma qilishingiz mumkin.\n✅ Ishonchli haydovchilar – tajribali va tekshirilgan haydovchilar tarmog‘imiz orqali yuklaringiz xavfsiz yetkaziladi.\n✅ Adolatli narxlar – shaffof tariflar va hech qanday yashirin to‘lovlarsiz xizmatlardan foydalaning.\n✅ Har doim yordamga tayyor – mijozlarni qo‘llab-quvvatlash xizmati har qanday savollaringizga javob beradi.",
   "about_us_slogan": "Siz istalgan joyga – biz yetkazib beramiz!",
-  "select_language": "Tilni tanlang!"
+  "select_language": "Tilni tanlang!",
+  "terms_of_use": "Foydalanish shartlari",
+  "agree_to": "ga roziman"
 }

@@ -1472,6 +1472,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select Language!'**
   String get select_language;
+
+  /// No description provided for @terms_of_use.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of use'**
+  String get terms_of_use;
+
+  /// No description provided for @agree_to.
+  ///
+  /// In en, this message translates to:
+  /// **'i agree to'**
+  String get agree_to;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

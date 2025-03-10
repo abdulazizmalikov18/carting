@@ -105,7 +105,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get enter => 'Кириш';
 
   @override
-  String get register => 'Рўйхатдан ўтинг';
+  String get register => 'Эълонни жойлаш';
 
   @override
   String get enterCode => 'Кодни киритинг';
@@ -694,4 +694,10 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get select_language => 'Тилни танланг!';
+
+  @override
+  String get terms_of_use => 'Фойдаланиш шартлари';
+
+  @override
+  String get agree_to => 'га розиман';
 }
