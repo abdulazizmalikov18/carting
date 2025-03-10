@@ -90,7 +90,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
     );
     controllerTG = TextEditingController(
       text: context.read<AuthBloc>().state.userModel.tgLink.isEmpty
-          ? 't.me/'
+          ? ''
           : context.read<AuthBloc>().state.userModel.tgLink,
     );
     controllerReferal = TextEditingController(
@@ -484,7 +484,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
           const SizedBox(height: 16),
           CustomTextField(
             title: AppLocalizations.of(context)!.telegram,
-            hintText: "t.me/",
+            hintText: AppLocalizations.of(context)!.telegram,
             controller: controllerTG,
             onChanged: (value) {
               isChange.value = true;
