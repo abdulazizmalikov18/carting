@@ -119,7 +119,7 @@ class _SpecialTechnicalServicesViewState
               },
               isLoading: state.statusCreate.isInProgress,
               margin: const EdgeInsets.all(16),
-              text: AppLocalizations.of(context)!.register,
+              text: AppLocalizations.of(context)!.confirm,
             );
           },
         ),

@@ -135,7 +135,7 @@ class _DeliveryViewState extends State<DeliveryView> {
               },
               margin: const EdgeInsets.all(16),
               isLoading: state.statusCreate.isInProgress,
-              text: AppLocalizations.of(context)!.register,
+              text: AppLocalizations.of(context)!.confirm,
             );
           },
         ),

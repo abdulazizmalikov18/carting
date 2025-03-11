@@ -105,7 +105,7 @@ class _PeregonServiceViewState extends State<PeregonServiceView> {
                 ));
           },
           margin: const EdgeInsets.all(16),
-          text: AppLocalizations.of(context)!.register,
+          text: AppLocalizations.of(context)!.confirm,
         ),
       ),
       body: SingleChildScrollView(

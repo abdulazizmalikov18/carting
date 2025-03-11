@@ -222,7 +222,7 @@ abstract class AppLocalizations {
   /// No description provided for @lenguage.
   ///
   /// In en, this message translates to:
-  /// **'Lenguage'**
+  /// **'Language'**
   String get lenguage;
 
   /// No description provided for @changePhone.

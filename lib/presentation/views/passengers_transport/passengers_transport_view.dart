@@ -126,7 +126,7 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
               },
               margin: const EdgeInsets.all(16),
               isLoading: state.statusCreate.isInProgress,
-              text: AppLocalizations.of(context)!.register,
+             text: AppLocalizations.of(context)!.confirm,
             );
           },
         ),

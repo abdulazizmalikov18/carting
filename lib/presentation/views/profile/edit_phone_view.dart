@@ -126,7 +126,7 @@ class _EditPhoneViewState extends State<EditPhoneView> {
                   },
                   isDisabled: controller.text.isEmpty ||
                       controller.text.length < (widget.isEmail ? 10 : 19),
-                  text: AppLocalizations.of(context)!.enter,
+                  text: AppLocalizations.of(context)!.confirm,
                 );
               },
             ),

@@ -177,7 +177,7 @@ class _AuthViewState extends State<AuthView>
                   isDisabled: _tabController.index == 0
                       ? controller.text.isEmpty || controller.text.length < 19
                       : controllerEmail.text.length < 12,
-                  text: AppLocalizations.of(context)!.enter,
+                  text: AppLocalizations.of(context)!.login,
                 );
               },
             ),

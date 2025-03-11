@@ -69,7 +69,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get system => 'System';
 
   @override
-  String get lenguage => 'Lenguage';
+  String get lenguage => 'Language';
 
   @override
   String get changePhone => 'Change Phone';
