@@ -78,7 +78,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                   ? "PHYSICAL"
                   : state.userModel.type),
           phoneNumber: event.phone ?? state.userModel.phoneNumber,
-          tgLink: event.tgName ?? '',
+          tgLink: event.tgName,
           base64: event.images,
           mail: event.email,
           securityCode: event.securityCode,
