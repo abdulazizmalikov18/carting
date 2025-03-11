@@ -62,7 +62,8 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.delivery)),
+      appBar:
+          AppBar(title: Text(AppLocalizations.of(context)!.passengerTransport)),
       bottomNavigationBar: SafeArea(
         child: BlocBuilder<AdvertisementBloc, AdvertisementState>(
           builder: (context, state) {

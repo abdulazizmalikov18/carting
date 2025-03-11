@@ -30,7 +30,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get history => 'Tarix';
 
   @override
-  String get notIdentified => 'Aniqlanmagan';
+  String get notIdentified => 'Ma’lumot kiritilmagan';
 
   @override
   String get filter => 'Filtr';
@@ -39,10 +39,10 @@ class AppLocalizationsUz extends AppLocalizations {
   String get search => 'Qidiruv';
 
   @override
-  String get identifiedUser => 'Aniqlangan foydalanuvchi';
+  String get identifiedUser => 'Identifikatsiyalangan';
 
   @override
-  String get viewAll => 'Hammasini ko\'rish';
+  String get viewAll => 'Barchasini ko\'rish';
 
   @override
   String get lent => 'Berilgan';
@@ -63,16 +63,16 @@ class AppLocalizationsUz extends AppLocalizations {
   String get light => 'Yorug\'';
 
   @override
-  String get dark => 'Qorong\'i';
+  String get dark => 'Tungi';
 
   @override
-  String get system => 'Tizim';
+  String get system => 'Avto';
 
   @override
   String get lenguage => 'Til';
 
   @override
-  String get changePhone => 'Telefonni o\'zgartirish';
+  String get changePhone => 'Telefon raqamini o\'zgartirish';
 
   @override
   String get personalInformation => 'Shaxsiy ma\'lumotlar';
@@ -87,25 +87,25 @@ class AppLocalizationsUz extends AppLocalizations {
   String get login => 'Kirish';
 
   @override
-  String get enterRegisteredNumber => 'Profilingizga kirish uchun ro’yxatdan o’tgan raqamingizni kiriting!';
+  String get enterRegisteredNumber => 'Profilingizga kirish uchun ro’yxatdan o’tgan telefon raqamingizni kiriting!';
 
   @override
   String get phone => 'Telefon';
 
   @override
-  String get email => 'Email';
+  String get email => 'Elektron pochta';
 
   @override
   String get infoNotFound => 'Malumot topilmadi';
 
   @override
-  String get haveRegisteredBefore => 'Avval ro‘yhatdan o‘tganmisiz? ';
+  String get haveRegisteredBefore => 'Siz ro‘yxatdan o‘tganmisiz?';
 
   @override
   String get enter => 'Kirish';
 
   @override
-  String get register => 'E\'lonni joylash';
+  String get register => 'Ro‘yxatdan o‘tish';
 
   @override
   String get enterCode => 'Kodni kiriting';
@@ -123,10 +123,10 @@ class AppLocalizationsUz extends AppLocalizations {
   String get resend => 'Qayta yuborish';
 
   @override
-  String get legalEntityInfo => 'Yuridik shaxs ma’lumotlari';
+  String get legalEntityInfo => 'Yuridik shaxs ma\'lumotlari';
 
   @override
-  String get individualInfo => 'Jismoniy shaxs ma’lumotlari';
+  String get individualInfo => 'Jismoniy shaxs ma\'lumotlari';
 
   @override
   String get agreeToTerms => 'Foydalanish shartlariga roziman';
@@ -147,7 +147,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get enterYourSurname => 'Familiyangizni kiriting';
 
   @override
-  String get enterPhoneNumber => 'Telefon raqam kiriting';
+  String get enterPhoneNumber => 'Telefon raqami';
 
   @override
   String get enterVerificationCode => 'Tasdiqlash kodini kiriting';
@@ -156,10 +156,10 @@ class AppLocalizationsUz extends AppLocalizations {
   String get enterPhoneNumberToRegister => 'Ro‘yxatdan o‘tish uchun telefon \n raqamingizni kiriting!';
 
   @override
-  String get chooseYourIdentity => 'Shaxsingiz\ntanlang!';
+  String get chooseYourIdentity => 'Foydalanuvchi turini tanlang';
 
   @override
-  String get whoAreYouOnPlatform => 'Siz platformamizdan kim sifatida\nfoydalanmoqchisiz?';
+  String get whoAreYouOnPlatform => 'Siz ilovadan kim sifatida foydalanmoqchisiz?';
 
   @override
   String get legalEntity => 'Yuridik shaxs';
@@ -231,13 +231,13 @@ class AppLocalizationsUz extends AppLocalizations {
   String get tests => 'Testlar';
 
   @override
-  String get goToIdentification => 'Identifikatsiyaga o\'ting';
+  String get goToIdentification => 'Identifikatsiyaga o\'tish';
 
   @override
   String get scanToLogin => 'Kirish uchun skanerlang';
 
   @override
-  String get doYouWantToGoOut => 'Rostanam chiqmoqchimisiz';
+  String get doYouWantToGoOut => 'Chiqmoqchimisiz?';
 
   @override
   String get yes => 'Ha';
@@ -249,7 +249,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get seconds => 'soniya';
 
   @override
-  String get support => 'Qo\'llab quvvatlash';
+  String get support => 'Qo\'llab-quvvatlash';
 
   @override
   String get frequentlyAskedQuestions => 'Ko\'p beriladigan savollar';
@@ -261,10 +261,10 @@ class AppLocalizationsUz extends AppLocalizations {
   String get to => 'Qayerga';
 
   @override
-  String get welcome => 'Xush kelibsiz';
+  String get welcome => 'Xush kelibsiz!';
 
   @override
-  String get transportServices => 'Barcha transport xizmatlari bitta ilovada tez, qulay, arzon!';
+  String get transportServices => 'Barcha transport xizmatlari bitta ilovada – tez, qulay, arzon!';
 
   @override
   String get start => 'Boshlash';
@@ -282,7 +282,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get cargoTransport => 'Yuk tashish';
 
   @override
-  String get cancelAnnouncement => 'Haqiqatdan ham e’lonni bekor qilmoqchimisiz?';
+  String get cancelAnnouncement => 'Haqiqatan ham e’lonni bekor qilmoqchimisiz?';
 
   @override
   String get deactivate => 'Faolsizlantirish';
@@ -540,7 +540,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get shipping => 'Yuk tashish';
 
   @override
-  String get fuelDelivery => 'Yoqilg‘i yetkazish';
+  String get fuelDelivery => 'Yoqilg‘i yetkazib berish';
 
   @override
   String get passengerTransport => 'Yo\'lovchi tashish';
@@ -645,52 +645,52 @@ class AppLocalizationsUz extends AppLocalizations {
   String get withdrawnProfit => 'Chiqarib olingan foyda';
 
   @override
-  String get confirm_delete_account => 'Rostdan ham akkauntni o‘chirmoqchimisiz?';
+  String get confirm_delete_account => 'Haqiqatdan ham akkauntingizni o\'chirib yubormoqchimisiz?';
 
   @override
   String get faq_how_it_works_title => 'Carting xizmati qanday ishlaydi?';
 
   @override
-  String get faq_how_it_works_desc => 'Siz buyurtma berasiz, biz eng yaqin haydovchini aniqlaymiz va yuklaringizni belgilangan manzilga yetkazib beramiz.';
+  String get faq_how_it_works_desc => 'Buyurtma berganingizdan so‘ng, eng yaqin haydovchi yukingizni olib, belgilangan manzilga yetkazadi.';
 
   @override
   String get faq_payment_methods_title => 'Qanday to\'lov usullari mavjud?';
 
   @override
-  String get faq_payment_methods_desc => 'Biz naqd pul, bank kartasi va onlayn to\'lov tizimlarini qabul qilamiz.';
+  String get faq_payment_methods_desc => 'Bizning servisimizda to\'lov naqd pul, bank kartalari va to\'lov tizimlari orqali qabul qilinadi.';
 
   @override
   String get faq_pricing_title => 'Yuk tashish narxlari qanday hisoblanadi?';
 
   @override
-  String get faq_pricing_desc => 'Narxlar masofa, yuk og\'irligi va hajmiga qarab hisoblanadi. Aniq narxni buyurtma berishda bilib olishingiz mumkin.';
+  String get faq_pricing_desc => 'Narx masofa, yukning vazni va hajmiga bog‘liq. Yakuniy summa buyurtma berishda ko‘rsatiladi.';
 
   @override
-  String get faq_referral_title => 'Foydalanuvchini jalb qilgani uchun qancha miqdorda mukofot oladi?';
+  String get faq_referral_title => 'Taklif qilingan foydalanuvchi uchun qanday mukofot olaman?';
 
   @override
-  String get faq_referral_desc => 'Agar mavjud foydalanuvchi ehtimoliy mijozga referal havolani yuborgan bo‘lsa va ushbu mijoz shu havola orqali ro‘yxatdan o‘tib, xizmatdan foydalangan bo‘lsa, xizmat haqining 0,15 foizini mukofot sifatida oladi.';
+  String get faq_referral_desc => 'Agar siz o‘z referal havolangizni jo‘natsangiz va yangi foydalanuvchi ushbu havola orqali ro‘yxatdan o‘tib, ilova orqali xizmat uchun to‘lov qilsa, siz xizmat narxining 0,15% miqdorida mukofot olasiz.';
 
   @override
   String get faq_login_title => 'Ilovaga kirish uchun nimalar kerak bo‘ladi?';
 
   @override
-  String get faq_login_desc => 'Carting ilovasiga kirish juda oson. Telefon raqami yoki elektron pochtasi bo‘lsa yetarli. Kodni SMS yoki elektron pochta orqali olish mumkin.';
+  String get faq_login_desc => 'Carting ilovasiga kirish juda oson. Telefon raqamingiz yoki elektron pochta manzilingizni ko‘rsatish kifoya. Kirish kodi SMS yoki email orqali yuboriladi.';
 
   @override
   String get about_us_title => 'Carting – Sizning ishonchli transport hamkoringiz!';
 
   @override
-  String get about_us_desc => 'Carting – yuk tashish va transport xizmatlarini oson, tez va ishonchli tarzda boshqarish imkonini beruvchi zamonaviy platforma. Biz mijozlarimizga har qanday hajmdagi yuklarni xavfsiz yetkazib berish, tezkor buyurtma berish va mos haydovchini topish imkoniyatini taqdim etamiz.';
+  String get about_us_desc => 'Carting – bu yuk tashish va transport xizmatlarini qulay, tez va ishonchli boshqarish uchun zamonaviy platforma. Biz xavfsiz yetkazib berish, qulay buyurtma berish va ishonchli ijrochilarni tezkor bog‘lashni ta’minlaymiz.';
 
   @override
   String get about_us_why_title => 'Nega aynan Carting?';
 
   @override
-  String get about_us_why_points => '✅ Tez va qulay buyurtma berish – ilova orqali bir necha bosqichda yuk tashish xizmati buyurtma qilishingiz mumkin.\n✅ Ishonchli haydovchilar – tajribali va tekshirilgan haydovchilar tarmog‘imiz orqali yuklaringiz xavfsiz yetkaziladi.\n✅ Adolatli narxlar – shaffof tariflar va hech qanday yashirin to‘lovlarsiz xizmatlardan foydalaning.\n✅ Har doim yordamga tayyor – mijozlarni qo‘llab-quvvatlash xizmati har qanday savollaringizga javob beradi.';
+  String get about_us_why_points => '✅ Qulay va tez buyurtma berish – bir necha bosqichda ilova orqali. ✅ Ishonchli ijrochilar – tajribali mutaxassislar yukingizni xavfsiz yetkazib beradi. ✅ Shaffof tariflar – yashirin to‘lovlarsiz faqat adolatli narxlar. ✅ 24/7 qo‘llab-quvvatlash – har doim yordam berishga tayyormiz.';
 
   @override
-  String get about_us_slogan => 'Siz istalgan joyga – biz yetkazib beramiz!';
+  String get about_us_slogan => 'Qayerga yo‘l olishingizdan qat’i nazar – yukingiz ishonchli qo‘llarda!';
 
   @override
   String get select_language => 'Tilni tanlang!';

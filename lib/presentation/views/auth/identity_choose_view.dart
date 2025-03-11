@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:carting/assets/themes/theme_changer.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/l10n/localizations.dart';
 import 'package:flutter/material.dart';
 
 import 'package:carting/assets/assets/icons.dart';
@@ -40,9 +41,9 @@ class _IdentityChooseViewState extends State<IdentityChooseView> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            const Text(
-              "Shaxsingizni\ntanlang!",
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context)!.chooseYourIdentity,
+              style: const TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.w600,
               ),
@@ -50,7 +51,7 @@ class _IdentityChooseViewState extends State<IdentityChooseView> {
             ),
             const SizedBox(height: 8),
             Text(
-              "Siz platformamizdan kim sifatida\nfoydalanmoqchisiz?",
+              AppLocalizations.of(context)!.whoAreYouOnPlatform,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
@@ -72,7 +73,7 @@ class _IdentityChooseViewState extends State<IdentityChooseView> {
                       isLegal.value = true;
                     },
                     splashColor: Colors.transparent,
-                    title: const Text("Yuridik shaxs"),
+                    title: Text(AppLocalizations.of(context)!.legalEntity),
                     titleTextStyle: TextStyle(color: context.color.darkText),
                     trailing: value
                         ? AppIcons.checkboxRadio.svg()
@@ -95,7 +96,7 @@ class _IdentityChooseViewState extends State<IdentityChooseView> {
                       isLegal.value = false;
                     },
                     splashColor: Colors.transparent,
-                    title: const Text("Jismoniy shaxs"),
+                    title: Text(AppLocalizations.of(context)!.individual),
                     titleTextStyle: TextStyle(color: context.color.darkText),
                     trailing: !value
                         ? AppIcons.checkboxRadio.svg()

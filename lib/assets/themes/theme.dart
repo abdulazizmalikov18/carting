@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 abstract class AppTheme {
   static ThemeData lightTheme() => ThemeData(
         fontFamily: 'Lufga',
+        fontFamilyFallback: const ['Roboto', 'Arial'],
         scaffoldBackgroundColor: scaffoldSecondaryBackground,
         colorSchemeSeed: green,
         appBarTheme: const AppBarTheme(
@@ -51,6 +52,7 @@ abstract class AppTheme {
 
   static ThemeData darkTheme() => ThemeData(
         fontFamily: 'Lufga',
+        fontFamilyFallback: const ['Roboto', 'Arial'],
         scaffoldBackgroundColor: const Color(0xFF141414),
         appBarTheme: const AppBarTheme(
           backgroundColor: Color(0xFF141414),

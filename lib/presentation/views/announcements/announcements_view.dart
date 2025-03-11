@@ -190,7 +190,17 @@ class _AnnouncementsViewState extends State<AnnouncementsView>
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           AppIcons.emptyFile.svg(),
-                          const SizedBox(height: 100)
+                          const SizedBox(height: 16),
+                          WButton(
+                            margin: const EdgeInsets.all(16),
+                            onTap: () {
+                              context
+                                  .read<AdvertisementBloc>()
+                                  .add(GetAdvertisementsEvent());
+                            },
+                            text: AppLocalizations.of(context)!.refresh,
+                          ),
+                          const SizedBox(height: 100),
                         ],
                       );
                     }
@@ -249,6 +259,16 @@ class _AnnouncementsViewState extends State<AnnouncementsView>
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           AppIcons.emptyFile.svg(),
+                          const SizedBox(height: 16),
+                          WButton(
+                            margin: const EdgeInsets.all(16),
+                            onTap: () {
+                              context
+                                  .read<AdvertisementBloc>()
+                                  .add(GetAdvertisementsProvideEvent());
+                            },
+                            text: AppLocalizations.of(context)!.refresh,
+                          ),
                           const SizedBox(height: 100)
                         ],
                       );
@@ -306,6 +326,16 @@ class _AnnouncementsViewState extends State<AnnouncementsView>
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           AppIcons.emptyFile.svg(),
+                          const SizedBox(height: 16),
+                          WButton(
+                            margin: const EdgeInsets.all(16),
+                            onTap: () {
+                              context
+                                  .read<AdvertisementBloc>()
+                                  .add(GetAdvertisementsReceiveEvent());
+                            },
+                            text: AppLocalizations.of(context)!.refresh,
+                          ),
                           const SizedBox(height: 100)
                         ],
                       );

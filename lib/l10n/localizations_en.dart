@@ -651,46 +651,46 @@ class AppLocalizationsEn extends AppLocalizations {
   String get faq_how_it_works_title => 'How does the Carting service work?';
 
   @override
-  String get faq_how_it_works_desc => 'You place an order, we find the nearest driver, and deliver your cargo to the specified location.';
+  String get faq_how_it_works_desc => 'After placing an order, the nearest driver will pick up and deliver your cargo to the specified address.';
 
   @override
   String get faq_payment_methods_title => 'What payment methods are available?';
 
   @override
-  String get faq_payment_methods_desc => 'We accept cash, bank cards, and online payment systems.';
+  String get faq_payment_methods_desc => 'Our service accepts payments in cash, by bank cards, and through payment systems.';
 
   @override
   String get faq_pricing_title => 'How are shipping costs calculated?';
 
   @override
-  String get faq_pricing_desc => 'Prices are calculated based on distance, cargo weight, and volume. You can find out the exact price when placing an order.';
+  String get faq_pricing_desc => 'The cost depends on the distance, weight, and volume of the cargo. The final amount will be displayed at the time of order placement.';
 
   @override
   String get faq_referral_title => 'How much reward can a user get for inviting others?';
 
   @override
-  String get faq_referral_desc => 'If an existing user sends a referral link to a potential customer, and that customer registers through the link and makes a payment for a service, the user receives 0.15% of the service cost as a reward.';
+  String get faq_referral_desc => 'If you send your referral link, and a new user registers through it and pays for a service in the app, you will receive 0.15% of the service cost as a reward.';
 
   @override
   String get faq_login_title => 'What do you need to log in to the app?';
 
   @override
-  String get faq_login_desc => 'Logging into the Carting app is very simple. A phone number or email address is enough. The verification code can be received via SMS or email.';
+  String get faq_login_desc => 'Logging into the Carting app is very easy. Simply enter your phone number or email address. A login code will be sent via SMS or email.';
 
   @override
   String get about_us_title => 'Carting – Your Reliable Transport Partner!';
 
   @override
-  String get about_us_desc => 'Carting is a modern platform that makes managing transportation and cargo delivery easy, fast, and reliable. We provide our customers with a secure way to transport goods, place quick orders, and find the right driver.';
+  String get about_us_desc => 'Carting is a modern platform for convenient, fast, and reliable management of freight transportation and logistics services. We ensure secure delivery, easy order processing, and quick onboarding of verified service providers.';
 
   @override
   String get about_us_why_title => 'Why Choose Carting?';
 
   @override
-  String get about_us_why_points => '✅ Fast and convenient booking – order cargo transportation in just a few steps through the app.\n✅ Trusted drivers – experienced and verified drivers ensure the safe delivery of your cargo.\n✅ Fair pricing – transparent rates with no hidden fees.\n✅ Always ready to help – our customer support service is available for any inquiries.';
+  String get about_us_why_points => '✅ Convenient and fast order processing – just a few steps in the app. ✅ Verified professionals – reliable specialists ensure safe delivery. ✅ Transparent pricing – no hidden fees, only fair prices. ✅ 24/7 support – always available to assist you.';
 
   @override
-  String get about_us_slogan => 'Wherever you need – we deliver!';
+  String get about_us_slogan => 'Wherever you go – your cargo is in safe hands!';
 
   @override
   String get select_language => 'Select Language!';
@@ -699,5 +699,5 @@ class AppLocalizationsEn extends AppLocalizations {
   String get terms_of_use => 'Terms of use';
 
   @override
-  String get agree_to => 'i agree to';
+  String get agree_to => ' i agree to';
 }

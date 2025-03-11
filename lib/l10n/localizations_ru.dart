@@ -30,7 +30,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get history => 'История';
 
   @override
-  String get notIdentified => 'Не идентифицирован';
+  String get notIdentified => 'Данные не введены';
 
   @override
   String get filter => 'Фильтр';
@@ -39,7 +39,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get search => 'Поиск';
 
   @override
-  String get identifiedUser => 'Идентифицированный пользователь';
+  String get identifiedUser => 'Идентифицирован';
 
   @override
   String get viewAll => 'Посмотреть все';
@@ -66,13 +66,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get dark => 'Тёмная';
 
   @override
-  String get system => 'Системная';
+  String get system => 'Авто';
 
   @override
   String get lenguage => 'Язык';
 
   @override
-  String get changePhone => 'Изменить номер';
+  String get changePhone => 'Изменить номер телефона';
 
   @override
   String get personalInformation => 'Личная информация';
@@ -87,7 +87,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get login => 'Войти';
 
   @override
-  String get enterRegisteredNumber => 'Введите зарегистрированный номер, чтобы получить доступ к профилю!';
+  String get enterRegisteredNumber => 'Введите зарегистрированный номер телефона, чтобы получить доступ к профилю!';
 
   @override
   String get phone => 'Телефон';
@@ -123,19 +123,19 @@ class AppLocalizationsRu extends AppLocalizations {
   String get resend => 'Отправить снова';
 
   @override
-  String get legalEntityInfo => 'Информация о юридическом лице';
+  String get legalEntityInfo => 'Данные юридического лица';
 
   @override
-  String get individualInfo => 'Информация о физическом лице';
+  String get individualInfo => 'Данные физического лица';
 
   @override
-  String get agreeToTerms => 'Я согласен с условиями использования';
+  String get agreeToTerms => 'Согласен с условиями использования';
 
   @override
   String get fillInTheInformation => 'Заполните информацию';
 
   @override
-  String get enterSTIR => 'Введите ИНН';
+  String get enterSTIR => 'Введите ИНН вашей компании';
 
   @override
   String get enterCompanyName => 'Введите название компании';
@@ -153,13 +153,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get enterVerificationCode => 'Введите код подтверждения';
 
   @override
-  String get enterPhoneNumberToRegister => 'Введите номер телефона для регистрации!';
+  String get enterPhoneNumberToRegister => 'Введите номер телефона для регистрации';
 
   @override
-  String get chooseYourIdentity => 'Выберите вашу личность!';
+  String get chooseYourIdentity => 'Выберите тип пользователя';
 
   @override
-  String get whoAreYouOnPlatform => 'Кем вы являетесь на платформе?';
+  String get whoAreYouOnPlatform => 'В качестве кого вы будете использовать приложение?';
 
   @override
   String get legalEntity => 'Юридическое лицо';
@@ -177,10 +177,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get save => 'Сохранить';
 
   @override
-  String get cancel => 'Отмена';
+  String get cancel => 'Отменить';
 
   @override
-  String get goToMain => 'Перейти на главную';
+  String get goToMain => 'Перейти на главную страницу';
 
   @override
   String get successful => 'Успешно';
@@ -324,7 +324,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get driverDeliveredCargo => 'Водитель доставил ваш груз в пункт назначения. Подтверждаете?';
 
   @override
-  String get contactUs => 'Свяжитесь с нами';
+  String get contactUs => 'Связаться с нами';
 
   @override
   String get markAsRead => 'Отметить как прочитанное';
@@ -555,7 +555,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get autoRepair => 'Автомобильный ремонт';
 
   @override
-  String get transportTransfer => 'Транспортный трансфер';
+  String get transportTransfer => 'Трансфер транспорта';
 
   @override
   String get warehouseStorage => 'Складское хранение';
@@ -570,7 +570,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get announcements => 'Объявления';
 
   @override
-  String get searchAnnouncement => 'Ищите нужное объявление';
+  String get searchAnnouncement => 'Поиск нужного объявления';
 
   @override
   String get all => 'Все';
@@ -591,7 +591,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get description => 'Описание';
 
   @override
-  String get leaveOrderComment => 'Оставьте комментарий к заказу!';
+  String get leaveOrderComment => 'Оставьте комментарий к заказу';
 
   @override
   String get cash => 'Наличные';
@@ -606,7 +606,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get enterPrice => 'Введите цену';
 
   @override
-  String get queueRegistration => 'Запись в очередь';
+  String get queueRegistration => 'Записаться в очередь';
 
   @override
   String get unknown => 'Неизвестно';
@@ -651,53 +651,53 @@ class AppLocalizationsRu extends AppLocalizations {
   String get faq_how_it_works_title => 'Как работает сервис Carting?';
 
   @override
-  String get faq_how_it_works_desc => 'Вы оформляете заказ, мы находим ближайшего водителя и доставляем ваш груз в указанное место.';
+  String get faq_how_it_works_desc => 'После оформления заказа ближайший водитель заберёт и доставит ваш груз по указанному адресу.';
 
   @override
   String get faq_payment_methods_title => 'Какие способы оплаты доступны?';
 
   @override
-  String get faq_payment_methods_desc => 'Мы принимаем наличные, банковские карты и онлайн-платежные системы.';
+  String get faq_payment_methods_desc => 'В нашем сервисе оплата принимается наличными, банковскими картами и через платежные системы.';
 
   @override
   String get faq_pricing_title => 'Как рассчитывается стоимость перевозки?';
 
   @override
-  String get faq_pricing_desc => 'Стоимость рассчитывается на основе расстояния, веса и объема груза. Точную цену можно узнать при оформлении заказа.';
+  String get faq_pricing_desc => 'Стоимость зависит от расстояния, веса и объема груза. Окончательная сумма будет указана при оформлении заказа.';
 
   @override
-  String get faq_referral_title => 'Какое вознаграждение можно получить за привлечение пользователя?';
+  String get faq_referral_title => 'Какое вознаграждение я получу за приглашенного пользователя?';
 
   @override
-  String get faq_referral_desc => 'Если существующий пользователь отправил реферальную ссылку потенциальному клиенту, и этот клиент зарегистрировался по этой ссылке и совершил оплату за услугу через приложение, пользователь получает 0,15% от стоимости услуги в качестве вознаграждения.';
+  String get faq_referral_desc => 'Если вы отправите вашу реферальную ссылку, и новый пользователь зарегистрируется по ней и оплатит услугу в приложении, вы получите 0,15% от стоимости услуги в качестве вознаграждения.';
 
   @override
   String get faq_login_title => 'Что необходимо для входа в приложение?';
 
   @override
-  String get faq_login_desc => 'Вход в приложение Carting очень простой. Достаточно иметь номер телефона или адрес электронной почты. Код можно получить через SMS или email.';
+  String get faq_login_desc => 'Войти в приложение Carting очень просто. Достаточно указать номер телефона или адрес электронной почты. Код для входа придёт через SMS или email.';
 
   @override
   String get about_us_title => 'Carting – ваш надежный транспортный партнер!';
 
   @override
-  String get about_us_desc => 'Carting – это современная платформа, которая позволяет легко, быстро и надежно управлять грузоперевозками и транспортными услугами. Мы предоставляем клиентам возможность безопасной доставки грузов, оперативного оформления заказа и подбора подходящего водителя.';
+  String get about_us_desc => 'Carting – это современная платформа для удобного, быстрого и надежного управления грузоперевозками и транспортными услугами. Мы обеспечиваем безопасную доставку, удобное оформление заказов и оперативное подключение проверенных исполнителей.';
 
   @override
   String get about_us_why_title => 'Почему именно Carting?';
 
   @override
-  String get about_us_why_points => '✅ Быстрое и удобное оформление заказов – всего в несколько шагов через приложение.\n✅ Надежные водители – опытные и проверенные водители обеспечивают безопасную перевозку ваших грузов.\n✅ Честные цены – прозрачные тарифы без скрытых платежей.\n✅ Всегда готовы помочь – наша служба поддержки ответит на любые вопросы.';
+  String get about_us_why_points => '✅ Удобное и быстрое оформление заказов – всего в несколько шагов в приложении. ✅ Проверенные исполнители – надежные специалисты обеспечивают безопасную доставку. ✅ Прозрачные тарифы – никаких скрытых платежей, только честные цены. ✅ Круглосуточная поддержка – всегда на связи, чтобы помочь вам.';
 
   @override
-  String get about_us_slogan => 'Куда бы вы ни отправились – мы доставим ваш груз!';
+  String get about_us_slogan => 'Куда бы вы ни отправились – ваш груз в надежных руках!';
 
   @override
   String get select_language => 'Выберите язык!';
 
   @override
-  String get terms_of_use => 'Согласен';
+  String get terms_of_use => 'Согласен с условиям';
 
   @override
-  String get agree_to => 'с условиям';
+  String get agree_to => ' использования';
 }
