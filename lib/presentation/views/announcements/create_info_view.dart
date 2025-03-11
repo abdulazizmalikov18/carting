@@ -853,7 +853,7 @@ class _CreateInfoViewState extends State<CreateInfoView> {
                                                 onTap: () {
                                                   Navigator.pop(context);
                                                 },
-                                                text: "Yo‘q",
+                                                text: AppLocalizations.of(context)!.no,
                                                 textColor: darkText,
                                                 color: const Color(0xFFF3F3F3),
                                               ),
@@ -868,7 +868,7 @@ class _CreateInfoViewState extends State<CreateInfoView> {
                                                   ));
                                                   Navigator.pop(context);
                                                 },
-                                                text: "Ha",
+                                                text: AppLocalizations.of(context)!.yes,
                                                 textColor: darkText,
                                                 color: const Color(0xFFF3F3F3),
                                               ),

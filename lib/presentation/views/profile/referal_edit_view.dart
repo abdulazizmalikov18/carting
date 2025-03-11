@@ -9,6 +9,7 @@ import 'package:carting/presentation/widgets/custom_text_field.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 
 class ReferalEditView extends StatefulWidget {
   final List<ReferralCode> referralCodes;
@@ -36,7 +37,7 @@ class _ReferalEditViewState extends State<ReferalEditView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Tahrirlash')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.edit)),
       body: ListView.separated(
         padding: const EdgeInsets.all(16),
         itemBuilder: (context, index) => Container(
@@ -106,15 +107,105 @@ class _ReferalEditViewState extends State<ReferalEditView> {
                   Expanded(
                     child: WButton(
                       onTap: () {
-                        context.read<AdvertisementBloc>().add(DelRefCodeEvent(
-                              code: widget.referralCodes[index].code,
-                              onSucces: () {
-                                context.read<AuthBloc>().add(UpdateCode(
-                                      code: widget.referralCodes[index].code,
-                                    ));
-                                Navigator.pop(context);
-                              },
-                            ));
+                        final bloc = context.read<AdvertisementBloc>();
+                        showModalBottomSheet(
+                          context: context,
+                          backgroundColor: Colors.transparent,
+                          useRootNavigator: true,
+                          builder: (context) => Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                height: 4,
+                                width: 64,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  color: const Color(0xFFB7BFC6),
+                                ),
+                                margin: const EdgeInsets.all(12),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 24,
+                                  horizontal: 16,
+                                ),
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: context.color.contColor,
+                                  borderRadius: BorderRadius.circular(24),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      "Haqiqatdan ham kodni o‘chirmoqchimisiz?",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                        color: context.color.darkText,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 24),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: WButton(
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                            },
+                                            text: AppLocalizations.of(context)!
+                                                .no,
+                                            textColor: darkText,
+                                            color: const Color(0xFFF3F3F3),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 12),
+                                        Expanded(
+                                          child: BlocBuilder<AdvertisementBloc,
+                                              AdvertisementState>(
+                                            bloc: bloc,
+                                            builder: (context, state) {
+                                              return WButton(
+                                                onTap: () {
+                                                  bloc.add(DelRefCodeEvent(
+                                                    code: widget
+                                                        .referralCodes[index]
+                                                        .code,
+                                                    onSucces: () {
+                                                      context
+                                                          .read<AuthBloc>()
+                                                          .add(UpdateCode(
+                                                            code: widget
+                                                                .referralCodes[
+                                                                    index]
+                                                                .code,
+                                                          ));
+                                                      Navigator.pop(context);
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ));
+                                                },
+                                                text: AppLocalizations.of(
+                                                        context)!
+                                                    .yes,
+                                                isLoading: state
+                                                    .statusChange.isInProgress,
+                                                textColor: red,
+                                                color:
+                                                    red.withValues(alpha: .1),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 24),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        );
                       },
                       textColor: red,
                       color: red.withValues(alpha: .1),
