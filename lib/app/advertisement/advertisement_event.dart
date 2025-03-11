@@ -39,9 +39,9 @@ class GetAdvertisementsReceiveEvent extends AdvertisementEvent {}
 class GetCarsEvent extends AdvertisementEvent {}
 
 class GetFuelsEvent extends AdvertisementEvent {
-  final int id;
+  final int? id;
 
-  GetFuelsEvent({required this.id});
+  GetFuelsEvent({this.id});
 }
 
 class GetTransportationTypesEvent extends AdvertisementEvent {

@@ -138,6 +138,7 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
       if (respons.isRight) {
         emit(state.copyWith(
           fuelsModel: respons.right.data,
+          fuelsModelAll: event.id == null ? respons.right.data : null,
           statusFuels: FormzSubmissionStatus.success,
         ));
       } else {

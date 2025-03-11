@@ -271,20 +271,20 @@ class _ProfileViewState extends State<ProfileView> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                WListTile(
-                  title: AppLocalizations.of(context)!.settings,
-                  leading: AppIcons.setting.svg(
-                    height: 28,
-                    width: 28,
-                    color: context.color.iron,
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const QuestView(),
-                    ));
-                  },
-                ),
-                const SizedBox(height: 8),
+                // WListTile(
+                //   title: AppLocalizations.of(context)!.settings,
+                //   leading: AppIcons.setting.svg(
+                //     height: 28,
+                //     width: 28,
+                //     color: context.color.iron,
+                //   ),
+                //   onTap: () {
+                //     Navigator.of(context).push(MaterialPageRoute(
+                //       builder: (context) => const QuestView(),
+                //     ));
+                //   },
+                // ),
+                // const SizedBox(height: 8),
                 WListTile(
                   title: AppLocalizations.of(context)!.rateTheApp,
                   leading: AppIcons.lovely.svg(height: 28, width: 28),

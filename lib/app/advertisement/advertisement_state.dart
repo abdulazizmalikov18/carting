@@ -20,6 +20,7 @@ class AdvertisementState extends Equatable {
   final List<AdvertisementModel> advertisementPROVIDE;
   final List<TransportationTypesModel> transportationTypes;
   final List<FuelsInfoModel> fuelsModel;
+  final List<FuelsInfoModel> fuelsModelAll;
   final List<CarsModel> carsModel;
   final List<TransportSpecialistsModel> transportSpecialists;
   final List<ServisModel> categoriesList;
@@ -38,6 +39,7 @@ class AdvertisementState extends Equatable {
     this.statusChange = FormzSubmissionStatus.initial,
     this.statusComment = FormzSubmissionStatus.initial,
     this.fuelsModel = const [],
+    this.fuelsModelAll = const [],
     this.advertisementFilter = const [],
     this.transportationTypes = const [],
     this.advertisement = const [],
@@ -72,7 +74,8 @@ class AdvertisementState extends Equatable {
         statusCategory,
         statusServices,
         categoriesList,
-        servicesList
+        servicesList,
+        fuelsModelAll,
       ];
 
   AdvertisementState copyWith({
@@ -94,6 +97,7 @@ class AdvertisementState extends Equatable {
     List<AdvertisementModel>? advertisementPROVIDE,
     List<TransportationTypesModel>? transportationTypes,
     List<FuelsInfoModel>? fuelsModel,
+    List<FuelsInfoModel>? fuelsModelAll,
     List<CarsModel>? carsModel,
     List<TransportSpecialistsModel>? transportSpecialists,
     List<ServisModel>? categoriesList,
@@ -118,6 +122,7 @@ class AdvertisementState extends Equatable {
       advertisementPROVIDE: advertisementPROVIDE ?? this.advertisementPROVIDE,
       transportationTypes: transportationTypes ?? this.transportationTypes,
       fuelsModel: fuelsModel ?? this.fuelsModel,
+      fuelsModelAll: fuelsModelAll ?? this.fuelsModelAll,
       carsModel: carsModel ?? this.carsModel,
       transportSpecialists: transportSpecialists ?? this.transportSpecialists,
       categoriesList: categoriesList ?? this.categoriesList,

@@ -8,12 +8,12 @@ part of 'fuels_info_model.dart';
 
 FuelsInfoModel _$FuelsInfoModelFromJson(Map<String, dynamic> json) =>
     FuelsInfoModel(
-      id: (json['id'] as num).toInt(),
-      deliveryPrice: (json['delivery_price'] as num).toInt(),
-      companyName: json['company_name'] as String,
-      fuelId: json['fuel_id'] as String,
-      type: json['type'] as String,
-      price: (json['price'] as num).toInt(),
+      id: (json['id'] as num?)?.toInt() ?? 0,
+      deliveryPrice: (json['delivery_price'] as num?)?.toInt() ?? 0,
+      companyName: json['company_name'] as String? ?? '',
+      fuelId: json['fuel_id'] as String? ?? '',
+      type: json['type'] as String? ?? '',
+      price: (json['price'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$FuelsInfoModelToJson(FuelsInfoModel instance) =>

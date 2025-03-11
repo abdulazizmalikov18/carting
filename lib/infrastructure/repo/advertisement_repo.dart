@@ -98,7 +98,7 @@ class AdvertisementRepo implements IAdvertisementRepo {
 
   @override
   Future<Either<Failure, ResponseModel<List<FuelsInfoModel>>>> fuels(
-    int fuelsId,
+    int? fuelsId,
   ) async {
     try {
       final result = await dataSourcheImpl.fuels(fuelsId);

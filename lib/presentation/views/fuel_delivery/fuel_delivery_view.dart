@@ -31,7 +31,7 @@ class _FuelDeliveryViewState extends State<FuelDeliveryView> {
   @override
   void initState() {
     controller = TextEditingController();
-    context.read<AdvertisementBloc>().add(GetFuelsEvent(id: selectedUnit.id));
+    context.read<AdvertisementBloc>().add(GetFuelsEvent());
     super.initState();
   }
 
@@ -86,8 +86,11 @@ class _FuelDeliveryViewState extends State<FuelDeliveryView> {
                   child: Builder(builder: (context) {
                     return GestureDetector(
                       onTap: () async {
-                        final state =
-                            context.read<AdvertisementBloc>().state.fuelsModel;
+                        final state = context
+                            .read<AdvertisementBloc>()
+                            .state
+                            .fuelsModelAll;
+
                         final RenderBox button =
                             context.findRenderObject() as RenderBox;
                         final RenderBox overlay = Overlay.of(context)
@@ -120,6 +123,7 @@ class _FuelDeliveryViewState extends State<FuelDeliveryView> {
                             return PopupMenuItem<FuelsModel>(
                               value: choice,
                               height: 32,
+                              onTap: () {},
                               child: SizedBox(
                                 width: 140,
                                 child: Row(
@@ -157,8 +161,11 @@ class _FuelDeliveryViewState extends State<FuelDeliveryView> {
                             );
                           }).toList(),
                         );
+                        final isActive = state
+                            .where((e) => e.type == selected?.type)
+                            .isEmpty;
 
-                        if (selected != null) {
+                        if (selected != null && !isActive) {
                           setState(() {
                             selectedUnit = selected;
                           });

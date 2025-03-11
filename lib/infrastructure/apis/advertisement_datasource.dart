@@ -178,10 +178,11 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
   }
 
   @override
-  Future<ResponseModel<List<FuelsInfoModel>>> fuels(int fuelsId) {
+  Future<ResponseModel<List<FuelsInfoModel>>> fuels(int? fuelsId) {
     return _handle.apiCantrol(
       request: () => dio.get(
-        'list/fuels?fuel_id=$fuelsId',
+        'list/fuels',
+        queryParameters: fuelsId != null ? {'fuel_id': fuelsId} : null,
         options: Options(
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
