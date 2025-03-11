@@ -1,5 +1,6 @@
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/common/empty_screen.dart';
 import 'package:carting/presentation/widgets/w_shimmer.dart';
 import 'package:flutter/material.dart';
@@ -27,10 +28,7 @@ class _CarsTypeViewState extends State<CarsTypeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.color.backGroundColor,
-      appBar: AppBar(
-        title: const Text("Yengil avtomobillar"),
-        backgroundColor: context.color.backGroundColor,
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.carRental)),
       body: BlocBuilder<AdvertisementBloc, AdvertisementState>(
         builder: (context, state) {
           if (state.statusCars.isInProgress) {
