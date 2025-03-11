@@ -700,4 +700,10 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get agree_to => 'ga roziman';
+
+  @override
+  String get via_phone => 'Telefon raqam orqali';
+
+  @override
+  String get via_email => 'Email pochta orqali';
 }

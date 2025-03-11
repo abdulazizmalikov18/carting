@@ -230,5 +230,7 @@
   "about_us_slogan": "Qayerga yo‘l olishingizdan qat’i nazar – yukingiz ishonchli qo‘llarda!",
   "select_language": "Tilni tanlang!",
   "terms_of_use": "Foydalanish shartlari",
-  "agree_to": "ga roziman"
+  "agree_to": "ga roziman",
+  "via_phone": "Telefon raqam orqali",
+  "via_email": "Email pochta orqali"
 }

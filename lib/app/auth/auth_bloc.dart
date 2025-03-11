@@ -34,15 +34,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (result.isRight) {
         add(GetMeEvent());
       } else {
-        await StorageRepository.putString(
-          StorageKeys.TOKEN,
-          '',
-        );
-        await StorageRepository.putString(
-          StorageKeys.REFRESH,
-          '',
-        );
-        emit(state.copyWith(status: AuthenticationStatus.unauthenticated));
+        add(LogOutEvent());
       }
     });
 
@@ -104,7 +96,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } else {
         if (response.isLeft) {
           if (response.left is ServerFailure) {
-            final stim = (response.left as ServerFailure).errorMessage;
+            final stim = (response.left as ServerFailure).errorMessage.isEmpty
+                ? (response.left as ServerFailure).statusCode.toString()
+                : (response.left as ServerFailure).errorMessage;
             event.onError(stim);
           } else {
             event.onError("Ma'lumot topilmadi");

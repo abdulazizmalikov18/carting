@@ -1484,6 +1484,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **' i agree to'**
   String get agree_to;
+
+  /// No description provided for @via_phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Via phone number'**
+  String get via_phone;
+
+  /// No description provided for @via_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Via email'**
+  String get via_email;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

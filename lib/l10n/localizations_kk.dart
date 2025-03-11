@@ -700,4 +700,10 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get agree_to => 'га розиман';
+
+  @override
+  String get via_phone => 'Телефон рақам орқали';
+
+  @override
+  String get via_email => 'Email почта орқали';
 }

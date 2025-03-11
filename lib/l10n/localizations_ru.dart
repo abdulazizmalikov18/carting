@@ -700,4 +700,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get agree_to => ' использования';
+
+  @override
+  String get via_phone => 'Через номер телефона';
+
+  @override
+  String get via_email => 'Через email';
 }

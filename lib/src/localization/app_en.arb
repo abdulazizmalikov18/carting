@@ -229,5 +229,7 @@
   "about_us_slogan": "Wherever you go – your cargo is in safe hands!",
   "select_language": "Select Language!",
   "terms_of_use": "Terms of use",
-  "agree_to": " i agree to"
+  "agree_to": " i agree to",
+  "via_phone": "Via phone number",
+  "via_email": "Via email"
 }

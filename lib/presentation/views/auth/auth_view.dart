@@ -92,17 +92,17 @@ class _AuthViewState extends State<AuthView>
               onTap: (p0) {
                 setState(() {});
               },
-              tabs: const [
+              tabs: [
                 Text(
-                  'Telefon raqam orqali',
-                  style: TextStyle(
+                  AppLocalizations.of(context)!.via_phone,
+                  style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 Text(
-                  'Email pochta orqali',
-                  style: TextStyle(
+                  AppLocalizations.of(context)!.via_email,
+                  style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                   ),

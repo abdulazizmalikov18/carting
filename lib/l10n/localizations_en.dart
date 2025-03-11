@@ -700,4 +700,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get agree_to => ' i agree to';
+
+  @override
+  String get via_phone => 'Via phone number';
+
+  @override
+  String get via_email => 'Via email';
 }

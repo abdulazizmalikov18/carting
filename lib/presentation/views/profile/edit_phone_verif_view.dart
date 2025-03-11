@@ -159,9 +159,9 @@ class _EditPhoneVerifViewState extends State<EditPhoneVerifView> {
                               phone: widget.isEmail ? null : widget.phone,
                               email: widget.isEmail ? widget.phone : null,
                               isEmail: widget.isEmail,
-                             onError: (message) {
-                            CustomSnackbar.show(context, message);
-                          },
+                              onError: (message) {
+                                CustomSnackbar.show(context, message);
+                              },
                               onSucces: () {},
                               sessionToken: widget.model.sessionToken,
                               securityCode: controller.text,
