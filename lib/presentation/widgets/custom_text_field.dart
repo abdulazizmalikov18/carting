@@ -43,6 +43,8 @@ class CustomTextField extends StatefulWidget {
   final TextStyle? hintStyle;
   final bool isRequired;
   final bool isCap;
+  final Color? borderColor;
+  final Color? tetxColor;
   const CustomTextField({
     super.key,
     this.onPressed,
@@ -84,6 +86,8 @@ class CustomTextField extends StatefulWidget {
     this.hintStyle,
     this.isRequired = false,
     this.isCap = false,
+    this.borderColor,
+    this.tetxColor,
   });
 
   @override
@@ -127,7 +131,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
-                        color: context.color.darkText,
+                        color: widget.tetxColor ?? context.color.darkText,
                       ),
                     )
                   : const SizedBox(),
@@ -191,24 +195,27 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 border: widget.border ??
                     OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(color: context.color.contGrey),
+                      borderSide: BorderSide(
+                          color: widget.borderColor ?? context.color.contGrey),
                     ),
                 enabledBorder: widget.border ??
                     OutlineInputBorder(
                       borderRadius:
                           BorderRadius.circular(widget.borderRadius ?? 20),
-                      borderSide: BorderSide(color: context.color.contGrey),
+                      borderSide: BorderSide(
+                          color: widget.borderColor ?? context.color.contGrey),
                     ),
                 focusedBorder: widget.border ??
                     OutlineInputBorder(
                       borderRadius:
                           BorderRadius.circular(widget.borderRadius ?? 20),
-                      borderSide: BorderSide(color: context.color.contGrey),
+                      borderSide: BorderSide(
+                          color: widget.borderColor ?? context.color.contGrey),
                     ),
                 hintText: widget.hintText,
                 hintStyle: widget.hintStyle ??
                     TextStyle(
-                      color: context.color.darkText,
+                      color: widget.tetxColor ?? context.color.darkText,
                     ),
                 // hintStyle: fonts.subtitle1.copyWith(
                 //     color: colors.customBlack.withValues(alpha:0.5), fontSize: 14.sp),

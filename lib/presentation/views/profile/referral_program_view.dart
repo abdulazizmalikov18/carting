@@ -8,6 +8,7 @@ import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/profile/referal_edit_view.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
+import 'package:carting/presentation/widgets/custom_text_field.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_claendar.dart';
 import 'package:carting/presentation/widgets/w_scale_animation.dart';
@@ -133,15 +134,77 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                   ),
                                   WButton(
                                     onTap: () {
-                                      context
-                                          .read<AdvertisementBloc>()
-                                          .add(PostRefCodeEvent(
-                                            note: 'Test',
-                                            onSucces: () {
-                                              context.read<AuthBloc>().add(
-                                                  GetMeEvent(isNotAuth: true));
-                                            },
-                                          ));
+                                      final controller =
+                                          TextEditingController();
+                                      final bloc =
+                                          context.read<AdvertisementBloc>();
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          backgroundColor:
+                                              context.color.contColor,
+                                          insetPadding:
+                                              const EdgeInsets.all(16),
+                                          title: const Text("Kod qo‘shish"),
+                                          content: SizedBox(
+                                            width: 500,
+                                            height: 148,
+                                            child: CustomTextField(
+                                              controller: controller,
+                                              title:
+                                                  AppLocalizations.of(context)!
+                                                      .description,
+                                              hintText:
+                                                  AppLocalizations.of(context)!
+                                                      .description,
+                                              noHeight: true,
+                                              minLines: 5,
+                                              maxLines: 5,
+                                              borderColor: context.color.iron,
+                                              tetxColor: context.color.iron,
+                                              expands: false,
+                                            ),
+                                          ),
+                                          actions: [
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: WButton(
+                                                    onTap: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    text: AppLocalizations.of(
+                                                            context)!
+                                                        .cancel,
+                                                    color: context.color.iron,
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 16),
+                                                Expanded(
+                                                  child: WButton(
+                                                    onTap: () {
+                                                      Navigator.pop(context);
+                                                      bloc.add(PostRefCodeEvent(
+                                                        note: controller.text,
+                                                        onSucces: () {
+                                                          context
+                                                              .read<AuthBloc>()
+                                                              .add(GetMeEvent(
+                                                                  isNotAuth:
+                                                                      true));
+                                                        },
+                                                      ));
+                                                    },
+                                                    text: AppLocalizations.of(
+                                                            context)!
+                                                        .save,
+                                                  ),
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      );
                                     },
                                     width: 140,
                                     child: Row(

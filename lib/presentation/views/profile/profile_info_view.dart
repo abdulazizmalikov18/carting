@@ -143,10 +143,12 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
     if (isLegal.value) {
       return controllerCallPhone.text.isNotEmpty &&
           controllerOrgName.text.isNotEmpty &&
-          controllerTin.text.isNotEmpty;
+          controllerTin.text.isNotEmpty &&
+          controllerPhone.text.isNotEmpty;
     } else {
       return controllerName.text.isNotEmpty &&
-          controllerLastName.text.isNotEmpty;
+          controllerLastName.text.isNotEmpty &&
+          controllerPhone.text.isNotEmpty;
     }
   }
 
@@ -304,10 +306,17 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                                 ));
                           }
                         } else {
-                          CustomSnackbar.show(
-                            context,
-                            "Malumotlarni to'ldiring",
-                          );
+                          if (controllerPhone.text.isEmpty) {
+                            CustomSnackbar.show(
+                              context,
+                              "Iltimos, telefon raqamni to'ldiring",
+                            );
+                          } else {
+                            CustomSnackbar.show(
+                              context,
+                              "Malumotlarni to'ldiring",
+                            );
+                          }
                         }
                       },
                       isDisabled: !isChange.value || !isActive.value,
@@ -372,8 +381,8 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                 hintText: "",
                 controller: TextEditingController(
                   text: !isLegal.value
-                      ? AppLocalizations.of(context)!.physical
-                      : AppLocalizations.of(context)!.legal,
+                      ? AppLocalizations.of(context)!.individual
+                      : AppLocalizations.of(context)!.legalEntity,
                 ),
                 suffixIcon: AppIcons.edit.svg(color: context.color.iron),
                 readOnly: true,
