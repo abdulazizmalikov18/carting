@@ -1,3 +1,4 @@
+import 'package:carting/data/models/model.dart';
 import 'package:dio/dio.dart';
 
 import 'package:carting/app/auth/auth_bloc.dart';
@@ -19,17 +20,29 @@ class ErrorHandle {
       if (response.statusCode == 401) {
         serviceLocator<AuthBloc>().add(RefreshToken());
       }
-      Log.e(response.statusCode);
+      final errorResponse = ErrorResponse.fromJson(
+        response.data as Map<String, dynamic>,
+      );
       throw ServerException(
         statusCode: response.statusCode ?? 0,
-        errorMessage: response.statusMessage ?? "",
-        // errorMessage: response.statusMessage ?? "",
+        errorMessage: errorResponse.message,
       );
     } on ServerException {
       rethrow;
     } on DioException catch (e) {
-      Log.e(e);
-      throw DioException(requestOptions: e.requestOptions);
+      if (e.response != null && e.response?.data is Map<String, dynamic>) {
+        // Serverdan qaytgan xatolikni ErrorResponse ga parse qilamiz
+        final errorResponse = ErrorResponse.fromJson(e.response!.data);
+        throw ServerException(
+          statusCode: e.response!.statusCode ?? 0,
+          errorMessage: errorResponse.message,
+        );
+      }
+
+      throw ServerException(
+        statusCode: e.response?.statusCode ?? 0,
+        errorMessage: e.message ?? "Unknown Dio error",
+      );
     } on Exception catch (e) {
       Log.e(e);
       throw ParsingException(errorMessage: e.toString());
