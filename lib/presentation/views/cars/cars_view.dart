@@ -4,7 +4,6 @@ import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/routes/route_name.dart';
 import 'package:carting/presentation/views/transport_rental/cars_type_view.dart';
-import 'package:carting/presentation/widgets/custom_text_field.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:flutter/material.dart';
 
@@ -109,18 +108,18 @@ class _CarsViewState extends State<CarsView> with WidgetsBindingObserver {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.transportAnnouncements),
-        bottom: PreferredSize(
-          preferredSize: const Size(double.infinity, 64),
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-            child: CustomTextField(
-              prefixIcon: AppIcons.searchNormal.svg(color: context.color.iron),
-              hintText: AppLocalizations.of(context)!.searchTransport,
-              controller: searchController,
-              onChanged: (value) {},
-            ),
-          ),
-        ),
+        // bottom: PreferredSize(
+        //   preferredSize: const Size(double.infinity, 64),
+        //   child: Padding(
+        //     padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+        //     child: CustomTextField(
+        //       prefixIcon: AppIcons.searchNormal.svg(color: context.color.iron),
+        //       hintText: AppLocalizations.of(context)!.searchTransport,
+        //       controller: searchController,
+        //       onChanged: (value) {},
+        //     ),
+        //   ),
+        // ),
       ),
       body: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {

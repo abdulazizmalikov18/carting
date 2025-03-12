@@ -136,8 +136,6 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                     onTap: () {
                                       final controller =
                                           TextEditingController();
-                                      final bloc =
-                                          context.read<AdvertisementBloc>();
                                       showDialog(
                                         context: context,
                                         builder: (context) => AlertDialog(
@@ -171,7 +169,8 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                                 Expanded(
                                                   child: WButton(
                                                     onTap: () {
-                                                      Navigator.pop(context);
+                                                      Navigator.of(context)
+                                                          .pop(false);
                                                     },
                                                     text: AppLocalizations.of(
                                                             context)!
@@ -183,17 +182,8 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                                 Expanded(
                                                   child: WButton(
                                                     onTap: () {
-                                                      Navigator.pop(context);
-                                                      bloc.add(PostRefCodeEvent(
-                                                        note: controller.text,
-                                                        onSucces: () {
-                                                          context
-                                                              .read<AuthBloc>()
-                                                              .add(GetMeEvent(
-                                                                  isNotAuth:
-                                                                      true));
-                                                        },
-                                                      ));
+                                                      Navigator.of(context)
+                                                          .pop(true);
                                                     },
                                                     text: AppLocalizations.of(
                                                             context)!
@@ -204,7 +194,23 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                             )
                                           ],
                                         ),
-                                      );
+                                      ).then((value) {
+                                        if (value == true) {
+                                          if (context.mounted) {
+                                            context
+                                                .read<AdvertisementBloc>()
+                                                .add(PostRefCodeEvent(
+                                                  note: controller.text,
+                                                  onSucces: () {
+                                                    context
+                                                        .read<AuthBloc>()
+                                                        .add(GetMeEvent(
+                                                            isNotAuth: true));
+                                                  },
+                                                ));
+                                          }
+                                        }
+                                      });
                                     },
                                     width: 140,
                                     child: Row(

@@ -231,5 +231,7 @@
   "terms_of_use": "Terms of use",
   "agree_to": " i agree to",
   "via_phone": "Via phone number",
-  "via_email": "Via email"
+  "via_email": "Via email",
+  "back": "Back",
+  "no_service_ads": "No service announcements and\ndrivers available"
 }

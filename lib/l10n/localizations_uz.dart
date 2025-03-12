@@ -96,7 +96,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get email => 'Elektron pochta';
 
   @override
-  String get infoNotFound => 'Malumot topilmadi';
+  String get infoNotFound => 'Maʼlumot topilmadi';
 
   @override
   String get haveRegisteredBefore => 'Siz ro‘yxatdan o‘tganmisiz?';
@@ -132,7 +132,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get agreeToTerms => 'Foydalanish shartlariga roziman';
 
   @override
-  String get fillInTheInformation => 'Malumotlarni to\'ldiring';
+  String get fillInTheInformation => 'Maʼlumotlarni to\'ldiring';
 
   @override
   String get enterSTIR => 'STIR kiriting';
@@ -189,7 +189,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get rateTheApp => 'Ilovani baholang';
 
   @override
-  String get theme => 'Mavzu';
+  String get theme => 'Rejim';
 
   @override
   String get photofact => 'Fotosurat dalili';
@@ -706,4 +706,10 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get via_email => 'Email pochta orqali';
+
+  @override
+  String get back => 'Ortga';
+
+  @override
+  String get no_service_ads => 'Xizmatga oid E’lonlar va \nhaydovchilar yo‘q';
 }

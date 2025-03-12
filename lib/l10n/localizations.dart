@@ -1496,6 +1496,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Via email'**
   String get via_email;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @no_service_ads.
+  ///
+  /// In en, this message translates to:
+  /// **'No service announcements and\ndrivers available'**
+  String get no_service_ads;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

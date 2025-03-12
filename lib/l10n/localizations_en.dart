@@ -706,4 +706,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get via_email => 'Via email';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get no_service_ads => 'No service announcements and\ndrivers available';
 }

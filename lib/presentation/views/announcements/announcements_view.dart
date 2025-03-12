@@ -3,7 +3,6 @@ import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/routes/route_name.dart';
 import 'package:carting/presentation/views/announcements/create_info_view.dart';
-import 'package:carting/presentation/widgets/custom_text_field.dart';
 import 'package:carting/utils/enum_filtr.dart';
 import 'package:carting/utils/my_function.dart';
 import 'package:flutter/material.dart';
@@ -71,16 +70,16 @@ class _AnnouncementsViewState extends State<AnnouncementsView>
           icon: AppIcons.filter.svg(color: context.color.iron),
         ),
         title: Text(AppLocalizations.of(context)!.announcements),
-        bottom: PreferredSize(
-          preferredSize: const Size(double.infinity, 72),
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-            child: CustomTextField(
-              prefixIcon: AppIcons.searchNormal.svg(color: context.color.iron),
-              hintText: AppLocalizations.of(context)!.searchAnnouncement,
-            ),
-          ),
-        ),
+        // bottom: PreferredSize(
+        //   preferredSize: const Size(double.infinity, 72),
+        //   child: Padding(
+        //     padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+        //     child: CustomTextField(
+        //       prefixIcon: AppIcons.searchNormal.svg(color: context.color.iron),
+        //       hintText: AppLocalizations.of(context)!.searchAnnouncement,
+        //     ),
+        //   ),
+        // ),
         actions: [
           ValueListenableBuilder(
             valueListenable: tabIndex,

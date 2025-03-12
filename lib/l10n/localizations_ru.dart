@@ -706,4 +706,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get via_email => 'Через email';
+
+  @override
+  String get back => 'Назад';
+
+  @override
+  String get no_service_ads => 'Нет объявлений о сервисе и\nводителей';
 }

@@ -24,11 +24,11 @@ class _WThemeState extends State<WTheme> {
     super.initState();
     final theme = StorageRepository.getString(StorageKeys.MODE);
     if (theme == 'light') {
-      selIndex.value = 1;
-    } else if (theme == 'dark') {
-      selIndex.value = 0;
-    } else {
       selIndex.value = 2;
+    } else if (theme == 'dark') {
+      selIndex.value = 1;
+    } else {
+      selIndex.value = 0;
     }
   }
 
@@ -38,15 +38,15 @@ class _WThemeState extends State<WTheme> {
     list = [
       InfoRowMod(
         icon: AppIcons.moon.svg(height: 24),
+        title: AppLocalizations.of(context)!.system,
+      ),
+      InfoRowMod(
+        icon: AppIcons.moon.svg(height: 24),
         title: AppLocalizations.of(context)!.dark,
       ),
       InfoRowMod(
         icon: AppIcons.moon.svg(height: 24),
         title: AppLocalizations.of(context)!.light,
-      ),
-      InfoRowMod(
-        icon: AppIcons.moon.svg(height: 24),
-        title: AppLocalizations.of(context)!.system,
       ),
     ];
   }

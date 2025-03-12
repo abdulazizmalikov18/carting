@@ -706,4 +706,10 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get via_email => 'Email почта орқали';
+
+  @override
+  String get back => 'Ортга';
+
+  @override
+  String get no_service_ads => 'Хизматга оид Эълонлар ва \nҳайдовчилар йўқ';
 }

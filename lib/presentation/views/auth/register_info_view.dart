@@ -185,9 +185,9 @@ class _RegisterInfoViewState extends State<RegisterInfoView> {
                                 },
                               ));
                         } else {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text("Malumotlarni to'ldiring"),
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(AppLocalizations.of(context)!
+                                .fillInTheInformation),
                           ));
                         }
                       },

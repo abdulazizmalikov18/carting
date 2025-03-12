@@ -28,7 +28,7 @@
   "enterRegisteredNumber": "Profilingizga kirish uchun ro’yxatdan o’tgan telefon raqamingizni kiriting!",
   "phone": "Telefon",
   "email": "Elektron pochta",
-  "infoNotFound": "Malumot topilmadi",
+  "infoNotFound": "Maʼlumot topilmadi",
   "haveRegisteredBefore": "Siz ro‘yxatdan o‘tganmisiz?",
   "enter": "Kirish",
   "register": "Ro‘yxatdan o‘tish",
@@ -40,7 +40,7 @@
   "legalEntityInfo": "Yuridik shaxs ma'lumotlari",
   "individualInfo": "Jismoniy shaxs ma'lumotlari",
   "agreeToTerms": "Foydalanish shartlariga roziman",
-  "fillInTheInformation": "Malumotlarni to'ldiring",
+  "fillInTheInformation": "Maʼlumotlarni to'ldiring",
   "enterSTIR": "STIR kiriting",
   "enterCompanyName": "Kompaniya nomi kiriting",
   "enterYourName": "Ismingizni kiriting",
@@ -59,7 +59,7 @@
   "goToMain": "Asosiy sahifaga o'tish",
   "successful": "Muvaffaqiyatli",
   "rateTheApp": "Ilovani baholang",
-  "theme": "Mavzu",
+  "theme": "Rejim",
   "photofact": "Fotosurat dalili",
   "deletePhoto": "Fotosuratni o'chirish",
   "address": "Manzil",
@@ -232,5 +232,7 @@
   "terms_of_use": "Foydalanish shartlari",
   "agree_to": "ga roziman",
   "via_phone": "Telefon raqam orqali",
-  "via_email": "Email pochta orqali"
+  "via_email": "Email pochta orqali",
+  "back": "Ortga",
+  "no_service_ads": "Xizmatga oid E’lonlar va \nhaydovchilar yo‘q"
 }
