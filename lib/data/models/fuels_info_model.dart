@@ -20,6 +20,8 @@ class FuelsInfoModel {
   final int id;
   @JsonKey(name: "delivery_price")
   final int deliveryPrice;
+  @JsonKey(name: "call_phone")
+  final String callPhone;
   @JsonKey(name: "company_name")
   final String companyName;
   @JsonKey(name: "fuel_id")
@@ -33,6 +35,7 @@ class FuelsInfoModel {
     this.id = 0,
     this.deliveryPrice = 0,
     this.companyName = '',
+    this.callPhone = '',
     this.fuelId = '',
     this.type = '',
     this.price = 0,

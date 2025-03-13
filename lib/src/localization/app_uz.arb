@@ -234,5 +234,8 @@
   "via_phone": "Telefon raqam orqali",
   "via_email": "Email pochta orqali",
   "back": "Ortga",
-  "no_service_ads": "Xizmatga oid E’lonlar va \nhaydovchilar yo‘q"
+  "no_service_ads": "Xizmatga oid E’lonlar va \nhaydovchilar yo‘q",
+  "delete": "O‘chirish",
+  "confirm_delete_code": "Haqiqatdan ham kodni o‘chirmoqchimisiz?",
+  "confirm_save_referral_changes": "Haqiqatdan ham referal kod tavsifidagi o‘zgarishlarni saqlamoqchimisiz?"
 }

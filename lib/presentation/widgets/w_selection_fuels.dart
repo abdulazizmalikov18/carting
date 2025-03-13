@@ -1,4 +1,6 @@
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/presentation/widgets/custom_snackbar.dart';
+import 'package:carting/utils/caller.dart';
 import 'package:flex_dropdown/flex_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -163,10 +165,22 @@ class MenuWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                CircleAvatar(
-                  radius: 12,
-                  backgroundColor: green,
-                  child: AppIcons.phone.svg(),
+                GestureDetector(
+                  onTap: () async {
+                    if (fuelsModel[index].callPhone.isNotEmpty) {
+                      await Caller.makePhoneCall(fuelsModel[index].callPhone);
+                    } else {
+                      CustomSnackbar.show(
+                        context,
+                        'Telefon raqam kiritilmagan',
+                      );
+                    }
+                  },
+                  child: CircleAvatar(
+                    radius: 12,
+                    backgroundColor: green,
+                    child: AppIcons.phone.svg(),
+                  ),
                 ),
               ],
             ),

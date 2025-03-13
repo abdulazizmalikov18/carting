@@ -1,7 +1,6 @@
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:formz/formz.dart';
 
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/assets/assets/icons.dart';
@@ -12,7 +11,6 @@ import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/common/map_point.dart';
 import 'package:carting/presentation/widgets/min_text_field.dart';
 import 'package:carting/presentation/widgets/selection_location_field.dart';
-import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_selection_fuels.dart';
 import 'package:carting/utils/formatters.dart';
 
@@ -45,20 +43,20 @@ class _FuelDeliveryViewState extends State<FuelDeliveryView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.fuelDelivery)),
-      bottomNavigationBar: SafeArea(
-        child: BlocBuilder<AdvertisementBloc, AdvertisementState>(
-          builder: (context, state) {
-            return WButton(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              margin: const EdgeInsets.all(16),
-              isLoading: state.statusCreate.isInProgress,
-              text: AppLocalizations.of(context)!.confirm,
-            );
-          },
-        ),
-      ),
+      // bottomNavigationBar: SafeArea(
+      //   child: BlocBuilder<AdvertisementBloc, AdvertisementState>(
+      //     builder: (context, state) {
+      //       return WButton(
+      //         onTap: () {
+      //           Navigator.of(context).pop();
+      //         },
+      //         margin: const EdgeInsets.all(16),
+      //         isLoading: state.statusCreate.isInProgress,
+      //         text: AppLocalizations.of(context)!.confirm,
+      //       );
+      //     },
+      //   ),
+      // ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(

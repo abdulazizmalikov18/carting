@@ -712,4 +712,13 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get no_service_ads => 'Xizmatga oid E’lonlar va \nhaydovchilar yo‘q';
+
+  @override
+  String get delete => 'O‘chirish';
+
+  @override
+  String get confirm_delete_code => 'Haqiqatdan ham kodni o‘chirmoqchimisiz?';
+
+  @override
+  String get confirm_save_referral_changes => 'Haqiqatdan ham referal kod tavsifidagi o‘zgarishlarni saqlamoqchimisiz?';
 }

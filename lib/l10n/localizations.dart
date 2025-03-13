@@ -1508,6 +1508,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No service announcements and\ndrivers available'**
   String get no_service_ads;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @confirm_delete_code.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete the code?'**
+  String get confirm_delete_code;
+
+  /// No description provided for @confirm_save_referral_changes.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to save changes to the referral code description?'**
+  String get confirm_save_referral_changes;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

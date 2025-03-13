@@ -712,4 +712,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get no_service_ads => 'No service announcements and\ndrivers available';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get confirm_delete_code => 'Are you sure you want to delete the code?';
+
+  @override
+  String get confirm_save_referral_changes => 'Are you sure you want to save changes to the referral code description?';
 }

@@ -138,7 +138,8 @@ class _ReferalEditViewState extends State<ReferalEditView> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      "Haqiqatdan ham kodni o‘chirmoqchimisiz?",
+                                      AppLocalizations.of(context)!
+                                          .confirm_delete_code,
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w400,
@@ -215,7 +216,7 @@ class _ReferalEditViewState extends State<ReferalEditView> {
                         spacing: 8,
                         children: [
                           AppIcons.trash.svg(),
-                          const Text('O’chirish'),
+                          Text(AppLocalizations.of(context)!.delete),
                         ],
                       ),
                     ),
@@ -225,20 +226,115 @@ class _ReferalEditViewState extends State<ReferalEditView> {
                       onTap: () {
                         if (list[index].text !=
                             widget.referralCodes[index].note) {
-                          context.read<AdvertisementBloc>().add(PutRefCodeEvent(
-                                code: widget.referralCodes[index].code,
-                                note: list[index].text,
-                                onSucces: () {
-                                  context.read<AuthBloc>().add(UpdateCode(
-                                        code: widget.referralCodes[index].code,
-                                        note: widget.referralCodes[index].note,
-                                      ));
-                                  Navigator.pop(context);
-                                },
-                              ));
+                          final bloc = context.read<AdvertisementBloc>();
+                          showModalBottomSheet(
+                            context: context,
+                            backgroundColor: Colors.transparent,
+                            useRootNavigator: true,
+                            builder: (context) => Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Container(
+                                  height: 4,
+                                  width: 64,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    color: const Color(0xFFB7BFC6),
+                                  ),
+                                  margin: const EdgeInsets.all(12),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 24,
+                                    horizontal: 16,
+                                  ),
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: context.color.contColor,
+                                    borderRadius: BorderRadius.circular(24),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        AppLocalizations.of(context)!
+                                            .confirm_save_referral_changes,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                          color: context.color.darkText,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 24),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: WButton(
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                              },
+                                              text:
+                                                  AppLocalizations.of(context)!
+                                                      .cancel,
+                                              textColor: darkText,
+                                              color: const Color(0xFFF3F3F3),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 12),
+                                          Expanded(
+                                            child: BlocBuilder<
+                                                AdvertisementBloc,
+                                                AdvertisementState>(
+                                              bloc: bloc,
+                                              builder: (context, state) {
+                                                return WButton(
+                                                  onTap: () {
+                                                    bloc.add(PutRefCodeEvent(
+                                                      code: widget
+                                                          .referralCodes[index]
+                                                          .code,
+                                                      note: list[index].text,
+                                                      onSucces: () {
+                                                        context
+                                                            .read<AuthBloc>()
+                                                            .add(UpdateCode(
+                                                              code: widget
+                                                                  .referralCodes[
+                                                                      index]
+                                                                  .code,
+                                                              note: widget
+                                                                  .referralCodes[
+                                                                      index]
+                                                                  .note,
+                                                            ));
+                                                        Navigator.pop(context);
+                                                      },
+                                                    ));
+                                                  },
+                                                  text: AppLocalizations.of(
+                                                          context)!
+                                                      .save,
+                                                  isLoading: state.statusChange
+                                                      .isInProgress,
+                                                  textColor: red,
+                                                  color:
+                                                      red.withValues(alpha: .1),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 24),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
                         }
                       },
-                      text: 'Saqlash',
+                      text: AppLocalizations.of(context)!.save,
                     ),
                   ),
                 ],

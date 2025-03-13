@@ -712,4 +712,13 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get no_service_ads => 'Хизматга оид Эълонлар ва \nҳайдовчилар йўқ';
+
+  @override
+  String get delete => 'Ўчириш';
+
+  @override
+  String get confirm_delete_code => 'Ҳақиқатдан ҳам кодни ўчирмоқчимисиз?';
+
+  @override
+  String get confirm_save_referral_changes => 'Ҳақиқатдан ҳам реферал код тавсифидаги ўзгаришларни сақламоқчимисиз?';
 }

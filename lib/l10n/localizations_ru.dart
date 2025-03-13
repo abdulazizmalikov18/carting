@@ -712,4 +712,13 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get no_service_ads => 'Нет объявлений о сервисе и\nводителей';
+
+  @override
+  String get delete => 'Удалить';
+
+  @override
+  String get confirm_delete_code => 'Вы действительно хотите удалить код?';
+
+  @override
+  String get confirm_save_referral_changes => 'Вы уверены, что хотите сохранить изменения в описании реферального кода?';
 }

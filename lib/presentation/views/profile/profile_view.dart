@@ -366,7 +366,16 @@ class _ProfileViewState extends State<ProfileView> {
                         ),
                         actions: [
                           Row(
+                            spacing: 16,
                             children: [
+                              Expanded(
+                                child: WButton(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  text: AppLocalizations.of(context)!.no,
+                                ),
+                              ),
                               Expanded(
                                 child: WButton(
                                   onTap: () {
@@ -377,15 +386,6 @@ class _ProfileViewState extends State<ProfileView> {
                                   color: red,
                                 ),
                               ),
-                              const SizedBox(width: 16),
-                              Expanded(
-                                child: WButton(
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                  },
-                                  text: AppLocalizations.of(context)!.no,
-                                ),
-                              )
                             ],
                           )
                         ],
