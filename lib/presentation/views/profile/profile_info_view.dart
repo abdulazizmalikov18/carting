@@ -463,6 +463,9 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
             formatter: [Formatters.phoneFormatter],
             suffixIcon: AppIcons.edit.svg(color: context.color.iron),
             readOnly: true,
+            onPressed: () {
+              context.push(AppRouteName.editPhone, extra: false);
+            },
             onsuffixIconPressed: () {
               context.push(AppRouteName.editPhone, extra: false);
             },
@@ -506,6 +509,9 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
             readOnly: true,
             controller: controllerEmail,
             suffixIcon: AppIcons.edit.svg(color: context.color.iron),
+            onPressed: () {
+              context.push(AppRouteName.editPhone, extra: true);
+            },
             onsuffixIconPressed: () {
               context.push(AppRouteName.editPhone, extra: true);
             },

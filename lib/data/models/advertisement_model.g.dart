@@ -104,7 +104,7 @@ Details _$DetailsFromJson(Map<String, dynamic> json) => Details(
       transportSpecialistId: (json['transport_specialist_id'] as num?)?.toInt(),
       specialistFirstName: json['specialist_first_name'] as String?,
       specialistLastName: json['specialist_last_name'] as String?,
-      transportCount: (json['transport_count'] as num?)?.toInt(),
+      transportCount: json['transport_count'],
       area: json['area'] as String?,
       loadTypeId: json['load_type_id'],
       loadServiceId: json['load_service_id'],
@@ -173,9 +173,9 @@ Map<String, dynamic> _$CharacteristicsToJson(Characteristics instance) =>
     };
 
 Fuel _$FuelFromJson(Map<String, dynamic> json) => Fuel(
-      id: (json['id'] as num).toInt(),
-      type: json['type'] as String,
-      price: json['price'] as String,
+      id: (json['id'] as num?)?.toInt(),
+      type: json['type'] as String?,
+      price: json['price'] as String?,
     );
 
 Map<String, dynamic> _$FuelToJson(Fuel instance) => <String, dynamic>{
@@ -185,7 +185,7 @@ Map<String, dynamic> _$FuelToJson(Fuel instance) => <String, dynamic>{
     };
 
 LoadWeight _$LoadWeightFromJson(Map<String, dynamic> json) => LoadWeight(
-      amount: (json['amount'] as num?)?.toInt(),
+      amount: json['amount'],
       name: json['name'] as String?,
     );
 

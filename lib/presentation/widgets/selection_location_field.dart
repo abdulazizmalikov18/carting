@@ -7,8 +7,12 @@ import 'package:carting/presentation/views/common/map_point.dart';
 import 'package:flutter/material.dart';
 
 class SelectionLocationField extends StatefulWidget {
-  const SelectionLocationField(
-      {super.key, this.onTap1, this.onTap2, this.isOne = false});
+  const SelectionLocationField({
+    super.key,
+    this.onTap1,
+    this.onTap2,
+    this.isOne = false,
+  });
   final Function(MapPoint? point)? onTap1;
   final Function(MapPoint? point)? onTap2;
   final bool isOne;
@@ -53,11 +57,16 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
                       isFirst: true,
                       point1: point1,
                       point2: point2,
-                      onTap: (mapPoint) {
+                      onTap: (mapPoint1, mapPoint2) {
                         Navigator.pop(context);
-                        if (mapPoint != null) {
-                          point1 = mapPoint;
+                        if (mapPoint1 != null) {
+                          point1 = mapPoint1;
                           widget.onTap1!(point1);
+                          setState(() {});
+                        }
+                        if (mapPoint2 != null) {
+                          point2 = mapPoint2;
+                          widget.onTap2!(point2);
                           setState(() {});
                         }
                       },
@@ -109,10 +118,15 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
                         point1: point1,
                         point2: point2,
                         isOne: widget.isOne,
-                        onTap: (mapPoint) {
+                        onTap: (mapPoint1, mapPoint2) {
                           Navigator.pop(context);
-                          if (mapPoint != null) {
-                            point2 = mapPoint;
+                          if (mapPoint1 != null) {
+                            mapPoint1 = mapPoint1;
+                            widget.onTap1!(point1);
+                            setState(() {});
+                          }
+                          if (mapPoint2 != null) {
+                            point2 = mapPoint2;
                             widget.onTap2!(point2);
                             setState(() {});
                           }

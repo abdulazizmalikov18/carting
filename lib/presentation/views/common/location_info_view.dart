@@ -1,3 +1,4 @@
+import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,73 @@ class LocationInfoView extends StatefulWidget {
 
 class _LocationInfoViewState extends State<LocationInfoView> {
   late YandexMapController mapController;
+  late final List<MapObject> mapObjects = [];
+  final List<DrivingSessionResult> results = [];
+  late final DrivingSession session;
+
+  diriv() async {
+    var resultWithSession = await YandexDriving.requestRoutes(
+      points: [
+        RequestPoint(
+          point: Point(
+            latitude: widget.point1!.lat,
+            longitude: widget.point1!.lng,
+          ),
+          requestPointType: RequestPointType.wayPoint,
+        ),
+        RequestPoint(
+          point: Point(
+            latitude: widget.point2!.lat,
+            longitude: widget.point2!.lng,
+          ),
+          requestPointType: RequestPointType.wayPoint,
+        ),
+      ],
+      drivingOptions: const DrivingOptions(
+        routesCount: 1,
+        avoidTolls: true,
+        avoidUnpaved: true,
+      ),
+    );
+    session = resultWithSession.$1;
+    final data3 = await resultWithSession.$2;
+    await _handleResult(data3);
+  }
+
+  Future<void> _handleResult(DrivingSessionResult result) async {
+    if (result.error != null) {
+      return;
+    }
+
+    setState(() {
+      results.add(result);
+    });
+    setState(() {
+      result.routes!.asMap().forEach((i, route) {
+        mapObjects.add(PolylineMapObject(
+          mapId: MapObjectId('route_${i}_polyline'),
+          polyline: route.geometry,
+          strokeColor: green,
+          strokeWidth: 5,
+        ));
+      });
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (widget.point1 != null && widget.point2 != null) {
+      diriv();
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _close();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +158,7 @@ class _LocationInfoViewState extends State<LocationInfoView> {
                     ),
                   ),
                 ),
+              ...mapObjects,
             ],
           ),
           SafeArea(
@@ -112,5 +181,9 @@ class _LocationInfoViewState extends State<LocationInfoView> {
         ],
       ),
     );
+  }
+
+  Future<void> _close() async {
+    await session.close();
   }
 }

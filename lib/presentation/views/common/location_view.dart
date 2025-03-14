@@ -1,4 +1,8 @@
+import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/presentation/views/common/location_text_view.dart';
+import 'package:carting/presentation/widgets/custom_snackbar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
@@ -12,6 +16,8 @@ import 'package:carting/presentation/views/common/map_point.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/utils/log_service.dart';
 
+part 'package:carting/presentation/views/common/locotion_mixin.dart';
+
 class LocationView extends StatefulWidget {
   const LocationView({
     super.key,
@@ -21,7 +27,7 @@ class LocationView extends StatefulWidget {
     this.point2,
     required this.isFirst,
   });
-  final Function(MapPoint? point) onTap;
+  final Function(MapPoint? point1, MapPoint? point2) onTap;
   final bool isOne;
   final MapPoint? point1;
   final MapPoint? point2;
@@ -31,147 +37,7 @@ class LocationView extends StatefulWidget {
   State<LocationView> createState() => _LocationViewState();
 }
 
-class _LocationViewState extends State<LocationView> {
-  late TextEditingController controllerLat;
-  late TextEditingController controllerLong;
-  late YandexMapController mapController;
-  List<MapPoint> list = [];
-
-  CameraPosition? _userLocation;
-  CameraPosition? _position;
-
-  String _address = 'Manzil aniqlanmoqda...';
-
-  /// Значение текущего масштаба карты
-  var _mapZoom = 0.0;
-
-  @override
-  void initState() {
-    getMerk();
-    controllerLat = TextEditingController(
-      text: widget.point1?.name ?? "Manzilni tanlang",
-    );
-    controllerLong = TextEditingController(
-      text: widget.point2?.name ?? "Manzilni tanlang",
-    );
-
-    super.initState();
-    AndroidYandexMap.useAndroidViewSurface = true;
-    _initPermission().ignore();
-  }
-
-  getMerk() {
-    if (widget.point1 != null) {
-      Log.i('Kirdik');
-      list.add(widget.point1!);
-      setState(() {});
-    }
-  }
-
-  /// Метод, который включает слой местоположения пользователя на карте
-  /// Выполняется проверка на доступ к местоположению, в случае отсутствия
-  /// разрешения - выводит сообщение
-  Future<void> _initLocationLayer() async {
-    final locationPermissionIsGranted =
-        await Permission.location.request().isGranted;
-
-    if (locationPermissionIsGranted) {
-      await mapController.toggleUserLayer(visible: true);
-    } else {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Нет доступа к местоположению пользователя'),
-          ),
-        );
-      });
-    }
-  }
-
-  /// Метод для получения коллекции кластеризованных маркеров
-  ClusterizedPlacemarkCollection _getClusterizedCollection({
-    required List<PlacemarkMapObject> placemarks,
-  }) {
-    return ClusterizedPlacemarkCollection(
-      mapId: const MapObjectId('clusterized-1'),
-      placemarks: placemarks,
-      radius: 50,
-      minZoom: 15,
-      onClusterAdded: (self, cluster) async {
-        return cluster.copyWith(
-          appearance: cluster.appearance.copyWith(
-            opacity: 1.0,
-            icon: PlacemarkIcon.single(
-              PlacemarkIconStyle(
-                image: BitmapDescriptor.fromBytes(
-                  await ClusterIconPainter(cluster.size).getClusterIconBytes(),
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-      onClusterTap: (self, cluster) async {
-        await mapController.moveCamera(
-          animation:
-              const MapAnimation(type: MapAnimationType.linear, duration: 0.3),
-          CameraUpdate.newCameraPosition(
-            CameraPosition(
-              target: cluster.placemarks.first.point,
-              zoom: _mapZoom + 1,
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  /// Метод для генерации объектов маркеров для отображения на карте
-  List<PlacemarkMapObject> _getPlacemarkObjects(BuildContext context) {
-    return list
-        .map(
-          (point) => PlacemarkMapObject(
-            mapId: MapObjectId('MapObject $point'),
-            point: Point(latitude: point.latitude, longitude: point.longitude),
-            opacity: 1,
-            icon: PlacemarkIcon.single(
-              PlacemarkIconStyle(
-                image: BitmapDescriptor.fromAssetImage(
-                  'assets/images/location.png',
-                ),
-              ),
-            ),
-          ),
-        )
-        .toList();
-  }
-
-  Future<String> getPlaceMarkFromYandex(double lat, double lon) async {
-    try {
-      final resultWithSession = await YandexSearch.searchByPoint(
-        point: Point(latitude: lat, longitude: lon),
-        searchOptions: const SearchOptions(
-          searchType: SearchType.geo,
-          geometry: false,
-        ),
-      );
-
-      final results = await resultWithSession.$2;
-      if (results.items != null) {
-        if (results.items!.isNotEmpty) {
-          final address =
-              results.items!.first.toponymMetadata?.address.formattedAddress ??
-                  'Unknown location';
-          return address;
-        }
-      }
-      return 'No address found';
-    } catch (e) {
-      print('Error getting address: $e');
-      return 'Error getting address';
-    }
-  }
-
+class _LocationViewState extends State<LocationView> with LocotionMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -187,69 +53,206 @@ class _LocationViewState extends State<LocationView> {
             ),
           ],
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              height: 5,
-              width: 64,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                color: const Color(0xFFB7BFC6),
-              ),
-            ),
-            const SizedBox(height: 16),
-            // From Location
-            Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: 12,
-                horizontal: 16,
-              ),
-              decoration: BoxDecoration(
-                color: context.color.scaffoldBackground,
-                borderRadius: BorderRadius.circular(24),
-              ),
-              child: Column(
+        child: ValueListenableBuilder(
+          valueListenable: isMap,
+          builder: (context, _, __) {
+            if (isMap.value) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                spacing: 8,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (!widget.isOne) ...[
-                    TextField(
-                      controller: controllerLat,
-                      decoration: InputDecoration(
-                        labelText: AppLocalizations.of(context)!.from,
-                        hintText: AppLocalizations.of(context)!.from,
-                        border: InputBorder.none,
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          isMap.value = false;
+                        },
+                        icon: const Icon(Icons.arrow_back_rounded),
                       ),
-                    ),
-                    const Divider(height: 1),
-                    // To Location
-                  ],
-                  TextField(
-                    controller: controllerLong,
-                    decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)!.to,
-                      hintText: AppLocalizations.of(context)!.to,
-                      border: InputBorder.none,
+                      Text(
+                        isMapIndex.value == 1
+                            ? AppLocalizations.of(context)!.from
+                            : AppLocalizations.of(context)!.to,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Divider(height: 16),
+                  Text(
+                    isMapIndex.value == 1
+                        ? controllerLat.text
+                        : controllerLong.text,
+                  ),
+                  const Divider(height: 32),
+                  const SizedBox(height: 16),
+                  SafeArea(
+                    top: false,
+                    child: WButton(
+                      onTap: () {
+                        if (isMapIndex.value == 1) {
+                          point1 = MapPoint(
+                            name: _address,
+                            latitude: _position?.target.latitude ?? 0,
+                            longitude: _position?.target.longitude ?? 0,
+                          );
+                        } else {
+                          point2 = MapPoint(
+                            name: _address,
+                            latitude: _position?.target.latitude ?? 0,
+                            longitude: _position?.target.longitude ?? 0,
+                          );
+                        }
+                        isMap.value = false;
+                        setState(() {});
+                      },
+                      text: AppLocalizations.of(context)!.confirm,
                     ),
                   ),
                 ],
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            // Confirm button
-            SafeArea(
-              top: false,
-              child: WButton(
-                onTap: () {
-                  widget.onTap(MapPoint(
-                    name: _address,
-                    latitude: _position?.target.latitude ?? 0,
-                    longitude: _position?.target.longitude ?? 0,
-                  ));
-                },
-                text: AppLocalizations.of(context)!.confirm,
-              ),
-            ),
-          ],
+              );
+            }
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  height: 5,
+                  width: 64,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: const Color(0xFFB7BFC6),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                // From Location
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 12,
+                    horizontal: 16,
+                  ),
+                  decoration: BoxDecoration(
+                    color: context.color.scaffoldBackground,
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: Column(
+                    children: [
+                      if (!widget.isOne) ...[
+                        TextField(
+                          controller: controllerLat,
+                          readOnly: true,
+                          onTap: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(
+                              builder: (context) => LocationTextView(
+                                isOne: widget.isOne,
+                                isFirst: true,
+                                controllerLat: controllerLat,
+                                controllerLong: controllerLong,
+                                onTap: (point, isFirst) {
+                                  _moveToCurrentLocation(AppLatLong(
+                                    lat: point?.latitude ?? 0,
+                                    long: point?.longitude ?? 0,
+                                  ));
+                                  if (isFirst) {
+                                    point1 = MapPoint(
+                                      name: controllerLat.text,
+                                      latitude: point!.latitude,
+                                      longitude: point.longitude,
+                                    );
+                                  } else {
+                                    point2 = MapPoint(
+                                      name: controllerLong.text,
+                                      latitude: point!.latitude,
+                                      longitude: point.longitude,
+                                    );
+                                  }
+                                },
+                              ),
+                            ))
+                                .then((value) {
+                              if (value is int) {
+                                isMap.value = true;
+                                isMapIndex.value = value;
+                              }
+                            });
+                          },
+                          decoration: InputDecoration(
+                            labelText: AppLocalizations.of(context)!.from,
+                            hintText: AppLocalizations.of(context)!.from,
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            border: InputBorder.none,
+                          ),
+                        ),
+                        const Divider(height: 1),
+                        // To Location
+                      ],
+                      TextField(
+                        controller: controllerLong,
+                        readOnly: true,
+                        decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context)!.to,
+                          hintText: AppLocalizations.of(context)!.to,
+                          border: InputBorder.none,
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                        ),
+                        onTap: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(
+                            builder: (context) => LocationTextView(
+                              isOne: widget.isOne,
+                              isFirst: false,
+                              controllerLat: controllerLat,
+                              controllerLong: controllerLong,
+                              onTap: (point, isFirst) {
+                                _moveToCurrentLocation(AppLatLong(
+                                  lat: point?.latitude ?? 0,
+                                  long: point?.longitude ?? 0,
+                                ));
+                                if (isFirst) {
+                                  point1 = MapPoint(
+                                    name: controllerLat.text,
+                                    latitude: point!.latitude,
+                                    longitude: point.longitude,
+                                  );
+                                } else {
+                                  point2 = MapPoint(
+                                    name: controllerLong.text,
+                                    latitude: point!.latitude,
+                                    longitude: point.longitude,
+                                  );
+                                }
+                              },
+                            ),
+                          ))
+                              .then((value) {
+                            if (value is int) {
+                              Log.i(value);
+                              isMap.value = true;
+                              isMapIndex.value = value;
+                            }
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                // Confirm button
+                SafeArea(
+                  top: false,
+                  child: WButton(
+                    onTap: () {
+                      widget.onTap(point1, point2);
+                    },
+                    text: AppLocalizations.of(context)!.confirm,
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -267,39 +270,100 @@ class _LocationViewState extends State<LocationView> {
           YandexMap(
             onMapCreated: (controller) async {
               mapController = controller;
-              mapController.moveCamera(CameraUpdate.newCameraPosition(
-                CameraPosition(
-                  target: Point(
-                    latitude: const TashketnLoaction().lat,
-                    longitude: const TashketnLoaction().long,
-                  ),
-                ),
-              ));
-              await _initLocationLayer();
+              if (widget.point1 == null || widget.point2 == null) {
+                await _initLocationLayer();
+              } else {
+                if (widget.point1 != null) {
+                  mapController.moveCamera(CameraUpdate.newCameraPosition(
+                    CameraPosition(
+                      target: Point(
+                        latitude: widget.point1!.latitude,
+                        longitude: widget.point1!.longitude,
+                      ),
+                    ),
+                  ));
+                } else {
+                  mapController.moveCamera(CameraUpdate.newCameraPosition(
+                    CameraPosition(
+                      target: Point(
+                        latitude: widget.point2!.latitude,
+                        longitude: widget.point2!.longitude,
+                      ),
+                    ),
+                  ));
+                }
+              }
             },
             onCameraPositionChanged: (cameraPosition, reason, finished) async {
-              print("Map tapped at: $cameraPosition");
-              if (finished) {
-                _address = await getPlaceMarkFromYandex(
-                  cameraPosition.target.latitude,
-                  cameraPosition.target.longitude,
-                );
-                _position = cameraPosition;
-                if (widget.isFirst) {
-                  controllerLat.text = _address;
-                } else {
-                  controllerLong.text = _address;
+              if ((widget.point1 == null || widget.point2 == null) ||
+                  isMap.value) {
+                Log.i("message");
+                if (finished) {
+                  _address = await getPlaceMarkFromYandex(
+                    cameraPosition.target.latitude,
+                    cameraPosition.target.longitude,
+                  );
+                  _position = cameraPosition;
+                  if (widget.isFirst && isMapIndex.value == 1) {
+                    Log.i("message 1");
+                    controllerLat.text = _address;
+                    point1 = MapPoint(
+                      name: controllerLat.text,
+                      latitude: _position?.target.latitude ?? 0,
+                      longitude: _position?.target.longitude ?? 0,
+                    );
+                  } else {
+                    Log.i("message 2");
+                    controllerLong.text = _address;
+                    point2 = MapPoint(
+                      name: controllerLong.text,
+                      latitude: _position?.target.latitude ?? 0,
+                      longitude: _position?.target.longitude ?? 0,
+                    );
+                  }
                 }
-                print("Map tapped at: $_address");
+                setState(() {
+                  _mapZoom = cameraPosition.zoom;
+                });
               }
-              setState(() {
-                _mapZoom = cameraPosition.zoom;
-              });
             },
             mapObjects: [
               _getClusterizedCollection(
                 placemarks: _getPlacemarkObjects(context),
               ),
+              if (point1 != null)
+                PlacemarkMapObject(
+                  mapId: const MapObjectId('widget.point1!.lat'),
+                  point: Point(
+                    latitude: point1!.latitude,
+                    longitude: point1!.longitude,
+                  ),
+                  opacity: 1,
+                  icon: PlacemarkIcon.single(
+                    PlacemarkIconStyle(
+                      image: BitmapDescriptor.fromAssetImage(
+                        'assets/images/location.png',
+                      ),
+                    ),
+                  ),
+                ),
+              if (point2 != null)
+                PlacemarkMapObject(
+                  mapId: const MapObjectId('widget.point2!.lat'),
+                  point: Point(
+                    latitude: point2!.latitude,
+                    longitude: point2!.longitude,
+                  ),
+                  opacity: 1,
+                  icon: PlacemarkIcon.single(
+                    PlacemarkIconStyle(
+                      image: BitmapDescriptor.fromAssetImage(
+                        'assets/images/location.png',
+                      ),
+                    ),
+                  ),
+                ),
+              ...mapObjects,
             ],
             onUserLocationAdded: (view) async {
               // получаем местоположение пользователя
@@ -350,15 +414,17 @@ class _LocationViewState extends State<LocationView> {
             },
           ),
           // Location marker in the center
-          Center(
-            child: CircleAvatar(
-              backgroundColor: context.color.contColor,
-              child: Padding(
-                padding: const EdgeInsets.all(4),
-                child: AppIcons.mapPin.svg(),
+
+          if ((widget.point1 == null || widget.point2 == null) || isMap.value)
+            Center(
+              child: CircleAvatar(
+                backgroundColor: context.color.contColor,
+                child: Padding(
+                  padding: const EdgeInsets.all(4),
+                  child: AppIcons.mapPin.svg(),
+                ),
               ),
             ),
-          ),
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -390,44 +456,6 @@ class _LocationViewState extends State<LocationView> {
           //   ),
           // )
         ],
-      ),
-    );
-  }
-
-  /// Проверка разрешений на доступ к геопозиции пользователя
-  Future<void> _initPermission() async {
-    if (!await LocationService().checkPermission()) {
-      await LocationService().requestPermission();
-    }
-    await _fetchCurrentLocation();
-  }
-
-  /// Получение текущей геопозиции пользователя
-  Future<void> _fetchCurrentLocation() async {
-    AppLatLong location;
-    const defLocation = TashketnLoaction();
-    try {
-      location = await LocationService().getCurrentLocation();
-    } catch (_) {
-      location = defLocation;
-    }
-    _moveToCurrentLocation(location);
-  }
-
-  /// Метод для показа текущей позиции
-  Future<void> _moveToCurrentLocation(
-    AppLatLong appLatLong,
-  ) async {
-    mapController.moveCamera(
-      animation: const MapAnimation(type: MapAnimationType.linear, duration: 1),
-      CameraUpdate.newCameraPosition(
-        CameraPosition(
-          target: Point(
-            latitude: appLatLong.lat,
-            longitude: appLatLong.long,
-          ),
-          zoom: 15,
-        ),
       ),
     );
   }

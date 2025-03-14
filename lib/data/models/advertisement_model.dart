@@ -133,7 +133,7 @@ class Details {
   @JsonKey(name: "specialist_last_name")
   final String? specialistLastName;
   @JsonKey(name: "transport_count")
-  final int? transportCount;
+  final dynamic transportCount;
   @JsonKey(name: "area")
   final String? area;
   @JsonKey(name: "load_type_id")
@@ -233,16 +233,16 @@ class Characteristics {
 @JsonSerializable()
 class Fuel {
   @JsonKey(name: "id")
-  final int id;
+  final int? id;
   @JsonKey(name: "type")
-  final String type;
+  final String? type;
   @JsonKey(name: "price")
-  final String price;
+  final String? price;
 
   Fuel({
-    required this.id,
-    required this.type,
-    required this.price,
+    this.id,
+    this.type,
+    this.price,
   });
 
   factory Fuel.fromJson(Map<String, dynamic> json) => _$FuelFromJson(json);
@@ -253,7 +253,7 @@ class Fuel {
 @JsonSerializable()
 class LoadWeight {
   @JsonKey(name: "amount")
-  final int? amount;
+  final dynamic amount;
   @JsonKey(name: "name")
   final String? name;
 
