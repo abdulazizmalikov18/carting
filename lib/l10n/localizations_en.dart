@@ -721,4 +721,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get confirm_save_referral_changes => 'Are you sure you want to save changes to the referral code description?';
+
+  @override
+  String get send_time => 'Send Time';
+
+  @override
+  String get enter_info => 'Enter';
 }

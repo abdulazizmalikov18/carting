@@ -128,27 +128,99 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
                 ),
                 const SizedBox(height: 16),
                 // From Location
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 12,
-                    horizontal: 16,
-                  ),
-                  decoration: BoxDecoration(
-                    color: context.color.scaffoldBackground,
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                  child: Column(
-                    children: [
-                      if (!widget.isOne) ...[
+                Hero(
+                  tag: 'imageHero',
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12,
+                      horizontal: 16,
+                    ),
+                    decoration: BoxDecoration(
+                      color: context.color.scaffoldBackground,
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: Column(
+                      children: [
+                        if (!widget.isOne) ...[
+                          TextField(
+                            controller: controllerLat,
+                            readOnly: true,
+                            onTap: () {
+                              showModalBottomSheet(
+                                context: context,
+                                backgroundColor: context.color.contColor,
+                                isScrollControlled: true,
+                                constraints: BoxConstraints(
+                                  maxHeight:
+                                      MediaQuery.sizeOf(context).height * 0.9,
+                                ),
+                                builder: (context) => LocationTextView(
+                                  isOne: widget.isOne,
+                                  isFirst: true,
+                                  controllerLat: controllerLat,
+                                  controllerLong: controllerLong,
+                                  onTap: (point, isFirst) {
+                                    Log.wtf(isFirst);
+                                    _moveToCurrentLocation(AppLatLong(
+                                      lat: point?.latitude ?? 0,
+                                      long: point?.longitude ?? 0,
+                                    ));
+                                    Log.wtf(controllerLong.text);
+                                    if (isFirst) {
+                                      point1 = MapPoint(
+                                        name: controllerLat.text,
+                                        latitude: point!.latitude,
+                                        longitude: point.longitude,
+                                      );
+                                    } else {
+                                      point2 = MapPoint(
+                                        name: controllerLong.text,
+                                        latitude: point!.latitude,
+                                        longitude: point.longitude,
+                                      );
+                                    }
+                                    setState(() {});
+                                  },
+                                ),
+                              ).then((value) {
+                                if (value is int) {
+                                  isMap.value = true;
+                                  isMapIndex.value = value;
+                                }
+                              });
+                            },
+                            decoration: InputDecoration(
+                              labelText: AppLocalizations.of(context)!.from,
+                              hintText: AppLocalizations.of(context)!.from,
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
+                              border: InputBorder.none,
+                            ),
+                          ),
+                          const Divider(height: 1),
+                          // To Location
+                        ],
                         TextField(
-                          controller: controllerLat,
+                          controller: controllerLong,
                           readOnly: true,
+                          decoration: InputDecoration(
+                            labelText: AppLocalizations.of(context)!.to,
+                            hintText: AppLocalizations.of(context)!.to,
+                            border: InputBorder.none,
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                          ),
                           onTap: () {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(
+                            showModalBottomSheet(
+                              context: context,
+                              backgroundColor: context.color.contColor,
+                              isScrollControlled: true,
+                              constraints: BoxConstraints(
+                                maxHeight:
+                                    MediaQuery.sizeOf(context).height * 0.9,
+                              ),
                               builder: (context) => LocationTextView(
                                 isOne: widget.isOne,
-                                isFirst: true,
+                                isFirst: false,
                                 controllerLat: controllerLat,
                                 controllerLong: controllerLong,
                                 onTap: (point, isFirst) {
@@ -169,74 +241,20 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
                                       longitude: point.longitude,
                                     );
                                   }
+                                  setState(() {});
                                 },
                               ),
-                            ))
-                                .then((value) {
+                            ).then((value) {
                               if (value is int) {
+                                Log.i(value);
                                 isMap.value = true;
                                 isMapIndex.value = value;
                               }
                             });
                           },
-                          decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context)!.from,
-                            hintText: AppLocalizations.of(context)!.from,
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            border: InputBorder.none,
-                          ),
                         ),
-                        const Divider(height: 1),
-                        // To Location
                       ],
-                      TextField(
-                        controller: controllerLong,
-                        readOnly: true,
-                        decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context)!.to,
-                          hintText: AppLocalizations.of(context)!.to,
-                          border: InputBorder.none,
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                        ),
-                        onTap: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(
-                            builder: (context) => LocationTextView(
-                              isOne: widget.isOne,
-                              isFirst: false,
-                              controllerLat: controllerLat,
-                              controllerLong: controllerLong,
-                              onTap: (point, isFirst) {
-                                _moveToCurrentLocation(AppLatLong(
-                                  lat: point?.latitude ?? 0,
-                                  long: point?.longitude ?? 0,
-                                ));
-                                if (isFirst) {
-                                  point1 = MapPoint(
-                                    name: controllerLat.text,
-                                    latitude: point!.latitude,
-                                    longitude: point.longitude,
-                                  );
-                                } else {
-                                  point2 = MapPoint(
-                                    name: controllerLong.text,
-                                    latitude: point!.latitude,
-                                    longitude: point.longitude,
-                                  );
-                                }
-                              },
-                            ),
-                          ))
-                              .then((value) {
-                            if (value is int) {
-                              Log.i(value);
-                              isMap.value = true;
-                              isMapIndex.value = value;
-                            }
-                          });
-                        },
-                      ),
-                    ],
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16.0),

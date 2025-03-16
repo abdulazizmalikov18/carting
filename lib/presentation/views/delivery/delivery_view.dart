@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/presentation/widgets/w_time.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -32,6 +33,7 @@ class DeliveryView extends StatefulWidget {
 class _DeliveryViewState extends State<DeliveryView> {
   List<File> images = [];
   late TextEditingController controller;
+  late TextEditingController controllerTime;
   late TextEditingController controllerCount;
   late TextEditingController controllerCommet;
   late TextEditingController controllerPrice;
@@ -42,9 +44,11 @@ class _DeliveryViewState extends State<DeliveryView> {
   ValueNotifier<int> trTypeId = ValueNotifier(0);
   ValueNotifier<int> loadTypeId = ValueNotifier(1);
   ValueNotifier<int> loadServiceId = ValueNotifier(1);
+  DateTime selectedDate = DateTime.now();
   @override
   void initState() {
     controller = TextEditingController();
+    controllerTime = TextEditingController();
     controllerCommet = TextEditingController();
     controllerPrice = TextEditingController();
     controllerCount = TextEditingController();
@@ -53,6 +57,7 @@ class _DeliveryViewState extends State<DeliveryView> {
 
   @override
   void dispose() {
+    controllerTime.dispose();
     controller.dispose();
     controllerCommet.dispose();
     controllerPrice.dispose();
@@ -239,34 +244,104 @@ class _DeliveryViewState extends State<DeliveryView> {
               onChanged: (value) {},
             ),
             const SizedBox(height: 8),
-            MinTextField(
-              text: AppLocalizations.of(context)!.departureDate,
-              hintText: "",
-              keyboardType: TextInputType.datetime,
-              controller: controller,
-              readOnly: true,
-              formatter: [Formatters.dateFormatter],
-              prefixIcon: GestureDetector(
-                onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
-                    builder: (context) => const WClaendar(),
-                  ).then(
-                    (value) {
-                      if (value != null) {
-                        controller.text = MyFunction.dateFormat(value);
-                      }
+            Row(
+              spacing: 16,
+              children: [
+                Expanded(
+                  child: MinTextField(
+                    text: AppLocalizations.of(context)!.departureDate,
+                    hintText: "",
+                    keyboardType: TextInputType.datetime,
+                    controller: controller,
+                    readOnly: true,
+                    formatter: [Formatters.dateFormatter],
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (context) => WClaendar(
+                          selectedDate: selectedDate,
+                        ),
+                      ).then((value) {
+                        if (value != null) {
+                          selectedDate = value;
+                          controller.text = MyFunction.dateFormat(value);
+                        }
+                      });
                     },
-                  );
-                },
-                child: AppIcons.calendar.svg(
-                  height: 24,
-                  width: 24,
+                    prefixIcon: GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          builder: (context) => WClaendar(
+                            selectedDate: selectedDate,
+                          ),
+                        ).then((value) {
+                          if (value != null) {
+                            selectedDate = value;
+                            controller.text = MyFunction.dateFormat(value);
+                          }
+                        });
+                      },
+                      child: AppIcons.calendar.svg(
+                        height: 24,
+                        width: 24,
+                      ),
+                    ),
+                    onChanged: (value) {},
+                  ),
                 ),
-              ),
-              onChanged: (value) {},
+                Expanded(
+                  child: MinTextField(
+                    text: AppLocalizations.of(context)!.send_time,
+                    hintText: "",
+                    keyboardType: TextInputType.datetime,
+                    controller: controllerTime,
+                    readOnly: true,
+                    formatter: [Formatters.dateFormatter],
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (context) => WTime(
+                          selectedDate: selectedDate,
+                        ),
+                      ).then((value) {
+                        if (value != null) {
+                          selectedDate = value;
+                          controllerTime.text = MyFunction.dateFormat(value);
+                        }
+                      });
+                    },
+                    prefixIcon: GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          builder: (context) => WTime(
+                            selectedDate: selectedDate,
+                          ),
+                        ).then((value) {
+                          if (value != null) {
+                            selectedDate = value;
+                            controllerTime.text = MyFunction.dateFormat(value);
+                          }
+                        });
+                      },
+                      child: AppIcons.clock.svg(
+                        height: 24,
+                        width: 24,
+                      ),
+                    ),
+                    onChanged: (value) {},
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 8),
             DecoratedBox(

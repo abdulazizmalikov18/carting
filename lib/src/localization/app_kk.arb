@@ -177,7 +177,7 @@
   "peregonService": "Перегон хизмати",
   "shipping": "Юк ташиш",
   "fuelDelivery": "Ёқилғи етказиб бериш",
-  "passengerTransport": "Йўловчиларни ташиш",
+  "passengerTransport": "Йўловчи ташиш",
   "carRental": "Транспорт ижараси",
   "specialTechServices": "Махсус техника хизматлари",
   "autoRepair": "Авто таъмирлаш",
@@ -236,6 +236,7 @@
   "no_service_ads": "Хизматга оид Эълонлар ва \nҳайдовчилар йўқ",
   "delete": "Ўчириш",
   "confirm_delete_code": "Ҳақиқатдан ҳам кодни ўчирмоқчимисиз?",
-  "confirm_save_referral_changes": "Ҳақиқатдан ҳам реферал код тавсифидаги ўзгаришларни сақламоқчимисиз?"
-
+  "confirm_save_referral_changes": "Ҳақиқатдан ҳам реферал код тавсифидаги ўзгаришларни сақламоқчимисиз?",
+  "send_time": "Жўнатиш вақти",
+  "enter_info": "Киритинг"
 }

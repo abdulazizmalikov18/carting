@@ -721,4 +721,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get confirm_save_referral_changes => 'Вы уверены, что хотите сохранить изменения в описании реферального кода?';
+
+  @override
+  String get send_time => 'Время отправки';
+
+  @override
+  String get enter_info => 'Введите';
 }

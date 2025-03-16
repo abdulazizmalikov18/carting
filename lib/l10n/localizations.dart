@@ -1526,6 +1526,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to save changes to the referral code description?'**
   String get confirm_save_referral_changes;
+
+  /// No description provided for @send_time.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Time'**
+  String get send_time;
+
+  /// No description provided for @enter_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter'**
+  String get enter_info;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

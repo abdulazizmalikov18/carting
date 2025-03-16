@@ -262,6 +262,7 @@ mixin LocotionMixin on State<LocationView> {
   }
 
   Future<void> _close() async {
+    mapController.dispose();
     await session.close();
   }
 }

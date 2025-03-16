@@ -721,4 +721,10 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get confirm_save_referral_changes => 'Haqiqatdan ham referal kod tavsifidagi o‘zgarishlarni saqlamoqchimisiz?';
+
+  @override
+  String get send_time => 'Jo‘natish vaqti';
+
+  @override
+  String get enter_info => 'Kiriting';
 }

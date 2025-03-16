@@ -43,18 +43,29 @@ class _LocationTextViewState extends State<LocationTextView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: [
-          Container(
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const SizedBox(height: 12),
+        Container(
+          height: 5,
+          width: 64,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100),
+            color: const Color(0xFFB7BFC6),
+          ),
+        ),
+        const SizedBox(height: 4),
+        Hero(
+        tag: 'imageHero',
+          child: Container(
             padding: const EdgeInsets.symmetric(
               vertical: 12,
               horizontal: 16,
             ),
             margin: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: context.color.contColor,
+              color: context.color.scaffoldBackground,
               borderRadius: BorderRadius.circular(24),
             ),
             child: Column(
@@ -102,7 +113,7 @@ class _LocationTextViewState extends State<LocationTextView> {
                       });
                     },
                   ),
-
+          
                   const Divider(height: 1),
                   // To Location
                 ],
@@ -151,15 +162,15 @@ class _LocationTextViewState extends State<LocationTextView> {
               ],
             ),
           ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: _getList(),
-              ),
+        ),
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              children: _getList(),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -205,6 +216,11 @@ class _LocationTextViewState extends State<LocationTextView> {
           title: Text(item.title),
           subtitle: Text(item.subtitle ?? "Nomalum"),
           onTap: () {
+            if (isFirst) {
+              widget.controllerLat.text = item.title;
+            } else {
+              widget.controllerLong.text = item.title;
+            }
             widget.onTap(item.center, isFirst);
             Navigator.of(context).pop();
           },

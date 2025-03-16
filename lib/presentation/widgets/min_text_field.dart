@@ -20,6 +20,7 @@ class MinTextField extends StatelessWidget {
     this.formatter,
     this.keyboardType = TextInputType.text,
     this.readOnly = false,
+    this.onPressed,
   });
   final String text;
   final String hintText;
@@ -34,6 +35,7 @@ class MinTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final void Function()? onsuffixIconPressed;
   final void Function()? onprefixIconPressed;
+  final void Function()? onPressed;
   final bool readOnly;
 
   @override
@@ -70,6 +72,7 @@ class MinTextField extends StatelessWidget {
                   readOnly: readOnly,
                   inputFormatters: formatter,
                   keyboardType: keyboardType,
+                  onTap: onPressed,
                   decoration: InputDecoration(
                     prefix: prefix,
                     suffixStyle: const TextStyle(color: darkText),

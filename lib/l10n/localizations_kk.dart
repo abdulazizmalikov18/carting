@@ -543,7 +543,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get fuelDelivery => 'Ёқилғи етказиб бериш';
 
   @override
-  String get passengerTransport => 'Йўловчиларни ташиш';
+  String get passengerTransport => 'Йўловчи ташиш';
 
   @override
   String get carRental => 'Транспорт ижараси';
@@ -721,4 +721,10 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get confirm_save_referral_changes => 'Ҳақиқатдан ҳам реферал код тавсифидаги ўзгаришларни сақламоқчимисиз?';
+
+  @override
+  String get send_time => 'Жўнатиш вақти';
+
+  @override
+  String get enter_info => 'Киритинг';
 }

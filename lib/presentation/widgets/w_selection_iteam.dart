@@ -50,14 +50,16 @@ class _WSelectionItamState extends State<WSelectionItam> {
                 ),
                 child: ListTile(
                   onTap: onTap,
-                  title: Text(state.transportationTypes[selIndex].name),
+                  title: Text(
+                    state.transportationTypes[selIndex].name,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: context.color.darkText,
+                    ),
+                  ),
                   subtitle: Text(state.transportationTypes[selIndex].volume),
                   minVerticalPadding: 0,
-                  titleTextStyle: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: context.color.darkText,
-                  ),
                   subtitleTextStyle: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,

@@ -6,6 +6,7 @@ class AppIcons {
   static const checkboxRadioA = "assets/icons/checkbox_radio_a.svg";
   static const checkboxRadioD = "assets/icons/checkbox_radio_d.svg";
   static const add = "assets/icons/add.svg";
+  static const clock = "assets/icons/clock.svg";
   static const noResult = "assets/icons/no_result.svg";
   static const noConnection = "assets/icons/no_connection.svg";
   static const emptyFile = "assets/icons/empty_file.svg";

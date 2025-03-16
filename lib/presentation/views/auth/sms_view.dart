@@ -126,6 +126,7 @@ class _SmsViewState extends State<SmsView> {
                 textDirection: TextDirection.ltr,
                 child: Pinput(
                   controller: controller,
+                  autofocus: true,
                   separatorBuilder: (index) => const SizedBox(width: 8),
                   defaultPinTheme: PinTheme(
                     height: 56,

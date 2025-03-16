@@ -64,10 +64,10 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
     super.didChangeDependencies();
     list = [
       TypeOfService(
-        icon: AppIcons.delivery.svg(height: 40, width: 40),
-        text: AppLocalizations.of(context)!.delivery,
-        screen: const DeliveryView(),
-        serviceId: 9,
+        icon: AppIcons.shipping.svg(height: 40, width: 40),
+        text: AppLocalizations.of(context)!.shipping,
+        screen: const ShippingCreateView(),
+        serviceId: 1,
       ),
       TypeOfService(
         icon: AppIcons.transportRental.svg(height: 40, width: 40),
@@ -76,10 +76,10 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
         serviceId: 10,
       ),
       TypeOfService(
-        icon: AppIcons.shipping.svg(height: 40, width: 40),
-        text: AppLocalizations.of(context)!.shipping,
-        screen: const ShippingCreateView(),
-        serviceId: 1,
+        icon: AppIcons.delivery.svg(height: 40, width: 40),
+        text: AppLocalizations.of(context)!.delivery,
+        screen: const DeliveryView(),
+        serviceId: 9,
       ),
       TypeOfService(
         icon: AppIcons.fuelDeliver.svg(),

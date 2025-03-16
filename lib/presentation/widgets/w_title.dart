@@ -16,6 +16,7 @@ class WTitle extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         color: color ?? context.color.contColor,
+        border: Border.all(color: context.color.contGrey),
       ),
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),

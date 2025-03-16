@@ -35,6 +35,28 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
         children: [
           if (widget.onTap1 != null)
             ListTile(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => LocationView(
+                    isFirst: true,
+                    point1: point1,
+                    point2: point2,
+                    onTap: (mapPoint1, mapPoint2) {
+                      Navigator.pop(context);
+                      if (mapPoint1 != null) {
+                        point1 = mapPoint1;
+                        widget.onTap1!(point1);
+                        setState(() {});
+                      }
+                      if (mapPoint2 != null) {
+                        point2 = mapPoint2;
+                        widget.onTap2!(point2);
+                        setState(() {});
+                      }
+                    },
+                  ),
+                ));
+              },
               title: Text(
                 AppLocalizations.of(context)!.from,
                 style: TextStyle(
@@ -45,45 +67,22 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
               ),
               subtitle: Text(
                 point1?.name ?? "Manzilni tanlang",
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
+                  color: point1?.name == null ? context.color.darkText : null,
                 ),
               ),
-              trailing: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => LocationView(
-                      isFirst: true,
-                      point1: point1,
-                      point2: point2,
-                      onTap: (mapPoint1, mapPoint2) {
-                        Navigator.pop(context);
-                        if (mapPoint1 != null) {
-                          point1 = mapPoint1;
-                          widget.onTap1!(point1);
-                          setState(() {});
-                        }
-                        if (mapPoint2 != null) {
-                          point2 = mapPoint2;
-                          widget.onTap2!(point2);
-                          setState(() {});
-                        }
-                      },
-                    ),
-                  ));
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: green,
-                  ),
-                  padding: const EdgeInsets.all(8),
-                  child: AppIcons.location.svg(
-                    height: 24,
-                    width: 24,
-                    color: white,
-                  ),
+              trailing: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: green,
+                ),
+                padding: const EdgeInsets.all(8),
+                child: AppIcons.location.svg(
+                  height: 24,
+                  width: 24,
+                  color: white,
                 ),
               ),
             ),
@@ -94,6 +93,31 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
             ),
           if (widget.onTap2 != null)
             ListTile(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => LocationView(
+                      isFirst: false,
+                      point1: point1,
+                      point2: point2,
+                      isOne: widget.isOne,
+                      onTap: (mapPoint1, mapPoint2) {
+                        Navigator.pop(context);
+                        if (mapPoint1 != null) {
+                          mapPoint1 = mapPoint1;
+                          widget.onTap1!(point1);
+                          setState(() {});
+                        }
+                        if (mapPoint2 != null) {
+                          point2 = mapPoint2;
+                          widget.onTap2!(point2);
+                          setState(() {});
+                        }
+                      },
+                    ),
+                  ),
+                );
+              },
               title: Text(
                 AppLocalizations.of(context)!.to,
                 style: TextStyle(
@@ -104,48 +128,22 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
               ),
               subtitle: Text(
                 point2?.name ?? "Manzilni tanlang",
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
+                  color: point2?.name == null ? context.color.darkText : null,
                 ),
               ),
-              trailing: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => LocationView(
-                        isFirst: false,
-                        point1: point1,
-                        point2: point2,
-                        isOne: widget.isOne,
-                        onTap: (mapPoint1, mapPoint2) {
-                          Navigator.pop(context);
-                          if (mapPoint1 != null) {
-                            mapPoint1 = mapPoint1;
-                            widget.onTap1!(point1);
-                            setState(() {});
-                          }
-                          if (mapPoint2 != null) {
-                            point2 = mapPoint2;
-                            widget.onTap2!(point2);
-                            setState(() {});
-                          }
-                        },
-                      ),
-                    ),
-                  );
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: green,
-                  ),
-                  padding: const EdgeInsets.all(8),
-                  child: AppIcons.location.svg(
-                    height: 24,
-                    width: 24,
-                    color: white,
-                  ),
+              trailing: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: green,
+                ),
+                padding: const EdgeInsets.all(8),
+                child: AppIcons.location.svg(
+                  height: 24,
+                  width: 24,
+                  color: white,
                 ),
               ),
             ),
