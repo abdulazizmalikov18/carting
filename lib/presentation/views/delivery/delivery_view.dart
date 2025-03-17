@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/presentation/widgets/succes_dialog.dart';
 import 'package:carting/presentation/widgets/w_time.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -134,7 +135,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                         Navigator.of(context).pop();
                       },
                       onSucces: (id) {
-                        Navigator.pop(context);
+                        succesCreate(context);
                       },
                     ));
               },
@@ -245,7 +246,7 @@ class _DeliveryViewState extends State<DeliveryView> {
             ),
             const SizedBox(height: 8),
             Row(
-              spacing: 16,
+              spacing: 8,
               children: [
                 Expanded(
                   child: MinTextField(
@@ -313,7 +314,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                       ).then((value) {
                         if (value != null) {
                           selectedDate = value;
-                          controllerTime.text = MyFunction.dateFormat(value);
+                          controllerTime.text = MyFunction.formattedTime(value);
                         }
                       });
                     },
@@ -329,7 +330,8 @@ class _DeliveryViewState extends State<DeliveryView> {
                         ).then((value) {
                           if (value != null) {
                             selectedDate = value;
-                            controllerTime.text = MyFunction.dateFormat(value);
+                            controllerTime.text =
+                                MyFunction.formattedTime(value);
                           }
                         });
                       },

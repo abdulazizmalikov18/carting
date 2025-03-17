@@ -33,12 +33,31 @@ class LocationTextView extends StatefulWidget {
 class _LocationTextViewState extends State<LocationTextView> {
   final List<SuggestSessionResult> results = [];
   bool isFirst = false;
+  late FocusNode focusNodeFrom;
+  late FocusNode focusNodeTo;
 
   @override
   void initState() {
     super.initState();
     isFirst = widget.isFirst;
     setState(() {});
+    focusNodeFrom = FocusNode();
+    focusNodeTo = FocusNode();
+
+    focusNodeFrom.addListener(() {
+      setState(() {});
+    });
+
+    focusNodeTo.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    focusNodeFrom.dispose();
+    focusNodeTo.dispose();
+    super.dispose();
   }
 
   @override
@@ -57,7 +76,7 @@ class _LocationTextViewState extends State<LocationTextView> {
         ),
         const SizedBox(height: 4),
         Hero(
-        tag: 'imageHero',
+          tag: 'imageHero',
           child: Container(
             padding: const EdgeInsets.symmetric(
               vertical: 12,
@@ -74,37 +93,41 @@ class _LocationTextViewState extends State<LocationTextView> {
                   TextField(
                     controller: widget.controllerLat,
                     autofocus: isFirst,
+                    focusNode: focusNodeFrom,
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context)!.from,
                       hintText: AppLocalizations.of(context)!.from,
                       border: InputBorder.none,
                       floatingLabelBehavior: FloatingLabelBehavior.always,
-                      suffixIcon: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (widget.controllerLat.text.isNotEmpty)
-                            IconButton(
-                              onPressed: () {
-                                widget.controllerLat.clear();
-                                setState(() {});
-                              },
-                              icon: const Icon(CupertinoIcons.clear),
-                            ),
-                          WButton(
-                            height: 28,
-                            textStyle: TextStyle(
-                              fontSize: 12,
-                              color: context.color.white,
-                            ),
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            color: context.color.grey,
-                            onTap: () {
-                              Navigator.of(context).pop(1);
-                            },
-                            text: 'Mapdan',
-                          ),
-                        ],
-                      ),
+                      suffixIcon: focusNodeFrom.hasFocus
+                          ? Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                if (widget.controllerLat.text.isNotEmpty)
+                                  IconButton(
+                                    onPressed: () {
+                                      widget.controllerLat.clear();
+                                      setState(() {});
+                                    },
+                                    icon: const Icon(CupertinoIcons.clear),
+                                  ),
+                                WButton(
+                                  height: 28,
+                                  textStyle: TextStyle(
+                                    fontSize: 12,
+                                    color: context.color.white,
+                                  ),
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 8),
+                                  color: context.color.grey,
+                                  onTap: () {
+                                    Navigator.of(context).pop(1);
+                                  },
+                                  text: AppLocalizations.of(context)!.mapdan,
+                                ),
+                              ],
+                            )
+                          : null,
                     ),
                     onChanged: (value) {
                       isFirst = true;
@@ -113,44 +136,48 @@ class _LocationTextViewState extends State<LocationTextView> {
                       });
                     },
                   ),
-          
+
                   const Divider(height: 1),
                   // To Location
                 ],
                 TextField(
                   controller: widget.controllerLong,
                   autofocus: !isFirst,
+                  focusNode: focusNodeTo,
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.to,
                     hintText: AppLocalizations.of(context)!.to,
                     border: InputBorder.none,
                     floatingLabelBehavior: FloatingLabelBehavior.always,
-                    suffixIcon: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (widget.controllerLong.text.isNotEmpty)
-                          IconButton(
-                            onPressed: () {
-                              widget.controllerLong.clear();
-                              setState(() {});
-                            },
-                            icon: const Icon(CupertinoIcons.clear),
-                          ),
-                        WButton(
-                          height: 28,
-                          textStyle: TextStyle(
-                            fontSize: 12,
-                            color: context.color.white,
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          color: context.color.grey,
-                          onTap: () {
-                            Navigator.of(context).pop(2);
-                          },
-                          text: 'Mapdan',
-                        ),
-                      ],
-                    ),
+                    suffixIcon: focusNodeTo.hasFocus
+                        ? Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (widget.controllerLong.text.isNotEmpty)
+                                IconButton(
+                                  onPressed: () {
+                                    widget.controllerLong.clear();
+                                    setState(() {});
+                                  },
+                                  icon: const Icon(CupertinoIcons.clear),
+                                ),
+                              WButton(
+                                height: 28,
+                                textStyle: TextStyle(
+                                  fontSize: 12,
+                                  color: context.color.white,
+                                ),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8),
+                                color: context.color.grey,
+                                onTap: () {
+                                  Navigator.of(context).pop(2);
+                                },
+                                text: AppLocalizations.of(context)!.mapdan,
+                              ),
+                            ],
+                          )
+                        : null,
                   ),
                   onChanged: (value) {
                     isFirst = false;
@@ -180,13 +207,16 @@ class _LocationTextViewState extends State<LocationTextView> {
     final resultWithSession = await YandexSuggest.getSuggestions(
       text: value,
       boundingBox: const BoundingBox(
-        northEast: Point(latitude: 56.0421, longitude: 38.0284),
-        southWest: Point(latitude: 55.5143, longitude: 37.24841),
+        northEast: Point(latitude: 55.0, longitude: 87.0),
+        southWest: Point(latitude: 35.0, longitude: 55.0),
       ),
       suggestOptions: const SuggestOptions(
-        suggestType: SuggestType.geo,
+        suggestType: SuggestType.unspecified,
         suggestWords: true,
-        userPosition: Point(latitude: 56.0321, longitude: 38),
+        userPosition: Point(
+          latitude: 45.0,
+          longitude: 70.0,
+        ),
       ),
     );
     await _handleResult(await resultWithSession.$2);
@@ -207,7 +237,7 @@ class _LocationTextViewState extends State<LocationTextView> {
     final list = <Widget>[];
 
     if (results.isEmpty) {
-      list.add((const Text('Nothing found')));
+      list.add((Text(AppLocalizations.of(context)!.nothing_found)));
     }
 
     for (var r in results) {

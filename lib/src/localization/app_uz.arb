@@ -239,5 +239,7 @@
   "confirm_delete_code": "Haqiqatdan ham kodni o‘chirmoqchimisiz?",
   "confirm_save_referral_changes": "Haqiqatdan ham referal kod tavsifidagi o‘zgarishlarni saqlamoqchimisiz?",
   "send_time": "Jo‘natish vaqti",
-  "enter_info": "Kiriting"
+  "enter_info": "Kiriting",
+  "nothing_found":"Hech narsa topilmadi",
+  "mapdan":"Xaritadan"
 }

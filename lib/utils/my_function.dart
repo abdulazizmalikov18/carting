@@ -176,4 +176,8 @@ class MyFunction {
   static String dateFormat(DateTime date) {
     return DateFormat('dd.MM.yyyy').format(date);
   }
+
+  static String formattedTime(DateTime date) {
+    return DateFormat('HH:mm').format(date);
+  }
 }

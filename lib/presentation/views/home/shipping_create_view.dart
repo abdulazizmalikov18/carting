@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/presentation/widgets/succes_dialog.dart';
 import 'package:carting/presentation/widgets/w_time.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +9,6 @@ import 'package:formz/formz.dart';
 
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/assets/assets/icons.dart';
-import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/data/models/delivery_create_model.dart';
 import 'package:carting/data/models/location_model.dart';
 import 'package:carting/l10n/localizations.dart';
@@ -130,7 +130,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
                         Navigator.of(context).pop();
                       },
                       onSucces: (id) {
-                        Navigator.pop(context);
+                        succesCreate(context);
                       },
                     ));
               },
@@ -154,94 +154,108 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
               },
             ),
             const SizedBox(height: 8),
-            MinTextField(
-              text: AppLocalizations.of(context)!.loadWeight,
-              hintText: "0",
-              keyboardType: TextInputType.number,
-              controller: controllerCount,
-              formatter: [Formatters.numberFormat],
-              suffixIcon: Builder(
-                builder: (context) => GestureDetector(
-                  onTap: () async {
-                    final RenderBox button =
-                        context.findRenderObject() as RenderBox;
-                    final RenderBox overlay = Overlay.of(context)
-                        .context
-                        .findRenderObject() as RenderBox;
-
-                    final RelativeRect position = RelativeRect.fromRect(
-                      Rect.fromPoints(
-                        button.localToGlobal(Offset(0, button.size.height),
-                            ancestor: overlay),
-                        button.localToGlobal(
-                            button.size.bottomRight(Offset.zero),
-                            ancestor: overlay),
-                      ),
-                      Offset.zero & overlay.size,
-                    );
-
-                    String? selected = await showMenu<String>(
-                      context: context,
-                      position: position,
-                      color: white,
-                      shadowColor: black.withValues(alpha: .3),
-                      // menuPadding: const EdgeInsets.symmetric(vertical: 4),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      items: ['kg', 'm³', 'litr'].map(
-                        (String choice) {
-                          return PopupMenuItem<String>(
-                            value: choice,
-                            height: 40,
-                            child: SizedBox(
-                              width: 140,
-                              child: Row(
-                                children: [
-                                  Text(choice),
-                                  const Spacer(),
-                                  SizedBox(
-                                    height: 20,
-                                    width: 20,
-                                    child: choice == selectedUnit
-                                        ? AppIcons.checkboxRadio.svg(
-                                            height: 20,
-                                            width: 20,
-                                          )
-                                        : AppIcons.checkboxRadioDis.svg(
-                                            height: 20,
-                                            width: 20,
-                                          ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ).toList(),
-                    );
-
-                    if (selected != null) {
-                      setState(() {
-                        selectedUnit = selected;
-                      });
-                    }
-                  },
-                  child: Row(
-                    children: [
-                      Text(selectedUnit),
-                      AppIcons.arrowBottom.svg(
-                        color: context.color.iron,
-                      ),
-                    ],
-                  ),
-                ),
+            Container(
+              decoration: BoxDecoration(
+                color: context.color.contColor,
+                borderRadius: BorderRadius.circular(24),
               ),
-              onChanged: (value) {},
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 4,
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.loadWeight,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: context.color.darkText,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 24,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Row(
+                            spacing: 4,
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  controller: controllerCount,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    isDense: true,
+                                    contentPadding: EdgeInsets.zero,
+                                    border: InputBorder.none,
+                                    hintText: '0',
+                                    hintStyle: TextStyle(
+                                        color: context.color.darkText),
+                                  ),
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ),
+                              const Text('kg'),
+                            ],
+                          ),
+                        ),
+                        const VerticalDivider(width: 24),
+                        Expanded(
+                          child: Row(
+                            spacing: 4,
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  controller: controllerCount,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    isDense: true,
+                                    contentPadding: EdgeInsets.zero,
+                                    border: InputBorder.none,
+                                    hintText: '0',
+                                    hintStyle: TextStyle(
+                                        color: context.color.darkText),
+                                  ),
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ),
+                              const Text('m3')
+                            ],
+                          ),
+                        ),
+                        const VerticalDivider(width: 24),
+                        Expanded(
+                          child: Row(
+                            spacing: 4,
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  controller: controllerCount,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    isDense: true,
+                                    contentPadding: EdgeInsets.zero,
+                                    border: InputBorder.none,
+                                    hintText: '0',
+                                    hintStyle: TextStyle(
+                                        color: context.color.darkText),
+                                  ),
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ),
+                              const Text('litr')
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
             const SizedBox(height: 8),
             Row(
-              spacing: 16,
+              spacing: 8,
               children: [
                 Expanded(
                   child: MinTextField(
@@ -309,7 +323,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
                       ).then((value) {
                         if (value != null) {
                           selectedDate = value;
-                          controllerTime.text = MyFunction.dateFormat(value);
+                          controllerTime.text = MyFunction.formattedTime(value);
                         }
                       });
                     },
@@ -325,7 +339,8 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
                         ).then((value) {
                           if (value != null) {
                             selectedDate = value;
-                            controllerTime.text = MyFunction.dateFormat(value);
+                            controllerTime.text =
+                                MyFunction.formattedTime(value);
                           }
                         });
                       },

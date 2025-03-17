@@ -238,5 +238,7 @@
   "confirm_delete_code": "Are you sure you want to delete the code?",
   "confirm_save_referral_changes": "Are you sure you want to save changes to the referral code description?",
   "send_time": "Send Time",
-  "enter_info": "Enter"
+  "enter_info": "Enter",
+  "nothing_found":"Nothing found",
+  "mapdan":"From the map"
 }

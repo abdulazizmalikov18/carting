@@ -727,4 +727,10 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get enter_info => 'Киритинг';
+
+  @override
+  String get nothing_found => 'Ҳеч нима топилмади';
+
+  @override
+  String get mapdan => 'Харитадан';
 }

@@ -1,6 +1,7 @@
 import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/utils/log_service.dart';
 import 'package:flutter/material.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
@@ -26,6 +27,7 @@ class _LocationInfoViewState extends State<LocationInfoView> {
   late final List<MapObject> mapObjects = [];
   final List<DrivingSessionResult> results = [];
   late final DrivingSession session;
+  DrivingRoute? route;
 
   diriv() async {
     var resultWithSession = await YandexDriving.requestRoutes(
@@ -65,15 +67,43 @@ class _LocationInfoViewState extends State<LocationInfoView> {
       results.add(result);
     });
     setState(() {
+      try {
+        if (result.routes!.isNotEmpty) {
+          route = result.routes!.first;
+        }
+      } catch (e) {
+        Log.e(e);
+      }
       result.routes!.asMap().forEach((i, route) {
         mapObjects.add(PolylineMapObject(
-          mapId: MapObjectId('route_${i}_polyline'),
+          mapId: const MapObjectId('route_polyline'),
           polyline: route.geometry,
           strokeColor: green,
           strokeWidth: 5,
         ));
       });
     });
+    _centerRouteOnMap();
+  }
+
+  void _centerRouteOnMap() {
+    if (route != null) {
+      // newGeometry metodini ishlatish
+      const focusRect = ScreenRect(
+        bottomRight: ScreenPoint(x: 800, y: 1600),
+        topLeft: ScreenPoint(x: 200, y: 400),
+      );
+      mapController.moveCamera(
+        CameraUpdate.newGeometry(
+          Geometry.fromPolyline(route!.geometry),
+          focusRect: focusRect,
+        ),
+        animation: const MapAnimation(
+          type: MapAnimationType.smooth,
+          duration: 1.0,
+        ),
+      );
+    }
   }
 
   @override
@@ -99,31 +129,6 @@ class _LocationInfoViewState extends State<LocationInfoView> {
           YandexMap(
             onMapCreated: (controller) async {
               mapController = controller;
-              if (widget.isFirst) {
-                await mapController.moveCamera(
-                  CameraUpdate.newCameraPosition(
-                    CameraPosition(
-                      target: Point(
-                        latitude: widget.point1!.lat,
-                        longitude: widget.point1!.lng,
-                      ),
-                      zoom: 13,
-                    ),
-                  ),
-                );
-              } else {
-                await mapController.moveCamera(
-                  CameraUpdate.newCameraPosition(
-                    CameraPosition(
-                      target: Point(
-                        latitude: widget.point2!.lat,
-                        longitude: widget.point2!.lng,
-                      ),
-                      zoom: 13,
-                    ),
-                  ),
-                );
-              }
             },
             mapObjects: [
               if (widget.point1 != null)

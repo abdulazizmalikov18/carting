@@ -83,12 +83,12 @@ class _WThemeState extends State<WTheme> {
                     (index) => ListTile(
                       onTap: () {
                         selIndex.value = index;
-                        if (index == 0) {
+                        if (index == 1) {
                           AppScope.update(
                             context,
                             const AppScope(themeMode: ThemeMode.dark),
                           );
-                        } else if (index == 1) {
+                        } else if (index == 2) {
                           AppScope.update(
                             context,
                             const AppScope(themeMode: ThemeMode.light),

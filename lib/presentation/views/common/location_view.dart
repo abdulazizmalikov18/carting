@@ -229,12 +229,14 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
                                     long: point?.longitude ?? 0,
                                   ));
                                   if (isFirst) {
+                                    isMapIndex.value = 1;
                                     point1 = MapPoint(
                                       name: controllerLat.text,
                                       latitude: point!.latitude,
                                       longitude: point.longitude,
                                     );
                                   } else {
+                                    isMapIndex.value = 2;
                                     point2 = MapPoint(
                                       name: controllerLong.text,
                                       latitude: point!.latitude,

@@ -727,4 +727,10 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get enter_info => 'Kiriting';
+
+  @override
+  String get nothing_found => 'Hech narsa topilmadi';
+
+  @override
+  String get mapdan => 'Xaritadan';
 }

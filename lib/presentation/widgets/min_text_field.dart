@@ -80,7 +80,8 @@ class MinTextField extends StatelessWidget {
                     contentPadding: EdgeInsets.zero,
                     border: InputBorder.none,
                     hintText: hintText,
-                    hintStyle: hintStyle ?? const TextStyle(),
+                    hintStyle:
+                        hintStyle ?? TextStyle(color: context.color.darkText),
                   ),
                   style: const TextStyle(fontSize: 16),
                 ),

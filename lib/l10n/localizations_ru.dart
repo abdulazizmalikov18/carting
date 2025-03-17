@@ -727,4 +727,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get enter_info => 'Введите';
+
+  @override
+  String get nothing_found => 'Ничего не найдено';
+
+  @override
+  String get mapdan => 'С карты';
 }

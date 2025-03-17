@@ -228,6 +228,8 @@ class _AnnouncementsViewState extends State<AnnouncementsView>
                           },
                           child: AnnouncementsIteam(
                             isPrice: true,
+                            isGreen: index == 0 &&
+                                state.advertisement[index].isOwner,
                             model: state.advertisement[index],
                           ),
                         ),

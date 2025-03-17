@@ -1538,6 +1538,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter'**
   String get enter_info;
+
+  /// No description provided for @nothing_found.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing found'**
+  String get nothing_found;
+
+  /// No description provided for @mapdan.
+  ///
+  /// In en, this message translates to:
+  /// **'From the map'**
+  String get mapdan;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

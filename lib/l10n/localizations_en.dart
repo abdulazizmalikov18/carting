@@ -727,4 +727,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get enter_info => 'Enter';
+
+  @override
+  String get nothing_found => 'Nothing found';
+
+  @override
+  String get mapdan => 'From the map';
 }

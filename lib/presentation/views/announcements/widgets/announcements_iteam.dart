@@ -12,9 +12,11 @@ class AnnouncementsIteam extends StatelessWidget {
   const AnnouncementsIteam({
     super.key,
     this.isPrice = false,
+    this.isGreen = false,
     required this.model,
   });
   final bool isPrice;
+  final bool isGreen;
   final AdvertisementModel model;
 
   @override
@@ -23,7 +25,7 @@ class AnnouncementsIteam extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: context.color.contColor,
+        color: isGreen ? green.withValues(alpha: .05) : context.color.contColor,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,10 +41,12 @@ class AnnouncementsIteam extends StatelessWidget {
                       if (isPrice) {
                         return Text(
                           '${MyFunction.priceFormat(model.price ?? 0)} UZS',
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: isGreen
+                                  ? green.withValues(alpha: .05)
+                                  : null),
                         );
                       }
                       if (model.status == 'ACTIVE') {
@@ -96,7 +100,9 @@ class AnnouncementsIteam extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w400,
-                        color: context.color.darkText,
+                        color: isGreen
+                            ? green.withValues(alpha: .05)
+                            : context.color.darkText,
                       ),
                     )
                   ],
@@ -126,9 +132,10 @@ class AnnouncementsIteam extends StatelessWidget {
                               AppLocalizations.of(context)!.unknown)
                           .split(' ')
                           .first,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
+                    color: isGreen ? green.withValues(alpha: .05) : null,
                   ),
                 ),
               if (model.fromLocation != null)
@@ -149,10 +156,10 @@ class AnnouncementsIteam extends StatelessWidget {
                             AppLocalizations.of(context)!.unknown)
                         .split(' ')
                         .first,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                ),
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: isGreen ? green.withValues(alpha: .05) : null),
               ),
             ],
           ),
@@ -162,7 +169,9 @@ class AnnouncementsIteam extends StatelessWidget {
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              color: context.color.darkText,
+              color: isGreen
+                  ? green.withValues(alpha: .05)
+                  : context.color.darkText,
             ),
           )
         ],

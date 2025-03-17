@@ -53,12 +53,21 @@ class _WTimeState extends State<WTime> {
                   color: context.color.scaffoldBackground,
                 ),
                 padding: const EdgeInsets.all(16),
-                child: CupertinoDatePicker(
-                  initialDateTime: _selectedDay,
-                  mode: CupertinoDatePickerMode.time,
-                  use24hFormat: true,
-                  onDateTimeChanged: (dateTime) =>
-                      setState(() => _selectedDay = dateTime),
+                child: CupertinoTheme(
+                  data: CupertinoThemeData(
+                    textTheme: CupertinoTextThemeData(
+                      dateTimePickerTextStyle: TextStyle(
+                        color: context.color.white,
+                      ),
+                    ),
+                  ),
+                  child: CupertinoDatePicker(
+                    initialDateTime: _selectedDay,
+                    mode: CupertinoDatePickerMode.time,
+                    use24hFormat: true,
+                    onDateTimeChanged: (dateTime) =>
+                        setState(() => _selectedDay = dateTime),
+                  ),
                 ),
               ),
               const SizedBox(height: 24),

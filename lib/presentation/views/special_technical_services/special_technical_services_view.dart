@@ -11,6 +11,7 @@ import 'package:carting/presentation/views/peregon_service/additional_informatio
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/presentation/widgets/min_text_field.dart';
 import 'package:carting/presentation/widgets/selection_location_field.dart';
+import 'package:carting/presentation/widgets/succes_dialog.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_claendar.dart';
 import 'package:carting/presentation/widgets/w_selection_iteam.dart';
@@ -113,7 +114,7 @@ class _SpecialTechnicalServicesViewState
                         Navigator.of(context).pop();
                       },
                       onSucces: (id) {
-                        Navigator.pop(context);
+                        succesCreate(context);
                       },
                     ));
               },
@@ -150,13 +151,11 @@ class _SpecialTechnicalServicesViewState
                     isScrollControlled: true,
                     backgroundColor: Colors.transparent,
                     builder: (context) => const WClaendar(),
-                  ).then(
-                    (value) {
-                      if (value != null) {
-                        controller.text = MyFunction.dateFormat(value);
-                      }
-                    },
-                  );
+                  ).then((value) {
+                    if (value != null) {
+                      controller.text = MyFunction.dateFormat(value);
+                    }
+                  });
                 },
                 child: AppIcons.calendar.svg(
                   height: 24,
@@ -179,13 +178,11 @@ class _SpecialTechnicalServicesViewState
                     isScrollControlled: true,
                     backgroundColor: Colors.transparent,
                     builder: (context) => const WClaendar(),
-                  ).then(
-                    (value) {
-                      if (value != null) {
-                        controller2.text = MyFunction.dateFormat(value);
-                      }
-                    },
-                  );
+                  ).then((value) {
+                    if (value != null) {
+                      controller2.text = MyFunction.dateFormat(value);
+                    }
+                  });
                 },
                 child: AppIcons.calendar.svg(
                   height: 24,

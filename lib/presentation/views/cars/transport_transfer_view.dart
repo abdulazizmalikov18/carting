@@ -12,6 +12,7 @@ import 'package:carting/presentation/views/peregon_service/additional_informatio
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/presentation/widgets/min_text_field.dart';
 import 'package:carting/presentation/widgets/selection_location_field.dart';
+import 'package:carting/presentation/widgets/succes_dialog.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_claendar.dart';
 import 'package:carting/presentation/widgets/w_selection_iteam.dart';
@@ -127,7 +128,7 @@ class _TransportTransferCreateViewState
                         Navigator.of(context).pop();
                       },
                       onSucces: (id) {
-                        Navigator.pop(context);
+                        succesCreate(context);
                       },
                     ));
               },
@@ -161,7 +162,7 @@ class _TransportTransferCreateViewState
             ),
             const SizedBox(height: 8),
             Row(
-              spacing: 16,
+              spacing: 8,
               children: [
                 Expanded(
                   child: MinTextField(
@@ -229,7 +230,7 @@ class _TransportTransferCreateViewState
                       ).then((value) {
                         if (value != null) {
                           selectedDate = value;
-                          controllerTime.text = MyFunction.dateFormat(value);
+                          controllerTime.text = MyFunction.formattedTime(value);
                         }
                       });
                     },
@@ -245,7 +246,8 @@ class _TransportTransferCreateViewState
                         ).then((value) {
                           if (value != null) {
                             selectedDate = value;
-                            controllerTime.text = MyFunction.dateFormat(value);
+                            controllerTime.text =
+                                MyFunction.formattedTime(value);
                           }
                         });
                       },
