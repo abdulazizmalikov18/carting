@@ -21,6 +21,7 @@ AdvertisementModel _$AdvertisementModelFromJson(Map<String, dynamic> json) =>
           ? null
           : Location.fromJson(json['to_location'] as Map<String, dynamic>),
       price: (json['price'] as num?)?.toInt(),
+      createdAt: json['created_at'] as String?,
       details: json['details'] == null
           ? null
           : Details.fromJson(json['details'] as Map<String, dynamic>),
@@ -53,6 +54,7 @@ Map<String, dynamic> _$AdvertisementModelToJson(AdvertisementModel instance) =>
       'status': instance.status,
       'service_type_id': instance.serviceTypeId,
       'service_name': instance.serviceName,
+      'created_at': instance.createdAt,
       'from_location': instance.fromLocation,
       'to_location': instance.toLocation,
       'price': instance.price,
@@ -116,6 +118,9 @@ Details _$DetailsFromJson(Map<String, dynamic> json) => Details(
       fuels: (json['fuels'] as List<dynamic>?)
           ?.map((e) => Fuel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      kg: json['kg'] as String?,
+      m3: json['m3'] as String?,
+      litr: json['litr'] as String?,
     );
 
 Map<String, dynamic> _$DetailsToJson(Details instance) => <String, dynamic>{
@@ -140,6 +145,9 @@ Map<String, dynamic> _$DetailsToJson(Details instance) => <String, dynamic>{
       'from_date': instance.fromDate,
       'to_date': instance.toDate,
       'fuels': instance.fuels,
+      'kg': instance.kg,
+      'm3': instance.m3,
+      'litr': instance.litr,
     };
 
 Characteristics _$CharacteristicsFromJson(Map<String, dynamic> json) =>

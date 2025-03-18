@@ -44,9 +44,7 @@ class AnnouncementsIteam extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
-                              color: isGreen
-                                  ? green.withValues(alpha: .05)
-                                  : null),
+                              color: isGreen ? green : null),
                         );
                       }
                       if (model.status == 'ACTIVE') {
@@ -100,9 +98,7 @@ class AnnouncementsIteam extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w400,
-                        color: isGreen
-                            ? green.withValues(alpha: .05)
-                            : context.color.darkText,
+                        color: isGreen ? green : context.color.darkText,
                       ),
                     )
                   ],
@@ -135,13 +131,13 @@ class AnnouncementsIteam extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: isGreen ? green.withValues(alpha: .05) : null,
+                    color: isGreen ? green : null,
                   ),
                 ),
               if (model.fromLocation != null)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: AppIcons.swap.svg(),
+                  child: AppIcons.swap.svg(color: isGreen ? green : null),
                 ),
               Text(
                 (model.toLocation?.name ??
@@ -157,9 +153,10 @@ class AnnouncementsIteam extends StatelessWidget {
                         .split(' ')
                         .first,
                 style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: isGreen ? green.withValues(alpha: .05) : null),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  color: isGreen ? green : null,
+                ),
               ),
             ],
           ),
@@ -169,9 +166,7 @@ class AnnouncementsIteam extends StatelessWidget {
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              color: isGreen
-                  ? green.withValues(alpha: .05)
-                  : context.color.darkText,
+              color: isGreen ? green : context.color.darkText,
             ),
           )
         ],

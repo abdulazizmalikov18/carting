@@ -34,7 +34,6 @@ class _AnnouncementsViewState extends State<AnnouncementsView>
   String selectedUnit2 = 'Barchasi';
 
   late TabController _tabController;
-  ValueNotifier<int> tabIndex = ValueNotifier(0);
 
   @override
   void initState() {
@@ -42,10 +41,11 @@ class _AnnouncementsViewState extends State<AnnouncementsView>
     context.read<AdvertisementBloc>().add(GetAdvertisementsProvideEvent());
     context.read<AdvertisementBloc>().add(GetAdvertisementsReceiveEvent());
     super.initState();
-    _tabController = TabController(vsync: this, length: 3);
-    _tabController.addListener(() {
-      tabIndex.value = _tabController.index;
-    });
+    _tabController = TabController(
+      vsync: this,
+      length: 3,
+      initialIndex: context.read<AdvertisementBloc>().state.tabIndex,
+    );
   }
 
   @override
@@ -81,13 +81,14 @@ class _AnnouncementsViewState extends State<AnnouncementsView>
         //   ),
         // ),
         actions: [
-          ValueListenableBuilder(
-            valueListenable: tabIndex,
-            builder: (context, value, __) {
+          BlocSelector<AdvertisementBloc, AdvertisementState, int>(
+            selector: (state) => state.tabIndex,
+            builder: (context, state) {
+              _tabController.animateTo(state);
               return AnimatedCrossFade(
                 firstChild: WButton(
                   onTap: () {
-                    if (value == 2) {
+                    if (state == 2) {
                       MyFunction.authChek(
                         context: context,
                         onTap: () {
@@ -101,7 +102,7 @@ class _AnnouncementsViewState extends State<AnnouncementsView>
                         },
                         isFull: true,
                       );
-                    } else if (value == 1) {
+                    } else if (state == 1) {
                       context.go(AppRouteName.home);
                     }
                   },
@@ -112,7 +113,7 @@ class _AnnouncementsViewState extends State<AnnouncementsView>
                 ),
                 secondChild: const SizedBox(),
                 alignment: Alignment.center,
-                crossFadeState: value == 0
+                crossFadeState: state == 0
                     ? CrossFadeState.showSecond
                     : CrossFadeState.showFirst,
                 duration: const Duration(milliseconds: 200),
@@ -133,6 +134,11 @@ class _AnnouncementsViewState extends State<AnnouncementsView>
                   WTabBar(
                     isScrollable: true,
                     tabController: _tabController,
+                    onTap: (p0) {
+                      context
+                          .read<AdvertisementBloc>()
+                          .add(TabIndexEvent(index: p0));
+                    },
                     tabs: [
                       Text(AppLocalizations.of(context)!.all),
                       Text(AppLocalizations.of(context)!.myOrders),
@@ -298,6 +304,11 @@ class _AnnouncementsViewState extends State<AnnouncementsView>
                           },
                           child: AnnouncementsIteam(
                             model: state.advertisementRECEIVE[index],
+                            isGreen: index == 0 &&
+                                MyFunction.isOneMinuteAgo(state
+                                        .advertisementRECEIVE[index]
+                                        .createdAt ??
+                                    ''),
                           ),
                         ),
                         separatorBuilder: (context, index) =>

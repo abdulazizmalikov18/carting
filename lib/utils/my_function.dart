@@ -180,4 +180,12 @@ class MyFunction {
   static String formattedTime(DateTime date) {
     return DateFormat('HH:mm').format(date);
   }
+
+  static bool isOneMinuteAgo(String dateTime) {
+    final dateTimeFormat = DateTime.tryParse(dateTime) ?? DateTime.now();
+    final now = DateTime.now();
+    Log.w(dateTimeFormat);
+    Log.w(now);
+    return now.difference(dateTimeFormat).inMinutes <= 10;
+  }
 }

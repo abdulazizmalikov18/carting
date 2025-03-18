@@ -41,15 +41,18 @@ Details _$DetailsFromJson(Map<String, dynamic> json) => Details(
       transportationTypeId: (json['transportation_type_id'] as num).toInt(),
       loadTypeId: json['load_type_id'] as String,
       loadServiceId: json['load_service_id'] as String,
-      loadWeight:
-          LoadWeight.fromJson(json['load_weight'] as Map<String, dynamic>),
+      kg: json['kg'] as String?,
+      m3: json['m3'] as String?,
+      litr: json['litr'] as String?,
     );
 
 Map<String, dynamic> _$DetailsToJson(Details instance) => <String, dynamic>{
       'transportation_type_id': instance.transportationTypeId,
       'load_type_id': instance.loadTypeId,
       'load_service_id': instance.loadServiceId,
-      'load_weight': instance.loadWeight,
+      'kg': instance.kg,
+      'm3': instance.m3,
+      'litr': instance.litr,
     };
 
 LoadWeight _$LoadWeightFromJson(Map<String, dynamic> json) => LoadWeight(

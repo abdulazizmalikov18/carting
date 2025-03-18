@@ -35,6 +35,9 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
   late TextEditingController controller;
   late TextEditingController controllerTime;
   late TextEditingController controllerCount;
+  late TextEditingController controllerKg;
+  late TextEditingController controllerm3;
+  late TextEditingController controllerLitr;
   late TextEditingController controllerCommet;
   late TextEditingController controllerPrice;
   String selectedUnit = 'kg';
@@ -50,6 +53,9 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
     controller = TextEditingController();
     controllerTime = TextEditingController();
     controllerCommet = TextEditingController();
+    controllerKg = TextEditingController();
+    controllerLitr = TextEditingController();
+    controllerm3 = TextEditingController();
     controllerPrice = TextEditingController();
     controllerCount = TextEditingController();
     super.initState();
@@ -66,6 +72,9 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
     trTypeId.dispose();
     loadTypeId.dispose();
     loadServiceId.dispose();
+    controllerKg.dispose();
+    controllerLitr.dispose();
+    controllerm3.dispose();
     super.dispose();
   }
 
@@ -81,7 +90,9 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
                 List<String> missingFields = [];
                 if (point1 == null) missingFields.add("Jo'natiladigan manzil");
                 if (point2 == null) missingFields.add("Qabul qiluvchi manzil");
-                if (controllerCount.text.isEmpty) {
+                if (controllerKg.text.isEmpty &&
+                    controllerLitr.text.isEmpty &&
+                    controllerLitr.text.isEmpty) {
                   missingFields.add("Yuk miqdori");
                 }
                 // if (controllerPrice.text.isEmpty) missingFields.add("Narx");
@@ -109,10 +120,15 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
                         state.transportationTypes[trTypeId.value].id,
                     loadTypeId: '${loadTypeId.value}',
                     loadServiceId: '${loadServiceId.value}',
-                    loadWeight: LoadWeight(
-                      amount: int.tryParse(controllerCount.text) ?? 0,
-                      name: selectedUnit,
-                    ),
+                    // loadWeight: LoadWeight(
+                    //   amount: int.tryParse(controllerCount.text) ?? 0,
+                    //   name: selectedUnit,
+                    // ),
+                    kg: controllerKg.text.isEmpty ? null : controllerKg.text,
+                    m3: controllerm3.text.isEmpty ? null : controllerm3.text,
+                    litr: controllerLitr.text.isEmpty
+                        ? null
+                        : controllerLitr.text,
                   ),
                   advType: 'RECEIVE',
                   serviceTypeId: 1,
@@ -182,7 +198,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
                             children: [
                               Expanded(
                                 child: TextField(
-                                  controller: controllerCount,
+                                  controller: controllerKg,
                                   keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -190,7 +206,8 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
                                     border: InputBorder.none,
                                     hintText: '0',
                                     hintStyle: TextStyle(
-                                        color: context.color.darkText),
+                                      color: context.color.darkText,
+                                    ),
                                   ),
                                   style: const TextStyle(fontSize: 16),
                                 ),
@@ -206,7 +223,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
                             children: [
                               Expanded(
                                 child: TextField(
-                                  controller: controllerCount,
+                                  controller: controllerm3,
                                   keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -230,7 +247,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
                             children: [
                               Expanded(
                                 child: TextField(
-                                  controller: controllerCount,
+                                  controller: controllerLitr,
                                   keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -389,13 +406,20 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
                 ),
                 minVerticalPadding: 0,
                 subtitle: Text(
-                  AppLocalizations.of(context)!.enter_info,
+                  controllerCommet.text.isNotEmpty ||
+                          controllerPrice.text.isNotEmpty
+                      ? "${controllerCommet.text.isNotEmpty ? AppLocalizations.of(context)!.description : ""} ${controllerPrice.text.isNotEmpty ? "${AppLocalizations.of(context)!.price}, ${AppLocalizations.of(context)!.paymentType}" : ""} ${images.isEmpty ? "" : AppLocalizations.of(context)!.cargoImages}"
+                      : AppLocalizations.of(context)!.enter_info,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: context.color.darkText,
+                    color: controllerCommet.text.isNotEmpty ||
+                            controllerPrice.text.isNotEmpty ||
+                            images.isNotEmpty
+                        ? context.color.white
+                        : context.color.darkText,
                   ),
                 ),
                 trailing: AppIcons.arrowForward.svg(),

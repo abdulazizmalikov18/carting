@@ -22,6 +22,10 @@ part 'advertisement_state.dart';
 class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
   final AdvertisementRepo _repo;
   AdvertisementBloc(this._repo) : super(const AdvertisementState()) {
+    on<TabIndexEvent>(
+      (event, emit) => emit(state.copyWith(tabIndex: event.index)),
+    );
+
     on<PostCommentEvent>((event, emit) async {
       emit(state.copyWith(statusComment: FormzSubmissionStatus.inProgress));
       final respons = await _repo.postComment(event.model);

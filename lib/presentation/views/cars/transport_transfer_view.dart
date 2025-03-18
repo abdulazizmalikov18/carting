@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/assets/assets/icons.dart';
-import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/data/models/location_model.dart';
 import 'package:carting/data/models/transport_transfer_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
@@ -283,20 +282,32 @@ class _TransportTransferCreateViewState
                     ),
                   ));
                 },
-                title: Text(AppLocalizations.of(context)!.additionalInfo),
                 minVerticalPadding: 0,
-                titleTextStyle: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: context.color.darkText,
-                ),
-                subtitleTextStyle: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: dark,
+                title: Text(
+                  AppLocalizations.of(context)!.additionalInfo,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: context.color.darkText,
+                  ),
                 ),
                 subtitle: Text(
-                    "${AppLocalizations.of(context)!.description}, to‘lov turi, narx"),
+                  controllerCommet.text.isNotEmpty ||
+                          controllerPrice.text.isNotEmpty
+                      ? "${controllerCommet.text.isNotEmpty ? AppLocalizations.of(context)!.description : ""} ${controllerPrice.text.isNotEmpty ? "${AppLocalizations.of(context)!.price}, ${AppLocalizations.of(context)!.paymentType}" : ""} ${images.isEmpty ? "" : AppLocalizations.of(context)!.cargoImages}"
+                      : AppLocalizations.of(context)!.enter_info,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: controllerCommet.text.isNotEmpty ||
+                            controllerPrice.text.isNotEmpty ||
+                            images.isNotEmpty
+                        ? context.color.white
+                        : context.color.darkText,
+                  ),
+                ),
                 trailing: AppIcons.arrowForward.svg(),
               ),
             ),

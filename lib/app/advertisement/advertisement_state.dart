@@ -25,6 +25,7 @@ class AdvertisementState extends Equatable {
   final List<TransportSpecialistsModel> transportSpecialists;
   final List<ServisModel> categoriesList;
   final List<ServisModel> servicesList;
+  final int tabIndex;
   const AdvertisementState({
     this.status = FormzSubmissionStatus.initial,
     this.statusPROVIDE = FormzSubmissionStatus.initial,
@@ -49,6 +50,7 @@ class AdvertisementState extends Equatable {
     this.transportSpecialists = const [],
     this.categoriesList = const [],
     this.servicesList = const [],
+    this.tabIndex = 0,
   });
 
   @override
@@ -76,6 +78,7 @@ class AdvertisementState extends Equatable {
         categoriesList,
         servicesList,
         fuelsModelAll,
+        tabIndex,
       ];
 
   AdvertisementState copyWith({
@@ -102,6 +105,7 @@ class AdvertisementState extends Equatable {
     List<TransportSpecialistsModel>? transportSpecialists,
     List<ServisModel>? categoriesList,
     List<ServisModel>? servicesList,
+    int? tabIndex,
   }) {
     return AdvertisementState(
       status: status ?? this.status,
@@ -127,6 +131,7 @@ class AdvertisementState extends Equatable {
       transportSpecialists: transportSpecialists ?? this.transportSpecialists,
       categoriesList: categoriesList ?? this.categoriesList,
       servicesList: servicesList ?? this.servicesList,
+      tabIndex: tabIndex ?? this.tabIndex,
     );
   }
 }

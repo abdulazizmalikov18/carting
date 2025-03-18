@@ -1,12 +1,16 @@
+import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/assets/assets/images.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/presentation/routes/route_name.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 Future<dynamic> succesCreate(BuildContext context) {
   return showDialog(
     context: context,
-    builder: (context) => AlertDialog(
+    builder: (ctx) => AlertDialog(
       backgroundColor: context.color.contColor,
       insetPadding: const EdgeInsets.all(16),
       content: Column(
@@ -47,9 +51,13 @@ Future<dynamic> succesCreate(BuildContext context) {
                 ),
                 text: 'Tushunarli',
                 onTap: () {
-                  Navigator.of(context)
+                  context
+                      .read<AdvertisementBloc>()
+                      .add(TabIndexEvent(index: 1));
+                  Navigator.of(ctx)
                     ..pop()
                     ..pop();
+                  context.go(AppRouteName.announcements);
                 },
               ),
             ],

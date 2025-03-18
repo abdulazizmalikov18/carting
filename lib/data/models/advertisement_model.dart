@@ -16,6 +16,8 @@ class AdvertisementModel {
   final int serviceTypeId;
   @JsonKey(name: "service_name")
   final String? serviceName;
+  @JsonKey(name: "created_at")
+  final String? createdAt;
   @JsonKey(name: "from_location")
   final Location? fromLocation;
   @JsonKey(name: "to_location")
@@ -59,6 +61,7 @@ class AdvertisementModel {
     this.fromLocation,
     this.toLocation,
     this.price,
+    this.createdAt,
     this.details,
     this.images,
     this.isOwner = false,
@@ -152,6 +155,12 @@ class Details {
   final String? toDate;
   @JsonKey(name: "fuels")
   final List<Fuel>? fuels;
+  @JsonKey(name: "kg")
+  final String? kg;
+  @JsonKey(name: "m3")
+  final String? m3;
+  @JsonKey(name: "litr")
+  final String? litr;
 
   Details({
     this.transportationTypeId,
@@ -177,6 +186,9 @@ class Details {
     this.fromDate,
     this.toDate,
     this.fuels,
+    this.kg,
+    this.m3,
+    this.litr,
   });
 
   factory Details.fromJson(Map<String, dynamic> json) =>

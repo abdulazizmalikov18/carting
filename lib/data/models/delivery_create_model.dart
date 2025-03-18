@@ -64,14 +64,22 @@ class Details {
   final String loadTypeId;
   @JsonKey(name: "load_service_id")
   final String loadServiceId;
-  @JsonKey(name: "load_weight")
-  final LoadWeight loadWeight;
+  // @JsonKey(name: "load_weight")
+  // final LoadWeight loadWeight;
+  @JsonKey(name: "kg")
+  final String? kg;
+  @JsonKey(name: "m3")
+  final String? m3;
+  @JsonKey(name: "litr")
+  final String? litr;
 
   Details({
     required this.transportationTypeId,
     required this.loadTypeId,
     required this.loadServiceId,
-    required this.loadWeight,
+    this.kg,
+    this.m3,
+    this.litr,
   });
 
   factory Details.fromJson(Map<String, dynamic> json) =>

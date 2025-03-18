@@ -135,3 +135,9 @@ class PostCommentEvent extends AdvertisementEvent {
     required this.onSucces,
   });
 }
+
+class TabIndexEvent extends AdvertisementEvent {
+  final int index;
+
+  TabIndexEvent({required this.index});
+}
