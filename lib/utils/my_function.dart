@@ -186,6 +186,6 @@ class MyFunction {
     final now = DateTime.now();
     Log.w(dateTimeFormat);
     Log.w(now);
-    return now.difference(dateTimeFormat).inMinutes <= 10;
+    return now.difference(dateTimeFormat).inSeconds <= 30;
   }
 }
