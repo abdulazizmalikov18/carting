@@ -184,8 +184,6 @@ class MyFunction {
   static bool isOneMinuteAgo(String dateTime) {
     final dateTimeFormat = DateTime.tryParse(dateTime) ?? DateTime.now();
     final now = DateTime.now();
-    Log.w(dateTimeFormat);
-    Log.w(now);
     return now.difference(dateTimeFormat).inSeconds <= 30;
   }
 }
