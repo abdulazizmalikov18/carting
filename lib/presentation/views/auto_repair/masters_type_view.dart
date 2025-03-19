@@ -1,6 +1,7 @@
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/data.dart';
+import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/announcements/announcement_create_view.dart';
 import 'package:carting/presentation/views/auto_repair/masters_list_view.dart';
 import 'package:carting/presentation/views/common/empty_screen.dart';
@@ -28,7 +29,7 @@ class _MastersTypeViewState extends State<MastersTypeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Ustalar")),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.masters)),
       body: BlocBuilder<AdvertisementBloc, AdvertisementState>(
         builder: (context, state) {
           if (state.statusFuels.isInProgress) {

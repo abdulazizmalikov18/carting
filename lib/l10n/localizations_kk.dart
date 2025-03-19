@@ -189,7 +189,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get rateTheApp => 'Иловани баҳоланг';
 
   @override
-  String get theme => 'Мавзу';
+  String get theme => 'Режим';
 
   @override
   String get photofact => 'Фото далил';
@@ -733,4 +733,22 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get mapdan => 'Харитадан';
+
+  @override
+  String get workshops => 'Устахоналар';
+
+  @override
+  String get masters => 'Усталар';
+
+  @override
+  String get special_equipment => 'Махсус техника';
+
+  @override
+  String get select_location => 'Манзилни танланг';
+
+  @override
+  String get from_date => 'Қайси санадан';
+
+  @override
+  String get to_date => 'Қайси санагача';
 }

@@ -1,5 +1,6 @@
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/common/empty_screen.dart';
 import 'package:carting/presentation/widgets/w_shimmer.dart';
 import 'package:carting/utils/enum_filtr.dart';
@@ -33,12 +34,12 @@ class _WorkshopsViewState extends State<WorkshopsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Ustaxonalar"),
+        title: Text(AppLocalizations.of(context)!.workshops),
         actions: [
           IconButton(
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) =>  FilterView(
+                builder: (context) => FilterView(
                   filterType: FilterType.workshopCategories,
                   list: active,
                 ),

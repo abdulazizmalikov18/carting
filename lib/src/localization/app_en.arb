@@ -240,5 +240,11 @@
   "send_time": "Send Time",
   "enter_info": "Enter",
   "nothing_found":"Nothing found",
-  "mapdan":"From the map"
+  "mapdan":"From the map",
+  "workshops": "Workshops",
+  "masters": "Masters",
+  "special_equipment": "Special Equipment",
+  "select_location": "Select Location",
+  "from_date": "From Date",
+  "to_date": "To Date"
 }

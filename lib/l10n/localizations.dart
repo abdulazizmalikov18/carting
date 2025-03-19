@@ -1550,6 +1550,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'From the map'**
   String get mapdan;
+
+  /// No description provided for @workshops.
+  ///
+  /// In en, this message translates to:
+  /// **'Workshops'**
+  String get workshops;
+
+  /// No description provided for @masters.
+  ///
+  /// In en, this message translates to:
+  /// **'Masters'**
+  String get masters;
+
+  /// No description provided for @special_equipment.
+  ///
+  /// In en, this message translates to:
+  /// **'Special Equipment'**
+  String get special_equipment;
+
+  /// No description provided for @select_location.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Location'**
+  String get select_location;
+
+  /// No description provided for @from_date.
+  ///
+  /// In en, this message translates to:
+  /// **'From Date'**
+  String get from_date;
+
+  /// No description provided for @to_date.
+  ///
+  /// In en, this message translates to:
+  /// **'To Date'**
+  String get to_date;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

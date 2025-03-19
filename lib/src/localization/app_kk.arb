@@ -93,7 +93,7 @@
   "goToMain": "Асосий саҳифага ўтиш",
   "successful": "Муваффақиятли",
   "rateTheApp": "Иловани баҳоланг",
-  "theme": "Мавзу",
+  "theme": "Режим",
   "photofact": "Фото далил",
   "deletePhoto": "Фото суръатни ўчириш",
   "address": "Манзил",
@@ -240,5 +240,11 @@
   "send_time": "Жўнатиш вақти",
   "enter_info": "Киритинг",
   "nothing_found":"Ҳеч нима топилмади",
-  "mapdan":"Харитадан"
+  "mapdan":"Харитадан",
+  "workshops": "Устахоналар",
+  "masters": "Усталар",
+  "special_equipment": "Махсус техника",
+  "select_location": "Манзилни танланг",
+  "from_date": "Қайси санадан",
+  "to_date": "Қайси санагача"
 }

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/common/empty_screen.dart';
 import 'package:carting/presentation/widgets/w_shimmer.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,8 @@ class _SpecialTechniqueViewState extends State<SpecialTechniqueView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Maxsus texnika")),
+      appBar:
+          AppBar(title: Text(AppLocalizations.of(context)!.special_equipment)),
       body: BlocBuilder<AdvertisementBloc, AdvertisementState>(
         builder: (context, state) {
           if (state.statusTrTypes.isInProgress) {
@@ -84,7 +86,7 @@ class _SpecialTechniqueViewState extends State<SpecialTechniqueView> {
                       value: bloc,
                       child: OrdersFilterView(
                         model: state.transportationTypes[index],
-                        type: "Maxsus texnika",
+                        type: AppLocalizations.of(context)!.special_equipment,
                         onTap: () {
                           // Navigator.of(context).push(MaterialPageRoute(
                           //   builder: (context) => OrderDetailView(

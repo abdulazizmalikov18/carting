@@ -733,4 +733,22 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get mapdan => 'Xaritadan';
+
+  @override
+  String get workshops => 'Ustaxonalar';
+
+  @override
+  String get masters => 'Ustalar';
+
+  @override
+  String get special_equipment => 'Maxsus texnika';
+
+  @override
+  String get select_location => 'Manzilni tanlang';
+
+  @override
+  String get from_date => 'Qaysi sanadan';
+
+  @override
+  String get to_date => 'Qaysi sanagacha';
 }

@@ -35,7 +35,7 @@ class AutoRepairView extends StatelessWidget {
               child: ListTile(
                 leading: AppImages.workshops.imgAsset(),
                 contentPadding: EdgeInsets.zero,
-                title: const Text("Ustaxonalar"),
+                title:  Text(AppLocalizations.of(context)!.workshops),
                 trailing: AppIcons.arrowForward.svg(),
                 onTap: () {
                   final bloc = context.read<AdvertisementBloc>();
@@ -70,7 +70,7 @@ class AutoRepairView extends StatelessWidget {
               child: ListTile(
                 leading: AppImages.masters.imgAsset(),
                 contentPadding: EdgeInsets.zero,
-                title: const Text("Ustalar"),
+                title:  Text(AppLocalizations.of(context)!.masters),
                 trailing: AppIcons.arrowForward.svg(),
                 onTap: () {
                   final bloc = context.read<AdvertisementBloc>();

@@ -17,6 +17,7 @@ import 'package:carting/data/models/send_code_model.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/utils/my_function.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 
 class SmsView extends StatefulWidget {
   const SmsView({
@@ -35,7 +36,7 @@ class SmsView extends StatefulWidget {
   State<SmsView> createState() => _SmsViewState();
 }
 
-class _SmsViewState extends State<SmsView> {
+class _SmsViewState extends State<SmsView> with CodeAutoFill {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController controller;
   ValueNotifier<int> start = ValueNotifier(300);
@@ -67,6 +68,7 @@ class _SmsViewState extends State<SmsView> {
     controller = TextEditingController();
     super.initState();
     startTimer();
+    listenForCode();
   }
 
   @override
@@ -169,9 +171,9 @@ class _SmsViewState extends State<SmsView> {
                         context.read<AuthBloc>().add(VerifyEvent(
                               phone: widget.phone,
                               isPhone: widget.isPhone,
-                             onError: (message) {
-                            CustomSnackbar.show(context, message);
-                          },
+                              onError: (message) {
+                                CustomSnackbar.show(context, message);
+                              },
                               onSucces: () {},
                               sessionToken: widget.model.sessionToken,
                               securityCode: controller.text,
@@ -266,5 +268,12 @@ class _SmsViewState extends State<SmsView> {
       //   text: "Davom etish",
       // ),
     );
+  }
+
+  @override
+  void codeUpdated() {
+    setState(() {
+      controller.text = code ?? "";
+    });
   }
 }

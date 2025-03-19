@@ -62,7 +62,8 @@ class _SpecialTechnicalServicesViewState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Maxsus texnika xizmatlari")),
+      appBar: AppBar(
+          title: Text(AppLocalizations.of(context)!.specialTechServices)),
       bottomNavigationBar: SafeArea(
         child: BlocBuilder<AdvertisementBloc, AdvertisementState>(
           builder: (context, state) {
@@ -92,7 +93,7 @@ class _SpecialTechnicalServicesViewState
                     lng: point!.longitude,
                     name: point!.name,
                   ),
-                  serviceName: 'Maxsus texnika',
+                  serviceName: AppLocalizations.of(context)!.special_equipment,
                   details: DetailsSpecial(
                     transportationTypeId: 1,
                     fromDate: controller.text,
@@ -138,7 +139,7 @@ class _SpecialTechnicalServicesViewState
             ),
             const SizedBox(height: 8),
             MinTextField(
-              text: "Qaysi sanadan",
+              text: AppLocalizations.of(context)!.from_date,
               hintText: "",
               controller: controller,
               keyboardType: TextInputType.datetime,
@@ -165,7 +166,7 @@ class _SpecialTechnicalServicesViewState
             ),
             const SizedBox(height: 8),
             MinTextField(
-              text: "Qaysi sanagacha",
+              text: AppLocalizations.of(context)!.to_date,
               hintText: "",
               controller: controller2,
               keyboardType: TextInputType.datetime,

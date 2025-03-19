@@ -733,4 +733,22 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get mapdan => 'С карты';
+
+  @override
+  String get workshops => 'Мастерские';
+
+  @override
+  String get masters => 'Мастера';
+
+  @override
+  String get special_equipment => 'Спецтехника';
+
+  @override
+  String get select_location => 'Выберите местоположение';
+
+  @override
+  String get from_date => 'С какой даты';
+
+  @override
+  String get to_date => 'До какой даты';
 }

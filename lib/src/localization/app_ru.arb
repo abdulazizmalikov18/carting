@@ -240,6 +240,12 @@
   "send_time": "Время отправки",
   "enter_info": "Введите",
   "nothing_found":"Ничего не найдено",
-  "mapdan":"С карты"
+  "mapdan":"С карты",
+  "workshops": "Мастерские",
+  "masters": "Мастера",
+  "special_equipment": "Спецтехника",
+  "select_location": "Выберите местоположение",
+  "from_date": "С какой даты",
+  "to_date": "До какой даты"
 }
 

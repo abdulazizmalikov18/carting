@@ -733,4 +733,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mapdan => 'From the map';
+
+  @override
+  String get workshops => 'Workshops';
+
+  @override
+  String get masters => 'Masters';
+
+  @override
+  String get special_equipment => 'Special Equipment';
+
+  @override
+  String get select_location => 'Select Location';
+
+  @override
+  String get from_date => 'From Date';
+
+  @override
+  String get to_date => 'To Date';
 }
