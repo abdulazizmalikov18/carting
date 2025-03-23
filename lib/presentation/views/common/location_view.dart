@@ -41,18 +41,10 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       bottomNavigationBar: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: context.color.contColor,
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.black12,
-              offset: Offset(0, -2),
-              blurRadius: 10.0,
-            ),
-          ],
-        ),
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+        color: context.color.scaffoldBackground,
         child: ValueListenableBuilder(
           valueListenable: isMap,
           builder: (context, _, __) {
@@ -118,16 +110,6 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  height: 5,
-                  width: 64,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: const Color(0xFFB7BFC6),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                // From Location
                 Hero(
                   tag: 'imageHero',
                   child: Container(
@@ -136,8 +118,16 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
                       horizontal: 16,
                     ),
                     decoration: BoxDecoration(
-                      color: context.color.scaffoldBackground,
+                      color: context.color.contColor,
                       borderRadius: BorderRadius.circular(24),
+                      boxShadow: [
+                        BoxShadow(
+                          color:
+                              const Color(0xFF292D32).withValues(alpha: 0.02),
+                          offset: const Offset(0, 2),
+                          blurRadius: 8.5,
+                        ),
+                      ],
                     ),
                     child: Column(
                       children: [
@@ -148,7 +138,8 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
                             onTap: () {
                               showModalBottomSheet(
                                 context: context,
-                                backgroundColor: context.color.contColor,
+                                backgroundColor:
+                                    context.color.scaffoldBackground,
                                 isScrollControlled: true,
                                 constraints: BoxConstraints(
                                   maxHeight:
@@ -212,7 +203,7 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
                           onTap: () {
                             showModalBottomSheet(
                               context: context,
-                              backgroundColor: context.color.contColor,
+                              backgroundColor: context.color.scaffoldBackground,
                               isScrollControlled: true,
                               constraints: BoxConstraints(
                                 maxHeight:
@@ -259,7 +250,7 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
                     ),
                   ),
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: 24),
                 // Confirm button
                 SafeArea(
                   top: false,
@@ -275,161 +266,159 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await _initLocationLayer();
-          await _fetchCurrentLocation();
-        },
-        backgroundColor: context.color.contColor,
-        shape: const CircleBorder(),
-        child: AppIcons.gps.svg(color: context.color.white),
-      ),
       body: Stack(
         children: <Widget>[
           // Google Map
-          YandexMap(
-            onMapCreated: (controller) async {
-              mapController = controller;
-              if (widget.point1 == null || widget.point2 == null) {
-                await _initLocationLayer();
-              } else {
-                if (widget.point1 != null) {
-                  mapController.moveCamera(CameraUpdate.newCameraPosition(
-                    CameraPosition(
-                      target: Point(
-                        latitude: widget.point1!.latitude,
-                        longitude: widget.point1!.longitude,
-                      ),
-                    ),
-                  ));
-                } else {
-                  mapController.moveCamera(CameraUpdate.newCameraPosition(
-                    CameraPosition(
-                      target: Point(
-                        latitude: widget.point2!.latitude,
-                        longitude: widget.point2!.longitude,
-                      ),
-                    ),
-                  ));
-                }
-              }
-            },
-            onCameraPositionChanged: (cameraPosition, reason, finished) async {
-              if ((widget.point1 == null || widget.point2 == null) ||
-                  isMap.value) {
-                Log.i("message");
-                if (finished) {
-                  _address = await getPlaceMarkFromYandex(
-                    cameraPosition.target.latitude,
-                    cameraPosition.target.longitude,
-                  );
-                  _position = cameraPosition;
-                  if (widget.isFirst && isMapIndex.value == 1) {
-                    Log.i("message 1");
-                    controllerLat.text = _address;
-                    point1 = MapPoint(
-                      name: controllerLat.text,
-                      latitude: _position?.target.latitude ?? 0,
-                      longitude: _position?.target.longitude ?? 0,
-                    );
+          ValueListenableBuilder(
+            valueListenable: isMap,
+            builder: (context, _, __) {
+              return YandexMap(
+                onMapCreated: (controller) async {
+                  mapController = controller;
+                  if (widget.point1 == null || widget.point2 == null) {
+                    await _initLocationLayer();
                   } else {
-                    Log.i("message 2");
-                    controllerLong.text = _address;
-                    point2 = MapPoint(
-                      name: controllerLong.text,
-                      latitude: _position?.target.latitude ?? 0,
-                      longitude: _position?.target.longitude ?? 0,
+                    if (widget.point1 != null) {
+                      mapController.moveCamera(CameraUpdate.newCameraPosition(
+                        CameraPosition(
+                          target: Point(
+                            latitude: widget.point1!.latitude,
+                            longitude: widget.point1!.longitude,
+                          ),
+                        ),
+                      ));
+                    } else {
+                      mapController.moveCamera(CameraUpdate.newCameraPosition(
+                        CameraPosition(
+                          target: Point(
+                            latitude: widget.point2!.latitude,
+                            longitude: widget.point2!.longitude,
+                          ),
+                        ),
+                      ));
+                    }
+                  }
+                },
+                onCameraPositionChanged:
+                    (cameraPosition, reason, finished) async {
+                  if ((widget.point1 == null || widget.point2 == null) ||
+                      isMap.value) {
+                    Log.i("message");
+                    if (finished) {
+                      _address = await getPlaceMarkFromYandex(
+                        cameraPosition.target.latitude,
+                        cameraPosition.target.longitude,
+                      );
+                      _position = cameraPosition;
+                      if (widget.isFirst && isMapIndex.value == 1) {
+                        Log.i("message 1");
+                        controllerLat.text = _address;
+                        point1 = MapPoint(
+                          name: controllerLat.text,
+                          latitude: _position?.target.latitude ?? 0,
+                          longitude: _position?.target.longitude ?? 0,
+                        );
+                      } else {
+                        Log.i("message 2");
+                        controllerLong.text = _address;
+                        point2 = MapPoint(
+                          name: controllerLong.text,
+                          latitude: _position?.target.latitude ?? 0,
+                          longitude: _position?.target.longitude ?? 0,
+                        );
+                      }
+                    }
+                    setState(() {
+                      _mapZoom = cameraPosition.zoom;
+                    });
+                  }
+                },
+                mapObjects: [
+                  _getClusterizedCollection(
+                    placemarks: _getPlacemarkObjects(context),
+                  ),
+                  if (point1 != null)
+                    PlacemarkMapObject(
+                      mapId: const MapObjectId('widget.point1!.lat'),
+                      point: Point(
+                        latitude: point1!.latitude,
+                        longitude: point1!.longitude,
+                      ),
+                      opacity: 1,
+                      icon: PlacemarkIcon.single(
+                        PlacemarkIconStyle(
+                          image: BitmapDescriptor.fromAssetImage(
+                            'assets/images/location.png',
+                          ),
+                        ),
+                      ),
+                    ),
+                  if (point2 != null)
+                    PlacemarkMapObject(
+                      mapId: const MapObjectId('widget.point2!.lat'),
+                      point: Point(
+                        latitude: point2!.latitude,
+                        longitude: point2!.longitude,
+                      ),
+                      opacity: 1,
+                      icon: PlacemarkIcon.single(
+                        PlacemarkIconStyle(
+                          image: BitmapDescriptor.fromAssetImage(
+                            'assets/images/location.png',
+                          ),
+                        ),
+                      ),
+                    ),
+                  ...mapObjects,
+                ],
+                onUserLocationAdded: (view) async {
+                  // получаем местоположение пользователя
+                  _userLocation = await mapController.getUserCameraPosition();
+                  // если местоположение найдено, центрируем карту относительно этой точки
+                  if (_userLocation != null) {
+                    await mapController.moveCamera(
+                      CameraUpdate.newCameraPosition(
+                        _userLocation!.copyWith(zoom: 15),
+                      ),
+                      animation: const MapAnimation(
+                        type: MapAnimationType.linear,
+                        duration: 0.3,
+                      ),
                     );
                   }
-                }
-                setState(() {
-                  _mapZoom = cameraPosition.zoom;
-                });
-              }
-            },
-            mapObjects: [
-              _getClusterizedCollection(
-                placemarks: _getPlacemarkObjects(context),
-              ),
-              if (point1 != null)
-                PlacemarkMapObject(
-                  mapId: const MapObjectId('widget.point1!.lat'),
-                  point: Point(
-                    latitude: point1!.latitude,
-                    longitude: point1!.longitude,
-                  ),
-                  opacity: 1,
-                  icon: PlacemarkIcon.single(
-                    PlacemarkIconStyle(
-                      image: BitmapDescriptor.fromAssetImage(
-                        'assets/images/location.png',
+                  // меняем внешний вид маркера - делаем его непрозрачным
+                  return view.copyWith(
+                    arrow: view.arrow.copyWith(
+                      opacity: 1,
+                      icon: PlacemarkIcon.single(
+                        PlacemarkIconStyle(
+                          image: BitmapDescriptor.fromAssetImage(
+                            'assets/images/location_current.png',
+                          ),
+                          scale: .2,
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              if (point2 != null)
-                PlacemarkMapObject(
-                  mapId: const MapObjectId('widget.point2!.lat'),
-                  point: Point(
-                    latitude: point2!.latitude,
-                    longitude: point2!.longitude,
-                  ),
-                  opacity: 1,
-                  icon: PlacemarkIcon.single(
-                    PlacemarkIconStyle(
-                      image: BitmapDescriptor.fromAssetImage(
-                        'assets/images/location.png',
+                    pin: view.pin.copyWith(
+                      opacity: 1,
+                      icon: PlacemarkIcon.single(
+                        PlacemarkIconStyle(
+                          image: BitmapDescriptor.fromAssetImage(
+                            'assets/images/location_current.png',
+                          ),
+                          scale: .2,
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ...mapObjects,
-            ],
-            onUserLocationAdded: (view) async {
-              // получаем местоположение пользователя
-              _userLocation = await mapController.getUserCameraPosition();
-              // если местоположение найдено, центрируем карту относительно этой точки
-              if (_userLocation != null) {
-                await mapController.moveCamera(
-                  CameraUpdate.newCameraPosition(
-                    _userLocation!.copyWith(zoom: 15),
-                  ),
-                  animation: const MapAnimation(
-                    type: MapAnimationType.linear,
-                    duration: 0.3,
-                  ),
-                );
-              }
-              // меняем внешний вид маркера - делаем его непрозрачным
-              return view.copyWith(
-                arrow: view.arrow.copyWith(
-                  opacity: 1,
-                  icon: PlacemarkIcon.single(
-                    PlacemarkIconStyle(
-                      image: BitmapDescriptor.fromAssetImage(
-                        'assets/images/location_current.png',
-                      ),
-                      scale: .2,
-                    ),
-                  ),
-                ),
-                pin: view.pin.copyWith(
-                  opacity: 1,
-                  icon: PlacemarkIcon.single(
-                    PlacemarkIconStyle(
-                      image: BitmapDescriptor.fromAssetImage(
-                        'assets/images/location_current.png',
-                      ),
-                      scale: .2,
-                    ),
-                  ),
-                ),
-              );
-            },
-            onMapTap: (Point point) async {
-              mapController.moveCamera(
-                CameraUpdate.newCameraPosition(CameraPosition(target: point)),
-                animation: const MapAnimation(duration: 1.0),
+                  );
+                },
+                onMapTap: (Point point) async {
+                  mapController.moveCamera(
+                    CameraUpdate.newCameraPosition(
+                        CameraPosition(target: point)),
+                    animation: const MapAnimation(duration: 1.0),
+                  );
+                },
               );
             },
           ),
@@ -445,36 +434,61 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
                 ),
               ),
             ),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: CircleAvatar(
-                backgroundColor: context.color.contColor,
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: context.color.white,
+          Positioned(
+            bottom: 40,
+            left: 16,
+            right: 16,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CircleAvatar(
+                  backgroundColor: context.color.contColor,
+                  radius: 24,
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: context.color.white,
+                    ),
                   ),
                 ),
-              ),
+                CircleAvatar(
+                  backgroundColor: context.color.contColor,
+                  radius: 24,
+                  child: IconButton(
+                    onPressed: () async {
+                      await _initLocationLayer();
+                      await _fetchCurrentLocation();
+                    },
+                    icon: AppIcons.gps.svg(color: context.color.white),
+                  ),
+                ),
+              ],
             ),
           ),
-          // Positioned(
-          //   bottom: 16,
-          //   right: 16,
-          //   child: CircleAvatar(
-          //     backgroundColor: white,
-          //     child: IconButton(
-          //       onPressed: () {
-          //         Navigator.pop(context);
-          //       },
-          //       icon: AppIcons.gps.svg(),
-          //     ),
-          //   ),
-          // )
+          Positioned(
+            bottom: 0,
+            right: 0,
+            left: 0,
+            child: Container(
+              height: 24,
+              decoration: BoxDecoration(
+                color: context.color.scaffoldBackground,
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(24),
+                ),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    offset: Offset(0, -2),
+                    blurRadius: 10.0,
+                  ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );

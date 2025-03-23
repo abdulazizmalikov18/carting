@@ -211,9 +211,7 @@ mixin LocotionMixin on State<LocationView> {
       final results = await resultWithSession.$2;
       if (results.items != null) {
         if (results.items!.isNotEmpty) {
-          final address =
-              results.items!.first.toponymMetadata?.address.formattedAddress ??
-                  'Unknown location';
+          final address = results.items!.first.name;
           return address;
         }
       }

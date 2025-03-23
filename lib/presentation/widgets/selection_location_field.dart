@@ -30,6 +30,7 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
       decoration: BoxDecoration(
         color: context.color.contColor,
         borderRadius: BorderRadius.circular(24),
+        boxShadow: wboxShadow2,
       ),
       child: Column(
         children: [
@@ -60,7 +61,7 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
               title: Text(
                 AppLocalizations.of(context)!.from,
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 14,
                   fontWeight: FontWeight.w400,
                   color: context.color.darkText,
                 ),
@@ -121,7 +122,7 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
               title: Text(
                 AppLocalizations.of(context)!.to,
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 14,
                   fontWeight: FontWeight.w400,
                   color: context.color.darkText,
                 ),

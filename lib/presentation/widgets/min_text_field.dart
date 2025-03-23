@@ -44,18 +44,21 @@ class MinTextField extends StatelessWidget {
       decoration: BoxDecoration(
         color: context.color.contColor,
         borderRadius: BorderRadius.circular(24),
+        boxShadow: wboxShadow2,
       ),
       padding: const EdgeInsets.all(12),
       child: Column(
+        spacing: 4,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             text,
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: FontWeight.w400,
               color: context.color.darkText,
             ),
+            overflow: TextOverflow.ellipsis,
           ),
           Row(
             children: [

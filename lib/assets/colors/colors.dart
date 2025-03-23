@@ -90,6 +90,15 @@ List<BoxShadow> wboxShadow = [
   )
 ];
 
+List<BoxShadow> wboxShadow2 = [
+  BoxShadow(
+    color: darkText.withValues(alpha: .02),
+    blurRadius: 8.4,
+    spreadRadius: 0,
+    offset: const Offset(0, 2),
+  )
+];
+
 List<BoxShadow> wboxShadowRed = [
   BoxShadow(
     offset: const Offset(0, 0),

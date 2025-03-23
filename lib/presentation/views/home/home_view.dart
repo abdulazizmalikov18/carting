@@ -70,16 +70,16 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
         serviceId: 1,
       ),
       TypeOfService(
-        icon: AppIcons.transportRental.svg(height: 40, width: 40),
-        text: AppLocalizations.of(context)!.peregonService,
-        screen: const PeregonServiceView(),
-        serviceId: 10,
-      ),
-      TypeOfService(
         icon: AppIcons.delivery.svg(height: 40, width: 40),
         text: AppLocalizations.of(context)!.delivery,
         screen: const DeliveryView(),
         serviceId: 9,
+      ),
+      TypeOfService(
+        icon: AppIcons.transportRental.svg(height: 40, width: 40),
+        text: AppLocalizations.of(context)!.peregonService,
+        screen: const PeregonServiceView(),
+        serviceId: 10,
       ),
       TypeOfService(
         icon: AppIcons.fuelDeliver.svg(),

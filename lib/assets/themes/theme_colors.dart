@@ -105,7 +105,7 @@ class AppThemeColor extends ThemeExtension<AppThemeColor> {
     white50: Color(0xff8FA0B8),
     black: Color(0xffFFFFFF),
     categoryColor: Color(0xffFFFFFF),
-    darkText: Color(0xFFCBCCCD),
+    darkText: Color(0xFFA9ABAD),
     red: Color(0xffFA193E),
     grey: Color(0xffE7E7E8),
     greyText: Color(0xFF445776),

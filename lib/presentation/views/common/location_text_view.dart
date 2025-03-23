@@ -84,8 +84,15 @@ class _LocationTextViewState extends State<LocationTextView> {
             ),
             margin: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: context.color.scaffoldBackground,
+              color: context.color.contColor,
               borderRadius: BorderRadius.circular(24),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF292D32).withValues(alpha: 0.02),
+                  offset: const Offset(0, 2),
+                  blurRadius: 8.5,
+                ),
+              ],
             ),
             child: Column(
               children: [

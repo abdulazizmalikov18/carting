@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/assets/assets/icons.dart';
+import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/data/models/transportation_types_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/widgets/w_shimmer.dart';
 import 'package:flex_dropdown/flex_dropdown.dart';
 import 'package:flutter/material.dart';
@@ -43,30 +45,61 @@ class _WSelectionItamState extends State<WSelectionItam> {
             menuPosition: position,
             dismissOnTapOutside: dismissOnTapOutside,
             buttonBuilder: (context, onTap) {
-              return DecoratedBox(
+              return Container(
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
                 decoration: BoxDecoration(
                   color: context.color.contColor,
                   borderRadius: BorderRadius.circular(24),
+                  boxShadow: wboxShadow2,
                 ),
-                child: ListTile(
+                child: GestureDetector(
                   onTap: onTap,
-                  title: Text(
-                    state.transportationTypes[selIndex].name,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: context.color.darkText,
-                    ),
-                  ),
-                  subtitle: Text(state.transportationTypes[selIndex].volume),
-                  minVerticalPadding: 0,
-                  subtitleTextStyle: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                  ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
+                      Expanded(
+                        child: SizedBox(
+                          height: 48,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.transportType,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: context.color.darkText,
+                                ),
+                              ),
+                              RichText(
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                text: TextSpan(
+                                  text:
+                                      "${state.transportationTypes[selIndex].name}, ",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    color: context.color.white,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: state
+                                          .transportationTypes[selIndex].volume,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                        color: context.color.darkText,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       CachedNetworkImage(
                         imageUrl: state.transportationTypes[selIndex].icon,
                         height: 48,
@@ -118,7 +151,7 @@ class MenuWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       constraints: const BoxConstraints(maxHeight: 250),
       decoration: BoxDecoration(
         color: context.color.contColor,
@@ -163,9 +196,10 @@ class MenuWidget extends StatelessWidget {
                       ),
                       Text(
                         transportationTypes[index].volume,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w300,
+                          color: context.color.darkText,
                         ),
                       ),
                     ],
