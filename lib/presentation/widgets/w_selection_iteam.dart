@@ -46,7 +46,7 @@ class _WSelectionItamState extends State<WSelectionItam> {
             dismissOnTapOutside: dismissOnTapOutside,
             buttonBuilder: (context, onTap) {
               return Container(
-                padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: context.color.contColor,
                   borderRadius: BorderRadius.circular(24),
@@ -115,7 +115,7 @@ class _WSelectionItamState extends State<WSelectionItam> {
             menuBuilder: (context, width) {
               return Padding(
                 padding: const EdgeInsets.only(top: 4),
-                child: MenuWidget(
+                child: _MenuWidget(
                   width: useButtonSize ? width : 300,
                   transportationTypes: state.transportationTypes,
                   onItemTap: (index) {
@@ -135,9 +135,8 @@ class _WSelectionItamState extends State<WSelectionItam> {
   }
 }
 
-class MenuWidget extends StatelessWidget {
-  const MenuWidget({
-    super.key,
+class _MenuWidget extends StatelessWidget {
+  const _MenuWidget({
     this.width,
     required this.onItemTap,
     required this.transportationTypes,

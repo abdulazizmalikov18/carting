@@ -1586,6 +1586,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'To Date'**
   String get to_date;
+
+  /// No description provided for @household_appliances.
+  ///
+  /// In en, this message translates to:
+  /// **'Household appliances'**
+  String get household_appliances;
+
+  /// No description provided for @construction_materials.
+  ///
+  /// In en, this message translates to:
+  /// **'Construction materials'**
+  String get construction_materials;
+
+  /// No description provided for @food_products.
+  ///
+  /// In en, this message translates to:
+  /// **'Food products'**
+  String get food_products;
+
+  /// No description provided for @agricultural_products.
+  ///
+  /// In en, this message translates to:
+  /// **'Agricultural products'**
+  String get agricultural_products;
+
+  /// No description provided for @medical_equipment.
+  ///
+  /// In en, this message translates to:
+  /// **'Medical equipment'**
+  String get medical_equipment;
+
+  /// No description provided for @moving_furniture.
+  ///
+  /// In en, this message translates to:
+  /// **'Moving furniture (home/office)'**
+  String get moving_furniture;
+
+  /// No description provided for @animal_transportation.
+  ///
+  /// In en, this message translates to:
+  /// **'Animal transportation'**
+  String get animal_transportation;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

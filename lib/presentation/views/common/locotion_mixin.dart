@@ -3,7 +3,9 @@ part of 'package:carting/presentation/views/common/location_view.dart';
 mixin LocotionMixin on State<LocationView> {
   late TextEditingController controllerLat;
   late TextEditingController controllerLong;
-  late YandexMapController mapController;
+  YandexMapController? mapController;
+  DrivingSession? session;
+  // bool _isControllerDisposed = false;
   List<MapPoint> list = [];
   MapPoint? point1;
   MapPoint? point2;
@@ -11,7 +13,7 @@ mixin LocotionMixin on State<LocationView> {
   ValueNotifier<int> isMapIndex = ValueNotifier(1);
   late final List<MapObject> mapObjects = [];
   final List<DrivingSessionResult> results = [];
-  late final DrivingSession session;
+
   CameraPosition? _userLocation;
   CameraPosition? _position;
 
@@ -60,7 +62,6 @@ mixin LocotionMixin on State<LocationView> {
   @override
   void dispose() {
     super.dispose();
-
     _close();
   }
 
@@ -70,6 +71,13 @@ mixin LocotionMixin on State<LocationView> {
       list.add(widget.point1!);
       setState(() {});
     }
+  }
+
+  void _onMapCreated(YandexMapController controller) {
+    setState(() {
+      mapController = controller;
+    });
+    // _isControllerDisposed = false; // Controller hali dispose bo‘lmadi
   }
 
   diriv() async {
@@ -129,7 +137,7 @@ mixin LocotionMixin on State<LocationView> {
         await Permission.location.request().isGranted;
 
     if (locationPermissionIsGranted) {
-      await mapController.toggleUserLayer(visible: true);
+      await mapController?.toggleUserLayer(visible: true);
     } else {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         CustomSnackbar.show(
@@ -164,7 +172,7 @@ mixin LocotionMixin on State<LocationView> {
         );
       },
       onClusterTap: (self, cluster) async {
-        await mapController.moveCamera(
+        await mapController?.moveCamera(
           animation:
               const MapAnimation(type: MapAnimationType.linear, duration: 0.3),
           CameraUpdate.newCameraPosition(
@@ -245,7 +253,7 @@ mixin LocotionMixin on State<LocationView> {
   Future<void> _moveToCurrentLocation(
     AppLatLong appLatLong,
   ) async {
-    mapController.moveCamera(
+    mapController?.moveCamera(
       animation: const MapAnimation(type: MapAnimationType.linear, duration: 1),
       CameraUpdate.newCameraPosition(
         CameraPosition(
@@ -260,7 +268,17 @@ mixin LocotionMixin on State<LocationView> {
   }
 
   Future<void> _close() async {
-    mapController.dispose();
-    await session.close();
+    // if (!_isControllerDisposed) {
+    //   _isControllerDisposed = true;
+    //   mapController.dispose();
+    // }
+    if (session != null) {
+      try {
+        await session?.cancel();
+        await session?.close();
+      } catch (e) {
+        Log.e(e);
+      }
+    }
   }
 }

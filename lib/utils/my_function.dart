@@ -5,6 +5,7 @@ import 'package:carting/app/auth/auth_bloc.dart';
 import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/presentation/routes/route_name.dart';
+import 'package:carting/presentation/widgets/cargo_type_item.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/utils/log_service.dart';
 import 'package:flutter/material.dart';
@@ -172,9 +173,18 @@ class MyFunction {
       return '';
     }
   }
-
-  static String dateFormat(DateTime date) {
+    static String dateFormat(DateTime date) {
     return DateFormat('dd.MM.yyyy').format(date);
+  }
+
+  static String listText(List<CargoTypeValu>  list) {
+    List<String> titles = [];
+    for (var element in list) {
+      if (element.value) {
+        titles.add(element.title);
+      }
+    }
+    return titles.join(', ');
   }
 
   static String formattedTime(DateTime date) {

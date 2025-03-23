@@ -163,7 +163,7 @@ class _WTextFieldState extends State<WTextField> {
                     OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
                       borderSide: BorderSide(
-                        color: const Color(0xFFC2C2C2).withValues(alpha: .2),
+                        color: shuttleGrey.withValues(alpha: .2),
                       ),
                     ),
                 enabledBorder: widget.border ??
@@ -172,7 +172,7 @@ class _WTextFieldState extends State<WTextField> {
                         widget.borderRadius ?? 16,
                       ),
                       borderSide: BorderSide(
-                        color: const Color(0xFFC2C2C2).withValues(alpha: .2),
+                        color: shuttleGrey.withValues(alpha: .2),
                       ),
                     ),
                 focusedBorder: widget.border ??
@@ -181,7 +181,7 @@ class _WTextFieldState extends State<WTextField> {
                         widget.borderRadius ?? 16,
                       ),
                       borderSide: BorderSide(
-                        color: const Color(0xFFC2C2C2).withValues(alpha: .2),
+                        color: shuttleGrey.withValues(alpha: .2),
                       ),
                     ),
                 hintText: widget.hintText,

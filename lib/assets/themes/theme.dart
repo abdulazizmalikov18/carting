@@ -68,7 +68,7 @@ abstract class AppTheme {
             color: white,
           ),
         ),
-        dividerTheme: const DividerThemeData(color: Color(0xFF161B26)),
+        dividerTheme: const DividerThemeData(color: Color(0xFF4C4C4C)),
         extensions: <ThemeExtension<AppThemeColor>>[AppThemeColor.dark],
         colorSchemeSeed: green,
         listTileTheme: const ListTileThemeData(

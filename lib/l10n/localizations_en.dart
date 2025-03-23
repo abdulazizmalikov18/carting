@@ -751,4 +751,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get to_date => 'To Date';
+
+  @override
+  String get household_appliances => 'Household appliances';
+
+  @override
+  String get construction_materials => 'Construction materials';
+
+  @override
+  String get food_products => 'Food products';
+
+  @override
+  String get agricultural_products => 'Agricultural products';
+
+  @override
+  String get medical_equipment => 'Medical equipment';
+
+  @override
+  String get moving_furniture => 'Moving furniture (home/office)';
+
+  @override
+  String get animal_transportation => 'Animal transportation';
 }

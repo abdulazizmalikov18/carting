@@ -751,4 +751,25 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get to_date => 'Qaysi sanagacha';
+
+  @override
+  String get household_appliances => 'Maishiy texnikalar';
+
+  @override
+  String get construction_materials => 'Qurilish materiallari';
+
+  @override
+  String get food_products => 'Oziq-ovqat mahsulotlari';
+
+  @override
+  String get agricultural_products => 'Qishloq xo‘jaligi mahsulotlari';
+
+  @override
+  String get medical_equipment => 'Tibbiy asbob-uskunalar';
+
+  @override
+  String get moving_furniture => 'Uy (ofis) jihozlarini ko‘chirish';
+
+  @override
+  String get animal_transportation => 'Hayvonlarni tashish';
 }

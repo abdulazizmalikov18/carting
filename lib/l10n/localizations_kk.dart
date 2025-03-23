@@ -751,4 +751,25 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get to_date => 'Қайси санагача';
+
+  @override
+  String get household_appliances => 'Маиший техникалар';
+
+  @override
+  String get construction_materials => 'Қурилиш материаллари';
+
+  @override
+  String get food_products => 'Озиқ-овқат маҳсулотлари';
+
+  @override
+  String get agricultural_products => 'Қишлоқ хўжалиги маҳсулотлари';
+
+  @override
+  String get medical_equipment => 'Тиббий асбоб-ускуналар';
+
+  @override
+  String get moving_furniture => 'Уй (офис) жиҳозларини кўчириш';
+
+  @override
+  String get animal_transportation => 'Ҳайвонларни ташиш';
 }

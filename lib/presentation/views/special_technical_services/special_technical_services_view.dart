@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/data/models/special_equipment_model.dart';
-import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/common/map_point.dart';
 import 'package:carting/presentation/views/peregon_service/additional_information_view.dart';
@@ -36,7 +35,8 @@ class _SpecialTechnicalServicesViewState
   late TextEditingController controller2;
   late TextEditingController controllerCommet;
   late TextEditingController controllerPrice;
-  ValueNotifier<bool> payDate = ValueNotifier(true);
+  ValueNotifier<int> payDate = ValueNotifier(0);
+  ValueNotifier<bool> priceOffer = ValueNotifier(false);
   ValueNotifier<int> trTypeId = ValueNotifier(0);
   MapPoint? point;
   @override
@@ -63,7 +63,8 @@ class _SpecialTechnicalServicesViewState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.specialTechServices)),
+        title: Text(AppLocalizations.of(context)!.specialTechServices),
+      ),
       bottomNavigationBar: SafeArea(
         child: BlocBuilder<AdvertisementBloc, AdvertisementState>(
           builder: (context, state) {
@@ -102,9 +103,16 @@ class _SpecialTechnicalServicesViewState
                   advType: 'RECEIVE',
                   serviceTypeId: 3,
                   note: controllerCommet.text,
-                  payType: payDate.value ? 'CASH' : 'CARD',
-                  price:
-                      int.tryParse(controllerPrice.text.replaceAll(' ', '')) ??
+                  payType: switch (payDate.value) {
+                    0 => '',
+                    1 => 'CASH',
+                    2 => 'CARD',
+                    int() => '',
+                  },
+                  price: priceOffer.value
+                      ? 0
+                      : int.tryParse(
+                              controllerPrice.text.replaceAll(' ', '')) ??
                           0,
                 ).toJson();
                 context.read<AdvertisementBloc>().add(CreateDeliveryEvent(
@@ -128,6 +136,7 @@ class _SpecialTechnicalServicesViewState
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
+          spacing: 8,
           children: [
             SelectionLocationField(
               isOne: true,
@@ -137,7 +146,7 @@ class _SpecialTechnicalServicesViewState
                 setState(() {});
               },
             ),
-            const SizedBox(height: 8),
+
             MinTextField(
               text: AppLocalizations.of(context)!.from_date,
               hintText: "",
@@ -164,7 +173,7 @@ class _SpecialTechnicalServicesViewState
               ),
               onChanged: (value) {},
             ),
-            const SizedBox(height: 8),
+
             MinTextField(
               text: AppLocalizations.of(context)!.to_date,
               hintText: "",
@@ -191,63 +200,65 @@ class _SpecialTechnicalServicesViewState
               ),
               onChanged: (value) {},
             ),
-            const SizedBox(height: 8),
-            Container(
-              decoration: BoxDecoration(
-                color: context.color.contColor,
-                borderRadius: BorderRadius.circular(24),
-              ),
-              child: ListTile(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => AdditionalInformationView(
-                      controllerCommet: controllerCommet,
-                      controllerPrice: controllerPrice,
-                      payDate: payDate,
-                      images: images,
-                      onSave: (list) {
-                        setState(() {
-                          images = list;
-                        });
-                      },
-                    ),
-                  ));
-                },
-                title: Text(
-                  AppLocalizations.of(context)!.additionalInfo,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: context.color.darkText,
-                  ),
-                ),
-                minVerticalPadding: 0,
-                subtitle: Text(
-                  controllerCommet.text.isNotEmpty ||
-                          controllerPrice.text.isNotEmpty
-                      ? "${controllerCommet.text.isNotEmpty ? AppLocalizations.of(context)!.description : ""} ${controllerPrice.text.isNotEmpty ? "${AppLocalizations.of(context)!.price}, ${AppLocalizations.of(context)!.paymentType}" : ""} ${images.isEmpty ? "" : AppLocalizations.of(context)!.cargoImages}"
-                      : AppLocalizations.of(context)!.enter_info,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: controllerCommet.text.isNotEmpty ||
-                            controllerPrice.text.isNotEmpty ||
-                            images.isNotEmpty
-                        ? context.color.white
-                        : context.color.darkText,
-                  ),
-                ),
-                trailing: AppIcons.arrowForward.svg(),
-              ),
-            ),
-            const SizedBox(height: 8),
+
+            // Container(
+            //   decoration: BoxDecoration(
+            //     color: context.color.contColor,
+            //     borderRadius: BorderRadius.circular(24),
+            //   ),
+            //   child: ListTile(
+            //     onTap: () {
+            //       Navigator.of(context).push(MaterialPageRoute(
+            //         builder: (context) => ,
+            //       ));
+            //     },
+            //     title: Text(
+            //       AppLocalizations.of(context)!.additionalInfo,
+            //       style: TextStyle(
+            //         fontSize: 12,
+            //         fontWeight: FontWeight.w400,
+            //         color: context.color.darkText,
+            //       ),
+            //     ),
+            //     minVerticalPadding: 0,
+            //     subtitle: Text(
+            //       controllerCommet.text.isNotEmpty ||
+            //               controllerPrice.text.isNotEmpty
+            //           ? "${controllerCommet.text.isNotEmpty ? AppLocalizations.of(context)!.description : ""} ${controllerPrice.text.isNotEmpty ? "${AppLocalizations.of(context)!.price}, ${AppLocalizations.of(context)!.paymentType}" : ""} ${images.isEmpty ? "" : AppLocalizations.of(context)!.cargoImages}"
+            //           : AppLocalizations.of(context)!.enter_info,
+            //       maxLines: 1,
+            //       overflow: TextOverflow.ellipsis,
+            //       style: TextStyle(
+            //         fontSize: 16,
+            //         fontWeight: FontWeight.w400,
+            //         color: controllerCommet.text.isNotEmpty ||
+            //                 controllerPrice.text.isNotEmpty ||
+            //                 images.isNotEmpty
+            //             ? context.color.white
+            //             : context.color.darkText,
+            //       ),
+            //     ),
+            //     trailing: AppIcons.arrowForward.svg(),
+            //   ),
+            // ),
+
             WSelectionItam(
               onTap: (int index) {
                 trTypeId.value = index;
               },
             ),
+            AdditionalInformationView(
+              controllerCommet: controllerCommet,
+              controllerPrice: controllerPrice,
+              payDate: payDate,
+              priceOffer: priceOffer,
+              images: images,
+              onSave: (list) {
+                setState(() {
+                  images = list;
+                });
+              },
+            )
           ],
         ),
       ),

@@ -115,7 +115,7 @@ class MenuWidget extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       constraints: const BoxConstraints(maxHeight: 250),
       decoration: BoxDecoration(
-        color: context.color.contBlue,
+        color: context.color.contColor,
         borderRadius: BorderRadius.circular(24),
         boxShadow: const [
           BoxShadow(

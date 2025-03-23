@@ -34,6 +34,7 @@ class _DeliveryViewState extends State<DeliveryView> {
   List<File> images = [];
   late TextEditingController controller;
   late TextEditingController controllerTime;
+  late TextEditingController controllerTime2;
   late TextEditingController controllerCount;
   late TextEditingController controllerCommet;
   late TextEditingController controllerPrice;
@@ -43,15 +44,18 @@ class _DeliveryViewState extends State<DeliveryView> {
   String selectedUnit = 'kg';
   MapPoint? point1;
   MapPoint? point2;
-  ValueNotifier<bool> payDate = ValueNotifier(true);
+  ValueNotifier<int> payDate = ValueNotifier(0);
+  ValueNotifier<bool> priceOffer = ValueNotifier(false);
   ValueNotifier<int> trTypeId = ValueNotifier(0);
   ValueNotifier<int> loadTypeId = ValueNotifier(1);
   ValueNotifier<int> loadServiceId = ValueNotifier(1);
   DateTime selectedDate = DateTime.now();
+  DateTime selectedDate2 = DateTime.now();
   @override
   void initState() {
     controller = TextEditingController();
     controllerTime = TextEditingController();
+    controllerTime2 = TextEditingController();
     controllerCommet = TextEditingController();
     controllerPrice = TextEditingController();
     controllerCount = TextEditingController();
@@ -138,9 +142,16 @@ class _DeliveryViewState extends State<DeliveryView> {
                   serviceTypeId: 9,
                   shipmentDate: controller.text,
                   note: controllerCommet.text,
-                  payType: payDate.value ? 'CASH' : 'CARD',
-                  price:
-                      int.tryParse(controllerPrice.text.replaceAll(' ', '')) ??
+                  payType: switch (payDate.value) {
+                    0 => null,
+                    1 => 'CASH',
+                    2 => 'CARD',
+                    int() => null,
+                  },
+                  price: priceOffer.value
+                      ? 0
+                      : int.tryParse(
+                              controllerPrice.text.replaceAll(' ', '')) ??
                           0,
                 ).toJson();
                 context.read<AdvertisementBloc>().add(CreateDeliveryEvent(
@@ -164,6 +175,7 @@ class _DeliveryViewState extends State<DeliveryView> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
+          spacing: 8,
           children: [
             SelectionLocationField(
               onTap1: (point) {
@@ -173,7 +185,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                 point2 = point;
               },
             ),
-            const SizedBox(height: 8),
+
             Container(
               decoration: BoxDecoration(
                 color: context.color.contColor,
@@ -274,60 +286,60 @@ class _DeliveryViewState extends State<DeliveryView> {
                 ],
               ),
             ),
-            const SizedBox(height: 8),
+
+            MinTextField(
+              text: AppLocalizations.of(context)!.departureDate,
+              hintText: "",
+              keyboardType: TextInputType.datetime,
+              controller: controller,
+              readOnly: true,
+              formatter: [Formatters.dateFormatter],
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  builder: (context) => WClaendar(
+                    selectedDate: selectedDate,
+                  ),
+                ).then((value) {
+                  if (value != null) {
+                    selectedDate = value;
+                    selectedDate2 = value;
+                    controller.text = MyFunction.dateFormat(value);
+                  }
+                });
+              },
+              prefixIcon: GestureDetector(
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    builder: (context) => WClaendar(
+                      selectedDate: selectedDate,
+                    ),
+                  ).then((value) {
+                    if (value != null) {
+                      selectedDate = value;
+                      selectedDate2 = value;
+                      controller.text = MyFunction.dateFormat(value);
+                    }
+                  });
+                },
+                child: AppIcons.calendar.svg(
+                  height: 24,
+                  width: 24,
+                ),
+              ),
+              onChanged: (value) {},
+            ),
             Row(
               spacing: 8,
               children: [
                 Expanded(
                   child: MinTextField(
-                    text: AppLocalizations.of(context)!.departureDate,
-                    hintText: "",
-                    keyboardType: TextInputType.datetime,
-                    controller: controller,
-                    readOnly: true,
-                    formatter: [Formatters.dateFormatter],
-                    onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        builder: (context) => WClaendar(
-                          selectedDate: selectedDate,
-                        ),
-                      ).then((value) {
-                        if (value != null) {
-                          selectedDate = value;
-                          controller.text = MyFunction.dateFormat(value);
-                        }
-                      });
-                    },
-                    prefixIcon: GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          backgroundColor: Colors.transparent,
-                          builder: (context) => WClaendar(
-                            selectedDate: selectedDate,
-                          ),
-                        ).then((value) {
-                          if (value != null) {
-                            selectedDate = value;
-                            controller.text = MyFunction.dateFormat(value);
-                          }
-                        });
-                      },
-                      child: AppIcons.calendar.svg(
-                        height: 24,
-                        width: 24,
-                      ),
-                    ),
-                    onChanged: (value) {},
-                  ),
-                ),
-                Expanded(
-                  child: MinTextField(
-                    text: AppLocalizations.of(context)!.send_time,
+                    text: "${AppLocalizations.of(context)!.send_time} (dan)",
                     hintText: "",
                     keyboardType: TextInputType.datetime,
                     controller: controllerTime,
@@ -373,69 +385,117 @@ class _DeliveryViewState extends State<DeliveryView> {
                     onChanged: (value) {},
                   ),
                 ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            DecoratedBox(
-              decoration: BoxDecoration(
-                color: context.color.contColor,
-                borderRadius: BorderRadius.circular(24),
-              ),
-              child: ListTile(
-                title: Text(
-                  AppLocalizations.of(context)!.additionalInfo,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: context.color.darkText,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => AdditionalInformationView(
-                      isDelivery: false,
-                      controllerCommet: controllerCommet,
-                      controllerPrice: controllerPrice,
-                      loadServiceId: loadServiceId,
-                      loadTypeId: loadTypeId,
-                      payDate: payDate,
-                      images: images,
-                      onSave: (list) {
-                        setState(() {
-                          images = list;
+                Expanded(
+                  child: MinTextField(
+                    text: "${AppLocalizations.of(context)!.send_time} (gacha)",
+                    hintText: "",
+                    keyboardType: TextInputType.datetime,
+                    controller: controllerTime2,
+                    readOnly: true,
+                    formatter: [Formatters.dateFormatter],
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (context) => WTime(
+                          selectedDate: selectedDate2,
+                          minimumDate: selectedDate,
+                        ),
+                      ).then((value) {
+                        if (value != null) {
+                          selectedDate2 = value;
+                          controllerTime2.text =
+                              MyFunction.formattedTime(value);
+                        }
+                      });
+                    },
+                    prefixIcon: GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          builder: (context) => WTime(
+                            selectedDate: selectedDate2,
+                            minimumDate: selectedDate,
+                          ),
+                        ).then((value) {
+                          if (value != null) {
+                            selectedDate2 = value;
+                            controllerTime2.text =
+                                MyFunction.formattedTime(value);
+                          }
                         });
                       },
+                      child: AppIcons.clock.svg(
+                        height: 24,
+                        width: 24,
+                      ),
                     ),
-                  ));
-                },
-                minVerticalPadding: 0,
-                subtitle: Text(
-                  controllerCommet.text.isNotEmpty ||
-                          controllerPrice.text.isNotEmpty
-                      ? "${controllerCommet.text.isNotEmpty ? AppLocalizations.of(context)!.description : ""} ${controllerPrice.text.isNotEmpty ? "${AppLocalizations.of(context)!.price}, ${AppLocalizations.of(context)!.paymentType}" : ""} ${images.isEmpty ? "" : AppLocalizations.of(context)!.cargoImages}"
-                      : AppLocalizations.of(context)!.enter_info,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: controllerCommet.text.isNotEmpty ||
-                            controllerPrice.text.isNotEmpty ||
-                            images.isNotEmpty
-                        ? context.color.white
-                        : context.color.darkText,
+                    onChanged: (value) {},
                   ),
                 ),
-                trailing: AppIcons.arrowForward.svg(),
-              ),
+              ],
             ),
-            const SizedBox(height: 8),
-            WSelectionItam(
-              onTap: (index) {
-                trTypeId.value = index;
+
+            // DecoratedBox(
+            //   decoration: BoxDecoration(
+            //     color: context.color.contColor,
+            //     borderRadius: BorderRadius.circular(24),
+            //   ),
+            //   child: ListTile(
+            //     title: Text(
+            //       AppLocalizations.of(context)!.additionalInfo,
+            //       style: TextStyle(
+            //         fontSize: 12,
+            //         fontWeight: FontWeight.w400,
+            //         color: context.color.darkText,
+            //       ),
+            //     ),
+            //     onTap: () {
+            //       Navigator.of(context).push(MaterialPageRoute(
+            //         builder: (context) => ,
+            //       ));
+            //     },
+            //     minVerticalPadding: 0,
+            //     subtitle: Text(
+            //       controllerCommet.text.isNotEmpty ||
+            //               controllerPrice.text.isNotEmpty
+            //           ? "${controllerCommet.text.isNotEmpty ? AppLocalizations.of(context)!.description : ""} ${controllerPrice.text.isNotEmpty ? "${AppLocalizations.of(context)!.price}, ${AppLocalizations.of(context)!.paymentType}" : ""} ${images.isEmpty ? "" : AppLocalizations.of(context)!.cargoImages}"
+            //           : AppLocalizations.of(context)!.enter_info,
+            //       maxLines: 1,
+            //       overflow: TextOverflow.ellipsis,
+            //       style: TextStyle(
+            //         fontSize: 16,
+            //         fontWeight: FontWeight.w400,
+            //         color: controllerCommet.text.isNotEmpty ||
+            //                 controllerPrice.text.isNotEmpty ||
+            //                 images.isNotEmpty
+            //             ? context.color.white
+            //             : context.color.darkText,
+            //       ),
+            //     ),
+            //     trailing: AppIcons.arrowForward.svg(),
+            //   ),
+            // ),
+
+            WSelectionItam(onTap: (index) {
+              trTypeId.value = index;
+            }),
+            AdditionalInformationView(
+              isDelivery: false,
+              controllerCommet: controllerCommet,
+              controllerPrice: controllerPrice,
+              payDate: payDate,
+              priceOffer: priceOffer,
+              images: images,
+              onSave: (list) {
+                setState(() {
+                  images = list;
+                });
               },
-            ),
-            const SizedBox(height: 8),
+            )
           ],
         ),
       ),

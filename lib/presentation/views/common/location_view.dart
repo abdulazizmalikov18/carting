@@ -274,12 +274,21 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
             builder: (context, _, __) {
               return YandexMap(
                 onMapCreated: (controller) async {
-                  mapController = controller;
+                  _onMapCreated(controller);
+                  mapController?.moveCamera(CameraUpdate.newCameraPosition(
+                    const CameraPosition(
+                      target: Point(
+                        latitude: 41.2995,
+                        longitude: 69.2401,
+                      ), // O'zbekiston markazi
+                      zoom: 3.0, // Kattaroq zoom
+                    ),
+                  ));
                   if (widget.point1 == null || widget.point2 == null) {
                     await _initLocationLayer();
                   } else {
                     if (widget.point1 != null) {
-                      mapController.moveCamera(CameraUpdate.newCameraPosition(
+                      mapController?.moveCamera(CameraUpdate.newCameraPosition(
                         CameraPosition(
                           target: Point(
                             latitude: widget.point1!.latitude,
@@ -288,7 +297,7 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
                         ),
                       ));
                     } else {
-                      mapController.moveCamera(CameraUpdate.newCameraPosition(
+                      mapController?.moveCamera(CameraUpdate.newCameraPosition(
                         CameraPosition(
                           target: Point(
                             latitude: widget.point2!.latitude,
@@ -373,10 +382,10 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
                 ],
                 onUserLocationAdded: (view) async {
                   // получаем местоположение пользователя
-                  _userLocation = await mapController.getUserCameraPosition();
+                  _userLocation = await mapController?.getUserCameraPosition();
                   // если местоположение найдено, центрируем карту относительно этой точки
                   if (_userLocation != null) {
-                    await mapController.moveCamera(
+                    await mapController?.moveCamera(
                       CameraUpdate.newCameraPosition(
                         _userLocation!.copyWith(zoom: 15),
                       ),
@@ -413,9 +422,10 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
                   );
                 },
                 onMapTap: (Point point) async {
-                  mapController.moveCamera(
+                  mapController?.moveCamera(
                     CameraUpdate.newCameraPosition(
-                        CameraPosition(target: point)),
+                      CameraPosition(target: point),
+                    ),
                     animation: const MapAnimation(duration: 1.0),
                   );
                 },

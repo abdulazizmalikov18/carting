@@ -246,5 +246,12 @@
   "special_equipment": "Махсус техника",
   "select_location": "Манзилни танланг",
   "from_date": "Қайси санадан",
-  "to_date": "Қайси санагача"
+  "to_date": "Қайси санагача",
+  "household_appliances": "Маиший техникалар",
+  "construction_materials": "Қурилиш материаллари",
+  "food_products": "Озиқ-овқат маҳсулотлари",
+  "agricultural_products": "Қишлоқ хўжалиги маҳсулотлари",
+  "medical_equipment": "Тиббий асбоб-ускуналар",
+  "moving_furniture": "Уй (офис) жиҳозларини кўчириш",
+  "animal_transportation": "Ҳайвонларни ташиш"
 }

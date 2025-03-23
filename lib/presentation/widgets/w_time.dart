@@ -4,8 +4,9 @@ import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:flutter/cupertino.dart';
 
 class WTime extends StatefulWidget {
-  const WTime({super.key, this.selectedDate});
+  const WTime({super.key, this.selectedDate, this.minimumDate});
   final DateTime? selectedDate;
+  final DateTime? minimumDate;
 
   @override
   State<WTime> createState() => _WTimeState();
@@ -63,6 +64,7 @@ class _WTimeState extends State<WTime> {
                   ),
                   child: CupertinoDatePicker(
                     initialDateTime: _selectedDay,
+                    minimumDate: widget.minimumDate,
                     mode: CupertinoDatePickerMode.time,
                     use24hFormat: true,
                     onDateTimeChanged: (dateTime) =>

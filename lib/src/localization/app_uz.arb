@@ -247,5 +247,12 @@
   "special_equipment": "Maxsus texnika",
   "select_location": "Manzilni tanlang",
   "from_date": "Qaysi sanadan",
-  "to_date": "Qaysi sanagacha"
+  "to_date": "Qaysi sanagacha",
+  "household_appliances": "Maishiy texnikalar",
+  "construction_materials": "Qurilish materiallari",
+  "food_products": "Oziq-ovqat mahsulotlari",
+  "agricultural_products": "Qishloq xo‘jaligi mahsulotlari",
+  "medical_equipment": "Tibbiy asbob-uskunalar",
+  "moving_furniture": "Uy (ofis) jihozlarini ko‘chirish",
+  "animal_transportation": "Hayvonlarni tashish"
 }

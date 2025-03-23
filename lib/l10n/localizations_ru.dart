@@ -751,4 +751,25 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get to_date => 'До какой даты';
+
+  @override
+  String get household_appliances => 'Бытовая техника';
+
+  @override
+  String get construction_materials => 'Строительные материалы';
+
+  @override
+  String get food_products => 'Продукты питания';
+
+  @override
+  String get agricultural_products => 'Сельскохозяйственные продукты';
+
+  @override
+  String get medical_equipment => 'Медицинское оборудование';
+
+  @override
+  String get moving_furniture => 'Перевозка мебели (дом/офис)';
+
+  @override
+  String get animal_transportation => 'Перевозка животных';
 }

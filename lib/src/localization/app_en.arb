@@ -246,5 +246,12 @@
   "special_equipment": "Special Equipment",
   "select_location": "Select Location",
   "from_date": "From Date",
-  "to_date": "To Date"
+  "to_date": "To Date",
+  "household_appliances": "Household appliances",
+  "construction_materials": "Construction materials",
+  "food_products": "Food products",
+  "agricultural_products": "Agricultural products",
+  "medical_equipment": "Medical equipment",
+  "moving_furniture": "Moving furniture (home/office)",
+  "animal_transportation": "Animal transportation"
 }

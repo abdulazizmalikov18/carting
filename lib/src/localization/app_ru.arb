@@ -246,6 +246,13 @@
   "special_equipment": "Спецтехника",
   "select_location": "Выберите местоположение",
   "from_date": "С какой даты",
-  "to_date": "До какой даты"
+  "to_date": "До какой даты",
+  "household_appliances": "Бытовая техника",
+  "construction_materials": "Строительные материалы",
+  "food_products": "Продукты питания",
+  "agricultural_products": "Сельскохозяйственные продукты",
+  "medical_equipment": "Медицинское оборудование",
+  "moving_furniture": "Перевозка мебели (дом/офис)",
+  "animal_transportation": "Перевозка животных"
 }
 

@@ -1,32 +1,28 @@
-import 'dart:io';
-
-import 'package:carting/assets/colors/colors.dart';
-import 'package:carting/infrastructure/core/context_extension.dart';
-import 'package:carting/presentation/widgets/custom_text_field.dart';
-import 'package:carting/presentation/widgets/succes_dialog.dart';
-import 'package:carting/presentation/widgets/w_scale_animation.dart';
-import 'package:carting/presentation/widgets/w_time.dart';
-import 'package:dotted_border/dotted_border.dart';
+import 'package:flex_dropdown/flex_dropdown.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/assets/assets/icons.dart';
+import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/data/models/delivery_create_model.dart';
 import 'package:carting/data/models/location_model.dart';
+import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
-import 'package:carting/presentation/views/common/map_point.dart';
+import 'package:carting/presentation/views/peregon_service/additional_information_view.dart';
+import 'package:carting/presentation/widgets/adversment_value_mixin.dart';
+import 'package:carting/presentation/widgets/cargo_type_item.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/presentation/widgets/min_text_field.dart';
 import 'package:carting/presentation/widgets/selection_location_field.dart';
+import 'package:carting/presentation/widgets/succes_dialog.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_claendar.dart';
 import 'package:carting/presentation/widgets/w_selection_iteam.dart';
+import 'package:carting/presentation/widgets/w_time.dart';
 import 'package:carting/utils/formatters.dart';
 import 'package:carting/utils/my_function.dart';
-import 'package:image_picker/image_picker.dart';
 
 class ShippingCreateView extends StatefulWidget {
   const ShippingCreateView({super.key});
@@ -35,29 +31,13 @@ class ShippingCreateView extends StatefulWidget {
   State<ShippingCreateView> createState() => _ShippingCreateViewState();
 }
 
-class _ShippingCreateViewState extends State<ShippingCreateView> {
-  List<File> images = [];
-  late TextEditingController controller;
-  late TextEditingController controllerTime;
-  late TextEditingController controllerCount;
-  late TextEditingController controllerKg;
-  late TextEditingController controllerm3;
-  late TextEditingController controllerLitr;
-  late TextEditingController controllerCommet;
-  late TextEditingController controllerPrice;
-  String selectedUnit = 'kg';
-  MapPoint? point1;
-  MapPoint? point2;
-  ValueNotifier<int> payDate = ValueNotifier(0);
-  ValueNotifier<bool> priceOffer = ValueNotifier(false);
-  ValueNotifier<int> trTypeId = ValueNotifier(0);
-  ValueNotifier<int> loadTypeId = ValueNotifier(1);
-  ValueNotifier<int> loadServiceId = ValueNotifier(1);
-  DateTime selectedDate = DateTime.now();
+class _ShippingCreateViewState extends State<ShippingCreateView>
+    with AdversmentValueMixin {
   @override
   void initState() {
     controller = TextEditingController();
     controllerTime = TextEditingController();
+    controllerTime2 = TextEditingController();
     controllerCommet = TextEditingController();
     controllerKg = TextEditingController();
     controllerLitr = TextEditingController();
@@ -65,6 +45,22 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
     controllerPrice = TextEditingController();
     controllerCount = TextEditingController();
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final localization = AppLocalizations.of(context)!;
+
+    list = [
+      CargoTypeValu(title: localization.household_appliances, value: false),
+      CargoTypeValu(title: localization.construction_materials, value: false),
+      CargoTypeValu(title: localization.food_products, value: false),
+      CargoTypeValu(title: localization.agricultural_products, value: false),
+      CargoTypeValu(title: localization.medical_equipment, value: false),
+      CargoTypeValu(title: localization.moving_furniture, value: false),
+      CargoTypeValu(title: localization.animal_transportation, value: false),
+    ];
   }
 
   @override
@@ -84,26 +80,14 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
     super.dispose();
   }
 
-  void imagesFile() async {
-    try {
-      final image = await ImagePicker().pickMultiImage();
-      if (image.isNotEmpty) {
-        for (var element in image) {
-          images.add(File(element.path));
-        }
-      }
-      setState(() {});
-    } on PlatformException catch (e) {
-      debugPrint(e.toString());
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-  }
-
-  String _formatFileSize(int bytes) {
-    if (bytes < 1024) return "$bytes B";
-    if (bytes < 1024 * 1024) return "${(bytes / 1024).toStringAsFixed(2)} KB";
-    return "${(bytes / (1024 * 1024)).toStringAsFixed(2)} MB";
+  void updateButtonState() {
+    setState(() {
+      isDisabled = point1 == null ||
+          point2 == null ||
+          (controllerKg.text.isEmpty &&
+              controllerLitr.text.isEmpty &&
+              controllerm3.text.isEmpty);
+    });
   }
 
   @override
@@ -120,7 +104,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
                 if (point2 == null) missingFields.add("Qabul qiluvchi manzil");
                 if (controllerKg.text.isEmpty &&
                     controllerLitr.text.isEmpty &&
-                    controllerLitr.text.isEmpty) {
+                    controllerm3.text.isEmpty) {
                   missingFields.add("Yuk miqdori");
                 }
                 // if (controllerPrice.text.isEmpty) missingFields.add("Narx");
@@ -168,8 +152,10 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
                     2 => 'CARD',
                     int() => null,
                   },
-                  price:
-                      int.tryParse(controllerPrice.text.replaceAll(' ', '')) ??
+                  price: priceOffer.value
+                      ? 0
+                      : int.tryParse(
+                              controllerPrice.text.replaceAll(' ', '')) ??
                           0,
                 ).toJson();
                 context.read<AdvertisementBloc>().add(CreateDeliveryEvent(
@@ -185,6 +171,8 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
               },
               margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
               isLoading: state.statusCreate.isInProgress,
+              isDisabled: isDisabled,
+              disabledColor: context.color.darkText,
               text: AppLocalizations.of(context)!.confirm,
             );
           },
@@ -198,13 +186,80 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
             SelectionLocationField(
               onTap1: (point) {
                 point1 = point;
+                updateButtonState();
               },
               onTap2: (point) {
                 point2 = point;
               },
             ),
             const SizedBox(),
-
+            RawFlexDropDown(
+              controller: overlayPortalController,
+              menuPosition: position,
+              dismissOnTapOutside: dismissOnTapOutside,
+              buttonBuilder: (context, onTap) {
+                return Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: context.color.contColor,
+                    borderRadius: BorderRadius.circular(24),
+                    boxShadow: wboxShadow2,
+                  ),
+                  child: GestureDetector(
+                    onTap: onTap,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 4,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.cargoType,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: context.color.darkText,
+                          ),
+                        ),
+                        Row(
+                          spacing: 12,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                MyFunction.listText(list).isEmpty
+                                    ? AppLocalizations.of(context)!.cargoType
+                                    : MyFunction.listText(list),
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: MyFunction.listText(list).isEmpty
+                                      ? context.color.darkText
+                                      : null,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            AppIcons.search.svg()
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                );
+              },
+              menuBuilder: (context, width) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 4),
+                  child: CargoTypeItem(
+                    width: useButtonSize ? width : 300,
+                    list: list,
+                    onItemTap: (listValue) {
+                      list = listValue;
+                      setState(() {});
+                    },
+                  ),
+                );
+              },
+            ),
             Container(
               decoration: BoxDecoration(
                 color: context.color.contColor,
@@ -236,6 +291,11 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
                                 child: TextField(
                                   controller: controllerKg,
                                   keyboardType: TextInputType.number,
+                                  onChanged: (value) {
+                                    if (value.length <= 1) {
+                                      updateButtonState();
+                                    }
+                                  },
                                   decoration: InputDecoration(
                                     isDense: true,
                                     contentPadding: EdgeInsets.zero,
@@ -264,6 +324,11 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
                                 child: TextField(
                                   controller: controllerm3,
                                   keyboardType: TextInputType.number,
+                                  onChanged: (value) {
+                                    if (value.length <= 1) {
+                                      updateButtonState();
+                                    }
+                                  },
                                   decoration: InputDecoration(
                                     isDense: true,
                                     contentPadding: EdgeInsets.zero,
@@ -291,6 +356,11 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
                                 child: TextField(
                                   controller: controllerLitr,
                                   keyboardType: TextInputType.number,
+                                  onChanged: (value) {
+                                    if (value.length <= 1) {
+                                      updateButtonState();
+                                    }
+                                  },
                                   decoration: InputDecoration(
                                     isDense: true,
                                     contentPadding: EdgeInsets.zero,
@@ -334,6 +404,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
                 ).then((value) {
                   if (value != null) {
                     selectedDate = value;
+                    selectedDate2 = value;
                     controller.text = MyFunction.dateFormat(value);
                   }
                 });
@@ -350,6 +421,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
                   ).then((value) {
                     if (value != null) {
                       selectedDate = value;
+                      selectedDate2 = value;
                       controller.text = MyFunction.dateFormat(value);
                     }
                   });
@@ -361,7 +433,6 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
               ),
               onChanged: (value) {},
             ),
-
             Row(
               spacing: 8,
               children: [
@@ -418,7 +489,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
                     text: "${AppLocalizations.of(context)!.send_time} (gacha)",
                     hintText: "",
                     keyboardType: TextInputType.datetime,
-                    controller: controllerTime,
+                    controller: controllerTime2,
                     readOnly: true,
                     formatter: [Formatters.dateFormatter],
                     onPressed: () {
@@ -427,12 +498,14 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
                         builder: (context) => WTime(
-                          selectedDate: selectedDate,
+                          selectedDate: selectedDate2,
+                          minimumDate: selectedDate,
                         ),
                       ).then((value) {
                         if (value != null) {
-                          selectedDate = value;
-                          controllerTime.text = MyFunction.formattedTime(value);
+                          selectedDate2 = value;
+                          controllerTime2.text =
+                              MyFunction.formattedTime(value);
                         }
                       });
                     },
@@ -443,12 +516,13 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,
                           builder: (context) => WTime(
-                            selectedDate: selectedDate,
+                            selectedDate: selectedDate2,
+                            minimumDate: selectedDate,
                           ),
                         ).then((value) {
                           if (value != null) {
-                            selectedDate = value;
-                            controllerTime.text =
+                            selectedDate2 = value;
+                            controllerTime2.text =
                                 MyFunction.formattedTime(value);
                           }
                         });
@@ -523,318 +597,17 @@ class _ShippingCreateViewState extends State<ShippingCreateView> {
                 trTypeId.value = index;
               },
             ),
-
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                color: context.color.contColor,
-                boxShadow: wboxShadow2,
-              ),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 12,
-              ),
-              child: Column(
-                spacing: 4,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.paymentType,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: context.color.darkText,
-                    ),
-                  ),
-                  ValueListenableBuilder(
-                    valueListenable: payDate,
-                    builder: (context, value, child) => Row(
-                      spacing: 12,
-                      children: [
-                        Expanded(
-                          child: WScaleAnimation(
-                            onTap: () {
-                              if (payDate.value == 1) {
-                                payDate.value = 0;
-                              } else {
-                                payDate.value = 1;
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: context.color.scaffoldBackground,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              padding: const EdgeInsets.all(12),
-                              child: Column(
-                                spacing: 8,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  value == 1
-                                      ? AppIcons.checkboxRadio.svg()
-                                      : AppIcons.checkboxRadioDis.svg(),
-                                  Row(
-                                    spacing: 8,
-                                    children: [
-                                      AppIcons.cash.svg(),
-                                      Text(AppLocalizations.of(context)!.cash)
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: WScaleAnimation(
-                            onTap: () {
-                              if (payDate.value == 2) {
-                                payDate.value = 0;
-                              } else {
-                                payDate.value = 2;
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: context.color.scaffoldBackground,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              padding: const EdgeInsets.all(12),
-                              child: Column(
-                                spacing: 8,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  value == 2
-                                      ? AppIcons.checkboxRadio.svg()
-                                      : AppIcons.checkboxRadioDis.svg(),
-                                  Row(
-                                    spacing: 8,
-                                    children: [
-                                      AppIcons.card.svg(),
-                                      Text(AppLocalizations.of(context)!.card)
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            ValueListenableBuilder(
-              valueListenable: priceOffer,
-              builder: (context, _, __) {
-                return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24),
-                    color: context.color.contColor,
-                    boxShadow: wboxShadow2,
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
-                  ),
-                  child: Column(
-                    spacing: 4,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.price,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: context.color.darkText,
-                        ),
-                      ),
-                      Row(
-                        spacing: 12,
-                        children: [
-                          Expanded(
-                            child: CustomTextField(
-                              hintText: '0',
-                              readOnly: priceOffer.value,
-                              fillColor: priceOffer.value
-                                  ? context.color.scaffoldBackground
-                                  : context.color.contColor,
-                              height: 48,
-                              suffixIcon: Container(
-                                height: 32,
-                                width: 44,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  color: context.color.scaffoldBackground,
-                                ),
-                                alignment: Alignment.center,
-                                child: const Text(
-                                  'UZS',
-                                  style: TextStyle(
-                                    color: Color(0xFFA9ABAD),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(16),
-                              child: WScaleAnimation(
-                                onTap: () {
-                                  priceOffer.value = !priceOffer.value;
-                                },
-                                child: Row(
-                                  spacing: 12,
-                                  children: [
-                                    !priceOffer.value
-                                        ? AppIcons.checkbox.svg()
-                                        : AppIcons.checkboxActiv.svg(),
-                                    const Text(
-                                      'Narx taklifi',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                );
+            AdditionalInformationView(
+              images: images,
+              controllerCommet: controllerCommet,
+              controllerPrice: controllerPrice,
+              payDate: payDate,
+              priceOffer: priceOffer,
+              onSave: (list) {
+                setState(() {
+                  images = list;
+                });
               },
-            ),
-
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                color: context.color.contColor,
-                boxShadow: wboxShadow2,
-              ),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 12,
-              ),
-              child: Column(
-                spacing: 4,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.cargoImages,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: context.color.darkText,
-                    ),
-                  ),
-                  ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      if (images.length == index) {
-                        return WScaleAnimation(
-                          onTap: () {
-                            imagesFile();
-                          },
-                          child: SizedBox(
-                            height: 56,
-                            child: DottedBorder(
-                              color: green,
-                              strokeWidth: 1,
-                              borderType: BorderType.RRect,
-                              radius: const Radius.circular(16),
-                              child: Center(
-                                child: AppIcons.upload.svg(),
-                              ),
-                            ),
-                          ),
-                        );
-                      }
-                      return DecoratedBox(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: context.color.scaffoldBackground,
-                        ),
-                        child: ListTile(
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 8),
-                          leading: Container(
-                            height: 48,
-                            width: 48,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              image: DecorationImage(
-                                image: FileImage(images[index]),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          title: Text(
-                            images[index].path.split('/').last,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          subtitle: FutureBuilder<int>(
-                            future: images[index].length(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const Text("Hajm yuklanmoqda...");
-                              } else if (snapshot.hasError) {
-                                return const Text("Xatolik yuz berdi.");
-                              } else {
-                                return Text(_formatFileSize(snapshot.data!));
-                              }
-                            },
-                          ),
-                          trailing: IconButton(
-                            onPressed: () {
-                              images.removeAt(index);
-                              setState(() {});
-                            },
-                            icon: AppIcons.trash.svg(),
-                          ),
-                        ),
-                      );
-                    },
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(height: 8),
-                    itemCount: images.length + 1,
-                  ),
-                ],
-              ),
-            ),
-
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                color: context.color.contColor,
-                boxShadow: wboxShadow2,
-              ),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 12,
-              ),
-              child: CustomTextField(
-                title: AppLocalizations.of(context)!.description,
-                hintText: AppLocalizations.of(context)!.leaveOrderComment,
-                minLines: 4,
-                maxLines: 5,
-                noHeight: true,
-                expands: false,
-                controller: controllerCommet,
-                fillColor: context.color.contColor,
-                onChanged: (value) {},
-              ),
             ),
           ],
         ),
