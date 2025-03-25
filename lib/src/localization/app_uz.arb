@@ -254,5 +254,8 @@
   "agricultural_products": "Qishloq xo‘jaligi mahsulotlari",
   "medical_equipment": "Tibbiy asbob-uskunalar",
   "moving_furniture": "Uy (ofis) jihozlarini ko‘chirish",
-  "animal_transportation": "Hayvonlarni tashish"
+  "animal_transportation": "Hayvonlarni tashish",
+  "ad_accepted": "E’loningiz qabul qilindi",
+  "driver_will_contact": "Tez orada yukni olib ketish bo'yicha haydovchi siz bilan bog'lanadi",
+  "my_vehicles": "Mening transportlarim"
 }

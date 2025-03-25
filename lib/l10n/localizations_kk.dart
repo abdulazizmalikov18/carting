@@ -772,4 +772,13 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get animal_transportation => 'Ҳайвонларни ташиш';
+
+  @override
+  String get ad_accepted => 'Эълонингиз қабул қилинди';
+
+  @override
+  String get driver_will_contact => 'Тез орада юкни олиб кетиш бўйича ҳайдовчи сиз билан боғланади';
+
+  @override
+  String get my_vehicles => 'Менинг транспортларим';
 }

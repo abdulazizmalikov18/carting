@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/widgets/custom_text_field.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_scale_animation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class OrdersInfoDeliverView extends StatefulWidget {
@@ -298,7 +301,10 @@ class _CancelViewState extends State<CancelView> {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 16),
+                  icon: Icon(
+                    Platform.isIOS ? CupertinoIcons.back : Icons.arrow_back,
+                    size: 16,
+                  ),
                 ),
               ),
               Center(

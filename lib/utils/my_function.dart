@@ -173,11 +173,12 @@ class MyFunction {
       return '';
     }
   }
-    static String dateFormat(DateTime date) {
+
+  static String dateFormat(DateTime date) {
     return DateFormat('dd.MM.yyyy').format(date);
   }
 
-  static String listText(List<CargoTypeValu>  list) {
+  static String listText(List<CargoTypeValu> list) {
     List<String> titles = [];
     for (var element in list) {
       if (element.value) {
@@ -185,6 +186,19 @@ class MyFunction {
       }
     }
     return titles.join(', ');
+  }
+
+  static String formatDate(DateTime date) {
+    DateTime now = DateTime.now();
+    DateTime yesterday = now.subtract(const Duration(days: 1));
+
+    if (DateUtils.isSameDay(date, now)) {
+      return "Bugun joylandi";
+    } else if (DateUtils.isSameDay(date, yesterday)) {
+      return "Kecha joylandi";
+    } else {
+      return "${DateFormat("dd.MM.yyyy").format(date)} joylangan";
+    }
   }
 
   static String formattedTime(DateTime date) {

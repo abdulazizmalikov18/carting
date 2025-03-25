@@ -18,6 +18,7 @@ class AppIcons {
   static const mapPin = "assets/icons/map-pin.svg";
   static const gps = "assets/icons/GPS.svg";
   static const car = "assets/icons/car.svg";
+  static const car2 = "assets/icons/car2.svg";
   static const car_2 = "assets/icons/car_2.svg";
   static const car_3 = "assets/icons/car_3.svg";
   static const arrowCircle = "assets/icons/arrow_circle.svg";
@@ -31,6 +32,7 @@ class AppIcons {
   static const contact = "assets/icons/contact.svg";
   static const currentLocation = "assets/icons/current_location.svg";
   static const location = "assets/icons/location.svg";
+  static const columLocation = "assets/icons/colum_location.svg";
   static const star = "assets/icons/star.svg";
   static const delivery = "assets/icons/delivery.svg";
   static const finishLocation = "assets/icons/finish_location.svg";
@@ -90,6 +92,9 @@ class AppIcons {
   static const logoWhite = "assets/icons/logo_white.svg";
   static const succes = "assets/icons/succes.svg";
   static const search = "assets/icons/search.svg";
+  static const shieldCheck = "assets/icons/shield_check.svg";
+  static const document = "assets/icons/document.svg";
+  static const layer = "assets/icons/layer.svg";
 }
 
 extension SvgExt on String {

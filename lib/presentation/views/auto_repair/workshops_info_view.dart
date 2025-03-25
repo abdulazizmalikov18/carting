@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
@@ -6,6 +8,7 @@ import 'package:carting/presentation/views/common/comments_view.dart';
 import 'package:carting/presentation/views/common/location_info_view.dart';
 import 'package:carting/utils/caller.dart';
 import 'package:carting/utils/my_function.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:carting/assets/assets/icons.dart';
@@ -36,7 +39,9 @@ class _WorkshopsInfoViewState extends State<WorkshopsInfoView> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: const Icon(Icons.arrow_back),
+                  icon: Icon(
+                    Platform.isIOS ? CupertinoIcons.back : Icons.arrow_back,
+                  ),
                 ),
               ),
             ),

@@ -7,7 +7,6 @@ import 'package:carting/presentation/views/auth/identity_choose_view.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/utils/log_service.dart';
 import 'package:carting/utils/resize_image.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,8 +22,6 @@ import 'package:carting/presentation/widgets/custom_text_field.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/utils/formatters.dart';
 import 'package:carting/utils/my_function.dart';
-import 'package:open_filex/open_filex.dart';
-import 'package:path_provider/path_provider.dart';
 
 class ProfileInfoView extends StatefulWidget {
   const ProfileInfoView({super.key});
@@ -119,25 +116,25 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
     super.initState();
   }
 
-  Future<void> _openDocxFromAssets(String fileName) async {
-    try {
-      // 1. Faylni assetsdan o'qish
-      ByteData data = await rootBundle.load('assets/documents/$fileName');
-      List<int> bytes =
-          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+  // Future<void> _openDocxFromAssets(String fileName) async {
+  //   try {
+  //     // 1. Faylni assetsdan o'qish
+  //     ByteData data = await rootBundle.load('assets/documents/$fileName');
+  //     List<int> bytes =
+  //         data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 
-      // 2. Faylni vaqtinchalik papkaga saqlash
-      Directory tempDir = await getTemporaryDirectory();
-      String tempPath = '${tempDir.path}/$fileName';
-      File tempFile = File(tempPath);
-      await tempFile.writeAsBytes(bytes);
+  //     // 2. Faylni vaqtinchalik papkaga saqlash
+  //     Directory tempDir = await getTemporaryDirectory();
+  //     String tempPath = '${tempDir.path}/$fileName';
+  //     File tempFile = File(tempPath);
+  //     await tempFile.writeAsBytes(bytes);
 
-      // 3. Faylni ochish
-      await OpenFilex.open(tempPath);
-    } catch (e) {
-      print('Xatolik: $e');
-    }
-  }
+  //     // 3. Faylni ochish
+  //     await OpenFilex.open(tempPath);
+  //   } catch (e) {
+  //     print('Xatolik: $e');
+  //   }
+  // }
 
   bool checkInfo() {
     if (isLegal.value) {
@@ -204,63 +201,63 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Row(
-                spacing: 8,
-                children: [
-                  ValueListenableBuilder(
-                    valueListenable: isActive,
-                    builder: (context, value, __) {
-                      return GestureDetector(
-                        onTap: () {
-                          if (!value) {
-                            isActive.value = !value;
-                            if (isActive.value) {
-                              _openDocxFromAssets('carting.docx');
-                            }
-                            setState(() {});
-                          }
-                        },
-                        child: value
-                            ? AppIcons.checkboxRadioA.svg()
-                            : AppIcons.checkboxRadioD.svg(),
-                      );
-                    },
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      text: AppLocalizations.of(context)!.terms_of_use,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: blue,
-                      ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          if (!isActive.value) {
-                            isActive.value = !isActive.value;
-                            if (isActive.value) {
-                              _openDocxFromAssets('carting.docx');
-                            }
-                            setState(() {});
-                          }
-                        },
-                      children: [
-                        TextSpan(
-                          text: AppLocalizations.of(context)!.agree_to,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: context.color.iron,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            //   child: Row(
+            //     spacing: 8,
+            //     children: [
+            //       ValueListenableBuilder(
+            //         valueListenable: isActive,
+            //         builder: (context, value, __) {
+            //           return GestureDetector(
+            //             onTap: () {
+            //               if (!value) {
+            //                 isActive.value = !value;
+            //                 if (isActive.value) {
+            //                   _openDocxFromAssets('carting.docx');
+            //                 }
+            //                 setState(() {});
+            //               }
+            //             },
+            //             child: value
+            //                 ? AppIcons.checkboxRadioA.svg()
+            //                 : AppIcons.checkboxRadioD.svg(),
+            //           );
+            //         },
+            //       ),
+            //       RichText(
+            //         text: TextSpan(
+            //           text: AppLocalizations.of(context)!.terms_of_use,
+            //           style: const TextStyle(
+            //             fontSize: 14,
+            //             fontWeight: FontWeight.w400,
+            //             color: blue,
+            //           ),
+            //           recognizer: TapGestureRecognizer()
+            //             ..onTap = () {
+            //               if (!isActive.value) {
+            //                 isActive.value = !isActive.value;
+            //                 if (isActive.value) {
+            //                   _openDocxFromAssets('carting.docx');
+            //                 }
+            //                 setState(() {});
+            //               }
+            //             },
+            //           children: [
+            //             TextSpan(
+            //               text: AppLocalizations.of(context)!.agree_to,
+            //               style: TextStyle(
+            //                 fontSize: 14,
+            //                 fontWeight: FontWeight.w400,
+            //                 color: context.color.iron,
+            //               ),
+            //             )
+            //           ],
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             BlocBuilder<AuthBloc, AuthState>(
               builder: (context, state) {
                 return ValueListenableBuilder(
@@ -386,6 +383,20 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                 ),
                 suffixIcon: AppIcons.edit.svg(color: context.color.iron),
                 readOnly: true,
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(
+                    builder: (context) => IdentityChooseView(
+                      isLegal: isLegal.value,
+                    ),
+                  ))
+                      .then((value) {
+                    if (value != null) {
+                      isChange.value = true;
+                      isLegal.value = value as bool;
+                    }
+                  });
+                },
                 onsuffixIconPressed: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(

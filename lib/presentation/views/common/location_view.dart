@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/presentation/views/common/location_text_view.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -60,7 +63,11 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
                         onPressed: () {
                           isMap.value = false;
                         },
-                        icon: const Icon(Icons.arrow_back_rounded),
+                        icon: Icon(
+                          Platform.isIOS
+                              ? CupertinoIcons.back
+                              : Icons.arrow_back,
+                        ),
                       ),
                       Text(
                         isMapIndex.value == 1
@@ -459,7 +466,7 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
                       Navigator.pop(context);
                     },
                     icon: Icon(
-                      Icons.arrow_back,
+                      Platform.isIOS ? CupertinoIcons.back : Icons.arrow_back,
                       color: context.color.white,
                     ),
                   ),

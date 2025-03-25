@@ -47,16 +47,13 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
         length: 2,
         child: Column(
           children: [
-            SizedBox(
-              height: 48,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: WTabBar(
-                  tabs: [
-                    Text(AppLocalizations.of(context)!.invite),
-                    Text(AppLocalizations.of(context)!.statistics),
-                  ],
-                ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: WTabBar(
+                tabs: [
+                  Text(AppLocalizations.of(context)!.invite),
+                  Text(AppLocalizations.of(context)!.statistics),
+                ],
               ),
             ),
             Expanded(

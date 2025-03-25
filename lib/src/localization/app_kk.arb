@@ -253,5 +253,8 @@
   "agricultural_products": "Қишлоқ хўжалиги маҳсулотлари",
   "medical_equipment": "Тиббий асбоб-ускуналар",
   "moving_furniture": "Уй (офис) жиҳозларини кўчириш",
-  "animal_transportation": "Ҳайвонларни ташиш"
+  "animal_transportation": "Ҳайвонларни ташиш",
+  "ad_accepted": "Эълонингиз қабул қилинди",
+  "driver_will_contact": "Тез орада юкни олиб кетиш бўйича ҳайдовчи сиз билан боғланади",
+  "my_vehicles": "Менинг транспортларим"
 }

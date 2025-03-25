@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/assets/images.dart';
@@ -6,9 +8,11 @@ import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/common/comments_view.dart';
+import 'package:carting/presentation/views/common/location_info_view.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/utils/caller.dart';
 import 'package:carting/utils/my_function.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class OrderDetailView extends StatefulWidget {
@@ -58,7 +62,9 @@ class _OrderDetailViewState extends State<OrderDetailView> {
                             Navigator.pop(context);
                           },
                           icon: Icon(
-                            Icons.arrow_back,
+                            Platform.isIOS
+                                ? CupertinoIcons.back
+                                : Icons.arrow_back,
                             color: context.color.white,
                           ),
                         ),
@@ -137,7 +143,15 @@ class _OrderDetailViewState extends State<OrderDetailView> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => LocationInfoView(
+                          isFirst: false,
+                          // point1: widget.model.toLocation,
+                          point2: widget.model.fromLocation,
+                        ),
+                      ));
+                    },
                     leading: AppIcons.location.svg(
                       height: 24,
                       width: 24,

@@ -253,6 +253,9 @@
   "agricultural_products": "Сельскохозяйственные продукты",
   "medical_equipment": "Медицинское оборудование",
   "moving_furniture": "Перевозка мебели (дом/офис)",
-  "animal_transportation": "Перевозка животных"
+  "animal_transportation": "Перевозка животных",
+  "ad_accepted": "Ваше объявление принято",
+  "driver_will_contact": "Водитель свяжется с вами в ближайшее время для забора груза",
+  "my_vehicles": "Мои транспортные средства"
 }
 

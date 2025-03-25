@@ -1628,6 +1628,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Animal transportation'**
   String get animal_transportation;
+
+  /// No description provided for @ad_accepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Your ad has been accepted'**
+  String get ad_accepted;
+
+  /// No description provided for @driver_will_contact.
+  ///
+  /// In en, this message translates to:
+  /// **'The driver will contact you soon to pick up the cargo'**
+  String get driver_will_contact;
+
+  /// No description provided for @my_vehicles.
+  ///
+  /// In en, this message translates to:
+  /// **'My vehicles'**
+  String get my_vehicles;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

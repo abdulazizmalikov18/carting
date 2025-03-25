@@ -194,7 +194,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 filled: true,
                 border: widget.border ??
                     OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(24),
                       borderSide: BorderSide(
                         color: widget.borderColor ??
                             shuttleGrey.withValues(alpha: .2),
@@ -203,7 +203,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 enabledBorder: widget.border ??
                     OutlineInputBorder(
                       borderRadius: BorderRadius.circular(
-                        widget.borderRadius ?? 16,
+                        widget.borderRadius ?? 24,
                       ),
                       borderSide: BorderSide(
                         color: widget.borderColor ??
@@ -213,7 +213,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 focusedBorder: widget.border ??
                     OutlineInputBorder(
                       borderRadius: BorderRadius.circular(
-                        widget.borderRadius ?? 16,
+                        widget.borderRadius ?? 24,
                       ),
                       borderSide: BorderSide(
                         color: widget.borderColor ??

@@ -178,6 +178,7 @@ class _FuelDeliveryViewState extends State<FuelDeliveryView> {
                         decoration: BoxDecoration(
                           color: context.color.contColor,
                           borderRadius: BorderRadius.circular(24),
+                          boxShadow: wboxShadow2,
                         ),
                         child: ListTile(
                           title: Text(

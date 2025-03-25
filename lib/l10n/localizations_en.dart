@@ -772,4 +772,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get animal_transportation => 'Animal transportation';
+
+  @override
+  String get ad_accepted => 'Your ad has been accepted';
+
+  @override
+  String get driver_will_contact => 'The driver will contact you soon to pick up the cargo';
+
+  @override
+  String get my_vehicles => 'My vehicles';
 }

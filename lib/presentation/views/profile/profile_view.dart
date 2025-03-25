@@ -72,6 +72,14 @@ class _ProfileViewState extends State<ProfileView> {
         }
         return Scaffold(
           appBar: AppBar(
+            leading: IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const InfoView(),
+                ));
+              },
+              icon: AppIcons.info.svg(),
+            ),
             actions: [
               IconButton(
                 onPressed: () {
@@ -271,23 +279,42 @@ class _ProfileViewState extends State<ProfileView> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                // WListTile(
-                //   title: AppLocalizations.of(context)!.settings,
-                //   leading: AppIcons.setting.svg(
-                //     height: 28,
-                //     width: 28,
-                //     color: context.color.iron,
-                //   ),
-                //   onTap: () {
-                //     Navigator.of(context).push(MaterialPageRoute(
-                //       builder: (context) => const QuestView(),
-                //     ));
-                //   },
-                // ),
-                // const SizedBox(height: 8),
+                WListTile(
+                  title: AppLocalizations.of(context)!.my_vehicles,
+                  leading: AppIcons.car2.svg(
+                    height: 24,
+                    width: 24,
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const QuestView(),
+                    ));
+                  },
+                ),
+                const SizedBox(height: 8),
+                WListTile(
+                  title: AppLocalizations.of(context)!.myOrders,
+                  leading: AppIcons.document.svg(height: 24, width: 24),
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const QuestView(),
+                    ));
+                  },
+                ),
+                const SizedBox(height: 8),
+                WListTile(
+                  title: AppLocalizations.of(context)!.myServices,
+                  leading: AppIcons.shieldCheck.svg(height: 24, width: 24),
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const QuestView(),
+                    ));
+                  },
+                ),
+                const SizedBox(height: 8),
                 WListTile(
                   title: AppLocalizations.of(context)!.rateTheApp,
-                  leading: AppIcons.lovely.svg(height: 28, width: 28),
+                  leading: AppIcons.lovely.svg(height: 24, width: 24),
                   onTap: () {
                     if (Platform.isAndroid) {
                       launchUrl(Uri.parse(
@@ -304,7 +331,7 @@ class _ProfileViewState extends State<ProfileView> {
                 const SizedBox(height: 8),
                 WListTile(
                   title: AppLocalizations.of(context)!.theme,
-                  leading: AppIcons.moon.svg(height: 28, width: 28),
+                  leading: AppIcons.moon.svg(height: 24, width: 24),
                   onTap: () {
                     showModalBottomSheet(
                       context: context,
@@ -317,7 +344,7 @@ class _ProfileViewState extends State<ProfileView> {
                 const SizedBox(height: 8),
                 WListTile(
                   title: AppLocalizations.of(context)!.lenguage,
-                  leading: AppIcons.language.svg(height: 28, width: 28),
+                  leading: AppIcons.language.svg(height: 24, width: 24),
                   onTap: () {
                     showModalBottomSheet(
                       context: context,
@@ -330,7 +357,7 @@ class _ProfileViewState extends State<ProfileView> {
                 const SizedBox(height: 8),
                 WListTile(
                   title: AppLocalizations.of(context)!.referralProgram,
-                  leading: AppIcons.chart.svg(height: 28, width: 28),
+                  leading: AppIcons.chart.svg(height: 24, width: 24),
                   onTap: () {
                     final bloc = context.read<AdvertisementBloc>();
                     Navigator.of(context, rootNavigator: true)
@@ -344,18 +371,8 @@ class _ProfileViewState extends State<ProfileView> {
                 ),
                 const SizedBox(height: 8),
                 WListTile(
-                  title: AppLocalizations.of(context)?.aboutUs ?? '--',
-                  leading: AppIcons.info.svg(height: 28, width: 28),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const InfoView(),
-                    ));
-                  },
-                ),
-                const SizedBox(height: 8),
-                WListTile(
                   title: AppLocalizations.of(context)!.logOut,
-                  leading: AppIcons.turnOff.svg(height: 28, width: 28),
+                  leading: AppIcons.turnOff.svg(height: 24, width: 24),
                   onTap: () {
                     showDialog(
                       context: context,
@@ -420,7 +437,7 @@ class WListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(24),
         color: context.color.contColor,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16),

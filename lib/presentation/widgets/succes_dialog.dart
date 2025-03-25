@@ -1,6 +1,7 @@
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/assets/assets/images.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/routes/route_name.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ Future<dynamic> succesCreate(BuildContext context) {
           AppImages.succes.imgAsset(height: 200),
           const SizedBox(height: 8),
           Text(
-            'E’loningiz qabul qilindi',
+            AppLocalizations.of(context)!.ad_accepted,
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w600,
@@ -32,7 +33,7 @@ Future<dynamic> succesCreate(BuildContext context) {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              'Biz hozirda yukingizni olib ketish uchun haydovchi qidirmoqdamiz. Tez orada yukingiz jo‘natiladi. Rahmat!',
+              AppLocalizations.of(context)!.driver_will_contact,
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,

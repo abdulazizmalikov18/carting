@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/assets/images.dart';
@@ -10,6 +12,7 @@ import 'package:carting/presentation/views/common/location_info_view.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/utils/caller.dart';
 import 'package:carting/utils/my_function.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class StorageServiceInfoView extends StatefulWidget {
@@ -36,7 +39,9 @@ class _StorageServiceInfoViewState extends State<StorageServiceInfoView> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: const Icon(Icons.arrow_back),
+                  icon: Icon(
+                    Platform.isIOS ? CupertinoIcons.back : Icons.arrow_back,
+                  ),
                 ),
               ),
             ),

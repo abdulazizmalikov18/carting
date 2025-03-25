@@ -772,4 +772,13 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get animal_transportation => 'Перевозка животных';
+
+  @override
+  String get ad_accepted => 'Ваше объявление принято';
+
+  @override
+  String get driver_will_contact => 'Водитель свяжется с вами в ближайшее время для забора груза';
+
+  @override
+  String get my_vehicles => 'Мои транспортные средства';
 }

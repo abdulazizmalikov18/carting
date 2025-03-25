@@ -772,4 +772,13 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get animal_transportation => 'Hayvonlarni tashish';
+
+  @override
+  String get ad_accepted => 'E’loningiz qabul qilindi';
+
+  @override
+  String get driver_will_contact => 'Tez orada yukni olib ketish bo\'yicha haydovchi siz bilan bog\'lanadi';
+
+  @override
+  String get my_vehicles => 'Mening transportlarim';
 }

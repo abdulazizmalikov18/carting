@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/data/models/advertisement_model.dart';
@@ -6,6 +8,7 @@ import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/common/comments_view.dart';
 import 'package:carting/presentation/widgets/info_location_field.dart';
 import 'package:carting/utils/my_function.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:carting/assets/assets/icons.dart';
@@ -48,7 +51,9 @@ class _AnnouncementsCreateInfoViewState
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: const Icon(Icons.arrow_back),
+                  icon: Icon(
+                    Platform.isIOS ? CupertinoIcons.back : Icons.arrow_back,
+                  ),
                 ),
               ),
             ),
@@ -640,7 +645,9 @@ class _AnnouncementsCreateInfoViewState
                                                 onTap: () {
                                                   Navigator.pop(context);
                                                 },
-                                                text: AppLocalizations.of(context)!.no,
+                                                text: AppLocalizations.of(
+                                                        context)!
+                                                    .no,
                                                 textColor: darkText,
                                                 color: const Color(0xFFF3F3F3),
                                               ),
@@ -655,7 +662,9 @@ class _AnnouncementsCreateInfoViewState
                                                   ));
                                                   Navigator.pop(context);
                                                 },
-                                                text: AppLocalizations.of(context)!.yes,
+                                                text: AppLocalizations.of(
+                                                        context)!
+                                                    .yes,
                                                 textColor: darkText,
                                                 color: const Color(0xFFF3F3F3),
                                               ),

@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/utils/log_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
@@ -26,7 +29,7 @@ class _LocationInfoViewState extends State<LocationInfoView> {
   late YandexMapController mapController;
   late final List<MapObject> mapObjects = [];
   final List<DrivingSessionResult> results = [];
-  late final DrivingSession session;
+  DrivingSession? session;
   DrivingRoute? route;
 
   diriv() async {
@@ -129,6 +132,27 @@ class _LocationInfoViewState extends State<LocationInfoView> {
           YandexMap(
             onMapCreated: (controller) async {
               mapController = controller;
+              if (widget.point1 != null) {
+                mapController.moveCamera(CameraUpdate.newCameraPosition(
+                  CameraPosition(
+                    target: Point(
+                      latitude: widget.point1!.lat,
+                      longitude: widget.point1!.lng,
+                    ),
+                    zoom: 13,
+                  ),
+                ));
+              } else {
+                mapController.moveCamera(CameraUpdate.newCameraPosition(
+                  CameraPosition(
+                    target: Point(
+                      latitude: widget.point2!.lat,
+                      longitude: widget.point2!.lng,
+                    ),
+                    zoom: 13,
+                  ),
+                ));
+              }
             },
             mapObjects: [
               if (widget.point1 != null)
@@ -176,7 +200,7 @@ class _LocationInfoViewState extends State<LocationInfoView> {
                     Navigator.pop(context);
                   },
                   icon: Icon(
-                    Icons.arrow_back,
+                    Platform.isIOS ? CupertinoIcons.back : Icons.arrow_back,
                     color: context.color.white,
                   ),
                 ),
@@ -189,6 +213,13 @@ class _LocationInfoViewState extends State<LocationInfoView> {
   }
 
   Future<void> _close() async {
-    await session.close();
+    if (session != null) {
+      try {
+        await session?.cancel();
+        await session?.close();
+      } catch (e) {
+        Log.e(e);
+      }
+    }
   }
 }
