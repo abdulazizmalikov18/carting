@@ -1,12 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carting/app/auth/auth_bloc.dart';
 import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
-import 'package:carting/presentation/routes/route_name.dart';
-import 'package:carting/presentation/views/announcements/create_info_view.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
+import 'package:carting/utils/calculate_distance.dart';
 import 'package:carting/utils/caller.dart';
 import 'package:carting/utils/enum_filtr.dart';
 import 'package:carting/utils/my_function.dart';
@@ -16,14 +14,10 @@ import 'package:formz/formz.dart';
 
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/assets/assets/icons.dart';
-import 'package:carting/presentation/views/announcements/announcements_type_view.dart';
-import 'package:carting/presentation/views/announcements/widgets/announcements_iteam.dart';
 import 'package:carting/presentation/views/common/filter_view.dart';
 import 'package:carting/presentation/views/home/deliver_info_view.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_shimmer.dart';
-import 'package:carting/presentation/widgets/w_tabbar.dart';
-import 'package:go_router/go_router.dart';
 
 class AnnouncementsView extends StatefulWidget {
   const AnnouncementsView({super.key});
@@ -32,31 +26,17 @@ class AnnouncementsView extends StatefulWidget {
   State<AnnouncementsView> createState() => _AnnouncementsViewState();
 }
 
-class _AnnouncementsViewState extends State<AnnouncementsView>
-    with SingleTickerProviderStateMixin {
+class _AnnouncementsViewState extends State<AnnouncementsView> {
   List<bool> active = [true, true, true, true, true];
   String selectedUnit = 'Barchasi';
   String selectedUnit2 = 'Barchasi';
 
-  late TabController _tabController;
-
   @override
   void initState() {
     context.read<AdvertisementBloc>().add(GetAdvertisementsEvent());
-    context.read<AdvertisementBloc>().add(GetAdvertisementsProvideEvent());
-    context.read<AdvertisementBloc>().add(GetAdvertisementsReceiveEvent());
+    // context.read<AdvertisementBloc>().add(GetAdvertisementsProvideEvent());
+    // context.read<AdvertisementBloc>().add(GetAdvertisementsReceiveEvent());
     super.initState();
-    _tabController = TabController(
-      vsync: this,
-      length: 3,
-      initialIndex: context.read<AdvertisementBloc>().state.tabIndex,
-    );
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
   }
 
   @override
@@ -595,7 +575,12 @@ class AnnouncementsIteamNew extends StatelessWidget {
                 ),
               ),
               Text(
-                '306 km',
+                '${calculateDistance(
+                  model.fromLocation?.lat ?? 0,
+                  model.fromLocation?.lng ?? 0,
+                  model.toLocation?.lat ?? 0,
+                  model.toLocation?.lng ?? 0,
+                ).toInt()} km',
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,

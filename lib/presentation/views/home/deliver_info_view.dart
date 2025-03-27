@@ -3,6 +3,7 @@ import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/common/location_info_view.dart';
+import 'package:carting/presentation/widgets/w_info_container.dart';
 import 'package:carting/presentation/widgets/w_scale_animation.dart';
 import 'package:flutter/material.dart';
 
@@ -134,6 +135,7 @@ class DeliverInfoView extends StatelessWidget {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             WButton(
               onTap: () {},
@@ -460,7 +462,153 @@ class DeliverInfoView extends StatelessWidget {
                     ? CachedNetworkImage(imageUrl: model.transportIcon!)
                     : null,
               ),
-            )
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'Yuk turi:',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            const SizedBox(height: 8),
+            const Wrap(
+              spacing: 16,
+              children: [
+                WInfoContainer(text: "Qurilish materiallari"),
+                WInfoContainer(text: "Maishiy texnika"),
+              ],
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'Yuk vazni:',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            const SizedBox(height: 8),
+            const Row(
+              spacing: 16,
+              children: [
+                WInfoContainer(text: "160 kg"),
+                WInfoContainer(text: "45 m3"),
+                WInfoContainer(text: "560 litr"),
+              ],
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'Jo‘natish sanasi va vaqti:',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            const SizedBox(height: 8),
+            const Row(
+              spacing: 16,
+              children: [
+                WInfoContainer(
+                  text: "Ertaga 21 mart",
+                  icon: AppIcons.calendar,
+                ),
+                WInfoContainer(
+                  text: "09:00 - 17:00",
+                  icon: AppIcons.clock,
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'Transport turi:',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24),
+                color: context.color.grey.withValues(alpha: .5),
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 4,
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      model.transportName ??
+                          AppLocalizations.of(context)!.unknown,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  CachedNetworkImage(
+                    imageUrl: model.transportIcon!,
+                    height: 48,
+                  )
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'To‘lov turi:',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            const SizedBox(height: 8),
+            const WInfoContainer(
+              text: "Naqd",
+              icon: AppIcons.cash,
+              iconCollor: false,
+            ),
+            if (model.images != null) ...[
+              const SizedBox(height: 16),
+              const Text(
+                'Yuk rasmlari:',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Wrap(
+                spacing: 12,
+                children: List.generate(
+                  model.images!.length,
+                  (index) => Container(
+                    height: (MediaQuery.sizeOf(context).width - 56) / 3,
+                    width: (MediaQuery.sizeOf(context).width - 56) / 3,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      image: DecorationImage(
+                        image: CachedNetworkImageProvider(
+                          'https://api.carting.uz/uploads/files/${model.images![index]}',
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+            const SizedBox(height: 16),
+            const Text(
+              'Maishiy texnika. Ehtiyotkorlik bilan tashish kerak. Yuklash va tushirishda haydovchi yordam berishi lozim.',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
           ],
         ),
       ),
