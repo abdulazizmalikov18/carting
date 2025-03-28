@@ -137,31 +137,33 @@ class DeliverInfoView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            WButton(
-              onTap: () {},
-              color: model.status == 'ACTIVE'
-                  ? green.withValues(alpha: .2)
-                  : red.withValues(alpha: .2),
-              textColor: model.status == 'ACTIVE' ? green : red,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              text: model.status == 'ACTIVE'
-                  ? AppLocalizations.of(context)!.active
-                  : AppLocalizations.of(context)!.notActive,
-              child: model.status == 'ACTIVE'
-                  ? Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            AppLocalizations.of(context)!.active,
-                            textAlign: TextAlign.center,
+            if (isMe) ...[
+              WButton(
+                onTap: () {},
+                color: model.status == 'ACTIVE'
+                    ? green.withValues(alpha: .2)
+                    : red.withValues(alpha: .2),
+                textColor: model.status == 'ACTIVE' ? green : red,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                text: model.status == 'ACTIVE'
+                    ? AppLocalizations.of(context)!.active
+                    : AppLocalizations.of(context)!.notActive,
+                child: model.status == 'ACTIVE'
+                    ? Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              AppLocalizations.of(context)!.active,
+                              textAlign: TextAlign.center,
+                            ),
                           ),
-                        ),
-                        AppIcons.editCir.svg(),
-                      ],
-                    )
-                  : null,
-            ),
-            const SizedBox(height: 24),
+                          AppIcons.editCir.svg(),
+                        ],
+                      )
+                    : null,
+              ),
+              const SizedBox(height: 24),
+            ],
             DecoratedBox(
               decoration: BoxDecoration(
                 color: context.color.contColor,
@@ -369,100 +371,102 @@ class DeliverInfoView extends StatelessWidget {
                       ),
                     ),
                   ),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 12,
-                      horizontal: 16,
-                    ),
-                    decoration: BoxDecoration(
-                      color: context.color.contColor,
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.departureDate,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: context.color.darkText,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            AppIcons.calendar.svg(),
-                            const SizedBox(width: 4),
-                            Text(
-                              model.shipmentDate ??
-                                  AppLocalizations.of(context)!.unknown,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                // Expanded(
+                //   child: Container(
+                //     padding: const EdgeInsets.symmetric(
+                //       vertical: 12,
+                //       horizontal: 16,
+                //     ),
+                //     decoration: BoxDecoration(
+                //       color: context.color.contColor,
+                //       borderRadius: BorderRadius.circular(24),
+                //     ),
+                //     child: Column(
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       children: [
+                //         Text(
+                //           AppLocalizations.of(context)!.departureDate,
+                //           style: TextStyle(
+                //             fontSize: 12,
+                //             fontWeight: FontWeight.w400,
+                //             color: context.color.darkText,
+                //           ),
+                //         ),
+                //         Row(
+                //           children: [
+                //             AppIcons.calendar.svg(),
+                //             const SizedBox(width: 4),
+                //             Text(
+                //               model.shipmentDate ??
+                //                   AppLocalizations.of(context)!.unknown,
+                //               style: const TextStyle(
+                //                 fontSize: 16,
+                //                 fontWeight: FontWeight.w400,
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
               ],
             ),
-            const SizedBox(height: 8),
-            DecoratedBox(
-              decoration: BoxDecoration(
-                color: context.color.contColor,
-                borderRadius: BorderRadius.circular(24),
-              ),
-              child: ListTile(
-                title: Text(AppLocalizations.of(context)!.additionalInfo),
-                minVerticalPadding: 0,
-                titleTextStyle: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: context.color.darkText,
-                ),
-                subtitleTextStyle: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: dark,
-                ),
-                subtitle: Text(
-                  AppLocalizations.of(context)!.cargoType,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                trailing: AppIcons.arrowForward.svg(),
-              ),
-            ),
-            const SizedBox(height: 8),
-            DecoratedBox(
-              decoration: BoxDecoration(
-                color: context.color.contColor,
-                borderRadius: BorderRadius.circular(24),
-              ),
-              child: ListTile(
-                title: Text(AppLocalizations.of(context)!.transportType),
-                subtitle: Text(model.transportName ??
-                    AppLocalizations.of(context)!.unknown),
-                minVerticalPadding: 0,
-                titleTextStyle: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: context.color.darkText,
-                ),
-                subtitleTextStyle: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: dark,
-                ),
-                trailing: model.transportIcon != null
-                    ? CachedNetworkImage(imageUrl: model.transportIcon!)
-                    : null,
-              ),
-            ),
+            // const SizedBox(height: 8),
+            // DecoratedBox(
+            //   decoration: BoxDecoration(
+            //     color: context.color.contColor,
+            //     borderRadius: BorderRadius.circular(24),
+            //   ),
+            //   child: ListTile(
+            //     title: Text(AppLocalizations.of(context)!.additionalInfo),
+            //     minVerticalPadding: 0,
+            //     titleTextStyle: TextStyle(
+            //       fontSize: 12,
+            //       fontWeight: FontWeight.w400,
+            //       color: context.color.darkText,
+            //     ),
+            //     subtitleTextStyle: const TextStyle(
+            //       fontSize: 16,
+            //       fontWeight: FontWeight.w400,
+            //       color: dark,
+            //     ),
+            //     subtitle: Text(
+            //       AppLocalizations.of(context)!.cargoType,
+            //       maxLines: 1,
+            //       overflow: TextOverflow.ellipsis,
+            //     ),
+            //     trailing: AppIcons.arrowForward.svg(),
+            //   ),
+            // ),
+
+            // const SizedBox(height: 8),
+            // DecoratedBox(
+            //   decoration: BoxDecoration(
+            //     color: context.color.contColor,
+            //     borderRadius: BorderRadius.circular(24),
+            //   ),
+            //   child: ListTile(
+            //     title: Text(AppLocalizations.of(context)!.transportType),
+            //     subtitle: Text(model.transportName ??
+            //         AppLocalizations.of(context)!.unknown),
+            //     minVerticalPadding: 0,
+            //     titleTextStyle: TextStyle(
+            //       fontSize: 12,
+            //       fontWeight: FontWeight.w400,
+            //       color: context.color.darkText,
+            //     ),
+            //     subtitleTextStyle: const TextStyle(
+            //       fontSize: 16,
+            //       fontWeight: FontWeight.w400,
+            //       color: dark,
+            //     ),
+            //     trailing: model.transportIcon != null
+            //         ? CachedNetworkImage(imageUrl: model.transportIcon!)
+            //         : null,
+            //   ),
+            // ),
+
             const SizedBox(height: 16),
             const Text(
               'Yuk turi:',

@@ -18,14 +18,14 @@ class WShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: const Color(0xFFF2F5F8),
-      highlightColor: const Color(0xFFE1E4EA),
+      baseColor: context.color.grey.withValues(alpha: .5),
+      highlightColor: context.color.grey.withValues(alpha: .8),
       child: Container(
         height: height ?? double.infinity,
         width: width ?? double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(radius ?? 16),
-          color: context.color.contBlue,
+          color: context.color.white,
         ),
       ),
     );

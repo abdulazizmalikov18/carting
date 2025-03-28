@@ -10,6 +10,7 @@ AdvertisementModel _$AdvertisementModelFromJson(Map<String, dynamic> json) =>
     AdvertisementModel(
       id: (json['id'] as num).toInt(),
       advType: json['adv_type'] as String? ?? '',
+      payType: json['pay_type'] as String? ?? '',
       shipmentDate: json['shipment_date'] as String?,
       status: json['status'] as String? ?? '',
       serviceTypeId: (json['service_type_id'] as num?)?.toInt() ?? 0,
@@ -50,6 +51,7 @@ Map<String, dynamic> _$AdvertisementModelToJson(AdvertisementModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'adv_type': instance.advType,
+      'pay_type': instance.payType,
       'shipment_date': instance.shipmentDate,
       'status': instance.status,
       'service_type_id': instance.serviceTypeId,

@@ -1,3 +1,4 @@
+import 'package:carting/presentation/views/cars/cars_new_view.dart';
 import 'package:carting/presentation/views/lenguage_view.dart';
 import 'package:carting/presentation/views/profile/edit_phone_view.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,6 @@ import 'package:carting/presentation/routes/route_name.dart';
 import 'package:carting/presentation/views/announcements/announcements_view.dart';
 import 'package:carting/presentation/views/auth/auth_view.dart';
 import 'package:carting/presentation/views/auth/register_view.dart';
-import 'package:carting/presentation/views/cars/cars_view.dart';
 import 'package:carting/presentation/views/error_view.dart';
 import 'package:carting/presentation/views/home/home_view.dart';
 import 'package:carting/presentation/views/home/main_view.dart';
@@ -116,7 +116,7 @@ sealed class AppRouts {
         routes: [
           GoRoute(
             path: AppRouteName.carsAuth,
-            builder: (context, state) => const CarsView(),
+            builder: (context, state) => const CarsNewView(),
           ),
         ],
       ),
@@ -169,7 +169,7 @@ sealed class AppRouts {
         routes: [
           GoRoute(
             path: AppRouteName.cars,
-            builder: (context, state) => const CarsView(),
+            builder: (context, state) => const CarsNewView(),
           ),
         ],
       ),

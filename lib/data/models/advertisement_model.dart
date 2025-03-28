@@ -8,6 +8,8 @@ class AdvertisementModel {
   final int id;
   @JsonKey(name: "adv_type")
   final String advType;
+  @JsonKey(name: "pay_type")
+  final String payType;
   @JsonKey(name: "shipment_date")
   final String? shipmentDate;
   @JsonKey(name: "status")
@@ -50,10 +52,13 @@ class AdvertisementModel {
   final List<String>? workshopCategories;
   @JsonKey(name: "car_name")
   final String? carName;
+  @JsonKey(name: "rating")
+  final double? rating;
 
   AdvertisementModel({
     required this.id,
     this.advType = '',
+    this.payType = '',
     this.shipmentDate,
     this.status = '',
     this.serviceTypeId = 0,
@@ -74,7 +79,7 @@ class AdvertisementModel {
     this.createdByTgLink,
     this.workshopServices,
     this.workshopCategories,
-    this.carName,
+    this.carName, this.rating,
   });
 
   factory AdvertisementModel.fromJson(Map<String, dynamic> json) =>

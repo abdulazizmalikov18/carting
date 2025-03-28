@@ -9,6 +9,9 @@ import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/routes/route_name.dart';
 import 'package:carting/presentation/views/profile/info_view.dart';
+import 'package:carting/presentation/views/profile/my_orders_view.dart';
+import 'package:carting/presentation/views/profile/my_services_view.dart';
+import 'package:carting/presentation/views/profile/my_vehicles_view.dart';
 import 'package:carting/presentation/views/profile/quest_view.dart';
 import 'package:carting/presentation/views/profile/referral_program_view.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
@@ -286,8 +289,9 @@ class _ProfileViewState extends State<ProfileView> {
                     width: 24,
                   ),
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const QuestView(),
+                    Navigator.of(context, rootNavigator: true)
+                        .push(MaterialPageRoute(
+                      builder: (context) => const MyVehiclesView(),
                     ));
                   },
                 ),
@@ -296,8 +300,9 @@ class _ProfileViewState extends State<ProfileView> {
                   title: AppLocalizations.of(context)!.myOrders,
                   leading: AppIcons.document.svg(height: 24, width: 24),
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const QuestView(),
+                    Navigator.of(context, rootNavigator: true)
+                        .push(MaterialPageRoute(
+                      builder: (context) => const MyOrdersView(),
                     ));
                   },
                 ),
@@ -306,8 +311,9 @@ class _ProfileViewState extends State<ProfileView> {
                   title: AppLocalizations.of(context)!.myServices,
                   leading: AppIcons.shieldCheck.svg(height: 24, width: 24),
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const QuestView(),
+                    Navigator.of(context, rootNavigator: true)
+                        .push(MaterialPageRoute(
+                      builder: (context) => const MyServicesView(),
                     ));
                   },
                 ),

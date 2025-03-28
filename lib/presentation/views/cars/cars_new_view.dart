@@ -1,38 +1,36 @@
+import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/app/auth/auth_bloc.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/routes/route_name.dart';
 import 'package:carting/presentation/views/announcements/announcement_info_view.dart';
-import 'package:carting/presentation/views/announcements/widgets/announcements_iteam_new.dart';
-import 'package:carting/utils/enum_filtr.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:formz/formz.dart';
-
-import 'package:carting/app/advertisement/advertisement_bloc.dart';
-import 'package:carting/assets/assets/icons.dart';
+import 'package:carting/presentation/views/cars/widgets/car_iteam.dart';
 import 'package:carting/presentation/views/common/filter_view.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_shimmer.dart';
+import 'package:carting/utils/enum_filtr.dart';
+import 'package:flutter/material.dart';
+
+import 'package:carting/assets/assets/icons.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
 
-class AnnouncementsView extends StatefulWidget {
-  const AnnouncementsView({super.key});
+class CarsNewView extends StatefulWidget {
+  const CarsNewView({super.key});
 
   @override
-  State<AnnouncementsView> createState() => _AnnouncementsViewState();
+  State<CarsNewView> createState() => _CarsNewViewState();
 }
 
-class _AnnouncementsViewState extends State<AnnouncementsView> {
+class _CarsNewViewState extends State<CarsNewView> {
   List<bool> active = [true, true, true, true, true];
-  String selectedUnit = 'Barchasi';
-  String selectedUnit2 = 'Barchasi';
-
   @override
   void initState() {
-    context.read<AdvertisementBloc>().add(GetAdvertisementsEvent());
-    // context.read<AdvertisementBloc>().add(GetAdvertisementsProvideEvent());
-    // context.read<AdvertisementBloc>().add(GetAdvertisementsReceiveEvent());
+    context.read<AdvertisementBloc>().add(GetAdvertisementsFilterEvent(
+          transportId: 1,
+          status: true,
+        ));
     super.initState();
   }
 
@@ -42,7 +40,7 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
       appBar: AppBar(
         centerTitle: false,
         title: const Text(
-          'E’lon izlash',
+          "Transport izlash",
           style: TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.w500,
@@ -80,7 +78,7 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
             alignment: Alignment.centerLeft,
             child: BlocSelector<AdvertisementBloc, AdvertisementState, int>(
-              selector: (state) => state.advertisement.length,
+              selector: (state) => state.advertisementFilter.length,
               builder: (context, state) => Text(
                 'E’lonlar soni: $state ta',
                 style: TextStyle(
@@ -117,7 +115,7 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
           }
           return BlocBuilder<AdvertisementBloc, AdvertisementState>(
             builder: (context, state) {
-              if (state.status.isInProgress) {
+              if (state.statusFilter.isInProgress) {
                 return ListView.separated(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 120),
                   itemBuilder: (context, index) => const WShimmer(
@@ -129,7 +127,7 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
                   itemCount: 12,
                 );
               }
-              if (state.advertisement.isEmpty) {
+              if (state.advertisementFilter.isEmpty) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -139,9 +137,9 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
                     WButton(
                       margin: const EdgeInsets.all(16),
                       onTap: () {
-                        context
-                            .read<AdvertisementBloc>()
-                            .add(GetAdvertisementsEvent());
+                        context.read<AdvertisementBloc>().add(
+                            GetAdvertisementsFilterEvent(
+                                transportId: 1, status: true));
                       },
                       text: AppLocalizations.of(context)!.refresh,
                     ),
@@ -153,11 +151,17 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
                 onRefresh: () async {
                   context
                       .read<AdvertisementBloc>()
-                      .add(GetAdvertisementsEvent());
+                      .add(GetAdvertisementsFilterEvent(
+                        transportId: 1,
+                        status: true,
+                      ));
                   Future.delayed(Duration.zero);
                 },
                 child: ListView.separated(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 120),
+                  itemCount: state.advertisementFilter.length,
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 16),
                   itemBuilder: (context, index) => GestureDetector(
                     onTap: () {
                       final bloc = context.read<AdvertisementBloc>();
@@ -166,19 +170,14 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
                         builder: (context) => BlocProvider.value(
                           value: bloc,
                           child: AnnouncementInfoView(
-                            model: state.advertisement[index],
+                            model: state.advertisementFilter[index],
                             isMe: false,
                           ),
                         ),
                       ));
                     },
-                    child: AnnouncementsIteamNew(
-                      model: state.advertisement[index],
-                    ),
+                    child: CarIteam(model: state.advertisementFilter[index]),
                   ),
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 16),
-                  itemCount: state.advertisement.length,
                 ),
               );
             },

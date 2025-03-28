@@ -201,6 +201,50 @@ class MyFunction {
     }
   }
 
+  static String formatDate2(DateTime date) {
+    DateTime today = DateTime.now();
+    DateTime tomorrow = today.add(const Duration(days: 1));
+    DateTime afterTomorrow = today.add(const Duration(days: 2));
+
+    String formattedDate = DateFormat('dd.MM.yyyy').format(date);
+    String dayMonth = DateFormat('d MMMM', 'uz').format(date);
+
+    if (DateFormat('yyyy-MM-dd').format(date) ==
+        DateFormat('yyyy-MM-dd').format(today)) {
+      return "Bugun $dayMonth";
+    } else if (DateFormat('yyyy-MM-dd').format(date) ==
+        DateFormat('yyyy-MM-dd').format(tomorrow)) {
+      return "Ertaga $dayMonth";
+    } else if (DateFormat('yyyy-MM-dd').format(date) ==
+        DateFormat('yyyy-MM-dd').format(afterTomorrow)) {
+      return "Indinga $dayMonth";
+    } else {
+      return formattedDate;
+    }
+  }
+
+  static String getLastPart(String location) {
+    List<String> parts = location
+        .replaceAll("Узбекистан", '')
+        .replaceAll("Oʻzbekiston", '')
+        .split(',')
+        .map((e) => e.trim())
+        .toList();
+
+    Log.e(parts);
+    // Agar "Узбекистан" bo'lsa, uni chiqarib tashlaymiz
+    if (parts.isNotEmpty && parts.first == "Узбекистан") {
+      parts.removeAt(0);
+    }
+
+    // Ro‘yxatning oxirgi 2 elementini olish
+    return parts.isNotEmpty
+        ? parts.first.isEmpty
+            ? parts.last
+            : parts.first
+        : "";
+  }
+
   static String formattedTime(DateTime date) {
     return DateFormat('HH:mm').format(date);
   }

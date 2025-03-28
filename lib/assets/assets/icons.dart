@@ -44,6 +44,7 @@ class AppIcons {
   static const phone = "assets/icons/phone.svg";
   static const price = "assets/icons/price.svg";
   static const profile = "assets/icons/profile.svg";
+  static const profile2user = "assets/icons/profile-2user.svg";
   static const rightIcon = "assets/icons/right-icon.svg";
   static const time = "assets/icons/time.svg";
   static const truck = "assets/icons/truck.svg";
