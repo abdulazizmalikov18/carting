@@ -230,8 +230,6 @@ class MyFunction {
         .split(',')
         .map((e) => e.trim())
         .toList();
-
-    Log.e(parts);
     // Agar "Узбекистан" bo'lsa, uni chiqarib tashlaymiz
     if (parts.isNotEmpty && parts.first == "Узбекистан") {
       parts.removeAt(0);

@@ -1,6 +1,7 @@
 import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/data/models/advertisment_filter.dart';
 import 'package:carting/data/models/cars_model.dart';
+import 'package:carting/data/models/filter_adver_model.dart';
 import 'package:carting/data/models/fuels_info_model.dart';
 import 'package:carting/data/models/image_create_model.dart';
 import 'package:carting/data/models/response_model.dart';
@@ -14,9 +15,7 @@ abstract class IAdvertisementRepo {
   Future<Either<Failure, ResponseModel<List<AdvertisementModel>>>>
       getAdvertisements(FilterModel? model);
   Future<Either<Failure, ResponseModel<List<AdvertisementModel>>>>
-      getAdvertisementsMe(
-    bool isPROVIDE,
-  );
+      getAdvertisementsMe(FilterAdverModel model);
   Future<Either<Failure, ResponseModel<List<TransportationTypesModel>>>>
       getTransportationTypes(
     int servisId, {

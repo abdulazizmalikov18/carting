@@ -3,7 +3,7 @@ part of 'advertisement_bloc.dart';
 sealed class AdvertisementEvent {}
 
 class GetAdvertisementsEvent extends AdvertisementEvent {
-  final int? serviceId;
+  final List<int>? serviceId;
   final bool? isPROVIDE;
 
   GetAdvertisementsEvent({
@@ -13,7 +13,7 @@ class GetAdvertisementsEvent extends AdvertisementEvent {
 }
 
 class GetAdvertisementsFilterEvent extends AdvertisementEvent {
-  final int? serviceId;
+  final List<int>? serviceId;
   final bool? isPROVIDE;
   final int? specialistId;
   final bool? status;
@@ -34,7 +34,11 @@ class GetAdvertisementsFilterEvent extends AdvertisementEvent {
 
 class GetAdvertisementsProvideEvent extends AdvertisementEvent {}
 
+class GetAdvertisementsProvideFinishEvent extends AdvertisementEvent {}
+
 class GetAdvertisementsReceiveEvent extends AdvertisementEvent {}
+
+class GetAdvertisementsReceiveFinishEvent extends AdvertisementEvent {}
 
 class GetCarsEvent extends AdvertisementEvent {}
 

@@ -5,7 +5,9 @@ class AdvertisementState extends Equatable {
   final FormzSubmissionStatus status;
   final FormzSubmissionStatus statusFuels;
   final FormzSubmissionStatus statusPROVIDE;
+  final FormzSubmissionStatus statusPROVIDEFinish;
   final FormzSubmissionStatus statusRECEIVE;
+  final FormzSubmissionStatus statusRECEIVEFinish;
   final FormzSubmissionStatus statusFilter;
   final FormzSubmissionStatus statusTrTypes;
   final FormzSubmissionStatus statusCreate;
@@ -17,7 +19,9 @@ class AdvertisementState extends Equatable {
   final List<AdvertisementModel> advertisement;
   final List<AdvertisementModel> advertisementFilter;
   final List<AdvertisementModel> advertisementRECEIVE;
+  final List<AdvertisementModel> advertisementRECEIVEFinish;
   final List<AdvertisementModel> advertisementPROVIDE;
+  final List<AdvertisementModel> advertisementPROVIDEFinish;
   final List<TransportationTypesModel> transportationTypes;
   final List<FuelsInfoModel> fuelsModel;
   final List<FuelsInfoModel> fuelsModelAll;
@@ -39,6 +43,10 @@ class AdvertisementState extends Equatable {
     this.statusServices = FormzSubmissionStatus.initial,
     this.statusChange = FormzSubmissionStatus.initial,
     this.statusComment = FormzSubmissionStatus.initial,
+    this.statusPROVIDEFinish = FormzSubmissionStatus.initial,
+    this.statusRECEIVEFinish = FormzSubmissionStatus.initial,
+    this.advertisementRECEIVEFinish = const [],
+    this.advertisementPROVIDEFinish = const [],
     this.fuelsModel = const [],
     this.fuelsModelAll = const [],
     this.advertisementFilter = const [],
@@ -79,13 +87,19 @@ class AdvertisementState extends Equatable {
         servicesList,
         fuelsModelAll,
         tabIndex,
+        statusPROVIDEFinish,
+        statusRECEIVEFinish,
+        advertisementRECEIVEFinish,
+        advertisementPROVIDEFinish,
       ];
 
   AdvertisementState copyWith({
     FormzSubmissionStatus? status,
     FormzSubmissionStatus? statusFuels,
     FormzSubmissionStatus? statusPROVIDE,
+    FormzSubmissionStatus? statusPROVIDEFinish,
     FormzSubmissionStatus? statusRECEIVE,
+    FormzSubmissionStatus? statusRECEIVEFinish,
     FormzSubmissionStatus? statusFilter,
     FormzSubmissionStatus? statusTrTypes,
     FormzSubmissionStatus? statusCreate,
@@ -97,7 +111,9 @@ class AdvertisementState extends Equatable {
     List<AdvertisementModel>? advertisement,
     List<AdvertisementModel>? advertisementFilter,
     List<AdvertisementModel>? advertisementRECEIVE,
+    List<AdvertisementModel>? advertisementRECEIVEFinish,
     List<AdvertisementModel>? advertisementPROVIDE,
+    List<AdvertisementModel>? advertisementPROVIDEFinish,
     List<TransportationTypesModel>? transportationTypes,
     List<FuelsInfoModel>? fuelsModel,
     List<FuelsInfoModel>? fuelsModelAll,
@@ -111,7 +127,9 @@ class AdvertisementState extends Equatable {
       status: status ?? this.status,
       statusFuels: statusFuels ?? this.statusFuels,
       statusPROVIDE: statusPROVIDE ?? this.statusPROVIDE,
+      statusPROVIDEFinish: statusPROVIDEFinish ?? this.statusPROVIDEFinish,
       statusRECEIVE: statusRECEIVE ?? this.statusRECEIVE,
+      statusRECEIVEFinish: statusRECEIVEFinish ?? this.statusRECEIVEFinish,
       statusFilter: statusFilter ?? this.statusFilter,
       statusTrTypes: statusTrTypes ?? this.statusTrTypes,
       statusCreate: statusCreate ?? this.statusCreate,
@@ -123,7 +141,9 @@ class AdvertisementState extends Equatable {
       advertisement: advertisement ?? this.advertisement,
       advertisementFilter: advertisementFilter ?? this.advertisementFilter,
       advertisementRECEIVE: advertisementRECEIVE ?? this.advertisementRECEIVE,
+      advertisementRECEIVEFinish: advertisementRECEIVEFinish ?? this.advertisementRECEIVEFinish,
       advertisementPROVIDE: advertisementPROVIDE ?? this.advertisementPROVIDE,
+      advertisementPROVIDEFinish: advertisementPROVIDEFinish ?? this.advertisementPROVIDEFinish,
       transportationTypes: transportationTypes ?? this.transportationTypes,
       fuelsModel: fuelsModel ?? this.fuelsModel,
       fuelsModelAll: fuelsModelAll ?? this.fuelsModelAll,

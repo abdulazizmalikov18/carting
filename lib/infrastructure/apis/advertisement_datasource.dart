@@ -3,6 +3,7 @@ import 'package:carting/data/common/error_handle.dart';
 import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/data/models/advertisment_filter.dart';
 import 'package:carting/data/models/cars_model.dart';
+import 'package:carting/data/models/filter_adver_model.dart';
 import 'package:carting/data/models/fuels_info_model.dart';
 import 'package:carting/data/models/image_create_model.dart';
 import 'package:carting/data/models/response_model.dart';
@@ -18,7 +19,7 @@ abstract class AdvertisementDatasource {
   Future<ResponseModel<List<AdvertisementModel>>> getAdvertisements(
       FilterModel? model);
   Future<ResponseModel<List<AdvertisementModel>>> getAdvertisementsMe(
-    bool isPROVIDE,
+    FilterAdverModel model,
   );
   Future<ResponseModel<List<TransportationTypesModel>>> getTransportationTypes(
     int servisId, {
@@ -102,11 +103,19 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
 
   @override
   Future<ResponseModel<List<AdvertisementModel>>> getAdvertisementsMe(
-    bool isPROVIDE,
+    FilterAdverModel model,
   ) async {
+    Map<String, dynamic> queryParameters = {};
+    if (model.isClose && model.isPROVIDE) {
+      queryParameters['status'] = 'CLOSED';
+    } else {
+      queryParameters['status'] = 'ACTIVE';
+    }
+    queryParameters['adv_type'] = model.isPROVIDE ? 'PROVIDE' : 'RECEIVE';
     return _handle.apiCantrol(
       request: () => dio.get(
-        'user/advertisement?adv_type=${isPROVIDE ? 'PROVIDE' : 'RECEIVE'}',
+        'user/advertisement',
+        queryParameters: queryParameters,
         options: Options(
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {

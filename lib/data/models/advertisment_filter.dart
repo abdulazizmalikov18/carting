@@ -1,6 +1,6 @@
 class FilterModel {
   int? advId;
-  int? serviceId;
+  String? serviceId;
   int? specialistId;
   int? carId;
   int? repairTypeId;

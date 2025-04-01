@@ -16,8 +16,10 @@ class AnnouncementsIteamNew extends StatelessWidget {
   const AnnouncementsIteamNew({
     super.key,
     required this.model,
+    this.isMe = false,
   });
   final AdvertisementModel model;
+  final bool isMe;
 
   @override
   Widget build(BuildContext context) {
@@ -144,48 +146,49 @@ class AnnouncementsIteamNew extends StatelessWidget {
                 )
             ],
           ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(12, 4, 4, 4),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24),
-              color: context.color.scaffoldBackground,
-            ),
-            height: 48,
-            child: Row(
-              spacing: 8,
-              children: [
-                const CircleAvatar(radius: 12),
-                Expanded(
-                  child: Text(
-                    model.createdByName ??
-                        AppLocalizations.of(context)!.unknown,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
+          if (!isMe)
+            Container(
+              padding: const EdgeInsets.fromLTRB(12, 4, 4, 4),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24),
+                color: context.color.scaffoldBackground,
+              ),
+              height: 48,
+              child: Row(
+                spacing: 8,
+                children: [
+                  const CircleAvatar(radius: 12),
+                  Expanded(
+                    child: Text(
+                      model.createdByName ??
+                          AppLocalizations.of(context)!.unknown,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ),
-                ),
-                WButton(
-                  onTap: () async {
-                    if (model.createdByPhone != null) {
-                      await Caller.makePhoneCall(model.createdByPhone!);
-                    } else if (model.createdByTgLink != null) {
-                      await Caller.launchTelegram(model.createdByTgLink!);
-                    } else {
-                      CustomSnackbar.show(
-                        context,
-                        AppLocalizations.of(context)!.unknown,
-                      );
-                    }
-                  },
-                  text: 'Bog‘lanish',
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                )
-              ],
-            ),
-          )
+                  WButton(
+                    onTap: () async {
+                      if (model.createdByPhone != null) {
+                        await Caller.makePhoneCall(model.createdByPhone!);
+                      } else if (model.createdByTgLink != null) {
+                        await Caller.launchTelegram(model.createdByTgLink!);
+                      } else {
+                        CustomSnackbar.show(
+                          context,
+                          AppLocalizations.of(context)!.unknown,
+                        );
+                      }
+                    },
+                    text: 'Bog‘lanish',
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                  )
+                ],
+              ),
+            )
         ],
       ),
     );

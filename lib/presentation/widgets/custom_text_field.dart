@@ -45,6 +45,7 @@ class CustomTextField extends StatefulWidget {
   final bool isCap;
   final Color? borderColor;
   final Color? tetxColor;
+  final TextCapitalization textCapitalization;
   const CustomTextField({
     super.key,
     this.onPressed,
@@ -88,6 +89,7 @@ class CustomTextField extends StatefulWidget {
     this.isCap = false,
     this.borderColor,
     this.tetxColor,
+    this.textCapitalization = TextCapitalization.none,
   });
 
   @override
@@ -171,7 +173,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       ),
               textCapitalization: widget.isCap
                   ? TextCapitalization.words
-                  : TextCapitalization.none,
+                  : widget.textCapitalization,
               obscureText: widget.obscureText,
               keyboardType: widget.keyboardType,
               validator: widget.validator,

@@ -126,7 +126,7 @@ class _FilterViewState extends State<FilterView> {
                   );
                 case FilterType.services:
                   return WselectServisIteam(
-                    onTap: (index) {
+                    onTap: (index,servisId) {
                       servisIndex = index;
                       setState(() {});
                     },

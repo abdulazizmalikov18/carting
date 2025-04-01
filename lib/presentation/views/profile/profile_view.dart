@@ -289,9 +289,13 @@ class _ProfileViewState extends State<ProfileView> {
                     width: 24,
                   ),
                   onTap: () {
+                    final bloc = context.read<AdvertisementBloc>();
                     Navigator.of(context, rootNavigator: true)
                         .push(MaterialPageRoute(
-                      builder: (context) => const MyVehiclesView(),
+                      builder: (context) => BlocProvider.value(
+                        value: bloc,
+                        child: const MyVehiclesView(),
+                      ),
                     ));
                   },
                 ),
@@ -300,9 +304,13 @@ class _ProfileViewState extends State<ProfileView> {
                   title: AppLocalizations.of(context)!.myOrders,
                   leading: AppIcons.document.svg(height: 24, width: 24),
                   onTap: () {
+                    final bloc = context.read<AdvertisementBloc>();
                     Navigator.of(context, rootNavigator: true)
                         .push(MaterialPageRoute(
-                      builder: (context) => const MyOrdersView(),
+                      builder: (context) => BlocProvider.value(
+                        value: bloc,
+                        child: const MyOrdersView(),
+                      ),
                     ));
                   },
                 ),
@@ -311,9 +319,13 @@ class _ProfileViewState extends State<ProfileView> {
                   title: AppLocalizations.of(context)!.myServices,
                   leading: AppIcons.shieldCheck.svg(height: 24, width: 24),
                   onTap: () {
+                    final bloc = context.read<AdvertisementBloc>();
                     Navigator.of(context, rootNavigator: true)
                         .push(MaterialPageRoute(
-                      builder: (context) => const MyServicesView(),
+                      builder: (context) => BlocProvider.value(
+                        value: bloc,
+                        child: const MyServicesView(),
+                      ),
                     ));
                   },
                 ),

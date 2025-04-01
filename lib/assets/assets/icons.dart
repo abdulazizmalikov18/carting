@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AppIcons {
+  static const uzb = "assets/icons/uzb.svg";
   static const checkboxRadioA = "assets/icons/checkbox_radio_a.svg";
   static const checkboxRadioD = "assets/icons/checkbox_radio_d.svg";
   static const add = "assets/icons/add.svg";
@@ -85,7 +86,7 @@ class AppIcons {
       "assets/icons/transportation_of_passengers.svg";
   static const transportationTransfer =
       "assets/icons/transportation_transfer.svg";
-
+  static const close = "assets/icons/close.svg";
   static const chart = "assets/icons/chart.svg";
   static const share = "assets/icons/share.svg";
   static const copy = "assets/icons/copy.svg";

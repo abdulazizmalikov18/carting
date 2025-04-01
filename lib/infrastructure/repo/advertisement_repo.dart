@@ -2,6 +2,7 @@ import 'package:carting/data/abstract_repo/i_advertisement_repo.dart';
 import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/data/models/advertisment_filter.dart';
 import 'package:carting/data/models/cars_model.dart';
+import 'package:carting/data/models/filter_adver_model.dart';
 import 'package:carting/data/models/fuels_info_model.dart';
 import 'package:carting/data/models/image_create_model.dart';
 import 'package:carting/data/models/response_model.dart';
@@ -39,9 +40,9 @@ class AdvertisementRepo implements IAdvertisementRepo {
 
   @override
   Future<Either<Failure, ResponseModel<List<AdvertisementModel>>>>
-      getAdvertisementsMe(bool isPROVIDE) async {
+      getAdvertisementsMe(FilterAdverModel model) async {
     try {
-      final result = await dataSourcheImpl.getAdvertisementsMe(isPROVIDE);
+      final result = await dataSourcheImpl.getAdvertisementsMe(model);
       return Right(result);
     } on DioException {
       return Left(DioFailure());

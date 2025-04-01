@@ -12,7 +12,7 @@ class Formatters {
     type: MaskAutoCompletionType.lazy,
   );
   static final cardNumberFormatter = MaskTextInputFormatter(
-    mask: '#### #### #### ####', 
+    mask: '#### #### #### ####',
     filter: {"#": RegExp(r'[0-9]')},
     type: MaskAutoCompletionType.lazy,
   );
@@ -31,7 +31,7 @@ class Formatters {
   static final loginFormat = FilteringTextInputFormatter.allow(
     RegExp(r'[a-z0-9]'),
   );
-   static final numberFormat = FilteringTextInputFormatter.allow(
+  static final numberFormat = FilteringTextInputFormatter.allow(
     RegExp(r'[0-9]'),
   );
   static final pnflFormat = FilteringTextInputFormatter.allow(
@@ -48,7 +48,7 @@ class Formatters {
     type: MaskAutoCompletionType.lazy,
   );
   static final seriya = MaskTextInputFormatter(
-    mask: "AA",
+    mask: "AAA",
     filter: {"A": RegExp(r'[A-Z]')},
     type: MaskAutoCompletionType.lazy,
   );
@@ -58,8 +58,18 @@ class Formatters {
     type: MaskAutoCompletionType.lazy,
   );
   static final carNum = MaskTextInputFormatter(
-    mask: 'A ### AA',
+    mask: '## A ### AA',
     filter: {"#": RegExp(r'[0-9]'), "A": RegExp(r'[A-Z]')},
+    type: MaskAutoCompletionType.lazy,
+  );
+  static final year = MaskTextInputFormatter(
+    mask: '####',
+    filter: {"#": RegExp(r'[0-9]')},
+    type: MaskAutoCompletionType.lazy,
+  );
+  static final seriyaNumber = MaskTextInputFormatter(
+    mask: '#######',
+    filter: {"#": RegExp(r'[0-9]')},
     type: MaskAutoCompletionType.lazy,
   );
   static final lotinFormat = FilteringTextInputFormatter.allow(

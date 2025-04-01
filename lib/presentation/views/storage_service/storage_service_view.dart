@@ -20,7 +20,7 @@ class _StorageServiceViewState extends State<StorageServiceView> {
   void initState() {
     context
         .read<AdvertisementBloc>()
-        .add(GetAdvertisementsFilterEvent(serviceId: 7));
+        .add(GetAdvertisementsFilterEvent(serviceId: [7]));
     super.initState();
   }
 
@@ -60,7 +60,7 @@ class _StorageServiceViewState extends State<StorageServiceView> {
             onRefresh: () async {
               context
                   .read<AdvertisementBloc>()
-                  .add(GetAdvertisementsFilterEvent(serviceId: 7));
+                  .add(GetAdvertisementsFilterEvent(serviceId: [7]));
               Future.delayed(Duration.zero);
             },
             child: ListView.separated(

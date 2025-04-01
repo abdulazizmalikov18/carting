@@ -9,8 +9,10 @@ class WselectServisIteam extends StatefulWidget {
   const WselectServisIteam({
     super.key,
     required this.onTap,
+    this.isCar = false,
   });
-  final Function(int index) onTap;
+  final Function(int index, int serviceId) onTap;
+  final bool isCar;
 
   @override
   State<WselectServisIteam> createState() => _WselectServisIteamState();
@@ -28,68 +30,103 @@ class _WselectServisIteamState extends State<WselectServisIteam> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    listServis = [
-      TypeOfService(
-        icon: AppIcons.delivery.svg(height: 40, width: 40),
-        text: AppLocalizations.of(context)!.delivery,
-        screen: const SizedBox(),
-        serviceId: 9,
-      ),
-      TypeOfService(
-        icon: AppIcons.transportRental.svg(height: 40, width: 40),
-        text: AppLocalizations.of(context)!.peregonService,
-        screen: const SizedBox(),
-        serviceId: 10,
-      ),
-      TypeOfService(
-        icon: AppIcons.shipping.svg(height: 40, width: 40),
-        text: AppLocalizations.of(context)!.shipping,
-        screen: const SizedBox(),
-        serviceId: 1,
-      ),
-      TypeOfService(
-        icon: AppIcons.fuelDeliver.svg(),
-        text: AppLocalizations.of(context)!.fuelDelivery,
-        screen: const SizedBox(),
-        serviceId: 8,
-      ),
-      TypeOfService(
-        icon: AppIcons.transportationOfPassengers.svg(height: 40, width: 40),
-        text: AppLocalizations.of(context)!.passengerTransport,
-        screen: const SizedBox(),
-        serviceId: 2,
-      ),
-      TypeOfService(
-        icon: AppIcons.car_3.svg(),
-        text: AppLocalizations.of(context)!.carRental,
-        screen: const SizedBox(),
-        serviceId: 4,
-      ),
-      TypeOfService(
-        icon: AppIcons.specialTechnique.svg(height: 40, width: 40),
-        text: AppLocalizations.of(context)!.specialTechServices,
-        screen: const SizedBox(),
-        serviceId: 3,
-      ),
-      TypeOfService(
-        icon: AppIcons.autoRepair.svg(),
-        text: AppLocalizations.of(context)!.autoRepair,
-        screen: const SizedBox(),
-        serviceId: 5,
-      ),
-      TypeOfService(
-        icon: AppIcons.transportationTransfer.svg(),
-        text: AppLocalizations.of(context)!.transportTransfer,
-        screen: const SizedBox(),
-        serviceId: 6,
-      ),
-      TypeOfService(
-        icon: AppIcons.inTheWarehouseStorage.svg(),
-        text: AppLocalizations.of(context)!.warehouseStorage,
-        screen: const SizedBox(),
-        serviceId: 7,
-      ),
-    ];
+    listServis = widget.isCar
+        ? [
+            // TypeOfService(
+            //   icon: AppIcons.delivery.svg(height: 40, width: 40),
+            //   text: AppLocalizations.of(context)!.delivery,
+            //   screen: const SizedBox(),
+            //   serviceId: 9,
+            // ),
+            TypeOfService(
+              icon: AppIcons.shipping.svg(height: 40, width: 40),
+              text: AppLocalizations.of(context)!.shipping,
+              screen: const SizedBox(),
+              serviceId: 1,
+            ),
+            TypeOfService(
+              icon: AppIcons.transportationOfPassengers
+                  .svg(height: 40, width: 40),
+              text: AppLocalizations.of(context)!.passengerTransport,
+              screen: const SizedBox(),
+              serviceId: 2,
+            ),
+            // TypeOfService(
+            //   icon: AppIcons.specialTechnique.svg(height: 40, width: 40),
+            //   text: AppLocalizations.of(context)!.specialTechServices,
+            //   screen: const SizedBox(),
+            //   serviceId: 3,
+            // ),
+            // TypeOfService(
+            //   icon: AppIcons.transportationTransfer.svg(),
+            //   text: AppLocalizations.of(context)!.transportTransfer,
+            //   screen: const SizedBox(),
+            //   serviceId: 6,
+            // ),
+          ]
+        : [
+            TypeOfService(
+              icon: AppIcons.delivery.svg(height: 40, width: 40),
+              text: AppLocalizations.of(context)!.delivery,
+              screen: const SizedBox(),
+              serviceId: 9,
+            ),
+            TypeOfService(
+              icon: AppIcons.transportRental.svg(height: 40, width: 40),
+              text: AppLocalizations.of(context)!.peregonService,
+              screen: const SizedBox(),
+              serviceId: 10,
+            ),
+            TypeOfService(
+              icon: AppIcons.shipping.svg(height: 40, width: 40),
+              text: AppLocalizations.of(context)!.shipping,
+              screen: const SizedBox(),
+              serviceId: 1,
+            ),
+            TypeOfService(
+              icon: AppIcons.fuelDeliver.svg(),
+              text: AppLocalizations.of(context)!.fuelDelivery,
+              screen: const SizedBox(),
+              serviceId: 8,
+            ),
+            TypeOfService(
+              icon: AppIcons.transportationOfPassengers
+                  .svg(height: 40, width: 40),
+              text: AppLocalizations.of(context)!.passengerTransport,
+              screen: const SizedBox(),
+              serviceId: 2,
+            ),
+            TypeOfService(
+              icon: AppIcons.car_3.svg(),
+              text: AppLocalizations.of(context)!.carRental,
+              screen: const SizedBox(),
+              serviceId: 4,
+            ),
+            TypeOfService(
+              icon: AppIcons.specialTechnique.svg(height: 40, width: 40),
+              text: AppLocalizations.of(context)!.specialTechServices,
+              screen: const SizedBox(),
+              serviceId: 3,
+            ),
+            TypeOfService(
+              icon: AppIcons.autoRepair.svg(),
+              text: AppLocalizations.of(context)!.autoRepair,
+              screen: const SizedBox(),
+              serviceId: 5,
+            ),
+            TypeOfService(
+              icon: AppIcons.transportationTransfer.svg(),
+              text: AppLocalizations.of(context)!.transportTransfer,
+              screen: const SizedBox(),
+              serviceId: 6,
+            ),
+            TypeOfService(
+              icon: AppIcons.inTheWarehouseStorage.svg(),
+              text: AppLocalizations.of(context)!.warehouseStorage,
+              screen: const SizedBox(),
+              serviceId: 7,
+            ),
+          ];
   }
 
   @override
@@ -99,17 +136,19 @@ class _WselectServisIteamState extends State<WselectServisIteam> {
       menuPosition: position,
       dismissOnTapOutside: dismissOnTapOutside,
       buttonBuilder: (context, onTap) {
-        return DecoratedBox(
+        return Container(
           decoration: BoxDecoration(
             color: context.color.contColor,
             borderRadius: BorderRadius.circular(24),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 16, top: 12),
-                child: Text(
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+          child: GestureDetector(
+            onTap: onTap,
+            child: Column(
+              spacing: 4,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
                   AppLocalizations.of(context)!.serviceType,
                   style: TextStyle(
                     fontSize: 12,
@@ -117,17 +156,27 @@ class _WselectServisIteamState extends State<WselectServisIteam> {
                     color: context.color.darkText,
                   ),
                 ),
-              ),
-              ListTile(
-                onTap: onTap,
-                title: Text(listServis[selIndex].text),
-                leading: listServis[selIndex].icon,
-                minVerticalPadding: 0,
-                trailing: AppIcons.arrowBottom.svg(
-                  color: context.color.darkText,
+                Row(
+                  children: [
+                    if (!widget.isCar)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 12),
+                        child: listServis[selIndex].icon,
+                      ),
+                    Expanded(
+                      child: Text(
+                        listServis[selIndex].text,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                    AppIcons.arrowBottom.svg(color: context.color.darkText),
+                  ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
@@ -137,9 +186,10 @@ class _WselectServisIteamState extends State<WselectServisIteam> {
           child: MenuWidget(
             width: useButtonSize ? width : 300,
             transportationTypes: listServis,
+            isCar: widget.isCar,
             onItemTap: (index) {
               selIndex = index;
-              widget.onTap(selIndex);
+              widget.onTap(selIndex,listServis[index].serviceId);
               _controller.hide();
               setState(() {});
             },
@@ -156,11 +206,13 @@ class MenuWidget extends StatelessWidget {
     this.width,
     required this.onItemTap,
     required this.transportationTypes,
+    required this.isCar,
   });
 
   final double? width;
   final Function(int index) onItemTap;
   final List<TypeOfService> transportationTypes;
+  final bool isCar;
 
   @override
   Widget build(BuildContext context) {
@@ -186,9 +238,9 @@ class MenuWidget extends StatelessWidget {
           onTap: () {
             onItemTap(index);
           },
-          contentPadding: const EdgeInsets.only(left: 16, right: 12),
+          contentPadding: EdgeInsets.only(left: isCar ? 0 : 16, right: 12),
           title: Text(transportationTypes[index].text),
-          leading: transportationTypes[index].icon,
+          leading: isCar ? null : transportationTypes[index].icon,
           minVerticalPadding: 0,
           trailing: AppIcons.arrowForward.svg(color: context.color.iron),
         ),

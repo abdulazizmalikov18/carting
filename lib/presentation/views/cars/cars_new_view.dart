@@ -28,7 +28,7 @@ class _CarsNewViewState extends State<CarsNewView> {
   @override
   void initState() {
     context.read<AdvertisementBloc>().add(GetAdvertisementsFilterEvent(
-          transportId: 1,
+          serviceId: [1, 2, 3, 4, 6],
           status: true,
         ));
     super.initState();
@@ -172,6 +172,7 @@ class _CarsNewViewState extends State<CarsNewView> {
                           child: AnnouncementInfoView(
                             model: state.advertisementFilter[index],
                             isMe: false,
+                            isComments: true,
                           ),
                         ),
                       ));

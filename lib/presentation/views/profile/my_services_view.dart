@@ -21,6 +21,9 @@ class _MyServicesViewState extends State<MyServicesView> {
   @override
   void initState() {
     context.read<AdvertisementBloc>().add(GetAdvertisementsReceiveEvent());
+    context
+        .read<AdvertisementBloc>()
+        .add(GetAdvertisementsReceiveFinishEvent());
     super.initState();
   }
 
@@ -67,7 +70,7 @@ class _MyServicesViewState extends State<MyServicesView> {
                         onTap: () {
                           context
                               .read<AdvertisementBloc>()
-                              .add(GetAdvertisementsProvideEvent());
+                              .add(GetAdvertisementsReceiveEvent());
                         },
                         text: AppLocalizations.of(context)!.refresh,
                       ),
@@ -92,14 +95,15 @@ class _MyServicesViewState extends State<MyServicesView> {
                           builder: (context) => BlocProvider.value(
                             value: bloc,
                             child: AnnouncementInfoView(
-                              model: state.advertisement[index],
+                              model: state.advertisementRECEIVE[index],
                               isMe: true,
                             ),
                           ),
                         ));
                       },
                       child: AnnouncementsIteamNew(
-                        model: state.advertisement[index],
+                        isMe: true,
+                        model: state.advertisementRECEIVE[index],
                       ),
                     ),
                     separatorBuilder: (context, index) =>
@@ -111,7 +115,7 @@ class _MyServicesViewState extends State<MyServicesView> {
             ),
             BlocBuilder<AdvertisementBloc, AdvertisementState>(
               builder: (context, state) {
-                if (state.statusRECEIVE.isInProgress) {
+                if (state.statusRECEIVEFinish.isInProgress) {
                   return ListView.separated(
                     padding: const EdgeInsets.all(16).copyWith(bottom: 100),
                     itemBuilder: (context, index) => const WShimmer(
@@ -123,7 +127,7 @@ class _MyServicesViewState extends State<MyServicesView> {
                     itemCount: 12,
                   );
                 }
-                if (state.advertisementRECEIVE.isEmpty) {
+                if (state.advertisementRECEIVEFinish.isEmpty) {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -135,7 +139,7 @@ class _MyServicesViewState extends State<MyServicesView> {
                         onTap: () {
                           context
                               .read<AdvertisementBloc>()
-                              .add(GetAdvertisementsProvideEvent());
+                              .add(GetAdvertisementsReceiveFinishEvent());
                         },
                         text: AppLocalizations.of(context)!.refresh,
                       ),
@@ -147,7 +151,7 @@ class _MyServicesViewState extends State<MyServicesView> {
                   onRefresh: () async {
                     context
                         .read<AdvertisementBloc>()
-                        .add(GetAdvertisementsReceiveEvent());
+                        .add(GetAdvertisementsReceiveFinishEvent());
                     Future.delayed(Duration.zero);
                   },
                   child: ListView.separated(
@@ -160,19 +164,20 @@ class _MyServicesViewState extends State<MyServicesView> {
                           builder: (context) => BlocProvider.value(
                             value: bloc,
                             child: AnnouncementInfoView(
-                              model: state.advertisement[index],
+                              model: state.advertisementRECEIVEFinish[index],
                               isMe: true,
                             ),
                           ),
                         ));
                       },
                       child: AnnouncementsIteamNew(
-                        model: state.advertisement[index],
+                        model: state.advertisementRECEIVEFinish[index],
+                        isMe: true,
                       ),
                     ),
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 16),
-                    itemCount: state.advertisementRECEIVE.length,
+                    itemCount: state.advertisementRECEIVEFinish.length,
                   ),
                 );
               },

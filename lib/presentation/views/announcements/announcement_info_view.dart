@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carting/assets/assets/icons.dart';
+import 'package:carting/assets/assets/images.dart';
 import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/announcements/widgets/offer_bottom_sheet.dart';
+import 'package:carting/presentation/views/common/comments_view.dart';
 import 'package:carting/presentation/views/common/location_info_view.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
@@ -19,9 +21,11 @@ class AnnouncementInfoView extends StatelessWidget {
     super.key,
     required this.model,
     required this.isMe,
+    this.isComments = false,
   });
   final AdvertisementModel model;
   final bool isMe;
+  final bool isComments;
 
   @override
   Widget build(BuildContext context) {
@@ -149,6 +153,77 @@ class AnnouncementInfoView extends StatelessWidget {
               ),
               const SizedBox(height: 24),
             ],
+            if (isComments) ...[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  color: context.color.grey.withValues(alpha: .5),
+                ),
+                margin: const EdgeInsets.only(bottom: 16),
+                child: ListTile(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => CommentsView(
+                        comments: model.comments ?? [],
+                        id: model.id,
+                      ),
+                    ));
+                  },
+                  leading: AppIcons.message.svg(color: greyText),
+                  title: Row(
+                    children: [
+                      Expanded(
+                        child: Text(AppLocalizations.of(context)!.comments),
+                      ),
+                      if (model.comments != null)
+                        const SizedBox(
+                          width: 72,
+                          height: 24,
+                          child: Stack(
+                            children: [
+                              CircleAvatar(
+                                radius: 12,
+                                backgroundImage: AssetImage(AppImages.avatar_1),
+                              ),
+                              Positioned(
+                                left: 16,
+                                child: CircleAvatar(
+                                  radius: 12,
+                                  backgroundImage:
+                                      AssetImage(AppImages.avatar_2),
+                                ),
+                              ),
+                              Positioned(
+                                left: 32,
+                                child: CircleAvatar(
+                                  radius: 12,
+                                  backgroundImage:
+                                      AssetImage(AppImages.avatar_3),
+                                ),
+                              ),
+                              Positioned(
+                                right: 0,
+                                child: CircleAvatar(
+                                  radius: 12,
+                                  backgroundColor: white,
+                                  child: Text(
+                                    "+86",
+                                    style: TextStyle(
+                                      fontSize: 8,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
+                  trailing: AppIcons.arrowForward.svg(),
+                ),
+              ),
+            ],
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24),
@@ -260,39 +335,40 @@ class AnnouncementInfoView extends StatelessWidget {
             Row(
               spacing: 12,
               children: [
-                if (model.details?.loadWeight != null)
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 12,
-                        horizontal: 16,
-                      ),
-                      decoration: BoxDecoration(
-                        color: context.color.contColor,
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppLocalizations.of(context)!.loadWeight,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: context.color.darkText,
-                            ),
-                          ),
-                          Text(
-                            "${model.details?.loadWeight?.amount ?? AppLocalizations.of(context)!.unknown} ${model.details?.loadWeight?.name ?? ""}",
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // if (model.details?.loadWeight != null)
+                //   Expanded(
+                //     child: Container(
+                //       padding: const EdgeInsets.symmetric(
+                //         vertical: 12,
+                //         horizontal: 16,
+                //       ),
+                //       decoration: BoxDecoration(
+                //         color: context.color.contColor,
+                //         borderRadius: BorderRadius.circular(24),
+                //       ),
+                //       child: Column(
+                //         crossAxisAlignment: CrossAxisAlignment.start,
+                //         children: [
+                //           Text(
+                //             AppLocalizations.of(context)!.loadWeight,
+                //             style: TextStyle(
+                //               fontSize: 12,
+                //               fontWeight: FontWeight.w400,
+                //               color: context.color.darkText,
+                //             ),
+                //           ),
+                //           Text(
+                //             "${model.details?.loadWeight?.amount ?? AppLocalizations.of(context)!.unknown} ${model.details?.loadWeight?.name ?? ""}",
+                //             style: const TextStyle(
+                //               fontSize: 16,
+                //               fontWeight: FontWeight.w400,
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+
                 if (model.details?.passengerCount != null)
                   Expanded(
                     child: Container(
@@ -300,9 +376,10 @@ class AnnouncementInfoView extends StatelessWidget {
                         vertical: 12,
                         horizontal: 16,
                       ),
+                      margin: const EdgeInsets.only(top: 12),
                       decoration: BoxDecoration(
-                        color: context.color.contColor,
                         borderRadius: BorderRadius.circular(24),
+                        color: context.color.grey.withValues(alpha: .5),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -333,9 +410,10 @@ class AnnouncementInfoView extends StatelessWidget {
                         vertical: 12,
                         horizontal: 16,
                       ),
+                      margin: const EdgeInsets.only(top: 12),
                       decoration: BoxDecoration(
-                        color: context.color.contColor,
                         borderRadius: BorderRadius.circular(24),
+                        color: context.color.grey.withValues(alpha: .5),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

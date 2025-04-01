@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppImages {
+  static const uzb = 'assets/images/uzb.png';
   static const logo = 'assets/images/logo.png';
   static const ballOrder = 'assets/images/ball_order.png';
   static const border = 'assets/images/border.png';
