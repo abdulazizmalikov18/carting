@@ -1,9 +1,9 @@
 import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/data/models/advertisment_filter.dart';
 import 'package:carting/data/models/cars_model.dart';
-import 'package:carting/data/models/filter_adver_model.dart';
 import 'package:carting/data/models/fuels_info_model.dart';
 import 'package:carting/data/models/image_create_model.dart';
+import 'package:carting/data/models/page_model.dart';
 import 'package:carting/data/models/response_model.dart';
 import 'package:carting/data/models/servis_model.dart';
 import 'package:carting/data/models/transport_specialists_model.dart';
@@ -12,10 +12,10 @@ import 'package:carting/infrastructure/core/exceptions/failures.dart';
 import 'package:carting/utils/either.dart';
 
 abstract class IAdvertisementRepo {
+  Future<Either<Failure, ResponseModel<PageModel>>> getAdvertisements(
+      FilterModel? model);
   Future<Either<Failure, ResponseModel<List<AdvertisementModel>>>>
-      getAdvertisements(FilterModel? model);
-  Future<Either<Failure, ResponseModel<List<AdvertisementModel>>>>
-      getAdvertisementsMe(FilterAdverModel model);
+      getAdvertisementsMe(FilterModel model);
   Future<Either<Failure, ResponseModel<List<TransportationTypesModel>>>>
       getTransportationTypes(
     int servisId, {

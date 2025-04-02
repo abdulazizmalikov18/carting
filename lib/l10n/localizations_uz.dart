@@ -24,7 +24,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get list => 'Ro\'yxat';
 
   @override
-  String get active => 'Faol';
+  String get active => 'Faollar';
 
   @override
   String get history => 'Tarix';
@@ -417,7 +417,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get orderHistory => 'Buyurtmalar tarixi';
 
   @override
-  String get completed => 'Tugallangan';
+  String get completed => 'Tugallanganlar';
 
   @override
   String get cancelled => 'Bekor qilingan';
@@ -781,4 +781,55 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get my_vehicles => 'Mening transportlarim';
+
+  @override
+  String get connection => 'Bog‘lanish';
+
+  @override
+  String get search_ad => 'E’lon izlash';
+
+  @override
+  String get ad_count => 'E’lonlar soni';
+
+  @override
+  String get piece => 'ta';
+
+  @override
+  String get search_transport => 'Transport izlash';
+
+  @override
+  String get transport_number => 'Transport raqami';
+
+  @override
+  String get manufacture_year => 'Ishlab chiqarilgan yil';
+
+  @override
+  String get tech_passport => 'Texnik pasport seriyasi va raqami';
+
+  @override
+  String get shipment_date_time => 'Jo‘natish sanasi va vaqti';
+
+  @override
+  String get payment_type => 'To‘lov turi';
+
+  @override
+  String get price_offer => 'Narx taklifi';
+
+  @override
+  String get continue_info => 'Davom etish';
+
+  @override
+  String get transport_info => 'Transport ma\'lumotlari';
+
+  @override
+  String get add_transport => 'Transport qo‘shish';
+
+  @override
+  String get transport_number_plate => 'Transport davlat raqami';
+
+  @override
+  String get your_transports_here => 'Transportlaringiz shu yerda\nbo‘ladi. Ularni qo‘shing.';
+
+  @override
+  String get clear => 'Tozalash';
 }

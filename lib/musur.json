@@ -1,0 +1,30 @@
+{
+  "service_type_id": 1,
+  "shipment_date": "19.12.2024",
+  "from_location": {
+    "lat": 38.80717,
+    "lng": 65.6059717,
+    "name": "Toshkent shahri, Yunusobod tumani"
+  },
+  "to_location": {
+    "lat": 40.5146549,
+    "lng": 70.9325211,
+    "name": "Toshkent shahri, Yunusobod tumani"
+  },
+  "pay_type": "CASH",
+  "price": 30000000,
+  "load_weight": {
+    "amount": 20,
+    "name": "kg"
+  },
+  "details": {
+    "transportation_type_id": 1,
+    "made_at": "2024",
+    "transport_number": "01 AA 520 B",
+    "tech_passport_seria": "AAF",
+    "tech_passport_num": "1234567",
+    "from_date": "14.08.2024 18:00",
+    "to_date": "16.08.2024 18:00"
+  },
+  "note": "Test"
+}

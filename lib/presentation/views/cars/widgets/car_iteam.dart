@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
+import 'package:carting/presentation/widgets/car_number_iteam.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/utils/caller.dart';
@@ -15,8 +16,10 @@ class CarIteam extends StatelessWidget {
   const CarIteam({
     super.key,
     required this.model,
+    this.isMyCar = false,
   });
   final AdvertisementModel model;
+  final bool isMyCar;
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +64,14 @@ class CarIteam extends StatelessWidget {
                   imageUrl: model.transportIcon!,
                   height: 80,
                 ),
+                if (isMyCar &&
+                    (model.details?.transportNumber ?? "").isNotEmpty)
+                  CarNumberIteam(
+                    carNumberFirst:
+                        (model.details?.transportNumber ?? '').split(' ')[0],
+                    carNumberSecond:
+                        (model.details?.transportNumber ?? '').substring(3),
+                  ),
                 Text(
                   model.transportName ?? AppLocalizations.of(context)!.unknown,
                   maxLines: 1,
@@ -73,31 +84,14 @@ class CarIteam extends StatelessWidget {
                 ),
               ],
             ),
-          Row(
-            spacing: 8,
-            children: [
-              AppIcons.location.svg(),
-              if (model.fromLocation != null)
-                Text(
-                  MyFunction.getLastPart(model.fromLocation?.name ??
-                      AppLocalizations.of(context)!.unknown),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: context.color.white,
-                  ),
-                ),
-              if (model.fromLocation != null)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: AppIcons.swap.svg(),
-                ),
-              if (model.toLocation != null)
-                Expanded(
-                  child: Text(
-                    MyFunction.getLastPart(model.toLocation?.name ??
+          if (!isMyCar) ...[
+            Row(
+              spacing: 8,
+              children: [
+                AppIcons.location.svg(),
+                if (model.fromLocation != null)
+                  Text(
+                    MyFunction.getLastPart(model.fromLocation?.name ??
                         AppLocalizations.of(context)!.unknown),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -107,100 +101,119 @@ class CarIteam extends StatelessWidget {
                       color: context.color.white,
                     ),
                   ),
-                ),
-            ],
-          ),
-          Column(
-            spacing: 12,
-            children: [
-              RowIcon(
-                text:
-                    model.serviceName ?? AppLocalizations.of(context)!.unknown,
-                icon: switch (model.serviceTypeId) {
-                  1 => AppIcons.shipping.svg(
-                      color: context.color.iron,
-                      height: 20,
-                    ),
-                  2 => AppIcons.transportationOfPassengers.svg(
-                      color: context.color.iron,
-                      height: 20,
-                    ),
-                  3 => AppIcons.specialTechnique.svg(
-                      color: context.color.iron,
-                      height: 20,
-                    ),
-                  9 => AppIcons.shipping.svg(
-                      color: context.color.iron,
-                      height: 20,
-                    ),
-                  int() => AppIcons.shipping.svg(
-                      color: context.color.iron,
-                      height: 20,
-                    ),
-                },
-              ),
-              if (model.serviceTypeId == 1)
-                RowIcon(
-                  text:
-                      'Maksimal yuk sig‘imi: ${model.details?.kg ?? 0} kg${model.details?.m3 != null ? ' ${model.details?.m3} m3' : ''}${model.details?.litr != null ? ' ${model.details?.litr} litr' : ''}',
-                  icon: AppIcons.box.svg(
-                    color: context.color.iron,
-                    height: 20,
+                if (model.fromLocation != null)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: AppIcons.swap.svg(),
                   ),
-                ),
-              if (model.serviceTypeId == 2)
-                RowIcon(
-                  text:
-                      'Yo‘lovchilar soni  ${model.details?.passengerCount ?? 0} ta',
-                  icon: AppIcons.profile2user.svg(
-                    color: context.color.iron,
-                    height: 20,
-                  ),
-                ),
-            ],
-          ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(12, 4, 4, 4),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24),
-              color: context.color.scaffoldBackground,
-            ),
-            height: 48,
-            child: Row(
-              spacing: 8,
-              children: [
-                const CircleAvatar(radius: 12),
-                Expanded(
-                  child: Text(
-                    model.createdByName ??
-                        AppLocalizations.of(context)!.unknown,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
+                if (model.toLocation != null)
+                  Expanded(
+                    child: Text(
+                      MyFunction.getLastPart(model.toLocation?.name ??
+                          AppLocalizations.of(context)!.unknown),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: context.color.white,
+                      ),
                     ),
                   ),
-                ),
-                WButton(
-                  onTap: () async {
-                    if (model.createdByPhone != null) {
-                      await Caller.makePhoneCall(model.createdByPhone!);
-                    } else if (model.createdByTgLink != null) {
-                      await Caller.launchTelegram(model.createdByTgLink!);
-                    } else {
-                      CustomSnackbar.show(
-                        context,
-                        AppLocalizations.of(context)!.unknown,
-                      );
-                    }
-                  },
-                  text: 'Bog‘lanish',
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                )
               ],
             ),
-          )
+            Column(
+              spacing: 12,
+              children: [
+                RowIcon(
+                  text: model.serviceName ??
+                      AppLocalizations.of(context)!.unknown,
+                  icon: switch (model.serviceTypeId) {
+                    1 => AppIcons.shipping.svg(
+                        color: context.color.iron,
+                        height: 20,
+                      ),
+                    2 => AppIcons.transportationOfPassengers.svg(
+                        color: context.color.iron,
+                        height: 20,
+                      ),
+                    3 => AppIcons.specialTechnique.svg(
+                        color: context.color.iron,
+                        height: 20,
+                      ),
+                    9 => AppIcons.shipping.svg(
+                        color: context.color.iron,
+                        height: 20,
+                      ),
+                    int() => AppIcons.shipping.svg(
+                        color: context.color.iron,
+                        height: 20,
+                      ),
+                  },
+                ),
+                if (model.serviceTypeId == 1)
+                  RowIcon(
+                    text:
+                        'Maksimal yuk sig‘imi: ${model.details?.kg ?? 0} kg${model.details?.m3 != null ? ' ${model.details?.m3} m3' : ''}${model.details?.litr != null ? ' ${model.details?.litr} litr' : ''}',
+                    icon: AppIcons.box.svg(
+                      color: context.color.iron,
+                      height: 20,
+                    ),
+                  ),
+                if (model.serviceTypeId == 2)
+                  RowIcon(
+                    text:
+                        'Yo‘lovchilar soni  ${model.details?.passengerCount ?? 0} ta',
+                    icon: AppIcons.profile2user.svg(
+                      color: context.color.iron,
+                      height: 20,
+                    ),
+                  ),
+              ],
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(12, 4, 4, 4),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24),
+                color: context.color.scaffoldBackground,
+              ),
+              height: 48,
+              child: Row(
+                spacing: 8,
+                children: [
+                  const CircleAvatar(radius: 12),
+                  Expanded(
+                    child: Text(
+                      model.createdByName ??
+                          AppLocalizations.of(context)!.unknown,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                  WButton(
+                    onTap: () async {
+                      if (model.createdByPhone != null) {
+                        await Caller.makePhoneCall(model.createdByPhone!);
+                      } else if (model.createdByTgLink != null) {
+                        await Caller.launchTelegram(model.createdByTgLink!);
+                      } else {
+                        CustomSnackbar.show(
+                          context,
+                          AppLocalizations.of(context)!.unknown,
+                        );
+                      }
+                    },
+                    text: AppLocalizations.of(context)!.connection,
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                  )
+                ],
+              ),
+            )
+          ]
         ],
       ),
     );

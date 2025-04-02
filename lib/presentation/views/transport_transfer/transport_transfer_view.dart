@@ -1,5 +1,6 @@
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/common/empty_screen.dart';
 import 'package:carting/presentation/widgets/w_shimmer.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,8 @@ class _TransportTransferViewState extends State<TransportTransferView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Transport transferi")),
+      appBar:
+          AppBar(title: Text(AppLocalizations.of(context)!.transportTransfer)),
       body: BlocBuilder<AdvertisementBloc, AdvertisementState>(
         builder: (context, state) {
           if (state.statusTrTypes.isInProgress) {
@@ -81,7 +83,7 @@ class _TransportTransferViewState extends State<TransportTransferView> {
                       value: bloc,
                       child: OrdersFilterView(
                         model: state.transportationTypes[index],
-                        type: "Transport transferi",
+                        type: AppLocalizations.of(context)!.transportTransfer,
                         onTap: () {
                           // Navigator.of(context, rootNavigator: true)
                           //     .push(MaterialPageRoute(

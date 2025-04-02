@@ -781,4 +781,55 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get my_vehicles => 'My vehicles';
+
+  @override
+  String get connection => 'Connection';
+
+  @override
+  String get search_ad => 'Search Ad';
+
+  @override
+  String get ad_count => 'Number of Ads';
+
+  @override
+  String get piece => 'pcs';
+
+  @override
+  String get search_transport => 'Search Transport';
+
+  @override
+  String get transport_number => 'Transport Number';
+
+  @override
+  String get manufacture_year => 'Year of Manufacture';
+
+  @override
+  String get tech_passport => 'Technical Passport Series and Number';
+
+  @override
+  String get shipment_date_time => 'Shipment Date and Time';
+
+  @override
+  String get payment_type => 'Payment Type';
+
+  @override
+  String get price_offer => 'Price Offer';
+
+  @override
+  String get continue_info => 'Continue';
+
+  @override
+  String get transport_info => 'Transport Information';
+
+  @override
+  String get add_transport => 'Add Transport';
+
+  @override
+  String get transport_number_plate => 'Transport License Plate';
+
+  @override
+  String get your_transports_here => 'Your transports will be here.\nAdd them.';
+
+  @override
+  String get clear => 'Clear';
 }

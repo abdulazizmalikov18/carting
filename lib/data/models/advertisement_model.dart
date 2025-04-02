@@ -79,7 +79,8 @@ class AdvertisementModel {
     this.createdByTgLink,
     this.workshopServices,
     this.workshopCategories,
-    this.carName, this.rating,
+    this.carName,
+    this.rating,
   });
 
   factory AdvertisementModel.fromJson(Map<String, dynamic> json) =>
@@ -166,6 +167,14 @@ class Details {
   final String? m3;
   @JsonKey(name: "litr")
   final String? litr;
+  @JsonKey(name: "made_at")
+  final String? madeAt;
+  @JsonKey(name: "transport_number")
+  final String? transportNumber;
+  @JsonKey(name: "tech_passport_seria")
+  final String? techPassportSeria;
+  @JsonKey(name: "tech_passport_num")
+  final String? techPassportNum;
 
   Details({
     this.transportationTypeId,
@@ -194,6 +203,10 @@ class Details {
     this.kg,
     this.m3,
     this.litr,
+    this.madeAt,
+    this.transportNumber,
+    this.techPassportSeria,
+    this.techPassportNum,
   });
 
   factory Details.fromJson(Map<String, dynamic> json) =>

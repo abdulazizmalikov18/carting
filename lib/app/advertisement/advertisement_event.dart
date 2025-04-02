@@ -5,10 +5,12 @@ sealed class AdvertisementEvent {}
 class GetAdvertisementsEvent extends AdvertisementEvent {
   final List<int>? serviceId;
   final bool? isPROVIDE;
+  final int? page;
 
   GetAdvertisementsEvent({
     this.serviceId,
     this.isPROVIDE,
+    this.page,
   });
 }
 
@@ -20,6 +22,7 @@ class GetAdvertisementsFilterEvent extends AdvertisementEvent {
   final int? carId;
   final int? repairTypeId;
   final int? transportId;
+  final int? page;
 
   GetAdvertisementsFilterEvent({
     this.serviceId,
@@ -29,8 +32,11 @@ class GetAdvertisementsFilterEvent extends AdvertisementEvent {
     this.carId,
     this.repairTypeId,
     this.transportId,
+    this.page,
   });
 }
+
+class GetAdvertisementsMyCarsEvent extends AdvertisementEvent {}
 
 class GetAdvertisementsProvideEvent extends AdvertisementEvent {}
 

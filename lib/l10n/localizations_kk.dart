@@ -24,7 +24,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get list => 'Рўйхат';
 
   @override
-  String get active => 'Фаол';
+  String get active => 'Фаоллар';
 
   @override
   String get history => 'Тарих';
@@ -417,7 +417,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get orderHistory => 'Буюртмалар тарихи';
 
   @override
-  String get completed => 'Тугалланган';
+  String get completed => 'Тугалланганлар';
 
   @override
   String get cancelled => 'Бекор қилинган';
@@ -781,4 +781,55 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get my_vehicles => 'Менинг транспортларим';
+
+  @override
+  String get connection => 'Боғланиш';
+
+  @override
+  String get search_ad => 'Эълон излаш';
+
+  @override
+  String get ad_count => 'Эълонлар сони';
+
+  @override
+  String get piece => 'та';
+
+  @override
+  String get search_transport => 'Транспорт излаш';
+
+  @override
+  String get transport_number => 'Транспорт рақами';
+
+  @override
+  String get manufacture_year => 'Ишлаб чиқарилган йил';
+
+  @override
+  String get tech_passport => 'Техник паспорт серияси ва рақами';
+
+  @override
+  String get shipment_date_time => 'Жўнатиш санаси ва вақти';
+
+  @override
+  String get payment_type => 'Тўлов тури';
+
+  @override
+  String get price_offer => 'Нарх таклифи';
+
+  @override
+  String get continue_info => 'Давом этиш';
+
+  @override
+  String get transport_info => 'Транспорт маълумотлари';
+
+  @override
+  String get add_transport => 'Транспорт қўшиш';
+
+  @override
+  String get transport_number_plate => 'Транспорт давлат рақами';
+
+  @override
+  String get your_transports_here => 'Транспортларингиз шу ерда\nбўлади. Уларни қўшинг.';
+
+  @override
+  String get clear => 'Тозалаш';
 }

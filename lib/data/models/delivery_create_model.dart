@@ -72,6 +72,10 @@ class Details {
   final String? m3;
   @JsonKey(name: "litr")
   final String? litr;
+  @JsonKey(name: "from_date")
+  final String? fromDate;
+  @JsonKey(name: "to_date")
+  final String? toDate;
 
   Details({
     required this.transportationTypeId,
@@ -80,6 +84,8 @@ class Details {
     this.kg,
     this.m3,
     this.litr,
+    this.fromDate,
+    this.toDate,
   });
 
   factory Details.fromJson(Map<String, dynamic> json) =>

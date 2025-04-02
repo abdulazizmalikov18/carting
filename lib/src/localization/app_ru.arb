@@ -256,6 +256,25 @@
   "animal_transportation": "Перевозка животных",
   "ad_accepted": "Ваше объявление принято",
   "driver_will_contact": "Водитель свяжется с вами в ближайшее время для забора груза",
-  "my_vehicles": "Мои транспортные средства"
+  "my_vehicles": "Мои транспортные средства",
+  "connection": "Связь",
+  "search_ad": "Поиск объявления",
+  "ad_count": "Количество объявлений",
+  "piece": "шт",
+  "search_transport": "Поиск транспорта",
+  "active": "Активные",
+  "completed": "Завершенные",
+  "transport_number": "Номер транспорта",
+  "manufacture_year": "Год выпуска",
+  "tech_passport": "Серия и номер техпаспорта",
+  "shipment_date_time": "Дата и время отправки",
+  "payment_type": "Тип оплаты",
+  "price_offer": "Предложение цены",
+  "continue_info": "Продолжить",
+  "transport_info": "Информация о транспорте",
+  "add_transport": "Добавить транспорт",
+  "transport_number_plate": "Государственный номер транспорта",
+  "your_transports_here": "Ваши транспорты будут здесь.\nДобавьте их.",
+  "clear": "Очистить"
 }
 

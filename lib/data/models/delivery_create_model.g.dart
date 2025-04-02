@@ -44,6 +44,8 @@ Details _$DetailsFromJson(Map<String, dynamic> json) => Details(
       kg: json['kg'] as String?,
       m3: json['m3'] as String?,
       litr: json['litr'] as String?,
+      fromDate: json['from_date'] as String?,
+      toDate: json['to_date'] as String?,
     );
 
 Map<String, dynamic> _$DetailsToJson(Details instance) => <String, dynamic>{
@@ -53,6 +55,8 @@ Map<String, dynamic> _$DetailsToJson(Details instance) => <String, dynamic>{
       'kg': instance.kg,
       'm3': instance.m3,
       'litr': instance.litr,
+      'from_date': instance.fromDate,
+      'to_date': instance.toDate,
     };
 
 LoadWeight _$LoadWeightFromJson(Map<String, dynamic> json) => LoadWeight(

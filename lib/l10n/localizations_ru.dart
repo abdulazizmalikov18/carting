@@ -24,7 +24,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get list => 'Список';
 
   @override
-  String get active => 'Активный';
+  String get active => 'Активные';
 
   @override
   String get history => 'История';
@@ -417,7 +417,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get orderHistory => 'История заказов';
 
   @override
-  String get completed => 'Завершено';
+  String get completed => 'Завершенные';
 
   @override
   String get cancelled => 'Отменено';
@@ -781,4 +781,55 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get my_vehicles => 'Мои транспортные средства';
+
+  @override
+  String get connection => 'Связь';
+
+  @override
+  String get search_ad => 'Поиск объявления';
+
+  @override
+  String get ad_count => 'Количество объявлений';
+
+  @override
+  String get piece => 'шт';
+
+  @override
+  String get search_transport => 'Поиск транспорта';
+
+  @override
+  String get transport_number => 'Номер транспорта';
+
+  @override
+  String get manufacture_year => 'Год выпуска';
+
+  @override
+  String get tech_passport => 'Серия и номер техпаспорта';
+
+  @override
+  String get shipment_date_time => 'Дата и время отправки';
+
+  @override
+  String get payment_type => 'Тип оплаты';
+
+  @override
+  String get price_offer => 'Предложение цены';
+
+  @override
+  String get continue_info => 'Продолжить';
+
+  @override
+  String get transport_info => 'Информация о транспорте';
+
+  @override
+  String get add_transport => 'Добавить транспорт';
+
+  @override
+  String get transport_number_plate => 'Государственный номер транспорта';
+
+  @override
+  String get your_transports_here => 'Ваши транспорты будут здесь.\nДобавьте их.';
+
+  @override
+  String get clear => 'Очистить';
 }

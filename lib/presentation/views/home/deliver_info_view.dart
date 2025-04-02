@@ -468,9 +468,9 @@ class DeliverInfoView extends StatelessWidget {
             // ),
 
             const SizedBox(height: 16),
-            const Text(
-              'Yuk turi:',
-              style: TextStyle(
+            Text(
+              '${AppLocalizations.of(context)!.cargoType}:',
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
               ),
@@ -484,9 +484,9 @@ class DeliverInfoView extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            const Text(
-              'Yuk vazni:',
-              style: TextStyle(
+            Text(
+              '${AppLocalizations.of(context)!.loadWeight}:',
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
               ),
@@ -501,9 +501,9 @@ class DeliverInfoView extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            const Text(
-              'Jo‘natish sanasi va vaqti:',
-              style: TextStyle(
+            Text(
+              '${AppLocalizations.of(context)!.shipment_date_time}:',
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
               ),
@@ -523,9 +523,9 @@ class DeliverInfoView extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            const Text(
-              'Transport turi:',
-              style: TextStyle(
+            Text(
+              '${AppLocalizations.of(context)!.transportType}:',
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
               ),
@@ -562,24 +562,24 @@ class DeliverInfoView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
-              'To‘lov turi:',
-              style: TextStyle(
+            Text(
+              '${AppLocalizations.of(context)!.payment_type}:',
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
               ),
             ),
             const SizedBox(height: 8),
-            const WInfoContainer(
-              text: "Naqd",
+            WInfoContainer(
+              text: AppLocalizations.of(context)!.cash,
               icon: AppIcons.cash,
               iconCollor: false,
             ),
             if (model.images != null) ...[
               const SizedBox(height: 16),
-              const Text(
-                'Yuk rasmlari:',
-                style: TextStyle(
+              Text(
+                '${AppLocalizations.of(context)!.cargoImages}:',
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                 ),

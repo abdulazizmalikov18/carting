@@ -1,5 +1,6 @@
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/assets/assets/icons.dart';
+import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/announcements/announcement_info_view.dart';
 import 'package:carting/presentation/views/announcements/widgets/announcements_iteam_new.dart';
@@ -20,11 +21,10 @@ class MyOrdersView extends StatefulWidget {
 class _MyOrdersViewState extends State<MyOrdersView> {
   @override
   void initState() {
-    context.read<AdvertisementBloc>().add(GetAdvertisementsProvideEvent());
-
+    context.read<AdvertisementBloc>().add(GetAdvertisementsReceiveEvent());
     context
         .read<AdvertisementBloc>()
-        .add(GetAdvertisementsProvideFinishEvent());
+        .add(GetAdvertisementsReceiveFinishEvent());
     super.initState();
   }
 
@@ -35,11 +35,14 @@ class _MyOrdersViewState extends State<MyOrdersView> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.myOrders),
-          bottom: const PreferredSize(
-            preferredSize: Size(double.infinity, 72),
+          bottom: PreferredSize(
+            preferredSize: const Size(double.infinity, 72),
             child: Padding(
-              padding: EdgeInsets.fromLTRB(16, 0, 16, 8),
-              child: WTabBar(tabs: [Text('Faollar'), Text('Tugallanganlar')]),
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+              child: WTabBar(tabs: [
+                Text(AppLocalizations.of(context)!.active),
+                Text(AppLocalizations.of(context)!.completed),
+              ]),
             ),
           ),
         ),
@@ -47,7 +50,7 @@ class _MyOrdersViewState extends State<MyOrdersView> {
           children: [
             BlocBuilder<AdvertisementBloc, AdvertisementState>(
               builder: (context, state) {
-                if (state.statusPROVIDE.isInProgress) {
+                if (state.statusRECEIVE.isInProgress) {
                   return ListView.separated(
                     padding: const EdgeInsets.all(16).copyWith(bottom: 100),
                     itemBuilder: (context, index) => const WShimmer(
@@ -59,21 +62,43 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                     itemCount: 12,
                   );
                 }
-                if (state.advertisementPROVIDE.isEmpty) {
+                if (state.advertisementRECEIVE.isEmpty) {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       AppIcons.emptyFile.svg(),
                       const SizedBox(height: 16),
-                      WButton(
-                        margin: const EdgeInsets.all(16),
-                        onTap: () {
-                          context
-                              .read<AdvertisementBloc>()
-                              .add(GetAdvertisementsProvideEvent());
-                        },
-                        text: AppLocalizations.of(context)!.refresh,
+                      const Text(
+                        'Ma’lumot yo’q',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        AppLocalizations.of(context)!.no_service_ads,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: context.color.darkText,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          WButton(
+                            margin: const EdgeInsets.all(16),
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            text: AppLocalizations.of(context)!.back,
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 100)
                     ],
@@ -83,7 +108,7 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                   onRefresh: () async {
                     context
                         .read<AdvertisementBloc>()
-                        .add(GetAdvertisementsProvideEvent());
+                        .add(GetAdvertisementsReceiveEvent());
                     Future.delayed(Duration.zero);
                   },
                   child: ListView.separated(
@@ -96,27 +121,27 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                           builder: (context) => BlocProvider.value(
                             value: bloc,
                             child: AnnouncementInfoView(
-                              model: state.advertisementPROVIDE[index],
+                              model: state.advertisementRECEIVE[index],
                               isMe: true,
                             ),
                           ),
                         ));
                       },
                       child: AnnouncementsIteamNew(
-                        model: state.advertisementPROVIDE[index],
+                        model: state.advertisementRECEIVE[index],
                         isMe: true,
                       ),
                     ),
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 16),
-                    itemCount: state.advertisementPROVIDE.length,
+                    itemCount: state.advertisementRECEIVE.length,
                   ),
                 );
               },
             ),
             BlocBuilder<AdvertisementBloc, AdvertisementState>(
               builder: (context, state) {
-                if (state.statusPROVIDEFinish.isInProgress) {
+                if (state.statusRECEIVEFinish.isInProgress) {
                   return ListView.separated(
                     padding: const EdgeInsets.all(16).copyWith(bottom: 100),
                     itemBuilder: (context, index) => const WShimmer(
@@ -128,21 +153,43 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                     itemCount: 12,
                   );
                 }
-                if (state.advertisementPROVIDEFinish.isEmpty) {
+                if (state.advertisementRECEIVEFinish.isEmpty) {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       AppIcons.emptyFile.svg(),
                       const SizedBox(height: 16),
-                      WButton(
-                        margin: const EdgeInsets.all(16),
-                        onTap: () {
-                          context
-                              .read<AdvertisementBloc>()
-                              .add(GetAdvertisementsProvideFinishEvent());
-                        },
-                        text: AppLocalizations.of(context)!.refresh,
+                      const Text(
+                        'Ma’lumot yo’q',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        AppLocalizations.of(context)!.no_service_ads,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: context.color.darkText,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          WButton(
+                            margin: const EdgeInsets.all(16),
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            text: AppLocalizations.of(context)!.back,
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 100)
                     ],
@@ -152,7 +199,7 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                   onRefresh: () async {
                     context
                         .read<AdvertisementBloc>()
-                        .add(GetAdvertisementsProvideFinishEvent());
+                        .add(GetAdvertisementsReceiveFinishEvent());
                     Future.delayed(Duration.zero);
                   },
                   child: ListView.separated(
@@ -165,20 +212,20 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                           builder: (context) => BlocProvider.value(
                             value: bloc,
                             child: AnnouncementInfoView(
-                              model: state.advertisementPROVIDEFinish[index],
+                              model: state.advertisementRECEIVEFinish[index],
                               isMe: true,
                             ),
                           ),
                         ));
                       },
                       child: AnnouncementsIteamNew(
-                        model: state.advertisementPROVIDEFinish[index],
-                              isMe: true,
+                        model: state.advertisementRECEIVEFinish[index],
+                        isMe: true,
                       ),
                     ),
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 16),
-                    itemCount: state.advertisementPROVIDEFinish.length,
+                    itemCount: state.advertisementRECEIVEFinish.length,
                   ),
                 );
               },

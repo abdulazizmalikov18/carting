@@ -21,10 +21,12 @@ class AnnouncementInfoView extends StatelessWidget {
     super.key,
     required this.model,
     required this.isMe,
+    this.isMyCar = false,
     this.isComments = false,
   });
   final AdvertisementModel model;
   final bool isMe;
+  final bool isMyCar;
   final bool isComments;
 
   @override
@@ -46,80 +48,117 @@ class AnnouncementInfoView extends StatelessWidget {
           color: context.color.contColor,
           boxShadow: wboxShadow2,
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          spacing: 16,
-          children: [
-            WButton(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  backgroundColor: Colors.transparent,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(20),
+        child: isMyCar
+            ? Row(
+                spacing: 16,
+                children: [
+                  Expanded(
+                    child: WButton(
+                      onTap: () {},
+                      color: greyBack,
+                      textColor: greyText,
+                      child: Row(
+                        spacing: 8,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AppIcons.editCir.svg(color: greyText),
+                          Text(AppLocalizations.of(context)!.edit),
+                        ],
+                      ),
                     ),
                   ),
-                  builder: (context) => const OfferBottomSheet(),
-                );
-              },
-              text: "Taklif yuborish",
-              color: greyBack,
-              textColor: greyText,
-            ),
-            Row(
-              spacing: 16,
-              children: [
-                Expanded(
-                  child: WButton(
-                    onTap: () async {
-                      if (model.createdByTgLink != null) {
-                        await Caller.launchTelegram(model.createdByTgLink!);
-                      } else {
-                        CustomSnackbar.show(
-                          context,
-                          AppLocalizations.of(context)!.unknown,
-                        );
-                      }
+                  Expanded(
+                    child: WButton(
+                      onTap: () {},
+                      color: const Color(0xFFFEEDEC),
+                      textColor: red,
+                      child: Row(
+                        spacing: 8,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AppIcons.trash.svg(color: red),
+                          Text(AppLocalizations.of(context)!.delete),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            : Column(
+                mainAxisSize: MainAxisSize.min,
+                spacing: 16,
+                children: [
+                  WButton(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20),
+                          ),
+                        ),
+                        builder: (context) => const OfferBottomSheet(),
+                      );
                     },
-                    color: blue,
-                    child: Row(
-                      spacing: 8,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AppIcons.telegram.svg(),
-                        const Text("Telegram"),
-                      ],
-                    ),
+                    text: "Taklif yuborish",
+                    color: greyBack,
+                    textColor: greyText,
                   ),
-                ),
-                Expanded(
-                  child: WButton(
-                    onTap: () async {
-                      if (model.createdByPhone != null) {
-                        await Caller.makePhoneCall(model.createdByPhone!);
-                      } else {
-                        CustomSnackbar.show(
-                          context,
-                          AppLocalizations.of(context)!.unknown,
-                        );
-                      }
-                    },
-                    child: Row(
-                      spacing: 8,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AppIcons.phone.svg(),
-                        const Text("Bog‘lanish"),
-                      ],
-                    ),
+                  Row(
+                    spacing: 16,
+                    children: [
+                      Expanded(
+                        child: WButton(
+                          onTap: () async {
+                            if (model.createdByTgLink != null) {
+                              await Caller.launchTelegram(
+                                  model.createdByTgLink!);
+                            } else {
+                              CustomSnackbar.show(
+                                context,
+                                AppLocalizations.of(context)!.unknown,
+                              );
+                            }
+                          },
+                          color: blue,
+                          child: Row(
+                            spacing: 8,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              AppIcons.telegram.svg(),
+                              const Text("Telegram"),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: WButton(
+                          onTap: () async {
+                            if (model.createdByPhone != null) {
+                              await Caller.makePhoneCall(model.createdByPhone!);
+                            } else {
+                              CustomSnackbar.show(
+                                context,
+                                AppLocalizations.of(context)!.unknown,
+                              );
+                            }
+                          },
+                          child: Row(
+                            spacing: 8,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              AppIcons.phone.svg(),
+                              Text(AppLocalizations.of(context)!.connection),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-          ],
-        ),
+                ],
+              ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -441,28 +480,72 @@ class AnnouncementInfoView extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            const Text(
-              'Yuk turi:',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
+            if (model.details?.transportNumber != null) ...[
+              Text(
+                '${AppLocalizations.of(context)!.transport_number}:',
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
-            ),
-            const SizedBox(height: 8),
-            const Wrap(
-              spacing: 16,
-              children: [
-                WInfoContainer(text: "Qurilish materiallari"),
-                WInfoContainer(text: "Maishiy texnika"),
-              ],
-            ),
+              const SizedBox(height: 8),
+              WInfoContainer(text: model.details?.transportNumber ?? ""),
+              const SizedBox(height: 8),
+            ],
+            if (model.details?.madeAt != null) ...[
+              Text(
+                '${AppLocalizations.of(context)!.manufacture_year}:',
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const SizedBox(height: 8),
+              WInfoContainer(text: model.details?.madeAt ?? ""),
+              const SizedBox(height: 8),
+            ],
+            if (model.details?.techPassportSeria != null) ...[
+              Text(
+                '${AppLocalizations.of(context)!.tech_passport}:',
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Row(
+                spacing: 16,
+                children: [
+                  WInfoContainer(text: model.details?.techPassportSeria ?? ""),
+                  WInfoContainer(text: model.details?.techPassportNum ?? ""),
+                ],
+              ),
+              const SizedBox(height: 8),
+            ],
+            if (!isMyCar) ...[
+              Text(
+                '${AppLocalizations.of(context)!.cargoType}:',
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const SizedBox(height: 8),
+              const Wrap(
+                spacing: 16,
+                children: [
+                  WInfoContainer(text: "Qurilish materiallari"),
+                  WInfoContainer(text: "Maishiy texnika"),
+                ],
+              ),
+            ],
             if (model.details!.kg != null ||
                 model.details!.m3 != null ||
-                model.details!.kg != null) ...[
+                model.details!.litr != null) ...[
               const SizedBox(height: 16),
-              const Text(
-                'Yuk vazni:',
-                style: TextStyle(
+              Text(
+                '${AppLocalizations.of(context)!.loadWeight}:',
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                 ),
@@ -476,43 +559,48 @@ class AnnouncementInfoView extends StatelessWidget {
                     WInfoContainer(text: "${model.details!.kg} kg"),
                   if (model.details!.m3 != null)
                     WInfoContainer(text: "${model.details!.m3} m3"),
-                  if (model.details!.kg != null)
-                    WInfoContainer(text: "${model.details!.kg} litr"),
+                  if (model.details!.litr != null)
+                    WInfoContainer(text: "${model.details!.litr} litr"),
                 ],
               ),
             ],
             const SizedBox(height: 16),
-            const Text(
-              'Jo‘natish sanasi va vaqti:',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
+            if (!isMyCar) ...[
+              Text(
+                '${AppLocalizations.of(context)!.shipment_date_time}:',
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
-            ),
-            const SizedBox(height: 8),
-            Row(
-              spacing: 16,
-              children: [
-                WInfoContainer(
-                  text: MyFunction.formatDate2(
-                    DateTime.tryParse(model.shipmentDate ?? "") ??
-                        DateTime.now(),
+              const SizedBox(height: 8),
+              Row(
+                spacing: 16,
+                children: [
+                  WInfoContainer(
+                    text: MyFunction.formatDate2(
+                      DateTime.tryParse(model.shipmentDate ?? "") ??
+                          DateTime.now(),
+                    ),
+                    icon: AppIcons.calendar,
                   ),
-                  icon: AppIcons.calendar,
-                ),
-                WInfoContainer(
-                  text: MyFunction.formattedTime(
-                    DateTime.tryParse(model.shipmentDate ?? "") ??
-                        DateTime.now(),
+                  WInfoContainer(
+                    text: MyFunction.formattedTime(
+                          DateTime.tryParse(model.details?.fromDate ?? "") ??
+                              DateTime.now(),
+                        ) +
+                        (model.details?.toDate != null
+                            ? " - ${MyFunction.formattedTime(DateTime.tryParse(model.details?.toDate ?? "") ?? DateTime.now())}"
+                            : ""),
+                    icon: AppIcons.clock,
                   ),
-                  icon: AppIcons.clock,
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'Transport turi:',
-              style: TextStyle(
+                ],
+              ),
+              const SizedBox(height: 16),
+            ],
+            Text(
+              '${AppLocalizations.of(context)!.transportType}:',
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
               ),
@@ -548,27 +636,29 @@ class AnnouncementInfoView extends StatelessWidget {
                 ],
               ),
             ),
-            if (model.payType.isNotEmpty) ...[
+            if (model.payType.isNotEmpty && !isMyCar) ...[
               const SizedBox(height: 16),
-              const Text(
-                'To‘lov turi:',
-                style: TextStyle(
+              Text(
+                '${AppLocalizations.of(context)!.payment_type}:',
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                 ),
               ),
               const SizedBox(height: 8),
               WInfoContainer(
-                text: model.payType == 'CASH' ? "Naqd" : 'Karta',
+                text: model.payType == 'CASH'
+                    ? AppLocalizations.of(context)!.cash
+                    : AppLocalizations.of(context)!.card,
                 icon: model.payType == 'CASH' ? AppIcons.cash : AppIcons.card,
                 iconCollor: false,
               ),
             ],
-            if (model.price != null) ...[
+            if (model.price != null && !isMyCar) ...[
               const SizedBox(height: 16),
-              const Text(
-                'Narx:',
-                style: TextStyle(
+              Text(
+                '${AppLocalizations.of(context)!.price}:',
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                 ),
@@ -576,15 +666,15 @@ class AnnouncementInfoView extends StatelessWidget {
               const SizedBox(height: 8),
               WInfoContainer(
                 text: (model.price ?? 0) == 0
-                    ? "Narx taklifi"
+                    ? AppLocalizations.of(context)!.price_offer
                     : MyFunction.priceFormat(model.price ?? 0),
               ),
             ],
             if (model.images != null) ...[
               const SizedBox(height: 16),
-              const Text(
-                'Yuk rasmlari:',
-                style: TextStyle(
+              Text(
+                '${AppLocalizations.of(context)!.cargoImages}:',
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                 ),
@@ -611,9 +701,9 @@ class AnnouncementInfoView extends StatelessWidget {
               ),
             ],
             const SizedBox(height: 16),
-            const Text(
-              'Maishiy texnika. Ehtiyotkorlik bilan tashish kerak. Yuklash va tushirishda haydovchi yordam berishi lozim.',
-              style: TextStyle(
+            Text(
+              model.note,
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
               ),

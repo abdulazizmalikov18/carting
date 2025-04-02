@@ -3,9 +3,9 @@ import 'package:carting/data/common/error_handle.dart';
 import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/data/models/advertisment_filter.dart';
 import 'package:carting/data/models/cars_model.dart';
-import 'package:carting/data/models/filter_adver_model.dart';
 import 'package:carting/data/models/fuels_info_model.dart';
 import 'package:carting/data/models/image_create_model.dart';
+import 'package:carting/data/models/page_model.dart';
 import 'package:carting/data/models/response_model.dart';
 import 'package:carting/data/models/servis_model.dart';
 import 'package:carting/data/models/transport_specialists_model.dart';
@@ -16,10 +16,9 @@ import 'package:carting/infrastructure/repo/storage_repository.dart';
 import 'package:dio/dio.dart';
 
 abstract class AdvertisementDatasource {
-  Future<ResponseModel<List<AdvertisementModel>>> getAdvertisements(
-      FilterModel? model);
+  Future<ResponseModel<PageModel>> getAdvertisements(FilterModel? model);
   Future<ResponseModel<List<AdvertisementModel>>> getAdvertisementsMe(
-    FilterAdverModel model,
+    FilterModel model,
   );
   Future<ResponseModel<List<TransportationTypesModel>>> getTransportationTypes(
     int servisId, {
@@ -50,7 +49,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
   final ErrorHandle _handle = ErrorHandle();
 
   @override
-  Future<ResponseModel<List<AdvertisementModel>>> getAdvertisements(
+  Future<ResponseModel<PageModel>> getAdvertisements(
     FilterModel? model,
   ) async {
     Map<String, dynamic> queryParameters = {};
@@ -77,6 +76,9 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
     if (model?.transportId != null) {
       queryParameters['transport_id'] = model?.transportId;
     }
+    if (model?.page != null) {
+      queryParameters['page'] = model?.page;
+    }
     return _handle.apiCantrol(
       request: () => dio.get(
         'advertisement',
@@ -92,26 +94,22 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
       ),
       body: (response) => ResponseModel.fromJson(
         response,
-        (p0) => (p0 as List)
-            .map(
-              (e) => AdvertisementModel.fromJson(e as Map<String, dynamic>),
-            )
-            .toList(),
+        (p0) => PageModel.fromJson(p0 as Map<String, dynamic>),
       ),
     );
   }
 
   @override
   Future<ResponseModel<List<AdvertisementModel>>> getAdvertisementsMe(
-    FilterAdverModel model,
+    FilterModel model,
   ) async {
     Map<String, dynamic> queryParameters = {};
-    if (model.isClose && model.isPROVIDE) {
-      queryParameters['status'] = 'CLOSED';
-    } else {
-      queryParameters['status'] = 'ACTIVE';
+    if (model.statusString != null) {
+      queryParameters['status'] = model.statusString;
     }
-    queryParameters['adv_type'] = model.isPROVIDE ? 'PROVIDE' : 'RECEIVE';
+    if (model.advType != null) {
+      queryParameters['adv_type'] = model.advType;
+    }
     return _handle.apiCantrol(
       request: () => dio.get(
         'user/advertisement',

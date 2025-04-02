@@ -114,7 +114,7 @@ class _IdentityChooseViewState extends State<IdentityChooseView> {
                 // ));
                 Navigator.of(context).pop(isLegal.value);
               },
-              text: "Davom etish",
+              text: AppLocalizations.of(context)!.continue_info,
             ),
           ],
         ),

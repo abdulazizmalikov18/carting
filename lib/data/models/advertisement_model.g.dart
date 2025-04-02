@@ -45,6 +45,7 @@ AdvertisementModel _$AdvertisementModelFromJson(Map<String, dynamic> json) =>
           ?.map((e) => e as String)
           .toList(),
       carName: json['car_name'] as String?,
+      rating: (json['rating'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$AdvertisementModelToJson(AdvertisementModel instance) =>
@@ -73,6 +74,7 @@ Map<String, dynamic> _$AdvertisementModelToJson(AdvertisementModel instance) =>
       'workshop_services': instance.workshopServices,
       'workshop_categories': instance.workshopCategories,
       'car_name': instance.carName,
+      'rating': instance.rating,
     };
 
 Comment _$CommentFromJson(Map<String, dynamic> json) => Comment(
@@ -123,6 +125,10 @@ Details _$DetailsFromJson(Map<String, dynamic> json) => Details(
       kg: json['kg'] as String?,
       m3: json['m3'] as String?,
       litr: json['litr'] as String?,
+      madeAt: json['made_at'] as String?,
+      transportNumber: json['transport_number'] as String?,
+      techPassportSeria: json['tech_passport_seria'] as String?,
+      techPassportNum: json['tech_passport_num'] as String?,
     );
 
 Map<String, dynamic> _$DetailsToJson(Details instance) => <String, dynamic>{
@@ -150,6 +156,10 @@ Map<String, dynamic> _$DetailsToJson(Details instance) => <String, dynamic>{
       'kg': instance.kg,
       'm3': instance.m3,
       'litr': instance.litr,
+      'made_at': instance.madeAt,
+      'transport_number': instance.transportNumber,
+      'tech_passport_seria': instance.techPassportSeria,
+      'tech_passport_num': instance.techPassportNum,
     };
 
 Characteristics _$CharacteristicsFromJson(Map<String, dynamic> json) =>

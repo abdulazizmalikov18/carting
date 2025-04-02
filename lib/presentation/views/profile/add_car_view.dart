@@ -3,12 +3,16 @@ import 'dart:io';
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/colors/colors.dart';
+import 'package:carting/data/models/advertisement_car_model.dart';
+import 'package:carting/data/models/peregon_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/common/map_point.dart';
 import 'package:carting/presentation/views/common/w_select_servis_iteam.dart';
+import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/presentation/widgets/custom_text_field.dart';
 import 'package:carting/presentation/widgets/selection_location_field.dart';
+import 'package:carting/presentation/widgets/succes_dialog.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_scale_animation.dart';
 import 'package:carting/presentation/widgets/w_selection_iteam.dart';
@@ -18,6 +22,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddCarView extends StatefulWidget {
@@ -34,9 +39,15 @@ class _AddCarViewState extends State<AddCarView> {
   late TextEditingController controllerKg;
   late TextEditingController controllerm3;
   late TextEditingController controllerLitr;
+  late TextEditingController controllerCarNumber;
+  late TextEditingController controllerCarYear;
+  late TextEditingController controllerSeriya;
+  late TextEditingController controllerSeriyaNumber;
+  late TextEditingController controllerCommet;
+  late TextEditingController controllerCount;
   ValueNotifier<int> trTypeId = ValueNotifier(0);
   List<File> images = [];
-
+  bool isDisabled = true;
   @override
   void initState() {
     context
@@ -45,6 +56,12 @@ class _AddCarViewState extends State<AddCarView> {
     controllerKg = TextEditingController();
     controllerm3 = TextEditingController();
     controllerLitr = TextEditingController();
+    controllerCarNumber = TextEditingController();
+    controllerCarYear = TextEditingController();
+    controllerSeriya = TextEditingController();
+    controllerSeriyaNumber = TextEditingController();
+    controllerCommet = TextEditingController();
+    controllerCount = TextEditingController();
     super.initState();
   }
 
@@ -53,6 +70,14 @@ class _AddCarViewState extends State<AddCarView> {
     controllerKg.dispose();
     controllerm3.dispose();
     controllerLitr.dispose();
+    controllerCarNumber.dispose();
+    controllerCarYear.dispose();
+    controllerSeriya.dispose();
+    controllerSeriyaNumber.dispose();
+    controllerCommet.dispose();
+    controllerCount.dispose();
+    trTypeId.dispose();
+    images.clear();
     point1 = null;
     point2 = null;
     super.dispose();
@@ -80,16 +105,80 @@ class _AddCarViewState extends State<AddCarView> {
     return "${(bytes / (1024 * 1024)).toStringAsFixed(2)} MB";
   }
 
+  void updateButtonState() {
+    setState(() {
+      isDisabled = point1 == null ||
+          point2 == null ||
+          (controllerKg.text.isEmpty &&
+              controllerLitr.text.isEmpty &&
+              controllerm3.text.isEmpty) ||
+          controllerCarNumber.text.isEmpty ||
+          controllerCarYear.text.isEmpty ||
+          controllerSeriya.text.isEmpty ||
+          controllerSeriyaNumber.text.isEmpty;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Transport qo‘shish")),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.add_transport)),
       bottomNavigationBar: SafeArea(
-        child: WButton(
-          onTap: () {},
-          margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-          disabledColor: context.color.darkText,
-          text: AppLocalizations.of(context)!.confirm,
+        child: BlocBuilder<AdvertisementBloc, AdvertisementState>(
+          builder: (context, state) {
+            return WButton(
+              onTap: () {
+                if (state.transportationTypes.isEmpty) {
+                  CustomSnackbar.show(
+                    context,
+                    "Ushbu xizmat uchun transport turlari mavjud emas",
+                  );
+                } else {
+                  final model = AdvertisementCarModel(
+                    fromLocation: Location(
+                      lat: point1!.latitude,
+                      lng: point1!.longitude,
+                      name: point1!.name,
+                    ),
+                    toLocation: Location(
+                      lat: point2!.latitude,
+                      lng: point2!.longitude,
+                      name: point2!.name,
+                    ),
+                    note: controllerCommet.text,
+                    serviceTypeId: servisId,
+                    details: Details(
+                      transportationTypeId:
+                          state.transportationTypes[trTypeId.value].id,
+                      madeAt: controllerCarYear.text,
+                      transportNumber: controllerCarNumber.text,
+                      kg: controllerKg.text,
+                      litr: controllerLitr.text,
+                      m3: controllerm3.text,
+                      techPassportSeria: controllerSeriya.text,
+                      techPassportNum: controllerSeriyaNumber.text,
+                    ),
+                  ).toJson();
+
+                  context.read<AdvertisementBloc>().add(CreateDeliveryEvent(
+                        model: model,
+                        images: images,
+                        onError: () {
+                          Navigator.of(context).pop();
+                        },
+                        onSucces: (id) {
+                          succesCreate(context);
+                        },
+                      ));
+                }
+              },
+              margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+              isLoading: state.statusCreate.isInProgress,
+              isDisabled: isDisabled,
+              disabledColor: context.color.darkText,
+              text: AppLocalizations.of(context)!.confirm,
+            );
+          },
         ),
       ),
       body: SingleChildScrollView(
@@ -112,6 +201,7 @@ class _AddCarViewState extends State<AddCarView> {
             SelectionLocationField(
               onTap1: (point) {
                 point1 = point;
+                updateButtonState();
               },
               onTap2: (point) {
                 point2 = point;
@@ -131,15 +221,18 @@ class _AddCarViewState extends State<AddCarView> {
                     child: CustomTextField(
                       height: 48,
                       borderRadius: 16,
-                      title: "Transport raqami",
+                      title: AppLocalizations.of(context)!.transport_number,
                       hintText: "01 A 111 AA",
                       keyboardType: TextInputType.text,
                       textCapitalization: TextCapitalization.characters,
-
                       formatter: [Formatters.carNum],
-                      // controller: widget.controllerCommet,
+                      controller: controllerCarNumber,
                       fillColor: context.color.contColor,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        if (value.length <= 1) {
+                          updateButtonState();
+                        }
+                      },
                     ),
                   ),
                 ),
@@ -154,13 +247,17 @@ class _AddCarViewState extends State<AddCarView> {
                     child: CustomTextField(
                       height: 48,
                       borderRadius: 16,
-                      title: "Ishlab chiqarilgan yil",
+                      title: AppLocalizations.of(context)!.manufacture_year,
                       hintText: "2023",
                       keyboardType: TextInputType.number,
                       formatter: [Formatters.year],
-                      // controller: widget.controllerCommet,
+                      controller: controllerCarYear,
                       fillColor: context.color.contColor,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        if (value.length <= 1) {
+                          updateButtonState();
+                        }
+                      },
                     ),
                   ),
                 )
@@ -178,7 +275,7 @@ class _AddCarViewState extends State<AddCarView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Texnik pasport seriyasi va raqami",
+                    AppLocalizations.of(context)!.tech_passport,
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -196,9 +293,14 @@ class _AddCarViewState extends State<AddCarView> {
                           hintText: "AAF",
                           fillColor: context.color.contColor,
                           keyboardType: TextInputType.text,
+                          controller: controllerSeriya,
                           textCapitalization: TextCapitalization.characters,
                           formatter: [Formatters.seriya],
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            if (value.length <= 1) {
+                              updateButtonState();
+                            }
+                          },
                         ),
                       ),
                       Expanded(
@@ -207,10 +309,15 @@ class _AddCarViewState extends State<AddCarView> {
                           height: 48,
                           borderRadius: 16,
                           hintText: "1234567",
+                          controller: controllerSeriyaNumber,
                           keyboardType: TextInputType.number,
                           formatter: [Formatters.seriyaNumber],
                           fillColor: context.color.contColor,
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            if (value.length <= 1) {
+                              updateButtonState();
+                            }
+                          },
                         ),
                       )
                     ],
@@ -251,9 +358,9 @@ class _AddCarViewState extends State<AddCarView> {
                                       controller: controllerKg,
                                       keyboardType: TextInputType.number,
                                       onChanged: (value) {
-                                        // if (value.length <= 1) {
-                                        //   updateButtonState();
-                                        // }
+                                        if (value.length <= 1) {
+                                          updateButtonState();
+                                        }
                                       },
                                       decoration: InputDecoration(
                                         isDense: true,
@@ -270,7 +377,8 @@ class _AddCarViewState extends State<AddCarView> {
                                   Text(
                                     'kg',
                                     style: TextStyle(
-                                        color: context.color.darkText),
+                                      color: context.color.darkText,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -285,9 +393,9 @@ class _AddCarViewState extends State<AddCarView> {
                                       controller: controllerm3,
                                       keyboardType: TextInputType.number,
                                       onChanged: (value) {
-                                        // if (value.length <= 1) {
-                                        //   updateButtonState();
-                                        // }
+                                        if (value.length <= 1) {
+                                          updateButtonState();
+                                        }
                                       },
                                       decoration: InputDecoration(
                                         isDense: true,
@@ -318,9 +426,9 @@ class _AddCarViewState extends State<AddCarView> {
                                       controller: controllerLitr,
                                       keyboardType: TextInputType.number,
                                       onChanged: (value) {
-                                        // if (value.length <= 1) {
-                                        //   updateButtonState();
-                                        // }
+                                        if (value.length <= 1) {
+                                          updateButtonState();
+                                        }
                                       },
                                       decoration: InputDecoration(
                                         isDense: true,
@@ -370,12 +478,12 @@ class _AddCarViewState extends State<AddCarView> {
                       SizedBox(
                         height: 24,
                         child: TextField(
-                          controller: controllerKg,
+                          controller: controllerCount,
                           keyboardType: TextInputType.number,
                           onChanged: (value) {
-                            // if (value.length <= 1) {
-                            //   updateButtonState();
-                            // }
+                            if (value.length <= 1) {
+                              updateButtonState();
+                            }
                           },
                           decoration: InputDecoration(
                             isDense: true,
@@ -508,6 +616,7 @@ class _AddCarViewState extends State<AddCarView> {
                 expands: false,
                 borderRadius: 16,
                 fillColor: context.color.contColor,
+                controller: controllerCommet,
                 onChanged: (value) {},
               ),
             ),

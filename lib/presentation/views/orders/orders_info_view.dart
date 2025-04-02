@@ -57,11 +57,11 @@ class _OrdersInfoViewState extends State<OrdersInfoView> {
               color: whiteSmoke,
             ),
             padding: const EdgeInsets.all(20),
-            child:  Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const OrdersInfoTile(
-                  title: 'Yuk turi',
+                OrdersInfoTile(
+                  title: AppLocalizations.of(context)!.cargoType,
                   subtitle: 'Mebel',
                 ),
                 const SizedBox(height: 16),
@@ -94,7 +94,7 @@ class _OrdersInfoViewState extends State<OrdersInfoView> {
               color: whiteSmoke,
             ),
             padding: const EdgeInsets.all(20),
-            child:  Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const OrdersInfoTile(
@@ -103,7 +103,7 @@ class _OrdersInfoViewState extends State<OrdersInfoView> {
                 ),
                 const SizedBox(height: 16),
                 OrdersInfoTile(
-                  title:AppLocalizations.of(context)!.phoneNumer,
+                  title: AppLocalizations.of(context)!.phoneNumer,
                   subtitle: '+998 91 008 43 48',
                 ),
               ],

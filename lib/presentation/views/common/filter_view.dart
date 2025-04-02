@@ -45,9 +45,9 @@ class _FilterViewState extends State<FilterView> {
               servisIndex = 0;
               setState(() {});
             },
-            child: const Text(
-              "Tozalash",
-              style: TextStyle(color: red),
+            child: Text(
+              AppLocalizations.of(context)!.clear,
+              style: const TextStyle(color: red),
             ),
           ),
         ],
@@ -126,7 +126,7 @@ class _FilterViewState extends State<FilterView> {
                   );
                 case FilterType.services:
                   return WselectServisIteam(
-                    onTap: (index,servisId) {
+                    onTap: (index, servisId) {
                       servisIndex = index;
                       setState(() {});
                     },
@@ -173,7 +173,7 @@ class _FilterViewState extends State<FilterView> {
                             borderRadius: BorderRadius.circular(20),
                             color: listActive[index]
                                 ? green
-                                : context.color.backGroundColor,
+                                : context.color.scaffoldBackground,
                             boxShadow: listActive[index]
                                 ? [
                                     BoxShadow(
@@ -192,12 +192,18 @@ class _FilterViewState extends State<FilterView> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              AppIcons.star.svg(color: white),
+                              AppIcons.star.svg(
+                                color: listActive[index]
+                                    ? white
+                                    : context.color.white,
+                              ),
                               const SizedBox(width: 4),
                               Text(
                                 (index + 1).toString(),
-                                style: const TextStyle(
-                                  color: white,
+                                style: TextStyle(
+                                  color: listActive[index]
+                                      ? white
+                                      : context.color.white,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                 ),

@@ -1,3 +1,4 @@
+import 'package:carting/l10n/localizations.dart';
 import 'package:flutter/material.dart';
 
 import 'package:carting/assets/assets/icons.dart';
@@ -34,9 +35,9 @@ class _CarAddViewState extends State<CarAddView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Transport davlat raqami",
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context)!.transport_number_plate,
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
               ),
@@ -217,36 +218,36 @@ class _CarAddViewState extends State<CarAddView> {
               ),
               width: double.infinity,
               padding: const EdgeInsets.all(20),
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  OrdersInfoTile(
+                  const OrdersInfoTile(
                     title: 'Transport turi',
                     subtitle: 'Грузовик',
                   ),
-                  SizedBox(height: 16),
-                  OrdersInfoTile(
+                  const SizedBox(height: 16),
+                  const OrdersInfoTile(
                     title: 'Brendi',
                     subtitle: 'UZ OTOYOL',
                   ),
-                  SizedBox(height: 16),
-                  OrdersInfoTile(
+                  const SizedBox(height: 16),
+                  const OrdersInfoTile(
                     title: 'Modeli',
                     subtitle: 'G 265 XP',
                   ),
-                  SizedBox(height: 16),
-                  OrdersInfoTile(
+                  const SizedBox(height: 16),
+                  const OrdersInfoTile(
                     title: 'Davlat raqami',
                     subtitle: '60 X 600 YX',
                   ),
-                  SizedBox(height: 16),
-                  OrdersInfoTile(
+                  const SizedBox(height: 16),
+                  const OrdersInfoTile(
                     title: 'Kuzov turi',
                     subtitle: 'Temir',
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   OrdersInfoTile(
-                    title: 'Ishlab chiqarilgan yili',
+                    title: AppLocalizations.of(context)!.manufacture_year,
                     subtitle: '2018',
                   ),
                 ],

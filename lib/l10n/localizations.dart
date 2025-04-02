@@ -1646,6 +1646,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'My vehicles'**
   String get my_vehicles;
+
+  /// No description provided for @connection.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection'**
+  String get connection;
+
+  /// No description provided for @search_ad.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Ad'**
+  String get search_ad;
+
+  /// No description provided for @ad_count.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of Ads'**
+  String get ad_count;
+
+  /// No description provided for @piece.
+  ///
+  /// In en, this message translates to:
+  /// **'pcs'**
+  String get piece;
+
+  /// No description provided for @search_transport.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Transport'**
+  String get search_transport;
+
+  /// No description provided for @transport_number.
+  ///
+  /// In en, this message translates to:
+  /// **'Transport Number'**
+  String get transport_number;
+
+  /// No description provided for @manufacture_year.
+  ///
+  /// In en, this message translates to:
+  /// **'Year of Manufacture'**
+  String get manufacture_year;
+
+  /// No description provided for @tech_passport.
+  ///
+  /// In en, this message translates to:
+  /// **'Technical Passport Series and Number'**
+  String get tech_passport;
+
+  /// No description provided for @shipment_date_time.
+  ///
+  /// In en, this message translates to:
+  /// **'Shipment Date and Time'**
+  String get shipment_date_time;
+
+  /// No description provided for @payment_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Type'**
+  String get payment_type;
+
+  /// No description provided for @price_offer.
+  ///
+  /// In en, this message translates to:
+  /// **'Price Offer'**
+  String get price_offer;
+
+  /// No description provided for @continue_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continue_info;
+
+  /// No description provided for @transport_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Transport Information'**
+  String get transport_info;
+
+  /// No description provided for @add_transport.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Transport'**
+  String get add_transport;
+
+  /// No description provided for @transport_number_plate.
+  ///
+  /// In en, this message translates to:
+  /// **'Transport License Plate'**
+  String get transport_number_plate;
+
+  /// No description provided for @your_transports_here.
+  ///
+  /// In en, this message translates to:
+  /// **'Your transports will be here.\nAdd them.'**
+  String get your_transports_here;
+
+  /// No description provided for @clear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get clear;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

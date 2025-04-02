@@ -4,6 +4,7 @@ import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/routes/route_name.dart';
 import 'package:carting/presentation/views/announcements/announcement_info_view.dart';
 import 'package:carting/presentation/views/announcements/widgets/announcements_iteam_new.dart';
+import 'package:carting/presentation/widgets/paginator_list.dart';
 import 'package:carting/utils/enum_filtr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,12 +28,11 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
   List<bool> active = [true, true, true, true, true];
   String selectedUnit = 'Barchasi';
   String selectedUnit2 = 'Barchasi';
+  int page = 1;
 
   @override
   void initState() {
     context.read<AdvertisementBloc>().add(GetAdvertisementsEvent());
-    // context.read<AdvertisementBloc>().add(GetAdvertisementsProvideEvent());
-    // context.read<AdvertisementBloc>().add(GetAdvertisementsReceiveEvent());
     super.initState();
   }
 
@@ -41,9 +41,9 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: const Text(
-          'E’lon izlash',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.search_ad,
+          style: const TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.w500,
           ),
@@ -62,13 +62,13 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
               spacing: 8,
               children: [
                 AppIcons.filter.svg(color: context.color.iron),
-                const Text(
-                  'Filter',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.filter,
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -80,9 +80,9 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
             alignment: Alignment.centerLeft,
             child: BlocSelector<AdvertisementBloc, AdvertisementState, int>(
-              selector: (state) => state.advertisement.length,
+              selector: (state) => state.advertisementCount,
               builder: (context, state) => Text(
-                'E’lonlar soni: $state ta',
+                '${AppLocalizations.of(context)!.ad_count}: $state ${AppLocalizations.of(context)!.piece}',
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
@@ -156,7 +156,16 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
                       .add(GetAdvertisementsEvent());
                   Future.delayed(Duration.zero);
                 },
-                child: ListView.separated(
+                child: PaginatorList(
+                  fetchMoreFunction: () {
+                    page++;
+                    context
+                        .read<AdvertisementBloc>()
+                        .add(GetAdvertisementsEvent(page: page));
+                  },
+                  hasMoreToFetch:
+                      state.advertisementCount > state.advertisement.length,
+                  paginatorStatus: state.status,
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 120),
                   itemBuilder: (context, index) => GestureDetector(
                     onTap: () {

@@ -12,11 +12,15 @@ class AdvertisementState extends Equatable {
   final FormzSubmissionStatus statusTrTypes;
   final FormzSubmissionStatus statusCreate;
   final FormzSubmissionStatus statusCars;
+  final FormzSubmissionStatus statusMyCars;
   final FormzSubmissionStatus statusCategory;
   final FormzSubmissionStatus statusServices;
   final FormzSubmissionStatus statusChange;
   final FormzSubmissionStatus statusComment;
+  final int advertisementCount;
+  final int advertisementFilterCount;
   final List<AdvertisementModel> advertisement;
+  final List<AdvertisementModel> advertisementMyCars;
   final List<AdvertisementModel> advertisementFilter;
   final List<AdvertisementModel> advertisementRECEIVE;
   final List<AdvertisementModel> advertisementRECEIVEFinish;
@@ -45,6 +49,8 @@ class AdvertisementState extends Equatable {
     this.statusComment = FormzSubmissionStatus.initial,
     this.statusPROVIDEFinish = FormzSubmissionStatus.initial,
     this.statusRECEIVEFinish = FormzSubmissionStatus.initial,
+    this.statusMyCars = FormzSubmissionStatus.initial,
+    this.advertisementMyCars = const [],
     this.advertisementRECEIVEFinish = const [],
     this.advertisementPROVIDEFinish = const [],
     this.fuelsModel = const [],
@@ -59,6 +65,8 @@ class AdvertisementState extends Equatable {
     this.categoriesList = const [],
     this.servicesList = const [],
     this.tabIndex = 0,
+    this.advertisementCount = 0,
+    this.advertisementFilterCount = 0,
   });
 
   @override
@@ -73,6 +81,8 @@ class AdvertisementState extends Equatable {
         statusFuels,
         statusChange,
         statusCars,
+        statusMyCars,
+        advertisementMyCars,
         statusComment,
         fuelsModel,
         transportationTypes,
@@ -91,6 +101,8 @@ class AdvertisementState extends Equatable {
         statusRECEIVEFinish,
         advertisementRECEIVEFinish,
         advertisementPROVIDEFinish,
+        advertisementCount,
+        advertisementFilterCount,
       ];
 
   AdvertisementState copyWith({
@@ -104,11 +116,15 @@ class AdvertisementState extends Equatable {
     FormzSubmissionStatus? statusTrTypes,
     FormzSubmissionStatus? statusCreate,
     FormzSubmissionStatus? statusCars,
+    FormzSubmissionStatus? statusMyCars,
     FormzSubmissionStatus? statusCategory,
     FormzSubmissionStatus? statusServices,
     FormzSubmissionStatus? statusChange,
     FormzSubmissionStatus? statusComment,
+    int? advertisementCount,
+    int? advertisementFilterCount,
     List<AdvertisementModel>? advertisement,
+    List<AdvertisementModel>? advertisementMyCars,
     List<AdvertisementModel>? advertisementFilter,
     List<AdvertisementModel>? advertisementRECEIVE,
     List<AdvertisementModel>? advertisementRECEIVEFinish,
@@ -134,16 +150,23 @@ class AdvertisementState extends Equatable {
       statusTrTypes: statusTrTypes ?? this.statusTrTypes,
       statusCreate: statusCreate ?? this.statusCreate,
       statusCars: statusCars ?? this.statusCars,
+      statusMyCars: statusMyCars ?? this.statusMyCars,
       statusCategory: statusCategory ?? this.statusCategory,
       statusServices: statusServices ?? this.statusServices,
       statusChange: statusChange ?? this.statusChange,
       statusComment: statusComment ?? this.statusComment,
+      advertisementCount: advertisementCount ?? this.advertisementCount,
+      advertisementFilterCount:
+          advertisementFilterCount ?? this.advertisementFilterCount,
       advertisement: advertisement ?? this.advertisement,
+      advertisementMyCars: advertisementMyCars ?? this.advertisementMyCars,
       advertisementFilter: advertisementFilter ?? this.advertisementFilter,
       advertisementRECEIVE: advertisementRECEIVE ?? this.advertisementRECEIVE,
-      advertisementRECEIVEFinish: advertisementRECEIVEFinish ?? this.advertisementRECEIVEFinish,
+      advertisementRECEIVEFinish:
+          advertisementRECEIVEFinish ?? this.advertisementRECEIVEFinish,
       advertisementPROVIDE: advertisementPROVIDE ?? this.advertisementPROVIDE,
-      advertisementPROVIDEFinish: advertisementPROVIDEFinish ?? this.advertisementPROVIDEFinish,
+      advertisementPROVIDEFinish:
+          advertisementPROVIDEFinish ?? this.advertisementPROVIDEFinish,
       transportationTypes: transportationTypes ?? this.transportationTypes,
       fuelsModel: fuelsModel ?? this.fuelsModel,
       fuelsModelAll: fuelsModelAll ?? this.fuelsModelAll,

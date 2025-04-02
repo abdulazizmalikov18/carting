@@ -3,10 +3,12 @@ class FilterModel {
   String? serviceId;
   int? specialistId;
   int? carId;
+  int? page;
   int? repairTypeId;
   int? transportId;
   bool? status;
   String? advType;
+  String? statusString;
 
   FilterModel({
     this.advId,
@@ -14,9 +16,10 @@ class FilterModel {
     this.carId,
     this.repairTypeId,
     this.transportId,
-    this.advType,
+    this.advType,    this.page,
     this.specialistId,
     this.status,
+    this.statusString,
   });
 
   FilterModel.fromJson(Map<String, dynamic> json) {

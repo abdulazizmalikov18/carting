@@ -2,9 +2,9 @@ import 'package:carting/data/abstract_repo/i_advertisement_repo.dart';
 import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/data/models/advertisment_filter.dart';
 import 'package:carting/data/models/cars_model.dart';
-import 'package:carting/data/models/filter_adver_model.dart';
 import 'package:carting/data/models/fuels_info_model.dart';
 import 'package:carting/data/models/image_create_model.dart';
+import 'package:carting/data/models/page_model.dart';
 import 'package:carting/data/models/response_model.dart';
 import 'package:carting/data/models/servis_model.dart';
 import 'package:carting/data/models/transport_specialists_model.dart';
@@ -21,7 +21,7 @@ class AdvertisementRepo implements IAdvertisementRepo {
   AdvertisementRepo({required this.dataSourcheImpl});
 
   @override
-  Future<Either<Failure, ResponseModel<List<AdvertisementModel>>>>
+  Future<Either<Failure, ResponseModel<PageModel>>>
       getAdvertisements(FilterModel? model) async {
     try {
       final result = await dataSourcheImpl.getAdvertisements(model);
@@ -40,7 +40,7 @@ class AdvertisementRepo implements IAdvertisementRepo {
 
   @override
   Future<Either<Failure, ResponseModel<List<AdvertisementModel>>>>
-      getAdvertisementsMe(FilterAdverModel model) async {
+      getAdvertisementsMe(FilterModel model) async {
     try {
       final result = await dataSourcheImpl.getAdvertisementsMe(model);
       return Right(result);

@@ -256,9 +256,9 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
                                 !widget.priceOffer.value
                                     ? AppIcons.checkbox.svg()
                                     : AppIcons.checkboxActiv.svg(),
-                                const Text(
-                                  'Narx taklifi',
-                                  style: TextStyle(
+                                Text(
+                                  AppLocalizations.of(context)!.price_offer,
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
                                   ),

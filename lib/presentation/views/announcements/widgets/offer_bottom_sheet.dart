@@ -2,6 +2,7 @@ import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/assets/images.dart';
 import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/presentation/widgets/car_number_iteam.dart';
 import 'package:carting/presentation/widgets/custom_text_field.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_scale_animation.dart';
@@ -102,63 +103,9 @@ class _OfferBottomSheetState extends State<OfferBottomSheet> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       AppImages.gazel.imgAsset(height: 48, width: 86),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: context.color.white),
-                        ),
-                        child: IntrinsicHeight(
-                          child: Row(
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                ),
-                                child: Text(
-                                  "01",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'BebasNeue',
-                                  ),
-                                ),
-                              ),
-                              VerticalDivider(
-                                color: context.color.white,
-                                thickness: 1,
-                                width: 1,
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                ),
-                                child: Text(
-                                  "A 111 AA",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'BebasNeue',
-                                  ),
-                                ),
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  AppImages.uzb.imgAsset(height: 12, width: 12),
-                                  const Text(
-                                    "UZ",
-                                    style: TextStyle(
-                                      fontSize: 6,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: 'BebasNeue',
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(width: 8),
-                            ],
-                          ),
-                        ),
+                      const CarNumberIteam(
+                        carNumberFirst: '01',
+                        carNumberSecond: 'A 111 AA',
                       ),
                       AppIcons.arrowBottom.svg(),
                     ],

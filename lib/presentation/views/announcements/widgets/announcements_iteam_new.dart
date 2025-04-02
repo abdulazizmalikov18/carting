@@ -113,7 +113,7 @@ class AnnouncementsIteamNew extends StatelessWidget {
                   children: [
                     RowIcon(
                       text: (model.price == null || model.price == 0)
-                          ? 'Narx taklifi'
+                          ? AppLocalizations.of(context)!.price_offer
                           : '${MyFunction.priceFormat(model.price ?? 0)} UZS',
                       icon: AppIcons.layer.svg(
                         color: context.color.iron,
@@ -183,7 +183,7 @@ class AnnouncementsIteamNew extends StatelessWidget {
                         );
                       }
                     },
-                    text: 'Bog‘lanish',
+                    text: AppLocalizations.of(context)!.connection,
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                   )
                 ],

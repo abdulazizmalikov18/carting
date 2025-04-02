@@ -6,6 +6,7 @@ import 'package:carting/presentation/routes/route_name.dart';
 import 'package:carting/presentation/views/announcements/announcement_info_view.dart';
 import 'package:carting/presentation/views/cars/widgets/car_iteam.dart';
 import 'package:carting/presentation/views/common/filter_view.dart';
+import 'package:carting/presentation/widgets/paginator_list.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_shimmer.dart';
 import 'package:carting/utils/enum_filtr.dart';
@@ -25,6 +26,7 @@ class CarsNewView extends StatefulWidget {
 
 class _CarsNewViewState extends State<CarsNewView> {
   List<bool> active = [true, true, true, true, true];
+  int page = 1;
   @override
   void initState() {
     context.read<AdvertisementBloc>().add(GetAdvertisementsFilterEvent(
@@ -39,9 +41,9 @@ class _CarsNewViewState extends State<CarsNewView> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: const Text(
-          "Transport izlash",
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.search_transport,
+          style: const TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.w500,
           ),
@@ -60,13 +62,13 @@ class _CarsNewViewState extends State<CarsNewView> {
               spacing: 8,
               children: [
                 AppIcons.filter.svg(color: context.color.iron),
-                const Text(
-                  'Filter',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.filter,
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -78,9 +80,9 @@ class _CarsNewViewState extends State<CarsNewView> {
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
             alignment: Alignment.centerLeft,
             child: BlocSelector<AdvertisementBloc, AdvertisementState, int>(
-              selector: (state) => state.advertisementFilter.length,
+              selector: (state) => state.advertisementFilterCount,
               builder: (context, state) => Text(
-                'E’lonlar soni: $state ta',
+                '${AppLocalizations.of(context)!.ad_count}: $state ${AppLocalizations.of(context)!.piece}',
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
@@ -157,7 +159,20 @@ class _CarsNewViewState extends State<CarsNewView> {
                       ));
                   Future.delayed(Duration.zero);
                 },
-                child: ListView.separated(
+                child: PaginatorList(
+                  fetchMoreFunction: () {
+                    page++;
+                    context
+                        .read<AdvertisementBloc>()
+                        .add(GetAdvertisementsFilterEvent(
+                          transportId: 1,
+                          status: true,
+                          page: page,
+                        ));
+                  },
+                  hasMoreToFetch: state.advertisementFilterCount >
+                      state.advertisementFilter.length,
+                  paginatorStatus: state.statusFilter,
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 120),
                   itemCount: state.advertisementFilter.length,
                   separatorBuilder: (context, index) =>

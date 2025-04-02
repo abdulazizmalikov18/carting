@@ -136,6 +136,8 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                     //   amount: int.tryParse(controllerCount.text) ?? 0,
                     //   name: selectedUnit,
                     // ),
+                    fromDate: selectedDate.toString(),
+                    toDate: selectedDate2.toString(),
                     kg: controllerKg.text.isEmpty ? null : controllerKg.text,
                     m3: controllerm3.text.isEmpty ? null : controllerm3.text,
                     litr: controllerLitr.text.isEmpty
