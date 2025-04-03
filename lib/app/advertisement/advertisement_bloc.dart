@@ -221,6 +221,10 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
       final respons = await _repo.getAdvertisements(FilterModel(
         serviceId: event.serviceId?.join(","),
         page: event.page,
+        bdate: event.bdate,
+        edate: event.edate,
+        minPrice: event.minPrice,
+        maxPrice: event.maxPrice,
         advType: event.isPROVIDE == null
             ? null
             : event.isPROVIDE == true
@@ -252,6 +256,10 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
         transportId: event.transportId,
         repairTypeId: event.repairTypeId,
         page: event.page,
+        bdate: event.bdate,
+        edate: event.edate,
+        minPrice: event.minPrice,
+        maxPrice: event.maxPrice,
         advType: event.isPROVIDE == null
             ? null
             : event.isPROVIDE == true

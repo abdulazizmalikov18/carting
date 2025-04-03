@@ -41,7 +41,7 @@ class _WorkshopsViewState extends State<WorkshopsView> {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => FilterView(
                   filterType: FilterType.workshopCategories,
-                  list: active,
+                  list: active,onSaved: (dateTime, dateTime2, fromPrice, toPrice) {},
                 ),
               ));
             },

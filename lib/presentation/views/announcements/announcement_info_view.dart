@@ -23,11 +23,13 @@ class AnnouncementInfoView extends StatelessWidget {
     required this.isMe,
     this.isMyCar = false,
     this.isComments = false,
+    this.isOnlyCar = false,
   });
   final AdvertisementModel model;
   final bool isMe;
   final bool isMyCar;
   final bool isComments;
+  final bool isOnlyCar;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,7 @@ class AnnouncementInfoView extends StatelessWidget {
           color: context.color.contColor,
           boxShadow: wboxShadow2,
         ),
-        child: isMyCar
+        child: isMe
             ? Row(
                 spacing: 16,
                 children: [
@@ -69,7 +71,81 @@ class AnnouncementInfoView extends StatelessWidget {
                   ),
                   Expanded(
                     child: WButton(
-                      onTap: () {},
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          backgroundColor: Colors.transparent,
+                          builder: (context) => Column(
+                            spacing: 12,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Center(
+                                child: Container(
+                                  width: 64,
+                                  height: 5,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFFC2C2C2),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  color: context.color.scaffoldBackground,
+                                  boxShadow: wboxShadow2,
+                                  borderRadius: const BorderRadius.vertical(
+                                    top: Radius.circular(24),
+                                  ),
+                                ),
+                                child: Column(
+                                  spacing: 24,
+                                  children: [
+                                    Text(
+                                      AppLocalizations.of(context)!
+                                          .confirm_delete,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    Row(
+                                      spacing: 16,
+                                      children: [
+                                        Expanded(
+                                          child: WButton(
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                            },
+                                            textColor: greyText,
+                                            color: greyBack,
+                                            text: AppLocalizations.of(context)!
+                                                .no,
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: WButton(
+                                            onTap: () {
+                                              Navigator.of(context)
+                                                ..pop()
+                                                ..pop();
+                                            },
+                                            textColor: greyText,
+                                            color: greyBack,
+                                            text: AppLocalizations.of(context)!
+                                                .yes,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox()
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      },
                       color: const Color(0xFFFEEDEC),
                       textColor: red,
                       child: Row(
@@ -215,16 +291,16 @@ class AnnouncementInfoView extends StatelessWidget {
                         child: Text(AppLocalizations.of(context)!.comments),
                       ),
                       if (model.comments != null)
-                        const SizedBox(
+                        SizedBox(
                           width: 72,
                           height: 24,
                           child: Stack(
                             children: [
-                              CircleAvatar(
+                              const CircleAvatar(
                                 radius: 12,
                                 backgroundImage: AssetImage(AppImages.avatar_1),
                               ),
-                              Positioned(
+                              const Positioned(
                                 left: 16,
                                 child: CircleAvatar(
                                   radius: 12,
@@ -232,7 +308,7 @@ class AnnouncementInfoView extends StatelessWidget {
                                       AssetImage(AppImages.avatar_2),
                                 ),
                               ),
-                              Positioned(
+                              const Positioned(
                                 left: 32,
                                 child: CircleAvatar(
                                   radius: 12,
@@ -246,8 +322,8 @@ class AnnouncementInfoView extends StatelessWidget {
                                   radius: 12,
                                   backgroundColor: white,
                                   child: Text(
-                                    "+86",
-                                    style: TextStyle(
+                                    model.comments!.length.toString(),
+                                    style: const TextStyle(
                                       fontSize: 8,
                                       fontWeight: FontWeight.w400,
                                     ),
@@ -371,114 +447,6 @@ class AnnouncementInfoView extends StatelessWidget {
                 ],
               ),
             ),
-            Row(
-              spacing: 12,
-              children: [
-                // if (model.details?.loadWeight != null)
-                //   Expanded(
-                //     child: Container(
-                //       padding: const EdgeInsets.symmetric(
-                //         vertical: 12,
-                //         horizontal: 16,
-                //       ),
-                //       decoration: BoxDecoration(
-                //         color: context.color.contColor,
-                //         borderRadius: BorderRadius.circular(24),
-                //       ),
-                //       child: Column(
-                //         crossAxisAlignment: CrossAxisAlignment.start,
-                //         children: [
-                //           Text(
-                //             AppLocalizations.of(context)!.loadWeight,
-                //             style: TextStyle(
-                //               fontSize: 12,
-                //               fontWeight: FontWeight.w400,
-                //               color: context.color.darkText,
-                //             ),
-                //           ),
-                //           Text(
-                //             "${model.details?.loadWeight?.amount ?? AppLocalizations.of(context)!.unknown} ${model.details?.loadWeight?.name ?? ""}",
-                //             style: const TextStyle(
-                //               fontSize: 16,
-                //               fontWeight: FontWeight.w400,
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //     ),
-                //   ),
-
-                if (model.details?.passengerCount != null)
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 12,
-                        horizontal: 16,
-                      ),
-                      margin: const EdgeInsets.only(top: 12),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(24),
-                        color: context.color.grey.withValues(alpha: .5),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppLocalizations.of(context)!.passengerCount,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: context.color.darkText,
-                            ),
-                          ),
-                          Text(
-                            "${model.details?.passengerCount ?? "0"} kishi",
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                if (model.details?.transportCount != null)
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 12,
-                        horizontal: 16,
-                      ),
-                      margin: const EdgeInsets.only(top: 12),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(24),
-                        color: context.color.grey.withValues(alpha: .5),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppLocalizations.of(context)!.transportCount,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: context.color.darkText,
-                            ),
-                          ),
-                          Text(
-                            "${model.details?.transportCount ?? "0"}",
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: dark,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-              ],
-            ),
             const SizedBox(height: 16),
             if (model.details?.transportNumber != null) ...[
               Text(
@@ -522,7 +490,7 @@ class AnnouncementInfoView extends StatelessWidget {
               ),
               const SizedBox(height: 8),
             ],
-            if (!isMyCar) ...[
+            if (!isMyCar && !isOnlyCar) ...[
               Text(
                 '${AppLocalizations.of(context)!.cargoType}:',
                 style: const TextStyle(
@@ -565,7 +533,7 @@ class AnnouncementInfoView extends StatelessWidget {
               ),
             ],
             const SizedBox(height: 16),
-            if (!isMyCar) ...[
+            if (!isMyCar && !isOnlyCar) ...[
               Text(
                 '${AppLocalizations.of(context)!.shipment_date_time}:',
                 style: const TextStyle(
@@ -595,6 +563,34 @@ class AnnouncementInfoView extends StatelessWidget {
                     icon: AppIcons.clock,
                   ),
                 ],
+              ),
+              const SizedBox(height: 16),
+            ],
+            if (model.details?.passengerCount != null) ...[
+              Text(
+                '${AppLocalizations.of(context)!.passengerCount}:',
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const SizedBox(height: 8),
+              WInfoContainer(
+                text: "${model.details?.passengerCount ?? "0"} kishi",
+              ),
+              const SizedBox(height: 16),
+            ],
+            if (model.details?.transportCount != null) ...[
+              Text(
+                '${AppLocalizations.of(context)!.transportCount}:',
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const SizedBox(height: 8),
+              WInfoContainer(
+                text: "${model.details?.transportCount ?? "0"}",
               ),
               const SizedBox(height: 16),
             ],
@@ -630,13 +626,14 @@ class AnnouncementInfoView extends StatelessWidget {
                     ),
                   ),
                   CachedNetworkImage(
-                    imageUrl: model.transportIcon!,
+                    imageUrl: model.transportIcon ?? "",
                     height: 48,
+                    errorWidget: (context, url, error) => const SizedBox(),
                   )
                 ],
               ),
             ),
-            if (model.payType.isNotEmpty && !isMyCar) ...[
+            if (model.payType.isNotEmpty && !isMyCar && !isOnlyCar) ...[
               const SizedBox(height: 16),
               Text(
                 '${AppLocalizations.of(context)!.payment_type}:',
@@ -654,7 +651,7 @@ class AnnouncementInfoView extends StatelessWidget {
                 iconCollor: false,
               ),
             ],
-            if (model.price != null && !isMyCar) ...[
+            if (model.price != null && !isMyCar && !isOnlyCar) ...[
               const SizedBox(height: 16),
               Text(
                 '${AppLocalizations.of(context)!.price}:',
@@ -684,16 +681,49 @@ class AnnouncementInfoView extends StatelessWidget {
                 spacing: 12,
                 children: List.generate(
                   model.images!.length,
-                  (index) => Container(
-                    height: (MediaQuery.sizeOf(context).width - 56) / 3,
-                    width: (MediaQuery.sizeOf(context).width - 56) / 3,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      image: DecorationImage(
-                        image: CachedNetworkImageProvider(
-                          'https://api.carting.uz/uploads/files/${model.images![index]}',
+                  (index) => GestureDetector(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => Stack(
+                          children: [
+                            Center(
+                              child: SizedBox(
+                                width: double.infinity,
+                                height: double.infinity,
+                                child: InteractiveViewer(
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        'https://api.carting.uz/uploads/files/${model.images![index]}',
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: AppIcons.close.svg(color: white),
+                              ),
+                            ),
+                          ],
                         ),
-                        fit: BoxFit.cover,
+                      );
+                    },
+                    child: Container(
+                      height: (MediaQuery.sizeOf(context).width - 56) / 3,
+                      width: (MediaQuery.sizeOf(context).width - 56) / 3,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        image: DecorationImage(
+                          image: CachedNetworkImageProvider(
+                            'https://api.carting.uz/uploads/files/${model.images![index]}',
+                          ),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),

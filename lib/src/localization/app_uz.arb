@@ -276,5 +276,12 @@
   "add_transport": "Transport qo‘shish",
   "transport_number_plate": "Transport davlat raqami",
   "your_transports_here": "Transportlaringiz shu yerda\nbo‘ladi. Ularni qo‘shing.",
-  "clear": "Tozalash"
+  "clear": "Tozalash",
+  "maxLoadCapacity": "Maksimal yuk sig‘imi",
+  "maxPassengerCount": "Maksimal yo‘lovchi soni",
+  "maxTransportCount": "Maksimal transport soni",
+  "passengerCount": "Yo‘lovchilar soni",
+  "transportImages": "Transport rasmlari",
+  "additionalInfo": "Qo'shimcha ma'lumotlar",
+  "confirm_delete": "Haqiqatdan ham o‘chirmoqchimisiz?"
 }

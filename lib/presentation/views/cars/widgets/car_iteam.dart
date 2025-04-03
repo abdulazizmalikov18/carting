@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/data/models/advertisement_model.dart';
-import 'package:carting/utils/my_function.dart';
 
 class CarIteam extends StatelessWidget {
   const CarIteam({
@@ -63,6 +62,7 @@ class CarIteam extends StatelessWidget {
                 CachedNetworkImage(
                   imageUrl: model.transportIcon!,
                   height: 80,
+                  fit: BoxFit.cover,
                 ),
                 if (isMyCar &&
                     (model.details?.transportNumber ?? "").isNotEmpty)
@@ -85,31 +85,51 @@ class CarIteam extends StatelessWidget {
               ],
             ),
           if (!isMyCar) ...[
-            Row(
-              spacing: 8,
-              children: [
-                AppIcons.location.svg(),
-                if (model.fromLocation != null)
-                  Text(
-                    MyFunction.getLastPart(model.fromLocation?.name ??
-                        AppLocalizations.of(context)!.unknown),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: context.color.white,
+            if (model.fromLocation != null && model.toLocation != null)
+              Row(
+                spacing: 8,
+                children: [
+                  AppIcons.columLocation.svg(),
+                  Expanded(
+                    child: Column(
+                      spacing: 8,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          (model.fromLocation?.name ??
+                              AppLocalizations.of(context)!.unknown),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: context.color.white,
+                          ),
+                        ),
+                        Text(
+                          (model.toLocation?.name ??
+                              AppLocalizations.of(context)!.unknown),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: context.color.white,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                if (model.fromLocation != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: AppIcons.swap.svg(),
-                  ),
-                if (model.toLocation != null)
+                ],
+              )
+            else
+              Row(
+                spacing: 8,
+                children: [
+                  AppIcons.location.svg(),
                   Expanded(
                     child: Text(
-                      MyFunction.getLastPart(model.toLocation?.name ??
+                      (model.toLocation?.name ??
                           AppLocalizations.of(context)!.unknown),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -120,8 +140,8 @@ class CarIteam extends StatelessWidget {
                       ),
                     ),
                   ),
-              ],
-            ),
+                ],
+              ),
             Column(
               spacing: 12,
               children: [
@@ -154,7 +174,7 @@ class CarIteam extends StatelessWidget {
                 if (model.serviceTypeId == 1)
                   RowIcon(
                     text:
-                        'Maksimal yuk sig‘imi: ${model.details?.kg ?? 0} kg${model.details?.m3 != null ? ' ${model.details?.m3} m3' : ''}${model.details?.litr != null ? ' ${model.details?.litr} litr' : ''}',
+                        '${AppLocalizations.of(context)!.maxLoadCapacity}: ${model.details?.kg ?? 0} kg${(model.details?.m3 != null && (model.details?.m3 ?? '').isNotEmpty) ? ', ${model.details?.m3} m3' : ''}${(model.details?.litr != null && (model.details?.litr ?? '').isNotEmpty) ? ', ${model.details?.litr} litr' : ''}',
                     icon: AppIcons.box.svg(
                       color: context.color.iron,
                       height: 20,
@@ -163,7 +183,7 @@ class CarIteam extends StatelessWidget {
                 if (model.serviceTypeId == 2)
                   RowIcon(
                     text:
-                        'Yo‘lovchilar soni  ${model.details?.passengerCount ?? 0} ta',
+                        '${AppLocalizations.of(context)!.passengerCount}  ${model.details?.passengerCount ?? 0} ta',
                     icon: AppIcons.profile2user.svg(
                       color: context.color.iron,
                       height: 20,

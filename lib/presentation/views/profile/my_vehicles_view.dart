@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
@@ -43,7 +45,12 @@ class _MyVehiclesViewState extends State<MyVehiclesView> {
                     ),
                   ));
                 },
-                margin: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+                margin: EdgeInsets.fromLTRB(
+                  16,
+                  12,
+                  16,
+                  Platform.isAndroid ? 16 : 0,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -61,7 +68,15 @@ class _MyVehiclesViewState extends State<MyVehiclesView> {
       body: BlocBuilder<AdvertisementBloc, AdvertisementState>(
         builder: (context, state) {
           if (state.statusMyCars.isInProgress) {
-            return const Center(child: WShimmer());
+            return ListView.separated(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+              itemBuilder: (context, index) => const WShimmer(
+                height: 218,
+                width: double.infinity,
+              ),
+              separatorBuilder: (context, index) => const SizedBox(height: 16),
+              itemCount: 12,
+            );
           }
           if (state.advertisementMyCars.isNotEmpty) {
             return RefreshIndicator.adaptive(
@@ -72,7 +87,7 @@ class _MyVehiclesViewState extends State<MyVehiclesView> {
                 Future.delayed(Duration.zero);
               },
               child: ListView.separated(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 120),
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                 itemCount: state.advertisementMyCars.length,
                 separatorBuilder: (context, index) =>
                     const SizedBox(height: 16),

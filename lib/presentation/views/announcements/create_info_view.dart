@@ -167,7 +167,7 @@ class _CreateInfoViewState extends State<CreateInfoView> {
                         ),
                         child: ListTile(
                           title: Text(
-                            "Maksimal transport soni",
+                            AppLocalizations.of(context)!.maxTransportCount,
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,

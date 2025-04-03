@@ -1748,6 +1748,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Clear'**
   String get clear;
+
+  /// No description provided for @maxLoadCapacity.
+  ///
+  /// In en, this message translates to:
+  /// **'Max Load Capacity'**
+  String get maxLoadCapacity;
+
+  /// No description provided for @maxPassengerCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Max Passenger Count'**
+  String get maxPassengerCount;
+
+  /// No description provided for @maxTransportCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Max Transport Count'**
+  String get maxTransportCount;
+
+  /// No description provided for @transportImages.
+  ///
+  /// In en, this message translates to:
+  /// **'Transport Images'**
+  String get transportImages;
+
+  /// No description provided for @confirm_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete?'**
+  String get confirm_delete;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

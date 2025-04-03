@@ -275,5 +275,12 @@
   "add_transport": "Add Transport",
   "transport_number_plate": "Transport License Plate",
   "your_transports_here": "Your transports will be here.\nAdd them.",
-  "clear": "Clear"
+  "clear": "Clear",
+  "maxLoadCapacity": "Max Load Capacity",
+  "maxPassengerCount": "Max Passenger Count",
+  "maxTransportCount": "Max Transport Count",
+  "passengerCount": "Passenger Count",
+  "transportImages": "Transport Images",
+  "additionalInfo": "Additional Information",
+    "confirm_delete": "Are you sure you want to delete?"
 }

@@ -291,7 +291,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get loadWeight => 'Юк вазни';
 
   @override
-  String get passengerCount => 'Йўловчи сони';
+  String get passengerCount => 'Йўловчилар сони';
 
   @override
   String get transportCount => 'Транспорт сони';
@@ -300,7 +300,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get departureDate => 'Жўнатиш санаси';
 
   @override
-  String get additionalInfo => 'Қўшимча маълумот';
+  String get additionalInfo => 'Кушимча маълумотлар';
 
   @override
   String get cargoType => 'Юк тури';
@@ -832,4 +832,19 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get clear => 'Тозалаш';
+
+  @override
+  String get maxLoadCapacity => 'Максимал юк сиқими';
+
+  @override
+  String get maxPassengerCount => 'Максимал йўловчи сони';
+
+  @override
+  String get maxTransportCount => 'Максимал транспорт сони';
+
+  @override
+  String get transportImages => 'Транспорт расмлари';
+
+  @override
+  String get confirm_delete => 'Ҳақиқатдан ҳам ўчирмоқчимисиз?';
 }

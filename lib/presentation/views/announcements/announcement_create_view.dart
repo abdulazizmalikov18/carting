@@ -691,7 +691,8 @@ class _AnnouncementCreateViewState extends State<AnnouncementCreateView> {
                               );
                             case TypeOfServiceEnum.transportationOfPassengers:
                               return MinTextField(
-                                text: "Maksimal yo‘lovchi soni",
+                                text: AppLocalizations.of(context)!
+                                    .maxPassengerCount,
                                 hintText: "0",
                                 controller: controllerCount,
                                 keyboardType: TextInputType.number,
@@ -700,7 +701,8 @@ class _AnnouncementCreateViewState extends State<AnnouncementCreateView> {
                               );
                             case TypeOfServiceEnum.transportTransfer:
                               return MinTextField(
-                                text: "Maksimal transport soni",
+                                text: AppLocalizations.of(context)!
+                                    .maxTransportCount,
                                 hintText: "0",
                                 controller: controllerCount,
                                 keyboardType: TextInputType.number,
@@ -811,7 +813,8 @@ class _AnnouncementCreateViewState extends State<AnnouncementCreateView> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "Xizmatlar",
+                                          AppLocalizations.of(context)!
+                                              .services,
                                           style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w400,
@@ -891,7 +894,8 @@ class _AnnouncementCreateViewState extends State<AnnouncementCreateView> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "Xizmatlar",
+                                          AppLocalizations.of(context)!
+                                              .services,
                                           style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w400,

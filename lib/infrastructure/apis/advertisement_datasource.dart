@@ -52,37 +52,10 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
   Future<ResponseModel<PageModel>> getAdvertisements(
     FilterModel? model,
   ) async {
-    Map<String, dynamic> queryParameters = {};
-    if (model?.serviceId != null) {
-      queryParameters['service_id'] = model?.serviceId;
-    }
-    if (model?.advType != null) {
-      queryParameters['adv_type'] = model?.advType;
-    }
-    if (model?.specialistId != null) {
-      queryParameters['specialist_id'] = model?.specialistId;
-    }
-    if (model?.status != null) {
-      queryParameters['status'] =
-          model!.status == true ? "ACTIVE" : "IN_ACTIVE";
-    }
-    if (model?.carId != null) {
-      queryParameters['car_id'] = model?.carId;
-    }
-    if (model?.repairTypeId != null) {
-      queryParameters['repair_type_id'] = model?.repairTypeId;
-    }
-
-    if (model?.transportId != null) {
-      queryParameters['transport_id'] = model?.transportId;
-    }
-    if (model?.page != null) {
-      queryParameters['page'] = model?.page;
-    }
     return _handle.apiCantrol(
       request: () => dio.get(
         'advertisement',
-        queryParameters: queryParameters,
+        queryParameters: model?.toJson(),
         options: Options(
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {

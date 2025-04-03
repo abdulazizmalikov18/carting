@@ -153,86 +153,89 @@ class _CustomTextFieldState extends State<CustomTextField> {
               : const SizedBox(),
           SizedBox(
             height: widget.noHeight ? null : widget.height ?? 64,
-            child: TextFormField(
-              initialValue: widget.initialValue,
-              expands: widget.expands ?? true,
+            child: GestureDetector(
               onTap: widget.onPressed,
-              textInputAction: TextInputAction.done,
-              focusNode: widget.focusNode,
-              maxLength: widget.maxLength,
-              onChanged: widget.onChanged,
-              readOnly: widget.readOnly,
-              textAlign: widget.textAlign,
-              inputFormatters: widget.formatter,
-              minLines: widget.minLines,
-              maxLines: widget.maxLines,
-              controller: widget.controller,
-              style: widget.style ??
-                  Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        color: widget.textColor,
+              child: TextFormField(
+                initialValue: widget.initialValue,
+                expands: widget.expands ?? true,
+                onTap: widget.onPressed,
+                textInputAction: TextInputAction.done,
+                focusNode: widget.focusNode,
+                maxLength: widget.maxLength,
+                onChanged: widget.onChanged,
+                readOnly: widget.readOnly,
+                textAlign: widget.textAlign,
+                inputFormatters: widget.formatter,
+                minLines: widget.minLines,
+                maxLines: widget.maxLines,
+                controller: widget.controller,
+                style: widget.style ??
+                    Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: widget.textColor,
+                        ),
+                textCapitalization: widget.isCap
+                    ? TextCapitalization.words
+                    : widget.textCapitalization,
+                obscureText: widget.obscureText,
+                keyboardType: widget.keyboardType,
+                validator: widget.validator,
+                decoration: InputDecoration(
+                  counterText: widget.maxLength == 500 ? null : '',
+                  suffixIcon: widget.suffixIcon != null
+                      ? IconButton(
+                          icon: widget.suffixIcon!,
+                          onPressed: widget.onsuffixIconPressed ?? () {},
+                        )
+                      : null,
+                  prefixIcon: widget.prefixIcon != null
+                      ? IconButton(
+                          icon: widget.prefixIcon!,
+                          onPressed: widget.onprefixIconPressed ?? () {})
+                      : null,
+                  focusColor: context.color.contGrey,
+                  fillColor: widget.fillColor ?? context.color.contGrey,
+                  hoverColor: context.color.contGrey,
+                  filled: true,
+                  border: widget.border ??
+                      OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(24),
+                        borderSide: BorderSide(
+                          color: widget.borderColor ??
+                              shuttleGrey.withValues(alpha: .2),
+                        ),
                       ),
-              textCapitalization: widget.isCap
-                  ? TextCapitalization.words
-                  : widget.textCapitalization,
-              obscureText: widget.obscureText,
-              keyboardType: widget.keyboardType,
-              validator: widget.validator,
-              decoration: InputDecoration(
-                counterText: widget.maxLength == 500 ? null : '',
-                suffixIcon: widget.suffixIcon != null
-                    ? IconButton(
-                        icon: widget.suffixIcon!,
-                        onPressed: widget.onsuffixIconPressed ?? () {},
-                      )
-                    : null,
-                prefixIcon: widget.prefixIcon != null
-                    ? IconButton(
-                        icon: widget.prefixIcon!,
-                        onPressed: widget.onprefixIconPressed ?? () {})
-                    : null,
-                focusColor: context.color.contGrey,
-                fillColor: widget.fillColor ?? context.color.contGrey,
-                hoverColor: context.color.contGrey,
-                filled: true,
-                border: widget.border ??
-                    OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(24),
-                      borderSide: BorderSide(
-                        color: widget.borderColor ??
-                            shuttleGrey.withValues(alpha: .2),
+                  enabledBorder: widget.border ??
+                      OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(
+                          widget.borderRadius ?? 24,
+                        ),
+                        borderSide: BorderSide(
+                          color: widget.borderColor ??
+                              shuttleGrey.withValues(alpha: .2),
+                        ),
                       ),
-                    ),
-                enabledBorder: widget.border ??
-                    OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        widget.borderRadius ?? 24,
+                  focusedBorder: widget.border ??
+                      OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(
+                          widget.borderRadius ?? 24,
+                        ),
+                        borderSide: BorderSide(
+                          color: widget.borderColor ??
+                              shuttleGrey.withValues(alpha: .2),
+                        ),
                       ),
-                      borderSide: BorderSide(
-                        color: widget.borderColor ??
-                            shuttleGrey.withValues(alpha: .2),
+                  hintText: widget.hintText,
+                  hintStyle: widget.hintStyle ??
+                      TextStyle(
+                        color: widget.tetxColor ?? context.color.darkText,
                       ),
-                    ),
-                focusedBorder: widget.border ??
-                    OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        widget.borderRadius ?? 24,
-                      ),
-                      borderSide: BorderSide(
-                        color: widget.borderColor ??
-                            shuttleGrey.withValues(alpha: .2),
-                      ),
-                    ),
-                hintText: widget.hintText,
-                hintStyle: widget.hintStyle ??
-                    TextStyle(
-                      color: widget.tetxColor ?? context.color.darkText,
-                    ),
-                // hintStyle: fonts.subtitle1.copyWith(
-                //     color: colors.customBlack.withValues(alpha:0.5), fontSize: 14.sp),
-                // errorText: widget.error,
-                // errorStyle: fonts.caption.copyWith(color: colors.error),
-                contentPadding:
-                    const EdgeInsets.only(left: 16, top: 12, right: 12),
+                  // hintStyle: fonts.subtitle1.copyWith(
+                  //     color: colors.customBlack.withValues(alpha:0.5), fontSize: 14.sp),
+                  // errorText: widget.error,
+                  // errorStyle: fonts.caption.copyWith(color: colors.error),
+                  contentPadding:
+                      const EdgeInsets.only(left: 16, top: 12, right: 12),
+                ),
               ),
             ),
           ),

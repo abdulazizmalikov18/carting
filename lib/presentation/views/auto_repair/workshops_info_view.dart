@@ -174,7 +174,7 @@ class _WorkshopsInfoViewState extends State<WorkshopsInfoView> {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Xizmatlar",
+                  AppLocalizations.of(context)!.services,
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,

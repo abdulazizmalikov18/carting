@@ -172,7 +172,12 @@ class _AddCarViewState extends State<AddCarView> {
                       ));
                 }
               },
-              margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+              margin: EdgeInsets.fromLTRB(
+                16,
+                16,
+                16,
+                Platform.isAndroid ? 16 : 0,
+              ),
               isLoading: state.statusCreate.isInProgress,
               isDisabled: isDisabled,
               disabledColor: context.color.darkText,
@@ -468,7 +473,7 @@ class _AddCarViewState extends State<AddCarView> {
                     spacing: 4,
                     children: [
                       Text(
-                        "Maksimal yo‘lovchi soni",
+                        AppLocalizations.of(context)!.maxPassengerCount,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -520,7 +525,7 @@ class _AddCarViewState extends State<AddCarView> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    AppLocalizations.of(context)!.cargoImages,
+                    AppLocalizations.of(context)!.transportImages,
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -609,7 +614,7 @@ class _AddCarViewState extends State<AddCarView> {
               padding: const EdgeInsets.all(12),
               child: CustomTextField(
                 title: AppLocalizations.of(context)!.description,
-                hintText: AppLocalizations.of(context)!.leaveOrderComment,
+                hintText: AppLocalizations.of(context)!.additionalInfo,
                 minLines: 4,
                 maxLines: 5,
                 noHeight: true,

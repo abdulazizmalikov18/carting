@@ -21,7 +21,7 @@ class _CarsRentalInfoViewState extends State<CarsRentalInfoView> {
   void initState() {
     context.read<AdvertisementBloc>().add(GetAdvertisementsFilterEvent(
           carId: widget.model.id,
-          status: true,
+          status: "ACTIVE",
         ));
     super.initState();
   }
@@ -52,7 +52,7 @@ class _CarsRentalInfoViewState extends State<CarsRentalInfoView> {
                   .read<AdvertisementBloc>()
                   .add(GetAdvertisementsFilterEvent(
                     carId: widget.model.id,
-                    status: true,
+                    status: "ACTIVE",
                   ));
               await Future.delayed(Duration.zero);
             },

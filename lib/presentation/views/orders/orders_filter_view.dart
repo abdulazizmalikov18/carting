@@ -28,7 +28,7 @@ class _OrdersFilterViewState extends State<OrdersFilterView> {
   void initState() {
     context.read<AdvertisementBloc>().add(GetAdvertisementsFilterEvent(
           transportId: widget.model.id,
-          status: true,
+          status: "ACTIVE",
         ));
     super.initState();
   }
@@ -68,7 +68,7 @@ class _OrdersFilterViewState extends State<OrdersFilterView> {
                   .read<AdvertisementBloc>()
                   .add(GetAdvertisementsFilterEvent(
                     transportId: widget.model.id,
-                    status: true,
+                    status: "ACTIVE",
                   ));
               Future.delayed(Duration.zero);
             },

@@ -1,4 +1,5 @@
 import 'package:carting/app/auth/auth_bloc.dart';
+import 'package:carting/data/models/services_filtr_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/routes/route_name.dart';
@@ -6,6 +7,7 @@ import 'package:carting/presentation/views/announcements/announcement_info_view.
 import 'package:carting/presentation/views/announcements/widgets/announcements_iteam_new.dart';
 import 'package:carting/presentation/widgets/paginator_list.dart';
 import 'package:carting/utils/enum_filtr.dart';
+import 'package:carting/utils/my_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -29,11 +31,56 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
   String selectedUnit = 'Barchasi';
   String selectedUnit2 = 'Barchasi';
   int page = 1;
+  late List<ServicesFiltrModel> servicesModel;
+  DateTime? dateTime;
+  DateTime? dateTime2;
+  int? fromPrice;
+  int? toPrice;
 
   @override
   void initState() {
-    context.read<AdvertisementBloc>().add(GetAdvertisementsEvent());
+    context.read<AdvertisementBloc>().add(GetAdvertisementsEvent(
+          isPROVIDE: false,
+        ));
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    servicesModel = [
+      ServicesFiltrModel(
+        name: AppLocalizations.of(context)!.shipping,
+        serviceId: 1,
+      ),
+      ServicesFiltrModel(
+        name: AppLocalizations.of(context)!.delivery,
+        serviceId: 9,
+      ),
+      ServicesFiltrModel(
+        name: AppLocalizations.of(context)!.peregonService,
+        serviceId: 10,
+      ),
+      ServicesFiltrModel(
+        name: AppLocalizations.of(context)!.passengerTransport,
+        serviceId: 2,
+      ),
+      ServicesFiltrModel(
+        name: AppLocalizations.of(context)!.specialTechServices,
+        serviceId: 3,
+      ),
+      ServicesFiltrModel(
+        name: AppLocalizations.of(context)!.transportTransfer,
+        serviceId: 6,
+      ),
+    ];
+  }
+
+  List<int> activeId() {
+    return servicesModel
+        .where((item) => item.isActive == true)
+        .map((item) => item.serviceId)
+        .toList();
   }
 
   @override
@@ -51,17 +98,50 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+              Navigator.of(context, rootNavigator: true)
+                  .push(MaterialPageRoute(
                 builder: (context) => FilterView(
-                  filterType: FilterType.services,
+                  filterType: FilterType.searchAd,
                   list: active,
+                  servicesList: servicesModel,
+                  fromPrice: fromPrice,
+                  toPrice: toPrice,
+                  dateTime2: dateTime2,
+                  dateTime: dateTime,
+                  onSaved: (a1, a2, b1, b2) {
+                    dateTime = a1;
+                    dateTime2 = a2;
+                    fromPrice = b1;
+                    toPrice = b2;
+                    setState(() {});
+                  },
                 ),
-              ));
+              ))
+                  .then((value) {
+                if (value != null && context.mounted) {
+                  context.read<AdvertisementBloc>().add(GetAdvertisementsEvent(
+                        isPROVIDE: false,
+                        serviceId: activeId(),
+                        maxPrice: toPrice,
+                        minPrice: fromPrice,
+                        bdate: dateTime != null
+                            ? MyFunction.dateFormat2(dateTime!)
+                            : null,
+                        edate: dateTime2 != null
+                            ? MyFunction.dateFormat2(dateTime2!)
+                            : null,
+                      ));
+                }
+              });
             },
             icon: Row(
               spacing: 8,
               children: [
-                AppIcons.filter.svg(color: context.color.iron),
+                Badge(
+                  isLabelVisible: activeId().length != servicesModel.length ||
+                      (dateTime != null || dateTime2 != null),
+                  child: AppIcons.filter.svg(color: context.color.iron),
+                ),
                 Text(
                   AppLocalizations.of(context)!.filter,
                   style: const TextStyle(
@@ -141,7 +221,18 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
                       onTap: () {
                         context
                             .read<AdvertisementBloc>()
-                            .add(GetAdvertisementsEvent());
+                            .add(GetAdvertisementsEvent(
+                              isPROVIDE: false,
+                              serviceId: activeId(),
+                              maxPrice: toPrice,
+                              minPrice: fromPrice,
+                              bdate: dateTime != null
+                                  ? MyFunction.dateFormat2(dateTime!)
+                                  : null,
+                              edate: dateTime2 != null
+                                  ? MyFunction.dateFormat2(dateTime2!)
+                                  : null,
+                            ));
                       },
                       text: AppLocalizations.of(context)!.refresh,
                     ),
@@ -151,9 +242,18 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
               }
               return RefreshIndicator.adaptive(
                 onRefresh: () async {
-                  context
-                      .read<AdvertisementBloc>()
-                      .add(GetAdvertisementsEvent());
+                  context.read<AdvertisementBloc>().add(GetAdvertisementsEvent(
+                        isPROVIDE: false,
+                        serviceId: activeId(),
+                        maxPrice: toPrice,
+                        minPrice: fromPrice,
+                        bdate: dateTime != null
+                            ? MyFunction.dateFormat2(dateTime!)
+                            : null,
+                        edate: dateTime2 != null
+                            ? MyFunction.dateFormat2(dateTime2!)
+                            : null,
+                      ));
                   Future.delayed(Duration.zero);
                 },
                 child: PaginatorList(
@@ -161,7 +261,19 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
                     page++;
                     context
                         .read<AdvertisementBloc>()
-                        .add(GetAdvertisementsEvent(page: page));
+                        .add(GetAdvertisementsEvent(
+                          page: page,
+                          isPROVIDE: false,
+                          serviceId: activeId(),
+                          maxPrice: toPrice,
+                          minPrice: fromPrice,
+                          bdate: dateTime != null
+                              ? MyFunction.dateFormat2(dateTime!)
+                              : null,
+                          edate: dateTime2 != null
+                              ? MyFunction.dateFormat2(dateTime2!)
+                              : null,
+                        ));
                   },
                   hasMoreToFetch:
                       state.advertisementCount > state.advertisement.length,

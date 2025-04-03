@@ -832,4 +832,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get clear => 'Clear';
+
+  @override
+  String get maxLoadCapacity => 'Max Load Capacity';
+
+  @override
+  String get maxPassengerCount => 'Max Passenger Count';
+
+  @override
+  String get maxTransportCount => 'Max Transport Count';
+
+  @override
+  String get transportImages => 'Transport Images';
+
+  @override
+  String get confirm_delete => 'Are you sure you want to delete?';
 }

@@ -27,7 +27,7 @@ class _MastersListViewState extends State<MastersListView> {
   void initState() {
     context.read<AdvertisementBloc>().add(GetAdvertisementsFilterEvent(
           specialistId: widget.id,
-          status: true,
+          status: "ACTIVE",
         ));
     super.initState();
   }
@@ -43,7 +43,7 @@ class _MastersListViewState extends State<MastersListView> {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => FilterView(
                   filterType: FilterType.workshopServices,
-                  list: active,
+                  list: active,onSaved: (dateTime, dateTime2, fromPrice, toPrice) {},
                 ),
               ));
             },
@@ -73,7 +73,7 @@ class _MastersListViewState extends State<MastersListView> {
                   .read<AdvertisementBloc>()
                   .add(GetAdvertisementsFilterEvent(
                     specialistId: widget.id,
-                    status: true,
+                    status: "ACTIVE",
                   ));
               await Future.delayed(Duration.zero);
             },

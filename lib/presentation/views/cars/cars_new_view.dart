@@ -1,5 +1,6 @@
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/app/auth/auth_bloc.dart';
+import 'package:carting/data/models/services_filtr_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/routes/route_name.dart';
@@ -10,6 +11,7 @@ import 'package:carting/presentation/widgets/paginator_list.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_shimmer.dart';
 import 'package:carting/utils/enum_filtr.dart';
+import 'package:carting/utils/my_function.dart';
 import 'package:flutter/material.dart';
 
 import 'package:carting/assets/assets/icons.dart';
@@ -27,13 +29,55 @@ class CarsNewView extends StatefulWidget {
 class _CarsNewViewState extends State<CarsNewView> {
   List<bool> active = [true, true, true, true, true];
   int page = 1;
+  late List<ServicesFiltrModel> servicesModel;
+  DateTime? dateTime;
+  DateTime? dateTime2;
   @override
   void initState() {
     context.read<AdvertisementBloc>().add(GetAdvertisementsFilterEvent(
-          serviceId: [1, 2, 3, 4, 6],
-          status: true,
+          serviceId: [1, 2, 3, 6, 9],
+          status: "ACTIVE",
+          isPROVIDE: true,
         ));
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    servicesModel = [
+      ServicesFiltrModel(
+        name: AppLocalizations.of(context)!.shipping,
+        serviceId: 1,
+      ),
+      ServicesFiltrModel(
+        name: AppLocalizations.of(context)!.passengerTransport,
+        serviceId: 2,
+      ),
+      ServicesFiltrModel(
+        name: AppLocalizations.of(context)!.delivery,
+        serviceId: 9,
+      ),
+      ServicesFiltrModel(
+        name: AppLocalizations.of(context)!.passengerTransport,
+        serviceId: 2,
+      ),
+      ServicesFiltrModel(
+        name: AppLocalizations.of(context)!.specialTechServices,
+        serviceId: 3,
+      ),
+      ServicesFiltrModel(
+        name: AppLocalizations.of(context)!.transportTransfer,
+        serviceId: 6,
+      ),
+    ];
+  }
+
+  List<int> activeId() {
+    return servicesModel
+        .where((item) => item.isActive == true)
+        .map((item) => item.serviceId)
+        .toList();
   }
 
   @override
@@ -51,17 +95,47 @@ class _CarsNewViewState extends State<CarsNewView> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+              Navigator.of(context, rootNavigator: true)
+                  .push(MaterialPageRoute(
                 builder: (context) => FilterView(
-                  filterType: FilterType.services,
+                  filterType: FilterType.searchTransport,
                   list: active,
+                  servicesList: servicesModel,
+                  dateTime2: dateTime2,
+                  dateTime: dateTime,
+                  onSaved: (a1, a2, b1, b2) {
+                    dateTime = a1;
+                    dateTime2 = a2;
+                    setState(() {});
+                  },
                 ),
-              ));
+              ))
+                  .then((value) {
+                if (value != null && context.mounted) {
+                  context
+                      .read<AdvertisementBloc>()
+                      .add(GetAdvertisementsFilterEvent(
+                        isPROVIDE: false,
+                        status: "ACTIVE",
+                        serviceId: activeId(),
+                        bdate: dateTime != null
+                            ? MyFunction.dateFormat2(dateTime!)
+                            : null,
+                        edate: dateTime2 != null
+                            ? MyFunction.dateFormat2(dateTime2!)
+                            : null,
+                      ));
+                }
+              });
             },
             icon: Row(
               spacing: 8,
               children: [
-                AppIcons.filter.svg(color: context.color.iron),
+                Badge(
+                  isLabelVisible: activeId().length != servicesModel.length ||
+                      (dateTime != null || dateTime2 != null),
+                  child: AppIcons.filter.svg(color: context.color.iron),
+                ),
                 Text(
                   AppLocalizations.of(context)!.filter,
                   style: const TextStyle(
@@ -139,9 +213,19 @@ class _CarsNewViewState extends State<CarsNewView> {
                     WButton(
                       margin: const EdgeInsets.all(16),
                       onTap: () {
-                        context.read<AdvertisementBloc>().add(
-                            GetAdvertisementsFilterEvent(
-                                transportId: 1, status: true));
+                        context
+                            .read<AdvertisementBloc>()
+                            .add(GetAdvertisementsFilterEvent(
+                              status: "ACTIVE",
+                              isPROVIDE: true,
+                              serviceId: activeId(),
+                              bdate: dateTime != null
+                                  ? MyFunction.dateFormat2(dateTime!)
+                                  : null,
+                              edate: dateTime2 != null
+                                  ? MyFunction.dateFormat2(dateTime2!)
+                                  : null,
+                            ));
                       },
                       text: AppLocalizations.of(context)!.refresh,
                     ),
@@ -154,8 +238,15 @@ class _CarsNewViewState extends State<CarsNewView> {
                   context
                       .read<AdvertisementBloc>()
                       .add(GetAdvertisementsFilterEvent(
-                        transportId: 1,
-                        status: true,
+                        status: "ACTIVE",
+                        serviceId: activeId(),
+                        bdate: dateTime != null
+                            ? MyFunction.dateFormat2(dateTime!)
+                            : null,
+                        edate: dateTime2 != null
+                            ? MyFunction.dateFormat2(dateTime2!)
+                            : null,
+                        isPROVIDE: true,
                       ));
                   Future.delayed(Duration.zero);
                 },
@@ -165,8 +256,15 @@ class _CarsNewViewState extends State<CarsNewView> {
                     context
                         .read<AdvertisementBloc>()
                         .add(GetAdvertisementsFilterEvent(
-                          transportId: 1,
-                          status: true,
+                          status: "ACTIVE",
+                          serviceId: activeId(),
+                          bdate: dateTime != null
+                              ? MyFunction.dateFormat2(dateTime!)
+                              : null,
+                          edate: dateTime2 != null
+                              ? MyFunction.dateFormat2(dateTime2!)
+                              : null,
+                          isPROVIDE: true,
                           page: page,
                         ));
                   },
@@ -188,6 +286,7 @@ class _CarsNewViewState extends State<CarsNewView> {
                             model: state.advertisementFilter[index],
                             isMe: false,
                             isComments: true,
+                            isOnlyCar: true,
                           ),
                         ),
                       ));

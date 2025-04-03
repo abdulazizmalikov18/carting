@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flex_dropdown/flex_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -171,7 +173,12 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                       },
                     ));
               },
-              margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+              margin: EdgeInsets.fromLTRB(
+                16,
+                16,
+                16,
+                Platform.isAndroid ? 16 : 0,
+              ),
               isLoading: state.statusCreate.isInProgress,
               isDisabled: isDisabled,
               disabledColor: context.color.darkText,

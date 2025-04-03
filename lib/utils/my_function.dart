@@ -178,6 +178,15 @@ class MyFunction {
     return DateFormat('dd.MM.yyyy').format(date);
   }
 
+  static String dateFormat2(DateTime date) {
+    return DateFormat('yyyy-MM-dd').format(date);
+  }
+
+  static String dateFormatString(String date) {
+    DateTime dateTime = DateTime.tryParse(date) ?? DateTime.now();
+    return DateFormat('HH:mm dd.MM.yyyy').format(dateTime);
+  }
+
   static String listText(List<CargoTypeValu> list) {
     List<String> titles = [];
     for (var element in list) {
@@ -199,6 +208,13 @@ class MyFunction {
     } else {
       return "${DateFormat("dd.MM.yyyy").format(date)} joylangan";
     }
+  }
+
+  static DateTime stringToDate(String data) {
+    if (data.isEmpty) {
+      return DateTime.now();
+    }
+    return DateFormat("dd.MM.yyyy").parse(data);
   }
 
   static String formatDate2(DateTime date) {

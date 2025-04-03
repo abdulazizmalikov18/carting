@@ -56,55 +56,56 @@ class AnnouncementsIteamNew extends StatelessWidget {
               ),
             ],
           ),
-          Row(
-            spacing: 8,
-            children: [
-              AppIcons.columLocation.svg(),
-              Expanded(
-                child: Column(
-                  spacing: 8,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      (model.fromLocation?.name ??
-                          AppLocalizations.of(context)!.unknown),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: context.color.white,
+          if (model.fromLocation != null || model.toLocation != null)
+            Row(
+              spacing: 8,
+              children: [
+                AppIcons.columLocation.svg(),
+                Expanded(
+                  child: Column(
+                    spacing: 8,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        (model.fromLocation?.name ??
+                            AppLocalizations.of(context)!.unknown),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: context.color.white,
+                        ),
                       ),
-                    ),
-                    Text(
-                      (model.toLocation?.name ??
-                          AppLocalizations.of(context)!.unknown),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: context.color.white,
+                      Text(
+                        (model.toLocation?.name ??
+                            AppLocalizations.of(context)!.unknown),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: context.color.white,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Text(
-                '${calculateDistance(
-                  model.fromLocation?.lat ?? 0,
-                  model.fromLocation?.lng ?? 0,
-                  model.toLocation?.lat ?? 0,
-                  model.toLocation?.lng ?? 0,
-                ).toInt()} km',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: context.color.darkText,
+                Text(
+                  '${calculateDistance(
+                    model.fromLocation?.lat ?? 0,
+                    model.fromLocation?.lng ?? 0,
+                    model.toLocation?.lat ?? 0,
+                    model.toLocation?.lng ?? 0,
+                  ).toInt()} km',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: context.color.darkText,
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
           Row(
             children: [
               Expanded(

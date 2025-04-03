@@ -291,7 +291,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get loadWeight => 'Yuk vazni';
 
   @override
-  String get passengerCount => 'Yo‘lovchi soni';
+  String get passengerCount => 'Yo‘lovchilar soni';
 
   @override
   String get transportCount => 'Transport soni';
@@ -300,7 +300,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get departureDate => 'Jo‘natish sanasi';
 
   @override
-  String get additionalInfo => 'Qo‘shimcha ma’lumotlar';
+  String get additionalInfo => 'Qo\'shimcha ma\'lumotlar';
 
   @override
   String get cargoType => 'Yuk turi';
@@ -832,4 +832,19 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get clear => 'Tozalash';
+
+  @override
+  String get maxLoadCapacity => 'Maksimal yuk sig‘imi';
+
+  @override
+  String get maxPassengerCount => 'Maksimal yo‘lovchi soni';
+
+  @override
+  String get maxTransportCount => 'Maksimal transport soni';
+
+  @override
+  String get transportImages => 'Transport rasmlari';
+
+  @override
+  String get confirm_delete => 'Haqiqatdan ham o‘chirmoqchimisiz?';
 }

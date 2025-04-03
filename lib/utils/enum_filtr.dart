@@ -1,6 +1,8 @@
 enum FilterType {
   services,
   workshopServices,
+  searchAd,
+  searchTransport,
   workshopCategories;
 }
 

@@ -190,7 +190,8 @@ class _AnnouncementsCreateInfoViewState
                                     ),
                                     child: ListTile(
                                       title: Text(
-                                        "Maksimal transport soni",
+                                        AppLocalizations.of(context)!
+                                            .maxTransportCount,
                                         style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w400,
@@ -216,7 +217,8 @@ class _AnnouncementsCreateInfoViewState
                                     ),
                                     child: ListTile(
                                       title: Text(
-                                        "Maksimal yo‘lovchi soni",
+                                        AppLocalizations.of(context)!
+                                            .maxPassengerCount,
                                         style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w400,
@@ -270,7 +272,8 @@ class _AnnouncementsCreateInfoViewState
                               ),
                             ),
                             const SizedBox(height: 16),
-                            const WTitle(title: 'Xizmatlar'),
+                            WTitle(
+                                title: AppLocalizations.of(context)!.services),
                             const SizedBox(height: 12),
                             SizedBox(
                               width: double.infinity,
@@ -324,7 +327,8 @@ class _AnnouncementsCreateInfoViewState
                       case TypeOfServiceEnum.masters:
                         return Column(
                           children: [
-                            const WTitle(title: 'Xizmatlar'),
+                            WTitle(
+                                title: AppLocalizations.of(context)!.services),
                             const SizedBox(height: 12),
                             SizedBox(
                               width: double.infinity,

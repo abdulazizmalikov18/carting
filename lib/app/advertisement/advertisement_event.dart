@@ -6,11 +6,19 @@ class GetAdvertisementsEvent extends AdvertisementEvent {
   final List<int>? serviceId;
   final bool? isPROVIDE;
   final int? page;
+  final String? bdate;
+  final String? edate;
+  final int? minPrice;
+  final int? maxPrice;
 
   GetAdvertisementsEvent({
     this.serviceId,
     this.isPROVIDE,
     this.page,
+    this.bdate,
+    this.edate,
+    this.minPrice,
+    this.maxPrice,
   });
 }
 
@@ -18,11 +26,15 @@ class GetAdvertisementsFilterEvent extends AdvertisementEvent {
   final List<int>? serviceId;
   final bool? isPROVIDE;
   final int? specialistId;
-  final bool? status;
+  final String? status;
   final int? carId;
   final int? repairTypeId;
   final int? transportId;
   final int? page;
+    final String? bdate;
+  final String? edate;
+  final int? minPrice;
+  final int? maxPrice;
 
   GetAdvertisementsFilterEvent({
     this.serviceId,
@@ -32,7 +44,10 @@ class GetAdvertisementsFilterEvent extends AdvertisementEvent {
     this.carId,
     this.repairTypeId,
     this.transportId,
-    this.page,
+    this.page, this.bdate,
+    this.edate,
+    this.minPrice,
+    this.maxPrice,
   });
 }
 

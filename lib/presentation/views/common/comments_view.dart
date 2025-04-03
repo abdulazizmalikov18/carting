@@ -8,6 +8,7 @@ import 'package:carting/infrastructure/repo/advertisement_repo.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/widgets/custom_text_field.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
+import 'package:carting/utils/my_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -125,7 +126,9 @@ class _CommentsViewState extends State<CommentsView> {
                               ),
                             ),
                             Text(
-                              widget.comments[index].createdAt,
+                              MyFunction.dateFormatString(
+                                widget.comments[index].createdAt,
+                              ),
                               style: const TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w400,

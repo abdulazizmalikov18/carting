@@ -832,4 +832,19 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get clear => 'Очистить';
+
+  @override
+  String get maxLoadCapacity => 'Максимальная грузоподъемность';
+
+  @override
+  String get maxPassengerCount => 'Максимальное количество пассажиров';
+
+  @override
+  String get maxTransportCount => 'Максимальное количество транспорта';
+
+  @override
+  String get transportImages => 'Транспортные изображения';
+
+  @override
+  String get confirm_delete => 'Вы действительно хотите удалить?';
 }

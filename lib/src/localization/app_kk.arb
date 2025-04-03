@@ -275,5 +275,12 @@
   "add_transport": "Транспорт қўшиш",
   "transport_number_plate": "Транспорт давлат рақами",
   "your_transports_here": "Транспортларингиз шу ерда\nбўлади. Уларни қўшинг.",
-  "clear": "Тозалаш"
+  "clear": "Тозалаш",
+  "maxLoadCapacity": "Максимал юк сиқими",
+  "maxPassengerCount": "Максимал йўловчи сони",
+  "maxTransportCount": "Максимал транспорт сони",
+  "passengerCount": "Йўловчилар сони",
+  "transportImages": "Транспорт расмлари",
+  "additionalInfo": "Кушимча маълумотлар",
+  "confirm_delete": "Ҳақиқатдан ҳам ўчирмоқчимисиз?"
 }
