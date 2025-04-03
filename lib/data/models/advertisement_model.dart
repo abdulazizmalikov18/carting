@@ -129,6 +129,8 @@ class Details {
   final List<Tariff>? tariffs;
   @JsonKey(name: "repair_type_id")
   final int? repairTypeId;
+  @JsonKey(name: "load_type_list")
+  final List<int>? loadTypeList;
   // @JsonKey(name: "category")
   // final List<String>? category;
   // @JsonKey(name: "services")
@@ -184,6 +186,7 @@ class Details {
     this.characteristics,
     this.tariffs,
     this.repairTypeId,
+    this.loadTypeList,
     // this.category,
     // this.services,
     this.companyName,

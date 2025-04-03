@@ -78,7 +78,9 @@ class _CargoTypeItemState extends State<CargoTypeItem> {
 class CargoTypeValu {
   String title;
   bool value;
+  final int id;
   CargoTypeValu({
+    required this.id,
     required this.title,
     required this.value,
   });

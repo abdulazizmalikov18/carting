@@ -55,13 +55,41 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
     final localization = AppLocalizations.of(context)!;
 
     list = [
-      CargoTypeValu(title: localization.household_appliances, value: false),
-      CargoTypeValu(title: localization.construction_materials, value: false),
-      CargoTypeValu(title: localization.food_products, value: false),
-      CargoTypeValu(title: localization.agricultural_products, value: false),
-      CargoTypeValu(title: localization.medical_equipment, value: false),
-      CargoTypeValu(title: localization.moving_furniture, value: false),
-      CargoTypeValu(title: localization.animal_transportation, value: false),
+      CargoTypeValu(
+        id: 1,
+        title: localization.household_appliances,
+        value: false,
+      ),
+      CargoTypeValu(
+        id: 2,
+        title: localization.construction_materials,
+        value: false,
+      ),
+      CargoTypeValu(
+        id: 3,
+        title: localization.food_products,
+        value: false,
+      ),
+      CargoTypeValu(
+        id: 4,
+        title: localization.agricultural_products,
+        value: false,
+      ),
+      CargoTypeValu(
+        id: 5,
+        title: localization.medical_equipment,
+        value: false,
+      ),
+      CargoTypeValu(
+        id: 6,
+        title: localization.moving_furniture,
+        value: false,
+      ),
+      CargoTypeValu(
+        id: 7,
+        title: localization.animal_transportation,
+        value: false,
+      ),
     ];
   }
 
@@ -134,6 +162,10 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                         state.transportationTypes[trTypeId.value].id,
                     loadTypeId: '${loadTypeId.value}',
                     loadServiceId: '${loadServiceId.value}',
+                    loadTypeList: list
+                        .where((item) => item.value == true)
+                        .map((item) => item.id)
+                        .toList(),
                     // loadWeight: LoadWeight(
                     //   amount: int.tryParse(controllerCount.text) ?? 0,
                     //   name: selectedUnit,

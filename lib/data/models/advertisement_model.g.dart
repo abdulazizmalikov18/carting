@@ -106,6 +106,9 @@ Details _$DetailsFromJson(Map<String, dynamic> json) => Details(
           ?.map((e) => Tariff.fromJson(e as Map<String, dynamic>))
           .toList(),
       repairTypeId: (json['repair_type_id'] as num?)?.toInt(),
+      loadTypeList: (json['load_type_list'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList(),
       companyName: json['company_name'] as String?,
       transportSpecialistId: (json['transport_specialist_id'] as num?)?.toInt(),
       specialistFirstName: json['specialist_first_name'] as String?,
@@ -139,6 +142,7 @@ Map<String, dynamic> _$DetailsToJson(Details instance) => <String, dynamic>{
       'characteristics': instance.characteristics,
       'tariffs': instance.tariffs,
       'repair_type_id': instance.repairTypeId,
+      'load_type_list': instance.loadTypeList,
       'company_name': instance.companyName,
       'transport_specialist_id': instance.transportSpecialistId,
       'specialist_first_name': instance.specialistFirstName,

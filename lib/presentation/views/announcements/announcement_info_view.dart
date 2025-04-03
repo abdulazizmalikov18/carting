@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/assets/images.dart';
 import 'package:carting/assets/colors/colors.dart';
@@ -15,6 +16,7 @@ import 'package:carting/utils/calculate_distance.dart';
 import 'package:carting/utils/caller.dart';
 import 'package:carting/utils/my_function.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AnnouncementInfoView extends StatelessWidget {
   const AnnouncementInfoView({
@@ -72,6 +74,7 @@ class AnnouncementInfoView extends StatelessWidget {
                   Expanded(
                     child: WButton(
                       onTap: () {
+                        final bloc = context.read<AdvertisementBloc>();
                         showModalBottomSheet(
                           context: context,
                           backgroundColor: Colors.transparent,
@@ -124,16 +127,30 @@ class AnnouncementInfoView extends StatelessWidget {
                                           ),
                                         ),
                                         Expanded(
-                                          child: WButton(
-                                            onTap: () {
-                                              Navigator.of(context)
-                                                ..pop()
-                                                ..pop();
+                                          child: BlocBuilder<AdvertisementBloc,
+                                              AdvertisementState>(
+                                            bloc: bloc,
+                                            builder: (context, state) {
+                                              return WButton(
+                                                onTap: () {
+                                                  bloc.add(
+                                                    DeleteAdvertisementEvent(
+                                                      id: model.id,
+                                                      onSucces: () {
+                                                        Navigator.of(context)
+                                                          ..pop()
+                                                          ..pop(true);
+                                                      },
+                                                    ),
+                                                  );
+                                                },
+                                                textColor: greyText,
+                                                color: greyBack,
+                                                text: AppLocalizations.of(
+                                                        context)!
+                                                    .yes,
+                                              );
                                             },
-                                            textColor: greyText,
-                                            color: greyBack,
-                                            text: AppLocalizations.of(context)!
-                                                .yes,
                                           ),
                                         )
                                       ],
@@ -490,7 +507,9 @@ class AnnouncementInfoView extends StatelessWidget {
               ),
               const SizedBox(height: 8),
             ],
-            if (!isMyCar && !isOnlyCar) ...[
+            if (!isMyCar &&
+                !isOnlyCar &&
+                (model.details?.loadTypeList ?? []).isNotEmpty) ...[
               Text(
                 '${AppLocalizations.of(context)!.cargoType}:',
                 style: const TextStyle(
@@ -499,12 +518,15 @@ class AnnouncementInfoView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              const Wrap(
+              Wrap(
                 spacing: 16,
-                children: [
-                  WInfoContainer(text: "Qurilish materiallari"),
-                  WInfoContainer(text: "Maishiy texnika"),
-                ],
+                runSpacing: 8,
+                children: List.generate(
+                  model.details!.loadTypeList!.length,
+                  (index) => WInfoContainer(
+                    text: MyFunction.getLoadTypeName(index, context),
+                  ),
+                ),
               ),
             ],
             if (model.details!.kg != null ||

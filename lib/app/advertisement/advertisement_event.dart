@@ -2,6 +2,16 @@ part of 'advertisement_bloc.dart';
 
 sealed class AdvertisementEvent {}
 
+class DeleteAdvertisementEvent extends AdvertisementEvent {
+  final int id;
+  final VoidCallback onSucces;
+
+  DeleteAdvertisementEvent({
+    required this.id,
+    required this.onSucces,
+  });
+}
+
 class GetAdvertisementsEvent extends AdvertisementEvent {
   final List<int>? serviceId;
   final bool? isPROVIDE;
@@ -31,7 +41,7 @@ class GetAdvertisementsFilterEvent extends AdvertisementEvent {
   final int? repairTypeId;
   final int? transportId;
   final int? page;
-    final String? bdate;
+  final String? bdate;
   final String? edate;
   final int? minPrice;
   final int? maxPrice;
@@ -44,7 +54,8 @@ class GetAdvertisementsFilterEvent extends AdvertisementEvent {
     this.carId,
     this.repairTypeId,
     this.transportId,
-    this.page, this.bdate,
+    this.page,
+    this.bdate,
     this.edate,
     this.minPrice,
     this.maxPrice,

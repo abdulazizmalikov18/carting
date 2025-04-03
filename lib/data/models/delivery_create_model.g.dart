@@ -40,6 +40,9 @@ Map<String, dynamic> _$DeliveryCreateModelToJson(
 Details _$DetailsFromJson(Map<String, dynamic> json) => Details(
       transportationTypeId: (json['transportation_type_id'] as num).toInt(),
       loadTypeId: json['load_type_id'] as String,
+      loadTypeList: (json['load_type_list'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList(),
       loadServiceId: json['load_service_id'] as String,
       kg: json['kg'] as String?,
       m3: json['m3'] as String?,
@@ -51,6 +54,7 @@ Details _$DetailsFromJson(Map<String, dynamic> json) => Details(
 Map<String, dynamic> _$DetailsToJson(Details instance) => <String, dynamic>{
       'transportation_type_id': instance.transportationTypeId,
       'load_type_id': instance.loadTypeId,
+      'load_type_list': instance.loadTypeList,
       'load_service_id': instance.loadServiceId,
       'kg': instance.kg,
       'm3': instance.m3,

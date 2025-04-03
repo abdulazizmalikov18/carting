@@ -62,6 +62,8 @@ class Details {
   final int transportationTypeId;
   @JsonKey(name: "load_type_id")
   final String loadTypeId;
+  @JsonKey(name: "load_type_list")
+  final List<int>? loadTypeList;
   @JsonKey(name: "load_service_id")
   final String loadServiceId;
   // @JsonKey(name: "load_weight")
@@ -80,6 +82,7 @@ class Details {
   Details({
     required this.transportationTypeId,
     required this.loadTypeId,
+    this.loadTypeList,
     required this.loadServiceId,
     this.kg,
     this.m3,

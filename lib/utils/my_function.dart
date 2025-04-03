@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:carting/app/auth/auth_bloc.dart';
 import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/routes/route_name.dart';
 import 'package:carting/presentation/widgets/cargo_type_item.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
@@ -176,6 +177,28 @@ class MyFunction {
 
   static String dateFormat(DateTime date) {
     return DateFormat('dd.MM.yyyy').format(date);
+  }
+
+  static String getLoadTypeName(int index, BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+    switch (index) {
+      case 1:
+        return localization.household_appliances;
+      case 2:
+        return localization.construction_materials;
+      case 3:
+        return localization.food_products;
+      case 4:
+        return localization.agricultural_products;
+      case 5:
+        return localization.medical_equipment;
+      case 6:
+        return localization.moving_furniture;
+      case 7:
+        return localization.animal_transportation;
+      default:
+        return localization.unknown;
+    }
   }
 
   static String dateFormat2(DateTime date) {

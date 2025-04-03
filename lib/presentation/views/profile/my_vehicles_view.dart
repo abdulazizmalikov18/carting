@@ -38,12 +38,18 @@ class _MyVehiclesViewState extends State<MyVehiclesView> {
               child: WButton(
                 onTap: () {
                   final bloc = context.read<AdvertisementBloc>();
-                  Navigator.of(context).push(MaterialPageRoute(
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(
                     builder: (context) => BlocProvider.value(
                       value: bloc,
                       child: const AddCarView(),
                     ),
-                  ));
+                  ))
+                      .then((value) {
+                    if (value != null) {
+                      bloc.add(GetAdvertisementsMyCarsEvent());
+                    }
+                  });
                 },
                 margin: EdgeInsets.fromLTRB(
                   16,
@@ -105,7 +111,12 @@ class _MyVehiclesViewState extends State<MyVehiclesView> {
                           isComments: true,
                         ),
                       ),
-                    ));
+                    ))
+                        .then((value) {
+                      if (value != null) {
+                        bloc.add(GetAdvertisementsMyCarsEvent());
+                      }
+                    });
                   },
                   child: CarIteam(
                     model: state.advertisementMyCars[index],

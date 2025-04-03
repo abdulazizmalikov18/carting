@@ -41,4 +41,5 @@ abstract class IAdvertisementRepo {
   Future<Either<Failure, bool>> putReferrealCde(String note, String code);
   Future<Either<Failure, bool>> deleteReferrealCde(String code);
   Future<Either<Failure, bool>> postComment(Map<String, dynamic> model);
+  Future<Either<Failure, bool>> deleteAdvertisement(int id);
 }

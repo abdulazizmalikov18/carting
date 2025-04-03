@@ -9,7 +9,7 @@ part of 'advertisement_car_model.dart';
 AdvertisementCarModel _$AdvertisementCarModelFromJson(
         Map<String, dynamic> json) =>
     AdvertisementCarModel(
-      advType: json['adv_type'] as String? ?? 'RECEIVE',
+      advType: json['adv_type'] as String? ?? 'PROVIDE',
       serviceTypeId: (json['service_type_id'] as num).toInt(),
       fromLocation:
           Location.fromJson(json['from_location'] as Map<String, dynamic>),
