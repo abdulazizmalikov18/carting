@@ -121,6 +121,7 @@ class _MyVehiclesViewState extends State<MyVehiclesView> {
                   child: CarIteam(
                     model: state.advertisementMyCars[index],
                     isMyCar: true,
+                    isStatus: true,
                   ),
                 ),
               ),

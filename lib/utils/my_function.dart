@@ -65,6 +65,34 @@ class MyFunction {
     }
   }
 
+  static String servicesNema(int index, BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+    switch (index) {
+      case 1:
+        return localization.shipping;
+      case 2:
+        return localization.passengerTransport;
+      case 3:
+        return localization.specialTechServices;
+      case 4:
+        return localization.carRental;
+      case 5:
+        return localization.autoRepair;
+      case 6:
+        return localization.transportTransfer;
+      case 7:
+        return localization.warehouseStorage;
+      case 8:
+        return localization.fuelDelivery;
+      case 9:
+        return localization.delivery;
+      case 10:
+        return localization.peregonService;
+      default:
+        return localization.unknown;
+    }
+  }
+
   static String maskPhoneNumber(String phoneNumber) {
     if (phoneNumber.length != 12) {
       throw ArgumentError('Telefon raqami noto\'g\'ri formatda.');

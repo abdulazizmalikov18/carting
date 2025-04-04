@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/app/auth/auth_bloc.dart';
@@ -6,7 +8,6 @@ import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/data/models/user_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
-import 'package:carting/presentation/views/profile/referal_edit_view.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/presentation/widgets/custom_text_field.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
@@ -17,6 +18,7 @@ import 'package:carting/utils/my_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ReferralProgramView extends StatefulWidget {
@@ -67,54 +69,81 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                           children: [
                             Row(
                               children: [
-                                Expanded(
+                                const Expanded(
                                   child: Text(
                                     'Referal link',
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
-                                      color: context.color.iron,
                                     ),
                                   ),
                                 ),
-                                WScaleAnimation(
-                                  onTap: () {
-                                    final bloc =
-                                        context.read<AdvertisementBloc>();
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (context) => BlocProvider.value(
-                                        value: bloc,
-                                        child: ReferalEditView(
-                                          referralCodes:
-                                              state.userModel.referralCodes,
-                                        ),
-                                      ),
-                                    ));
-                                  },
-                                  child: Row(
-                                    children: [
-                                      AppIcons.edit.svg(
-                                        color: context.color.iron,
-                                      ),
-                                      const SizedBox(width: 4),
-                                      Text(
-                                        AppLocalizations.of(context)!.edit,
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                          color: context.color.iron,
-                                        ),
-                                      ),
-                                    ],
+                                if (state.userModel.referralCodes.isNotEmpty)
+                                  IconButton(
+                                    onPressed: () async {
+                                      // await Share.share(
+                                      //   "https://carting.com/referral?code=${state.userModel.referralCodes.first.code}",
+                                      //   subject: 'Look what I made!',
+                                      // );
+                                      if (Platform.isAndroid) {
+                                        await Share.share(
+                                          "https://play.google.com/store/apps/details?id=uz.realsoft.carting",
+                                          subject: state.userModel.referralCodes
+                                              .first.note,
+                                        );
+                                      } else if (Platform.isIOS) {
+                                        await Share.share(
+                                          "https://apps.apple.com/uz/app/carting/id6742141732",
+                                          subject: state.userModel.referralCodes
+                                              .first.note,
+                                        );
+                                      } else {
+                                        CustomSnackbar.show(
+                                          context,
+                                          "Sizning qurulmangiz topilmadi",
+                                        );
+                                      }
+                                    },
+                                    icon: AppIcons.share
+                                        .svg(color: context.color.white),
                                   ),
-                                ),
+                                // WScaleAnimation(
+                                //   onTap: () {
+                                //     final bloc =
+                                //         context.read<AdvertisementBloc>();
+                                //     Navigator.of(context)
+                                //         .push(MaterialPageRoute(
+                                //       builder: (context) => BlocProvider.value(
+                                //         value: bloc,
+                                //         child: ReferalEditView(
+                                //           referralCodes:
+                                //               state.userModel.referralCodes,
+                                //         ),
+                                //       ),
+                                //     ));
+                                //   },
+                                //   child: Row(
+                                //     children: [
+                                //       AppIcons.edit.svg(
+                                //         color: context.color.iron,
+                                //       ),
+                                //       const SizedBox(width: 4),
+                                //       Text(
+                                //         AppLocalizations.of(context)!.edit,
+                                //         style: TextStyle(
+                                //           fontSize: 14,
+                                //           fontWeight: FontWeight.w400,
+                                //           color: context.color.iron,
+                                //         ),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
                               ],
                             ),
                             const SizedBox(height: 8),
                             Container(
-                              padding:
-                                  const EdgeInsets.fromLTRB(16, 16, 16, 24),
+                              padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(24),
                                 color: context.color.contColor,
@@ -129,96 +158,98 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                           state.userModel.referralCodes[index],
                                     ),
                                   ),
-                                  WButton(
-                                    onTap: () {
-                                      final controller =
-                                          TextEditingController();
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                          backgroundColor:
-                                              context.color.contColor,
-                                          insetPadding:
-                                              const EdgeInsets.all(16),
-                                          title: const Text("Kod qo‘shish"),
-                                          content: SizedBox(
-                                            width: 500,
-                                            height: 148,
-                                            child: CustomTextField(
-                                              controller: controller,
-                                              title:
-                                                  AppLocalizations.of(context)!
-                                                      .description,
-                                              hintText:
-                                                  AppLocalizations.of(context)!
-                                                      .description,
-                                              noHeight: true,
-                                              minLines: 5,
-                                              maxLines: 5,
-                                              borderColor: context.color.iron,
-                                              tetxColor: context.color.iron,
-                                              expands: false,
+                                  if (state.userModel.referralCodes.isEmpty)
+                                    WButton(
+                                      onTap: () {
+                                        final controller =
+                                            TextEditingController();
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                            backgroundColor:
+                                                context.color.contColor,
+                                            insetPadding:
+                                                const EdgeInsets.all(16),
+                                            title: const Text("Kod qo‘shish"),
+                                            content: SizedBox(
+                                              width: 500,
+                                              height: 148,
+                                              child: CustomTextField(
+                                                controller: controller,
+                                                title: AppLocalizations.of(
+                                                        context)!
+                                                    .description,
+                                                hintText: AppLocalizations.of(
+                                                        context)!
+                                                    .description,
+                                                noHeight: true,
+                                                minLines: 5,
+                                                maxLines: 5,
+                                                borderColor: context.color.iron,
+                                                tetxColor: context.color.iron,
+                                                expands: false,
+                                              ),
                                             ),
+                                            actions: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: WButton(
+                                                      onTap: () {
+                                                        Navigator.of(context)
+                                                            .pop(false);
+                                                      },
+                                                      text: AppLocalizations.of(
+                                                              context)!
+                                                          .cancel,
+                                                      color: context.color.iron,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 16),
+                                                  Expanded(
+                                                    child: WButton(
+                                                      onTap: () {
+                                                        Navigator.of(context)
+                                                            .pop(true);
+                                                      },
+                                                      text: AppLocalizations.of(
+                                                              context)!
+                                                          .save,
+                                                    ),
+                                                  )
+                                                ],
+                                              )
+                                            ],
                                           ),
-                                          actions: [
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                  child: WButton(
-                                                    onTap: () {
-                                                      Navigator.of(context)
-                                                          .pop(false);
+                                        ).then((value) {
+                                          if (value == true) {
+                                            if (context.mounted) {
+                                              context
+                                                  .read<AdvertisementBloc>()
+                                                  .add(PostRefCodeEvent(
+                                                    note: controller.text,
+                                                    onSucces: () {
+                                                      context
+                                                          .read<AuthBloc>()
+                                                          .add(GetMeEvent(
+                                                              isNotAuth: true));
                                                     },
-                                                    text: AppLocalizations.of(
-                                                            context)!
-                                                        .cancel,
-                                                    color: context.color.iron,
-                                                  ),
-                                                ),
-                                                const SizedBox(width: 16),
-                                                Expanded(
-                                                  child: WButton(
-                                                    onTap: () {
-                                                      Navigator.of(context)
-                                                          .pop(true);
-                                                    },
-                                                    text: AppLocalizations.of(
-                                                            context)!
-                                                        .save,
-                                                  ),
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ).then((value) {
-                                        if (value == true) {
-                                          if (context.mounted) {
-                                            context
-                                                .read<AdvertisementBloc>()
-                                                .add(PostRefCodeEvent(
-                                                  note: controller.text,
-                                                  onSucces: () {
-                                                    context
-                                                        .read<AuthBloc>()
-                                                        .add(GetMeEvent(
-                                                            isNotAuth: true));
-                                                  },
-                                                ));
+                                                  ));
+                                            }
                                           }
-                                        }
-                                      });
-                                    },
-                                    width: 140,
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        AppIcons.addCircle.svg(),
-                                        const SizedBox(width: 8),
-                                        Text(AppLocalizations.of(context)!.add)
-                                      ],
-                                    ),
-                                  )
+                                        });
+                                      },
+                                      width: 140,
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          AppIcons.addCircle.svg(),
+                                          const SizedBox(width: 8),
+                                          Text(
+                                              AppLocalizations.of(context)!.add)
+                                        ],
+                                      ),
+                                    )
                                 ],
                               ),
                             ),
@@ -472,20 +503,35 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
   }
 }
 
-class ReferalIteam extends StatelessWidget {
+class ReferalIteam extends StatefulWidget {
   final ReferralCode model;
   const ReferalIteam({super.key, required this.model});
 
   @override
+  State<ReferalIteam> createState() => _ReferalIteamState();
+}
+
+class _ReferalIteamState extends State<ReferalIteam> {
+  late TextEditingController _controller;
+  bool isEdit = false;
+
+  @override
+  void initState() {
+    _controller = TextEditingController(text: widget.model.note);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           spacing: 8,
           children: [
             Expanded(
               child: Container(
-                height: 40,
+                height: 48,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   color: context.color.scaffoldBackground,
@@ -495,11 +541,11 @@ class ReferalIteam extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        model.code,
+                        widget.model.code,
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
-                          color: context.color.darkText,
+                          color: context.color.white,
                         ),
                       ),
                     ),
@@ -508,7 +554,7 @@ class ReferalIteam extends StatelessWidget {
                         await Clipboard.setData(
                           ClipboardData(
                             text:
-                                "https://carting.com/referral?code=${model.code}",
+                                "https://carting.com/referral?code=${widget.model.code}",
                           ),
                         );
                         if (context.mounted) {
@@ -521,28 +567,183 @@ class ReferalIteam extends StatelessWidget {
                 ),
               ),
             ),
-            IconButton(
-              onPressed: () async {
-                await Share.share(
-                  "https://carting.com/referral?code=${model.code}",
-                  subject: 'Look what I made!',
-                );
-              },
-              icon: AppIcons.share.svg(color: context.color.iron),
-            ),
           ],
         ),
         const SizedBox(height: 16),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: context.color.scaffoldBackground,
-          ),
-          width: double.infinity,
-          padding: const EdgeInsets.all(16),
-          child: Text(model.note),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              AppLocalizations.of(context)!.description,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: context.color.darkText,
+              ),
+            ),
+            if (!isEdit)
+              WScaleAnimation(
+                onTap: () {
+                  isEdit = true;
+                  setState(() {});
+                },
+                child: Row(
+                  children: [
+                    AppIcons.edit.svg(
+                      color: context.color.red,
+                      height: 20,
+                      width: 20,
+                    ),
+                    Text(
+                      AppLocalizations.of(context)!.edit,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: context.color.red,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+          ],
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 4),
+        CustomTextField(
+          hintText: AppLocalizations.of(context)!.description,
+          controller: _controller,
+          noHeight: true,
+          minLines: 5,
+          maxLines: 5,
+          readOnly: !isEdit,
+          borderRadius: 16,
+          fillColor: context.color.contColor,
+          expands: false,
+          onChanged: (value) {
+            setState(() {});
+          },
+        ),
+        if (isEdit) ...[
+          const SizedBox(height: 24),
+          Row(
+            spacing: 16,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              WButton(
+                onTap: () {
+                  isEdit = false;
+                  setState(() {});
+                },
+                text: AppLocalizations.of(context)!.cancel,
+                color: greyBack,
+                textColor: greyText,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+              ),
+              WButton(
+                onTap: () {
+                  if (widget.model.note != _controller.text) {
+                    final bloc = context.read<AdvertisementBloc>();
+                    showModalBottomSheet(
+                      context: context,
+                      backgroundColor: Colors.transparent,
+                      useRootNavigator: true,
+                      builder: (context) => Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            height: 4,
+                            width: 64,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: const Color(0xFFB7BFC6),
+                            ),
+                            margin: const EdgeInsets.all(12),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 24,
+                              horizontal: 16,
+                            ),
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: context.color.contColor,
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            child: Column(
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .confirm_save_referral_changes,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    color: context.color.darkText,
+                                  ),
+                                ),
+                                const SizedBox(height: 24),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: WButton(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                        text: AppLocalizations.of(context)!
+                                            .cancel,
+                                        textColor: darkText,
+                                        color: const Color(0xFFF3F3F3),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 12),
+                                    Expanded(
+                                      child: BlocBuilder<AdvertisementBloc,
+                                          AdvertisementState>(
+                                        bloc: bloc,
+                                        builder: (context, state) {
+                                          return WButton(
+                                            onTap: () {
+                                              bloc.add(PutRefCodeEvent(
+                                                code: widget.model.code,
+                                                note: _controller.text,
+                                                onSucces: () {
+                                                  context
+                                                      .read<AuthBloc>()
+                                                      .add(UpdateCode(
+                                                        code: widget.model.code,
+                                                        note: _controller.text,
+                                                      ));
+                                                  Navigator.pop(context);
+                                                },
+                                              ));
+                                            },
+                                            text: AppLocalizations.of(context)!
+                                                .save,
+                                            isLoading:
+                                                state.statusChange.isInProgress,
+                                            textColor: red,
+                                            color: red.withValues(alpha: .1),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 24),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  }
+                },
+                isDisabled: widget.model.note == _controller.text,
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                text: AppLocalizations.of(context)!.save,
+              ),
+            ],
+          )
+        ]
       ],
     );
   }

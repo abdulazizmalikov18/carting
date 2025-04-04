@@ -5,6 +5,7 @@ import 'package:carting/presentation/widgets/car_number_iteam.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/utils/caller.dart';
+import 'package:carting/utils/my_function.dart';
 import 'package:flutter/material.dart';
 
 import 'package:carting/assets/assets/icons.dart';
@@ -16,9 +17,11 @@ class CarIteam extends StatelessWidget {
     super.key,
     required this.model,
     this.isMyCar = false,
+    this.isStatus = false,
   });
   final AdvertisementModel model;
   final bool isMyCar;
+  final bool isStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +56,29 @@ class CarIteam extends StatelessWidget {
                   color: context.color.darkText,
                 ),
               ),
+              if (isStatus) ...[
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 4,
+                    horizontal: 10,
+                  ),
+                  margin: const EdgeInsets.only(left: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(24),
+                    color: model.status == 'ACTIVE'
+                        ? green.withValues(alpha: 0.1)
+                        : red.withValues(alpha: 0.1),
+                  ),
+                  child: Text(
+                    model.status == 'ACTIVE' ? "Bo'sh" : "Band",
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: model.status == 'ACTIVE' ? green : red,
+                    ),
+                  ),
+                ),
+              ]
             ],
           ),
           if (model.transportIcon != null)
@@ -146,8 +172,7 @@ class CarIteam extends StatelessWidget {
               spacing: 12,
               children: [
                 RowIcon(
-                  text: model.serviceName ??
-                      AppLocalizations.of(context)!.unknown,
+                  text: MyFunction.servicesNema(model.serviceTypeId, context),
                   icon: switch (model.serviceTypeId) {
                     1 => AppIcons.shipping.svg(
                         color: context.color.iron,

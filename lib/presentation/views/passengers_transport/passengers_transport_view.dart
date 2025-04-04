@@ -374,6 +374,7 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
               payDate: payDate,
               priceOffer: priceOffer,
               images: images,
+              isImage: false,
               onSave: (list) {
                 setState(() {
                   images = list;

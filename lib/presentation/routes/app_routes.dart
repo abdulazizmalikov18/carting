@@ -117,6 +117,15 @@ sealed class AppRouts {
           GoRoute(
             path: AppRouteName.carsAuth,
             builder: (context, state) => const CarsNewView(),
+            // routes: [
+            //   GoRoute(
+            //     path: ':id', // ID parametrini qo'shdik
+            //     builder: (context, state) {
+            //       final String id = state.pathParameters['id'] ?? '';
+            //       return AnnouncementInfoView(id: id); // ID ni yuboramiz
+            //     },
+            //   ),
+            // ],
           ),
         ],
       ),

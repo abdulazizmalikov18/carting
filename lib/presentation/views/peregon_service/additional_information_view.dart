@@ -23,6 +23,8 @@ class AdditionalInformationView extends StatefulWidget {
     required this.onSave,
     required this.images,
     required this.priceOffer,
+    this.imageText,
+    this.isImage = true,
   });
   final bool isDelivery;
   final List<File> images;
@@ -33,6 +35,8 @@ class AdditionalInformationView extends StatefulWidget {
   final ValueNotifier<int> payDate;
   final ValueNotifier<bool> priceOffer;
   final Function(List<File> images) onSave;
+  final String? imageText;
+  final bool? isImage;
 
   @override
   State<AdditionalInformationView> createState() =>
@@ -275,102 +279,105 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
             );
           },
         ),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
-            color: context.color.contColor,
-            boxShadow: wboxShadow2,
-          ),
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            spacing: 8,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                AppLocalizations.of(context)!.cargoImages,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: context.color.darkText,
+        if (widget.isImage!)
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              color: context.color.contColor,
+              boxShadow: wboxShadow2,
+            ),
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              spacing: 8,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.imageText ?? AppLocalizations.of(context)!.cargoImages,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: context.color.darkText,
+                  ),
                 ),
-              ),
-              ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  if (widget.images.length == index) {
-                    return WScaleAnimation(
-                      onTap: () {
-                        setState(() {
-                          imagesFile();
-                        });
-                      },
-                      child: SizedBox(
-                        height: 56,
-                        child: DottedBorder(
-                          color: green,
-                          strokeWidth: 1,
-                          borderType: BorderType.RRect,
-                          radius: const Radius.circular(16),
-                          child: Center(
-                            child: AppIcons.upload.svg(),
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    if (widget.images.length == index) {
+                      return WScaleAnimation(
+                        onTap: () {
+                          setState(() {
+                            imagesFile();
+                          });
+                        },
+                        child: SizedBox(
+                          height: 56,
+                          child: DottedBorder(
+                            color: green,
+                            strokeWidth: 1,
+                            borderType: BorderType.RRect,
+                            radius: const Radius.circular(16),
+                            child: Center(
+                              child: AppIcons.upload.svg(),
+                            ),
                           ),
+                        ),
+                      );
+                    }
+                    return DecoratedBox(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: context.color.scaffoldBackground,
+                      ),
+                      child: ListTile(
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 8),
+                        leading: Container(
+                          height: 48,
+                          width: 48,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            image: DecorationImage(
+                              image: FileImage(widget.images[index]),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        title: Text(
+                          widget.images[index].path.split('/').last,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        subtitle: FutureBuilder<int>(
+                          future: widget.images[index].length(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Text("Hajm yuklanmoqda...");
+                            } else if (snapshot.hasError) {
+                              return const Text("Xatolik yuz berdi.");
+                            } else {
+                              return Text(formatFileSize(snapshot.data!));
+                            }
+                          },
+                        ),
+                        trailing: IconButton(
+                          onPressed: () {
+                            widget.images.removeAt(index);
+                            setState(() {});
+                          },
+                          icon: AppIcons.trash.svg(),
                         ),
                       ),
                     );
-                  }
-                  return DecoratedBox(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: context.color.scaffoldBackground,
-                    ),
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-                      leading: Container(
-                        height: 48,
-                        width: 48,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          image: DecorationImage(
-                            image: FileImage(widget.images[index]),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      title: Text(
-                        widget.images[index].path.split('/').last,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      subtitle: FutureBuilder<int>(
-                        future: widget.images[index].length(),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const Text("Hajm yuklanmoqda...");
-                          } else if (snapshot.hasError) {
-                            return const Text("Xatolik yuz berdi.");
-                          } else {
-                            return Text(formatFileSize(snapshot.data!));
-                          }
-                        },
-                      ),
-                      trailing: IconButton(
-                        onPressed: () {
-                          widget.images.removeAt(index);
-                          setState(() {});
-                        },
-                        icon: AppIcons.trash.svg(),
-                      ),
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) => const SizedBox(height: 8),
-                itemCount: widget.images.length + 1,
-              ),
-            ],
+                  },
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 8),
+                  itemCount: widget.images.length + 1,
+                ),
+              ],
+            ),
           ),
-        ),
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),

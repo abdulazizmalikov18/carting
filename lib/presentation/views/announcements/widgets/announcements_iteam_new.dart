@@ -123,15 +123,16 @@ class AnnouncementsIteamNew extends StatelessWidget {
                       isGreen: true,
                     ),
                     RowIcon(
-                      text: model.serviceName ??
-                          AppLocalizations.of(context)!.unknown,
+                      text:
+                          MyFunction.servicesNema(model.serviceTypeId, context),
                       icon: AppIcons.shipping.svg(
                         color: context.color.iron,
                         height: 20,
                       ),
                     ),
                     RowIcon(
-                      text: 'Qurilish materiallari, 160 kg',
+                      text:
+                          '${AppLocalizations.of(context)!.loadWeight}:${model.details?.kg == null ? '' : ' ${model.details?.kg} kg'}${model.details?.litr == null ? '' : ' ${model.details?.litr} litr'}${model.details?.m3 == null ? '' : ' ${model.details?.m3} m3'}',
                       icon: AppIcons.box.svg(
                         color: context.color.iron,
                         height: 20,
