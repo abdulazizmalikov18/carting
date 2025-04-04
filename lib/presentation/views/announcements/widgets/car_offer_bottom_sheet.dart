@@ -1,10 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
-import 'package:carting/presentation/widgets/car_number_iteam.dart';
 import 'package:carting/presentation/widgets/custom_text_field.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_scale_animation.dart';
@@ -14,8 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
-class OfferBottomSheet extends StatefulWidget {
-  const OfferBottomSheet({
+class CarOfferBottomSheet extends StatefulWidget {
+  const CarOfferBottomSheet({
     super.key,
     required this.model,
     required this.bloc,
@@ -26,11 +24,10 @@ class OfferBottomSheet extends StatefulWidget {
   final bool isOnlyCars;
 
   @override
-  State<OfferBottomSheet> createState() => _OfferBottomSheetState();
+  State<CarOfferBottomSheet> createState() => _CarOfferBottomSheetState();
 }
 
-class _OfferBottomSheetState extends State<OfferBottomSheet> {
-  String selectedCar = "01 A 111 AA"; // Default car number
+class _CarOfferBottomSheetState extends State<CarOfferBottomSheet> {
   final TextEditingController priceController = TextEditingController();
   int carId = 0;
   final OverlayPortalController _controller = OverlayPortalController();
@@ -40,7 +37,7 @@ class _OfferBottomSheetState extends State<OfferBottomSheet> {
   @override
   void initState() {
     if (widget.isOnlyCars) {
-      if (widget.bloc.state.advertisementMyCars.isEmpty) {
+      if (widget.bloc.state.advertisementRECEIVE.isEmpty) {
         widget.bloc.add(GetAdvertisementsMyCarsEvent());
       }
     } else {
@@ -105,7 +102,7 @@ class _OfferBottomSheetState extends State<OfferBottomSheet> {
                           ),
                           Center(
                             child: Text(
-                              "E'lon uchun taklif yuborish",
+                              "Haydovchi uchun taklif yuborish",
                               style: TextStyle(
                                 color: context.color.darkText,
                                 fontSize: 14,
@@ -128,13 +125,13 @@ class _OfferBottomSheetState extends State<OfferBottomSheet> {
                 BlocBuilder<AdvertisementBloc, AdvertisementState>(
                   bloc: widget.bloc,
                   builder: (context, state) {
-                    if (state.statusMyCars.isInProgress) {
+                    if (state.statusRECEIVE.isInProgress) {
                       return const WShimmer(
                         height: 80,
                         width: double.infinity,
                       );
                     }
-                    if (state.advertisementMyCars.isEmpty) {
+                    if (state.advertisementRECEIVE.isEmpty) {
                       return const SizedBox();
                     }
                     return RawFlexDropDown(
@@ -144,38 +141,23 @@ class _OfferBottomSheetState extends State<OfferBottomSheet> {
                       buttonBuilder: (context, onTap) => GestureDetector(
                         onTap: onTap,
                         child: Container(
-                          padding: const EdgeInsets.fromLTRB(12, 4, 16, 4),
-                          height: 56,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(24),
                             color: context.color.contColor,
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              CachedNetworkImage(
-                                imageUrl: state.advertisementMyCars[carId]
-                                        .transportIcon ??
-                                    "",
-                                height: 48,
-                                width: 86,
+                          child: ListTile(
+                            leading: Text(
+                              'E’lon:',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: context.color.darkText,
                               ),
-                              CarNumberIteam(
-                                carNumberFirst: state.advertisementMyCars[carId]
-                                        .details?.transportNumber
-                                        .toString()
-                                        .substring(0, 2) ??
-                                    "01",
-                                carNumberSecond: state
-                                        .advertisementMyCars[carId]
-                                        .details
-                                        ?.transportNumber
-                                        .toString()
-                                        .substring(2) ??
-                                    "A 111 AA",
-                              ),
-                              AppIcons.arrowBottom.svg(),
-                            ],
+                            ),
+                            title: Text(
+                              "ID ${state.advertisementRECEIVE[carId].id}",
+                            ),
+                            trailing: AppIcons.arrowBottom.svg(),
                           ),
                         ),
                       ),
@@ -206,50 +188,34 @@ class _OfferBottomSheetState extends State<OfferBottomSheet> {
                                 setState(() {});
                               },
                               child: Container(
-                                padding:
-                                    const EdgeInsets.fromLTRB(12, 4, 16, 4),
-                                height: 56,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(24),
                                   color: context.color.contColor,
                                 ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    CachedNetworkImage(
-                                      imageUrl: state.advertisementMyCars[index]
-                                              .transportIcon ??
-                                          "",
-                                      height: 48,
-                                      width: 86,
+                                child: ListTile(
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                  ),
+                                  leading: Text(
+                                    'E’lon:',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: context.color.darkText,
                                     ),
-                                    CarNumberIteam(
-                                      carNumberFirst: state
-                                              .advertisementMyCars[index]
-                                              .details
-                                              ?.transportNumber
-                                              .toString()
-                                              .substring(0, 2) ??
-                                          "01",
-                                      carNumberSecond: state
-                                              .advertisementMyCars[index]
-                                              .details
-                                              ?.transportNumber
-                                              .toString()
-                                              .substring(2) ??
-                                          "A 111 AA",
-                                    ),
-                                    carId == index
-                                        ? AppIcons.checkboxRadio.svg()
-                                        : AppIcons.checkboxRadioDis.svg(),
-                                  ],
+                                  ),
+                                  title: Text(
+                                    "ID ${state.advertisementRECEIVE[index].id}",
+                                  ),
+                                  trailing: carId == index
+                                      ? AppIcons.checkboxRadio.svg()
+                                      : AppIcons.checkboxRadioDis.svg(),
                                 ),
                               ),
                             ),
                             separatorBuilder: (context, index) =>
                                 const SizedBox(),
-                            itemCount: state.advertisementMyCars.length,
+                            itemCount: state.advertisementRECEIVE.length,
                           ),
                         ),
                       ),
@@ -289,13 +255,13 @@ class _OfferBottomSheetState extends State<OfferBottomSheet> {
                   bloc: widget.bloc,
                   builder: (context, state) {
                     return WButton(
-                      isDisabled: state.advertisementMyCars.isEmpty,
+                      isDisabled: state.advertisementRECEIVE.isEmpty,
                       onTap: () {
                         widget.bloc.add(SendOffersEvent(
                           advertisementId: widget.model.id,
                           fromAdvertisementId:
-                              state.advertisementMyCars[carId].id,
-                          fromMyAdvertisement: true,
+                              state.advertisementRECEIVE[carId].id,
+                          fromMyAdvertisement: false,
                           sum: int.tryParse(priceController.text) ?? 0,
                           onSuccess: () {
                             Navigator.of(context).pop(true);

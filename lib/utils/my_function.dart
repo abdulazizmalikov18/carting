@@ -65,6 +65,14 @@ class MyFunction {
     }
   }
 
+  static String dateFormatden(String date, BuildContext context) {
+    DateTime dateTime = DateTime.tryParse(date) ?? DateTime.now();
+    return DateFormat(
+      "d MMMM HH:mm",
+      Localizations.localeOf(context).languageCode,
+    ).format(dateTime);
+  }
+
   static String servicesNema(int index, BuildContext context) {
     final localization = AppLocalizations.of(context)!;
     switch (index) {

@@ -2,6 +2,44 @@ part of 'advertisement_bloc.dart';
 
 sealed class AdvertisementEvent {}
 
+class GetOffersEvent extends AdvertisementEvent {
+  final int advertisementId;
+
+  GetOffersEvent({required this.advertisementId});
+}
+
+class SendOffersEvent extends AdvertisementEvent {
+  final int advertisementId;
+  final int sum;
+  final String? note;
+  final int fromAdvertisementId;
+  final bool fromMyAdvertisement;
+  final VoidCallback onSuccess;
+
+  SendOffersEvent({
+    required this.advertisementId,
+    required this.sum,
+    this.note,
+    required this.fromAdvertisementId,
+    required this.fromMyAdvertisement,
+    required this.onSuccess,
+  });
+}
+
+class ReplyOffersEvent extends AdvertisementEvent {
+  final int advertisementId;
+  final int offerId;
+  final bool status;
+  final VoidCallback onSuccess;
+
+  ReplyOffersEvent({
+    required this.advertisementId,
+    required this.offerId,
+    required this.status,
+    required this.onSuccess,
+  });
+}
+
 class DeleteAdvertisementEvent extends AdvertisementEvent {
   final int id;
   final VoidCallback onSucces;

@@ -109,6 +109,7 @@ class _MyVehiclesViewState extends State<MyVehiclesView> {
                           isMe: true,
                           isMyCar: true,
                           isComments: true,
+                          isOffers: true,
                         ),
                       ),
                     ))

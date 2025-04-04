@@ -24,7 +24,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get list => 'Ro\'yxat';
 
   @override
-  String get active => 'Faollar';
+  String get active => 'Faol';
 
   @override
   String get history => 'Tarix';

@@ -126,6 +126,7 @@ class _MyServicesViewState extends State<MyServicesView> {
                             child: AnnouncementInfoView(
                               model: state.advertisementPROVIDE[index],
                               isMe: true,
+                              isOffers: true,
                             ),
                           ),
                         ));

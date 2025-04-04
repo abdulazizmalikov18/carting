@@ -4,6 +4,7 @@ import 'package:carting/data/models/advertisment_filter.dart';
 import 'package:carting/data/models/cars_model.dart';
 import 'package:carting/data/models/fuels_info_model.dart';
 import 'package:carting/data/models/image_create_model.dart';
+import 'package:carting/data/models/offers_model.dart';
 import 'package:carting/data/models/page_model.dart';
 import 'package:carting/data/models/response_model.dart';
 import 'package:carting/data/models/servis_model.dart';
@@ -313,6 +314,59 @@ class AdvertisementRepo implements IAdvertisementRepo {
   Future<Either<Failure, bool>> deleteAdvertisement(int id) async {
     try {
       final result = await dataSourcheImpl.deleteAdvertisement(id);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+        errorMessage: e.errorMessage,
+        statusCode: e.statusCode,
+      ));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ResponseModel<List<OffersModel>>>> getOffers(
+    int id,
+  ) async {
+    try {
+      final result = await dataSourcheImpl.getOffers(id);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+        errorMessage: e.errorMessage,
+        statusCode: e.statusCode,
+      ));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> replyOffer(Map<String, dynamic> model) async {
+    try {
+      final result = await dataSourcheImpl.replyOffer(model);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+        errorMessage: e.errorMessage,
+        statusCode: e.statusCode,
+      ));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> sendOffer(Map<String, dynamic> model) async {
+    try {
+      final result = await dataSourcheImpl.sendOffer(model);
       return Right(result);
     } on DioException {
       return Left(DioFailure());

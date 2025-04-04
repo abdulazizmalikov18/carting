@@ -17,6 +17,7 @@ class AdvertisementState extends Equatable {
   final FormzSubmissionStatus statusServices;
   final FormzSubmissionStatus statusChange;
   final FormzSubmissionStatus statusComment;
+  final FormzSubmissionStatus statusOffers;
   final int advertisementCount;
   final int advertisementFilterCount;
   final List<AdvertisementModel> advertisement;
@@ -33,6 +34,7 @@ class AdvertisementState extends Equatable {
   final List<TransportSpecialistsModel> transportSpecialists;
   final List<ServisModel> categoriesList;
   final List<ServisModel> servicesList;
+  final List<OffersModel> offersList;
   final int tabIndex;
   const AdvertisementState({
     this.status = FormzSubmissionStatus.initial,
@@ -50,6 +52,7 @@ class AdvertisementState extends Equatable {
     this.statusPROVIDEFinish = FormzSubmissionStatus.initial,
     this.statusRECEIVEFinish = FormzSubmissionStatus.initial,
     this.statusMyCars = FormzSubmissionStatus.initial,
+    this.statusOffers = FormzSubmissionStatus.initial,
     this.advertisementMyCars = const [],
     this.advertisementRECEIVEFinish = const [],
     this.advertisementPROVIDEFinish = const [],
@@ -64,6 +67,7 @@ class AdvertisementState extends Equatable {
     this.transportSpecialists = const [],
     this.categoriesList = const [],
     this.servicesList = const [],
+    this.offersList = const [],
     this.tabIndex = 0,
     this.advertisementCount = 0,
     this.advertisementFilterCount = 0,
@@ -103,6 +107,8 @@ class AdvertisementState extends Equatable {
         advertisementPROVIDEFinish,
         advertisementCount,
         advertisementFilterCount,
+        statusOffers,
+        offersList
       ];
 
   AdvertisementState copyWith({
@@ -121,6 +127,7 @@ class AdvertisementState extends Equatable {
     FormzSubmissionStatus? statusServices,
     FormzSubmissionStatus? statusChange,
     FormzSubmissionStatus? statusComment,
+    FormzSubmissionStatus? statusOffers,
     int? advertisementCount,
     int? advertisementFilterCount,
     List<AdvertisementModel>? advertisement,
@@ -137,6 +144,7 @@ class AdvertisementState extends Equatable {
     List<TransportSpecialistsModel>? transportSpecialists,
     List<ServisModel>? categoriesList,
     List<ServisModel>? servicesList,
+    List<OffersModel>? offersList,
     int? tabIndex,
   }) {
     return AdvertisementState(
@@ -155,18 +163,16 @@ class AdvertisementState extends Equatable {
       statusServices: statusServices ?? this.statusServices,
       statusChange: statusChange ?? this.statusChange,
       statusComment: statusComment ?? this.statusComment,
+      statusOffers: statusOffers ?? this.statusOffers,
       advertisementCount: advertisementCount ?? this.advertisementCount,
-      advertisementFilterCount:
-          advertisementFilterCount ?? this.advertisementFilterCount,
+      advertisementFilterCount: advertisementFilterCount ?? this.advertisementFilterCount,
       advertisement: advertisement ?? this.advertisement,
       advertisementMyCars: advertisementMyCars ?? this.advertisementMyCars,
       advertisementFilter: advertisementFilter ?? this.advertisementFilter,
       advertisementRECEIVE: advertisementRECEIVE ?? this.advertisementRECEIVE,
-      advertisementRECEIVEFinish:
-          advertisementRECEIVEFinish ?? this.advertisementRECEIVEFinish,
+      advertisementRECEIVEFinish: advertisementRECEIVEFinish ?? this.advertisementRECEIVEFinish,
       advertisementPROVIDE: advertisementPROVIDE ?? this.advertisementPROVIDE,
-      advertisementPROVIDEFinish:
-          advertisementPROVIDEFinish ?? this.advertisementPROVIDEFinish,
+      advertisementPROVIDEFinish: advertisementPROVIDEFinish ?? this.advertisementPROVIDEFinish,
       transportationTypes: transportationTypes ?? this.transportationTypes,
       fuelsModel: fuelsModel ?? this.fuelsModel,
       fuelsModelAll: fuelsModelAll ?? this.fuelsModelAll,
@@ -174,6 +180,7 @@ class AdvertisementState extends Equatable {
       transportSpecialists: transportSpecialists ?? this.transportSpecialists,
       categoriesList: categoriesList ?? this.categoriesList,
       servicesList: servicesList ?? this.servicesList,
+      offersList: offersList ?? this.offersList,
       tabIndex: tabIndex ?? this.tabIndex,
     );
   }

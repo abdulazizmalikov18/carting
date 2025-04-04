@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:carting/data/models/advertisment_filter.dart';
 import 'package:carting/data/models/cars_model.dart';
 import 'package:carting/data/models/image_create_model.dart';
+import 'package:carting/data/models/offers_model.dart';
 import 'package:carting/data/models/servis_model.dart';
 import 'package:carting/data/models/transport_specialists_model.dart';
 import 'package:carting/utils/my_function.dart';
@@ -25,6 +26,53 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
     on<TabIndexEvent>(
       (event, emit) => emit(state.copyWith(tabIndex: event.index)),
     );
+
+    on<ReplyOffersEvent>((event, emit) async {
+      emit(state.copyWith(statusCreate: FormzSubmissionStatus.inProgress));
+      final respons = await _repo.replyOffer({
+        "id": event.offerId,
+        "advertisement_id": event.advertisementId,
+        "status": event.status ? 'ACCEPTED' : "REJECTED"
+      });
+      if (respons.isRight) {
+        emit(state.copyWith(statusCreate: FormzSubmissionStatus.success));
+        event.onSuccess();
+      } else {
+        emit(state.copyWith(statusCreate: FormzSubmissionStatus.failure));
+      }
+    });
+
+    on<SendOffersEvent>((event, emit) async {
+      emit(state.copyWith(statusCreate: FormzSubmissionStatus.inProgress));
+      final respons = await _repo.sendOffer({
+        "offered_sum": event.sum,
+        "note": event.note,
+        "to_advertisement_id": event.advertisementId,
+        "from_advertisement_id": event.fromAdvertisementId,
+        "type": event.fromMyAdvertisement
+            ? "FROM_ADVERTISEMENT"
+            : "TO_ADVERTISEMENT"
+      });
+      if (respons.isRight) {
+        emit(state.copyWith(statusCreate: FormzSubmissionStatus.success));
+        event.onSuccess();
+      } else {
+        emit(state.copyWith(statusCreate: FormzSubmissionStatus.failure));
+      }
+    });
+
+    on<GetOffersEvent>((event, emit) async {
+      emit(state.copyWith(statusOffers: FormzSubmissionStatus.inProgress));
+      final respons = await _repo.getOffers(event.advertisementId);
+      if (respons.isRight) {
+        emit(state.copyWith(
+          statusOffers: FormzSubmissionStatus.success,
+          offersList: respons.right.data,
+        ));
+      } else {
+        emit(state.copyWith(statusOffers: FormzSubmissionStatus.failure));
+      }
+    });
 
     on<DeleteAdvertisementEvent>((event, emit) async {
       emit(state.copyWith(statusComment: FormzSubmissionStatus.inProgress));

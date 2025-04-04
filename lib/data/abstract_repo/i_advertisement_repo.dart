@@ -3,6 +3,7 @@ import 'package:carting/data/models/advertisment_filter.dart';
 import 'package:carting/data/models/cars_model.dart';
 import 'package:carting/data/models/fuels_info_model.dart';
 import 'package:carting/data/models/image_create_model.dart';
+import 'package:carting/data/models/offers_model.dart';
 import 'package:carting/data/models/page_model.dart';
 import 'package:carting/data/models/response_model.dart';
 import 'package:carting/data/models/servis_model.dart';
@@ -42,4 +43,7 @@ abstract class IAdvertisementRepo {
   Future<Either<Failure, bool>> deleteReferrealCde(String code);
   Future<Either<Failure, bool>> postComment(Map<String, dynamic> model);
   Future<Either<Failure, bool>> deleteAdvertisement(int id);
+  Future<Either<Failure, ResponseModel<List<OffersModel>>>> getOffers(int id);
+  Future<Either<Failure, bool>> sendOffer(Map<String, dynamic> model);
+  Future<Either<Failure, bool>> replyOffer(Map<String, dynamic> model);
 }

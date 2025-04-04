@@ -6,19 +6,23 @@ import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
+import 'package:carting/presentation/views/announcements/offers_view.dart';
+import 'package:carting/presentation/views/announcements/widgets/car_offer_bottom_sheet.dart';
 import 'package:carting/presentation/views/announcements/widgets/offer_bottom_sheet.dart';
 import 'package:carting/presentation/views/common/comments_view.dart';
 import 'package:carting/presentation/views/common/location_info_view.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_info_container.dart';
+import 'package:carting/presentation/widgets/w_shimmer.dart';
 import 'package:carting/utils/calculate_distance.dart';
 import 'package:carting/utils/caller.dart';
 import 'package:carting/utils/my_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 
-class AnnouncementInfoView extends StatelessWidget {
+class AnnouncementInfoView extends StatefulWidget {
   const AnnouncementInfoView({
     super.key,
     required this.model,
@@ -26,18 +30,35 @@ class AnnouncementInfoView extends StatelessWidget {
     this.isMyCar = false,
     this.isComments = false,
     this.isOnlyCar = false,
+    this.isOffers = false,
   });
   final AdvertisementModel model;
   final bool isMe;
   final bool isMyCar;
   final bool isComments;
   final bool isOnlyCar;
+  final bool isOffers;
+
+  @override
+  State<AnnouncementInfoView> createState() => _AnnouncementInfoViewState();
+}
+
+class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
+  @override
+  void initState() {
+    if (widget.isOffers) {
+      context
+          .read<AdvertisementBloc>()
+          .add(GetOffersEvent(advertisementId: widget.model.id));
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("ID ${model.id}"),
+        title: Text("ID ${widget.model.id}"),
         actions: [
           IconButton(
             onPressed: () {},
@@ -52,7 +73,7 @@ class AnnouncementInfoView extends StatelessWidget {
           color: context.color.contColor,
           boxShadow: wboxShadow2,
         ),
-        child: isMe
+        child: widget.isMe
             ? Row(
                 spacing: 16,
                 children: [
@@ -135,7 +156,7 @@ class AnnouncementInfoView extends StatelessWidget {
                                                 onTap: () {
                                                   bloc.add(
                                                     DeleteAdvertisementEvent(
-                                                      id: model.id,
+                                                      id: widget.model.id,
                                                       onSucces: () {
                                                         Navigator.of(context)
                                                           ..pop()
@@ -183,6 +204,7 @@ class AnnouncementInfoView extends StatelessWidget {
                 children: [
                   WButton(
                     onTap: () {
+                      final bloc = context.read<AdvertisementBloc>();
                       showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
@@ -192,7 +214,17 @@ class AnnouncementInfoView extends StatelessWidget {
                             top: Radius.circular(20),
                           ),
                         ),
-                        builder: (context) => const OfferBottomSheet(),
+                        builder: (context) => widget.isOnlyCar
+                            ? CarOfferBottomSheet(
+                                model: widget.model,
+                                bloc: bloc,
+                                isOnlyCars: widget.isOnlyCar,
+                              )
+                            : OfferBottomSheet(
+                                model: widget.model,
+                                bloc: bloc,
+                                isOnlyCars: widget.isOnlyCar,
+                              ),
                       );
                     },
                     text: "Taklif yuborish",
@@ -205,9 +237,9 @@ class AnnouncementInfoView extends StatelessWidget {
                       Expanded(
                         child: WButton(
                           onTap: () async {
-                            if (model.createdByTgLink != null) {
+                            if (widget.model.createdByTgLink != null) {
                               await Caller.launchTelegram(
-                                  model.createdByTgLink!);
+                                  widget.model.createdByTgLink!);
                             } else {
                               CustomSnackbar.show(
                                 context,
@@ -229,8 +261,9 @@ class AnnouncementInfoView extends StatelessWidget {
                       Expanded(
                         child: WButton(
                           onTap: () async {
-                            if (model.createdByPhone != null) {
-                              await Caller.makePhoneCall(model.createdByPhone!);
+                            if (widget.model.createdByPhone != null) {
+                              await Caller.makePhoneCall(
+                                  widget.model.createdByPhone!);
                             } else {
                               CustomSnackbar.show(
                                 context,
@@ -258,18 +291,18 @@ class AnnouncementInfoView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (isMe) ...[
+            if (widget.isMe) ...[
               WButton(
                 onTap: () {},
-                color: model.status == 'ACTIVE'
+                color: widget.model.status == 'ACTIVE'
                     ? green.withValues(alpha: .2)
                     : red.withValues(alpha: .2),
-                textColor: model.status == 'ACTIVE' ? green : red,
+                textColor: widget.model.status == 'ACTIVE' ? green : red,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                text: model.status == 'ACTIVE'
+                text: widget.model.status == 'ACTIVE'
                     ? AppLocalizations.of(context)!.active
                     : AppLocalizations.of(context)!.notActive,
-                child: model.status == 'ACTIVE'
+                child: widget.model.status == 'ACTIVE'
                     ? Row(
                         children: [
                           Expanded(
@@ -278,14 +311,51 @@ class AnnouncementInfoView extends StatelessWidget {
                               textAlign: TextAlign.center,
                             ),
                           ),
-                          AppIcons.editCir.svg(),
                         ],
                       )
                     : null,
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 12),
+              if (widget.isOffers)
+                BlocBuilder<AdvertisementBloc, AdvertisementState>(
+                  builder: (context, state) {
+                    if (state.statusOffers.isInProgress) {
+                      return const WShimmer(
+                        height: 56,
+                        width: double.infinity,
+                      );
+                    }
+                    if (state.offersList.isEmpty) {
+                      return const SizedBox();
+                    }
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: 12),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(24),
+                        color: context.color.grey.withValues(alpha: .5),
+                      ),
+                      child: ListTile(
+                        onTap: () {
+                          final bloc = context.read<AdvertisementBloc>();
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => BlocProvider.value(
+                              value: bloc,
+                              child: OffersView(
+                                offersList: state.offersList,
+                                advertisementId: widget.model.id,
+                              ),
+                            ),
+                          ));
+                        },
+                        leading: AppIcons.layer.svg(height: 24, width: 24),
+                        title: const Text('Takliflar'),
+                        trailing: AppIcons.arrowForward.svg(),
+                      ),
+                    );
+                  },
+                ),
             ],
-            if (isComments) ...[
+            if (widget.isComments) ...[
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(24),
@@ -296,8 +366,8 @@ class AnnouncementInfoView extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => CommentsView(
-                        comments: model.comments ?? [],
-                        id: model.id,
+                        comments: widget.model.comments ?? [],
+                        id: widget.model.id,
                       ),
                     ));
                   },
@@ -307,7 +377,7 @@ class AnnouncementInfoView extends StatelessWidget {
                       Expanded(
                         child: Text(AppLocalizations.of(context)!.comments),
                       ),
-                      if (model.comments != null)
+                      if (widget.model.comments != null)
                         SizedBox(
                           width: 72,
                           height: 24,
@@ -339,7 +409,7 @@ class AnnouncementInfoView extends StatelessWidget {
                                   radius: 12,
                                   backgroundColor: white,
                                   child: Text(
-                                    model.comments!.length.toString(),
+                                    widget.model.comments!.length.toString(),
                                     style: const TextStyle(
                                       fontSize: 8,
                                       fontWeight: FontWeight.w400,
@@ -365,7 +435,8 @@ class AnnouncementInfoView extends StatelessWidget {
               child: Column(
                 spacing: 16,
                 children: [
-                  if (model.fromLocation != null && model.toLocation != null)
+                  if (widget.model.fromLocation != null &&
+                      widget.model.toLocation != null)
                     Row(
                       spacing: 8,
                       children: [
@@ -376,7 +447,7 @@ class AnnouncementInfoView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                (model.fromLocation?.name ??
+                                (widget.model.fromLocation?.name ??
                                     AppLocalizations.of(context)!.unknown),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -387,7 +458,7 @@ class AnnouncementInfoView extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                (model.toLocation?.name ??
+                                (widget.model.toLocation?.name ??
                                     AppLocalizations.of(context)!.unknown),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -402,10 +473,10 @@ class AnnouncementInfoView extends StatelessWidget {
                         ),
                         Text(
                           '${calculateDistance(
-                            model.fromLocation?.lat ?? 0,
-                            model.fromLocation?.lng ?? 0,
-                            model.toLocation?.lat ?? 0,
-                            model.toLocation?.lng ?? 0,
+                            widget.model.fromLocation?.lat ?? 0,
+                            widget.model.fromLocation?.lng ?? 0,
+                            widget.model.toLocation?.lat ?? 0,
+                            widget.model.toLocation?.lng ?? 0,
                           ).toInt()} km',
                           style: TextStyle(
                             fontSize: 14,
@@ -420,9 +491,9 @@ class AnnouncementInfoView extends StatelessWidget {
                       spacing: 8,
                       children: [
                         AppIcons.location.svg(height: 20),
-                        if (model.fromLocation != null)
+                        if (widget.model.fromLocation != null)
                           Text(
-                            (model.fromLocation?.name ??
+                            (widget.model.fromLocation?.name ??
                                 AppLocalizations.of(context)!.unknown),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -432,9 +503,9 @@ class AnnouncementInfoView extends StatelessWidget {
                               color: context.color.white,
                             ),
                           ),
-                        if (model.toLocation != null)
+                        if (widget.model.toLocation != null)
                           Text(
-                            (model.toLocation?.name ??
+                            (widget.model.toLocation?.name ??
                                 AppLocalizations.of(context)!.unknown),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -450,8 +521,8 @@ class AnnouncementInfoView extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => LocationInfoView(
-                          point1: model.fromLocation,
-                          point2: model.toLocation,
+                          point1: widget.model.fromLocation,
+                          point2: widget.model.toLocation,
                           isFirst: true,
                         ),
                       ));
@@ -465,7 +536,7 @@ class AnnouncementInfoView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            if (model.details?.transportNumber != null) ...[
+            if (widget.model.details?.transportNumber != null) ...[
               Text(
                 '${AppLocalizations.of(context)!.transport_number}:',
                 style: const TextStyle(
@@ -474,10 +545,10 @@ class AnnouncementInfoView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              WInfoContainer(text: model.details?.transportNumber ?? ""),
+              WInfoContainer(text: widget.model.details?.transportNumber ?? ""),
               const SizedBox(height: 8),
             ],
-            if (model.details?.madeAt != null) ...[
+            if (widget.model.details?.madeAt != null) ...[
               Text(
                 '${AppLocalizations.of(context)!.manufacture_year}:',
                 style: const TextStyle(
@@ -486,10 +557,10 @@ class AnnouncementInfoView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              WInfoContainer(text: model.details?.madeAt ?? ""),
+              WInfoContainer(text: widget.model.details?.madeAt ?? ""),
               const SizedBox(height: 8),
             ],
-            if (model.details?.techPassportSeria != null) ...[
+            if (widget.model.details?.techPassportSeria != null) ...[
               Text(
                 '${AppLocalizations.of(context)!.tech_passport}:',
                 style: const TextStyle(
@@ -501,15 +572,17 @@ class AnnouncementInfoView extends StatelessWidget {
               Row(
                 spacing: 16,
                 children: [
-                  WInfoContainer(text: model.details?.techPassportSeria ?? ""),
-                  WInfoContainer(text: model.details?.techPassportNum ?? ""),
+                  WInfoContainer(
+                      text: widget.model.details?.techPassportSeria ?? ""),
+                  WInfoContainer(
+                      text: widget.model.details?.techPassportNum ?? ""),
                 ],
               ),
               const SizedBox(height: 8),
             ],
-            if (!isMyCar &&
-                !isOnlyCar &&
-                (model.details?.loadTypeList ?? []).isNotEmpty) ...[
+            if (!widget.isMyCar &&
+                !widget.isOnlyCar &&
+                (widget.model.details?.loadTypeList ?? []).isNotEmpty) ...[
               Text(
                 '${AppLocalizations.of(context)!.cargoType}:',
                 style: const TextStyle(
@@ -522,16 +595,16 @@ class AnnouncementInfoView extends StatelessWidget {
                 spacing: 16,
                 runSpacing: 8,
                 children: List.generate(
-                  model.details!.loadTypeList!.length,
+                  widget.model.details!.loadTypeList!.length,
                   (index) => WInfoContainer(
                     text: MyFunction.getLoadTypeName(index, context),
                   ),
                 ),
               ),
             ],
-            if (model.details!.kg != null ||
-                model.details!.m3 != null ||
-                model.details!.litr != null) ...[
+            if (widget.model.details!.kg != null ||
+                widget.model.details!.m3 != null ||
+                widget.model.details!.litr != null) ...[
               const SizedBox(height: 16),
               Text(
                 '${AppLocalizations.of(context)!.loadWeight}:',
@@ -545,17 +618,17 @@ class AnnouncementInfoView extends StatelessWidget {
                 spacing: 12,
                 runSpacing: 8,
                 children: [
-                  if (model.details!.kg != null)
-                    WInfoContainer(text: "${model.details!.kg} kg"),
-                  if (model.details!.m3 != null)
-                    WInfoContainer(text: "${model.details!.m3} m3"),
-                  if (model.details!.litr != null)
-                    WInfoContainer(text: "${model.details!.litr} litr"),
+                  if (widget.model.details!.kg != null)
+                    WInfoContainer(text: "${widget.model.details!.kg} kg"),
+                  if (widget.model.details!.m3 != null)
+                    WInfoContainer(text: "${widget.model.details!.m3} m3"),
+                  if (widget.model.details!.litr != null)
+                    WInfoContainer(text: "${widget.model.details!.litr} litr"),
                 ],
               ),
             ],
             const SizedBox(height: 16),
-            if (!isMyCar && !isOnlyCar) ...[
+            if (!widget.isMyCar && !widget.isOnlyCar) ...[
               Text(
                 '${AppLocalizations.of(context)!.shipment_date_time}:',
                 style: const TextStyle(
@@ -569,18 +642,19 @@ class AnnouncementInfoView extends StatelessWidget {
                 children: [
                   WInfoContainer(
                     text: MyFunction.formatDate2(
-                      DateTime.tryParse(model.shipmentDate ?? "") ??
+                      DateTime.tryParse(widget.model.shipmentDate ?? "") ??
                           DateTime.now(),
                     ),
                     icon: AppIcons.calendar,
                   ),
                   WInfoContainer(
                     text: MyFunction.formattedTime(
-                          DateTime.tryParse(model.details?.fromDate ?? "") ??
+                          DateTime.tryParse(
+                                  widget.model.details?.fromDate ?? "") ??
                               DateTime.now(),
                         ) +
-                        (model.details?.toDate != null
-                            ? " - ${MyFunction.formattedTime(DateTime.tryParse(model.details?.toDate ?? "") ?? DateTime.now())}"
+                        (widget.model.details?.toDate != null
+                            ? " - ${MyFunction.formattedTime(DateTime.tryParse(widget.model.details?.toDate ?? "") ?? DateTime.now())}"
                             : ""),
                     icon: AppIcons.clock,
                   ),
@@ -588,7 +662,7 @@ class AnnouncementInfoView extends StatelessWidget {
               ),
               const SizedBox(height: 16),
             ],
-            if (model.details?.passengerCount != null) ...[
+            if (widget.model.details?.passengerCount != null) ...[
               Text(
                 '${AppLocalizations.of(context)!.passengerCount}:',
                 style: const TextStyle(
@@ -598,11 +672,11 @@ class AnnouncementInfoView extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               WInfoContainer(
-                text: "${model.details?.passengerCount ?? "0"} kishi",
+                text: "${widget.model.details?.passengerCount ?? "0"} kishi",
               ),
               const SizedBox(height: 16),
             ],
-            if (model.details?.transportCount != null) ...[
+            if (widget.model.details?.transportCount != null) ...[
               Text(
                 '${AppLocalizations.of(context)!.transportCount}:',
                 style: const TextStyle(
@@ -612,7 +686,7 @@ class AnnouncementInfoView extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               WInfoContainer(
-                text: "${model.details?.transportCount ?? "0"}",
+                text: "${widget.model.details?.transportCount ?? "0"}",
               ),
               const SizedBox(height: 16),
             ],
@@ -637,7 +711,7 @@ class AnnouncementInfoView extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      model.transportName ??
+                      widget.model.transportName ??
                           AppLocalizations.of(context)!.unknown,
                       style: const TextStyle(
                         fontSize: 16,
@@ -648,14 +722,16 @@ class AnnouncementInfoView extends StatelessWidget {
                     ),
                   ),
                   CachedNetworkImage(
-                    imageUrl: model.transportIcon ?? "",
+                    imageUrl: widget.model.transportIcon ?? "",
                     height: 48,
                     errorWidget: (context, url, error) => const SizedBox(),
                   )
                 ],
               ),
             ),
-            if (model.payType.isNotEmpty && !isMyCar && !isOnlyCar) ...[
+            if (widget.model.payType.isNotEmpty &&
+                !widget.isMyCar &&
+                !widget.isOnlyCar) ...[
               const SizedBox(height: 16),
               Text(
                 '${AppLocalizations.of(context)!.payment_type}:',
@@ -666,14 +742,18 @@ class AnnouncementInfoView extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               WInfoContainer(
-                text: model.payType == 'CASH'
+                text: widget.model.payType == 'CASH'
                     ? AppLocalizations.of(context)!.cash
                     : AppLocalizations.of(context)!.card,
-                icon: model.payType == 'CASH' ? AppIcons.cash : AppIcons.card,
+                icon: widget.model.payType == 'CASH'
+                    ? AppIcons.cash
+                    : AppIcons.card,
                 iconCollor: false,
               ),
             ],
-            if (model.price != null && !isMyCar && !isOnlyCar) ...[
+            if (widget.model.price != null &&
+                !widget.isMyCar &&
+                !widget.isOnlyCar) ...[
               const SizedBox(height: 16),
               Text(
                 '${AppLocalizations.of(context)!.price}:',
@@ -684,12 +764,12 @@ class AnnouncementInfoView extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               WInfoContainer(
-                text: (model.price ?? 0) == 0
+                text: (widget.model.price ?? 0) == 0
                     ? AppLocalizations.of(context)!.price_offer
-                    : MyFunction.priceFormat(model.price ?? 0),
+                    : MyFunction.priceFormat(widget.model.price ?? 0),
               ),
             ],
-            if (model.images != null) ...[
+            if (widget.model.images != null) ...[
               const SizedBox(height: 16),
               Text(
                 '${AppLocalizations.of(context)!.cargoImages}:',
@@ -702,7 +782,7 @@ class AnnouncementInfoView extends StatelessWidget {
               Wrap(
                 spacing: 12,
                 children: List.generate(
-                  model.images!.length,
+                  widget.model.images!.length,
                   (index) => GestureDetector(
                     onTap: () {
                       showDialog(
@@ -716,7 +796,7 @@ class AnnouncementInfoView extends StatelessWidget {
                                 child: InteractiveViewer(
                                   child: CachedNetworkImage(
                                     imageUrl:
-                                        'https://api.carting.uz/uploads/files/${model.images![index]}',
+                                        'https://api.carting.uz/uploads/files/${widget.model.images![index]}',
                                     fit: BoxFit.contain,
                                   ),
                                 ),
@@ -742,7 +822,7 @@ class AnnouncementInfoView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(16),
                         image: DecorationImage(
                           image: CachedNetworkImageProvider(
-                            'https://api.carting.uz/uploads/files/${model.images![index]}',
+                            'https://api.carting.uz/uploads/files/${widget.model.images![index]}',
                           ),
                           fit: BoxFit.cover,
                         ),
@@ -754,7 +834,7 @@ class AnnouncementInfoView extends StatelessWidget {
             ],
             const SizedBox(height: 16),
             Text(
-              model.note,
+              widget.model.note,
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,

@@ -5,6 +5,7 @@ import 'package:carting/data/models/advertisment_filter.dart';
 import 'package:carting/data/models/cars_model.dart';
 import 'package:carting/data/models/fuels_info_model.dart';
 import 'package:carting/data/models/image_create_model.dart';
+import 'package:carting/data/models/offers_model.dart';
 import 'package:carting/data/models/page_model.dart';
 import 'package:carting/data/models/response_model.dart';
 import 'package:carting/data/models/servis_model.dart';
@@ -43,6 +44,9 @@ abstract class AdvertisementDatasource {
   Future<bool> deleteReferrealCde(String code);
   Future<bool> postComment(Map<String, dynamic> model);
   Future<bool> deleteAdvertisement(int id);
+  Future<ResponseModel<List<OffersModel>>> getOffers(int id);
+  Future<bool> replyOffer(Map<String, dynamic> model);
+  Future<bool> sendOffer(Map<String, dynamic> model);
 }
 
 class AdvertisementDatasourceImpl implements AdvertisementDatasource {
@@ -432,6 +436,67 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
       request: () => dio.delete(
         'advertisement',
         data: {'id': id},
+        options: Options(
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
+              ? {
+                  'Authorization':
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                }
+              : {},
+        ),
+      ),
+      body: (response) => true,
+    );
+  }
+
+  @override
+  Future<ResponseModel<List<OffersModel>>> getOffers(int id) {
+    return _handle.apiCantrol(
+      request: () => dio.get(
+        'advertisement/offer?advertisement_id=$id',
+        options: Options(
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
+              ? {
+                  'Authorization':
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                }
+              : {},
+        ),
+      ),
+      body: (response) => ResponseModel.fromJson(
+        response,
+        (p0) => (p0 as List)
+            .map((e) => OffersModel.fromJson(e as Map<String, dynamic>))
+            .toList(),
+      ),
+    );
+  }
+
+  @override
+  Future<bool> replyOffer(Map<String, dynamic> model) {
+    return _handle.apiCantrol(
+      request: () => dio.post(
+        'reply/offer',
+        data: model,
+        options: Options(
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
+              ? {
+                  'Authorization':
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                }
+              : {},
+        ),
+      ),
+      body: (response) => true,
+    );
+  }
+
+  @override
+  Future<bool> sendOffer(Map<String, dynamic> model) {
+    return _handle.apiCantrol(
+      request: () => dio.post(
+        'send/offer',
+        data: model,
         options: Options(
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {

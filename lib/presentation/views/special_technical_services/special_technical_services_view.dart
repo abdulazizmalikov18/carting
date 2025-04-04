@@ -253,6 +253,7 @@ class _SpecialTechnicalServicesViewState
               payDate: payDate,
               priceOffer: priceOffer,
               images: images,
+              imageText: 'Rasim biriktirish',
               onSave: (list) {
                 setState(() {
                   images = list;

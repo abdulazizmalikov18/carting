@@ -137,7 +137,7 @@ class _PeregonServiceViewState extends State<PeregonServiceView> {
             ),
 
             MinTextField(
-              text: AppLocalizations.of(context)!.departureDate,
+              text: "Vaqti",
               hintText: "",
               keyboardType: TextInputType.datetime,
               controller: controller,
@@ -188,7 +188,7 @@ class _PeregonServiceViewState extends State<PeregonServiceView> {
               children: [
                 Expanded(
                   child: MinTextField(
-                    text: "${AppLocalizations.of(context)!.send_time} (dan)",
+                    text: "Vaqt (dan)",
                     hintText: "",
                     keyboardType: TextInputType.datetime,
                     controller: controllerTime,
@@ -236,7 +236,7 @@ class _PeregonServiceViewState extends State<PeregonServiceView> {
                 ),
                 Expanded(
                   child: MinTextField(
-                    text: "${AppLocalizations.of(context)!.send_time} (gacha)",
+                    text: "Vaqt (gacha)",
                     hintText: "",
                     keyboardType: TextInputType.datetime,
                     controller: controllerTime2,

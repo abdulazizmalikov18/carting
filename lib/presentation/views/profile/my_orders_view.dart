@@ -123,6 +123,7 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                             child: AnnouncementInfoView(
                               model: state.advertisementRECEIVE[index],
                               isMe: true,
+                              isOffers: true,
                             ),
                           ),
                         ));

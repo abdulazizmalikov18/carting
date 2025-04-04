@@ -97,6 +97,7 @@ class AppIcons {
   static const shieldCheck = "assets/icons/shield_check.svg";
   static const document = "assets/icons/document.svg";
   static const layer = "assets/icons/layer.svg";
+  static const accept = "assets/icons/accept.svg";
 }
 
 extension SvgExt on String {
