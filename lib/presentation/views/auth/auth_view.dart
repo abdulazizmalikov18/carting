@@ -117,13 +117,14 @@ class _AuthViewState extends State<AuthView>
                 children: [
                   CustomTextField(
                     title: AppLocalizations.of(context)!.phone,
-                    hintText: "+998",
+                    hintText: "(00) 000-00-00",
+                    prefixIcon: const Text("+998"),
                     controller: controller,
                     formatter: [Formatters.phoneFormatter],
                     keyboardType: TextInputType.phone,
                     onChanged: (value) {
                       Log.i(value.length);
-                      if (value.length >= 18) {
+                      if (value.length >= 13) {
                         setState(() {});
                       }
                     },
@@ -151,7 +152,9 @@ class _AuthViewState extends State<AuthView>
                   onTap: () {
                     context.read<AuthBloc>().add(SendCodeEvent(
                           phone: _tabController.index == 0
-                              ? MyFunction.convertPhoneNumber(controller.text)
+                              ? MyFunction.convertPhoneNumber(
+                                  "+998 ${controller.text}",
+                                )
                               : controllerEmail.text,
                           isPhone: _tabController.index == 0,
                           onError: (message) {
@@ -165,7 +168,7 @@ class _AuthViewState extends State<AuthView>
                                 isPhone: _tabController.index == 0,
                                 phone: _tabController.index == 0
                                     ? MyFunction.convertPhoneNumber(
-                                        controller.text,
+                                        "+998 ${controller.text}",
                                       )
                                     : controllerEmail.text,
                               ),
@@ -175,7 +178,7 @@ class _AuthViewState extends State<AuthView>
                         ));
                   },
                   isDisabled: _tabController.index == 0
-                      ? controller.text.isEmpty || controller.text.length < 19
+                      ? controller.text.isEmpty || controller.text.length < 14
                       : controllerEmail.text.length < 12,
                   text: AppLocalizations.of(context)!.login,
                 );

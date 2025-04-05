@@ -83,13 +83,14 @@ class _EditPhoneViewState extends State<EditPhoneView> {
                   )
                 : CustomTextField(
                     title: AppLocalizations.of(context)!.phone,
-                    hintText: "+998",
+                    hintText: "(00) 000-00-00",
+                    prefixIcon: const Text("+998"),
                     controller: controller,
                     formatter: [Formatters.phoneFormatter],
                     keyboardType: TextInputType.phone,
                     onChanged: (value) {
                       Log.i(value.length);
-                      if (value.length >= 18) {
+                      if (value.length >= 13) {
                         setState(() {});
                       }
                     },
@@ -102,10 +103,12 @@ class _EditPhoneViewState extends State<EditPhoneView> {
                   onTap: () {
                     context.read<AuthBloc>().add(SendCodeEvent(
                           phone: !widget.isEmail
-                              ? MyFunction.convertPhoneNumber(controller.text)
+                              ? MyFunction.convertPhoneNumber(
+                                  "+998 ${controller.text}",
+                                )
                               : controller.text,
                           isPhone: !widget.isEmail,
-                         onError: (message) {
+                          onError: (message) {
                             CustomSnackbar.show(context, message);
                           },
                           onSucces: (model) {
@@ -113,7 +116,7 @@ class _EditPhoneViewState extends State<EditPhoneView> {
                               builder: (context) => EditPhoneVerifView(
                                 phone: !widget.isEmail
                                     ? MyFunction.convertPhoneNumber(
-                                        controller.text,
+                                        "+998 ${controller.text}",
                                       )
                                     : controller.text,
                                 model: model,
@@ -125,7 +128,7 @@ class _EditPhoneViewState extends State<EditPhoneView> {
                         ));
                   },
                   isDisabled: controller.text.isEmpty ||
-                      controller.text.length < (widget.isEmail ? 10 : 19),
+                      controller.text.length < (widget.isEmail ? 10 : 14),
                   text: AppLocalizations.of(context)!.confirm,
                 );
               },
