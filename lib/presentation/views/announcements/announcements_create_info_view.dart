@@ -158,9 +158,9 @@ class _AnnouncementsCreateInfoViewState
                                       borderRadius: BorderRadius.circular(24),
                                     ),
                                     child: ListTile(
-                                      title: const Text(
-                                        "Maydon",
-                                        style: TextStyle(
+                                      title: Text(
+                                        AppLocalizations.of(context)!.area,
+                                        style: const TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w400,
                                         ),

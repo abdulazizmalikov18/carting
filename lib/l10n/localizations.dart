@@ -1784,6 +1784,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Edit Advertisement'**
   String get edit_advertisement;
+
+  /// No description provided for @attach_image.
+  ///
+  /// In en, this message translates to:
+  /// **'Attach Image'**
+  String get attach_image;
+
+  /// No description provided for @warehouse.
+  ///
+  /// In en, this message translates to:
+  /// **'Warehouse'**
+  String get warehouse;
+
+  /// No description provided for @area.
+  ///
+  /// In en, this message translates to:
+  /// **'Area'**
+  String get area;
+
+  /// No description provided for @from_in.
+  ///
+  /// In en, this message translates to:
+  /// **'from'**
+  String get from_in;
+
+  /// No description provided for @to_in.
+  ///
+  /// In en, this message translates to:
+  /// **'to'**
+  String get to_in;
+
+  /// No description provided for @time.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get time;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -566,7 +566,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
               children: [
                 Expanded(
                   child: MinTextField(
-                    text: "${AppLocalizations.of(context)!.send_time} (dan)",
+                    text: "${AppLocalizations.of(context)!.send_time} (${AppLocalizations.of(context)!.from_in})",
                     hintText: "",
                     keyboardType: TextInputType.datetime,
                     controller: controllerTime,
@@ -614,7 +614,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                 ),
                 Expanded(
                   child: MinTextField(
-                    text: "${AppLocalizations.of(context)!.send_time} (gacha)",
+                    text: "${AppLocalizations.of(context)!.send_time} (${AppLocalizations.of(context)!.to_in})",
                     hintText: "",
                     keyboardType: TextInputType.datetime,
                     controller: controllerTime2,

@@ -325,7 +325,7 @@ class _FilterViewState extends State<FilterView> {
                                     hintText: '0',
                                     keyboardType: TextInputType.number,
                                     prefixIcon: Text(
-                                      "dan",
+                                      AppLocalizations.of(context)!.from_in,
                                       style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
@@ -343,7 +343,7 @@ class _FilterViewState extends State<FilterView> {
                                     hintText: '0',
                                     keyboardType: TextInputType.number,
                                     prefixIcon: Text(
-                                      "gacha",
+                                      AppLocalizations.of(context)!.to_in,
                                       style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
@@ -470,7 +470,8 @@ class _FilterViewState extends State<FilterView> {
               borderRadius: 16,
               fillColor: context.color.contColor,
               hintText: '00.00.0000',
-              title: 'Sana (dan)',
+              title:
+                  '${AppLocalizations.of(context)!.date} (${AppLocalizations.of(context)!.from_in})',
               readOnly: true,
               onPressed: () {
                 showModalBottomSheet(
@@ -522,7 +523,8 @@ class _FilterViewState extends State<FilterView> {
               },
               fillColor: context.color.contColor,
               hintText: '00.00.0000',
-              title: 'Sana (gacha)',
+              title:
+                  '${AppLocalizations.of(context)!.date} (${AppLocalizations.of(context)!.to_in})',
               keyboardType: TextInputType.datetime,
               prefixIcon: AppIcons.calendar.svg(),
             ),

@@ -222,7 +222,7 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
               children: [
                 Expanded(
                   child: MinTextField(
-                    text: "Vaqti (dan)",
+                    text: "${AppLocalizations.of(context)!.time} (${AppLocalizations.of(context)!.from_in})",
                     hintText: "",
                     keyboardType: TextInputType.datetime,
                     controller: controllerTime,
@@ -270,7 +270,7 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
                 ),
                 Expanded(
                   child: MinTextField(
-                    text: "Vaqti (gacha)",
+                    text: "${AppLocalizations.of(context)!.time}  (${AppLocalizations.of(context)!.to_in})",
                     hintText: "",
                     keyboardType: TextInputType.datetime,
                     controller: controllerTime2,

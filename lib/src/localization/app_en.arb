@@ -279,5 +279,11 @@
   "transportImages": "Transport Images",
   "additionalInfo": "Additional Information",
   "confirm_delete": "Are you sure you want to delete?",
-  "edit_advertisement": "Edit Advertisement"
+  "edit_advertisement": "Edit Advertisement",
+  "attach_image": "Attach Image",
+  "warehouse": "Warehouse",
+  "area": "Area",
+  "from_in": "from",
+  "to_in": "to",
+  "time": "Time"
 }

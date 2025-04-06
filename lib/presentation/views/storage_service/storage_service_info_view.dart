@@ -124,7 +124,7 @@ class _StorageServiceInfoViewState extends State<StorageServiceInfoView> {
               const SizedBox(height: 16),
               RichText(
                 text: TextSpan(
-                  text: "Maydon:  ",
+                  text: "${AppLocalizations.of(context)!.area}:  ",
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,

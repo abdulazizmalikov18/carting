@@ -850,4 +850,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get edit_advertisement => 'Edit Advertisement';
+
+  @override
+  String get attach_image => 'Attach Image';
+
+  @override
+  String get warehouse => 'Warehouse';
+
+  @override
+  String get area => 'Area';
+
+  @override
+  String get from_in => 'from';
+
+  @override
+  String get to_in => 'to';
+
+  @override
+  String get time => 'Time';
 }

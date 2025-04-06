@@ -279,5 +279,11 @@
   "transportImages": "Транспортные изображения",
   "additionalInfo": "Дополнительная информация",
   "confirm_delete": "Вы действительно хотите удалить?",
-  "edit_advertisement": "Редактировать объявление"
+  "edit_advertisement": "Редактировать объявление",
+  "attach_image": "Прикрепить изображение",
+  "warehouse": "Склад",
+  "area": "Площадь",
+  "from_in": "от",
+  "to_in": "до",
+  "time": "Время"
 }

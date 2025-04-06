@@ -253,7 +253,7 @@ class _SpecialTechnicalServicesViewState
               payDate: payDate,
               priceOffer: priceOffer,
               images: images,
-              imageText: 'Rasim biriktirish',
+              imageText: AppLocalizations.of(context)!.attach_image,
               onSave: (list) {
                 setState(() {
                   images = list;

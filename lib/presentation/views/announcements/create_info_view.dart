@@ -139,7 +139,7 @@ class _CreateInfoViewState extends State<CreateInfoView> {
                         ),
                         child: ListTile(
                           title: Text(
-                            "Maydon",
+                            AppLocalizations.of(context)!.area,
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,

@@ -54,7 +54,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get birthDate => 'Tug\'ilgan sana';
 
   @override
-  String get notifications => 'Bildirishnomalar';
+  String get notifications => 'Xabarnomalar';
 
   @override
   String get closed => 'Yopiq';
@@ -285,7 +285,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get cancelAnnouncement => 'Haqiqatan ham e’lonni bekor qilmoqchimisiz?';
 
   @override
-  String get deactivate => 'Faolsizlantirish';
+  String get deactivate => 'Bekor qilish';
 
   @override
   String get loadWeight => 'Yuk vazni';
@@ -315,7 +315,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get transportType => 'Transport turi';
 
   @override
-  String get yourCargoIsOnTheWay => 'Yukinggiz allaqachon yo’lda!';
+  String get yourCargoIsOnTheWay => 'Yukingiz allaqachon yo’lda!';
 
   @override
   String get driverDeliveredCargo => 'Haydovchi yuklaringizni manzilga yetkazdi. Buni tasdiqlaysizmi?';
@@ -429,7 +429,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get dimensions => '2 х 3 х 2 m²';
 
   @override
-  String get personal => 'Shaxsi';
+  String get personal => 'Shaxsiy';
 
   @override
   String get physical => 'Jismoniy';
@@ -444,7 +444,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get companyName => 'Kompaniya nomi';
 
   @override
-  String get callCenterNumber => 'Номер колл-центра';
+  String get callCenterNumber => 'Call-markaz raqami';
 
   @override
   String get yourName => 'Ismingiz';
@@ -850,4 +850,22 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get edit_advertisement => 'E’lonni tahrirlash';
+
+  @override
+  String get attach_image => 'Rasim biriktirish';
+
+  @override
+  String get warehouse => 'Omborxona';
+
+  @override
+  String get area => 'Maydon';
+
+  @override
+  String get from_in => 'dan';
+
+  @override
+  String get to_in => 'gacha';
+
+  @override
+  String get time => 'Vaqti';
 }

@@ -52,10 +52,10 @@ class StorageServiceIteam extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const Expanded(
+                       Expanded(
                         child: Text(
-                          "Omborxona",
-                          style: TextStyle(
+                          AppLocalizations.of(context)!.warehouse,
+                          style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                           ),
@@ -72,7 +72,7 @@ class StorageServiceIteam extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    "Maydon: ${model.details?.area ?? AppLocalizations.of(context)!.unknown} m2",
+                    "${AppLocalizations.of(context)!.area}: ${model.details?.area ?? AppLocalizations.of(context)!.unknown} m2",
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,

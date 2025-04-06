@@ -33,7 +33,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get notIdentified => 'Маълумот киритилмаган';
 
   @override
-  String get filter => 'Филтр';
+  String get filter => 'Фильтр';
 
   @override
   String get search => 'Қидирув';
@@ -54,7 +54,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get birthDate => 'Туғилган сана';
 
   @override
-  String get notifications => 'Билдиришномалар';
+  String get notifications => 'Хабарномалар';
 
   @override
   String get closed => 'Ёпиқ';
@@ -144,7 +144,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get enterYourName => 'Исмингизни киритинг';
 
   @override
-  String get enterYourSurname => 'Фамилияингизни киритинг';
+  String get enterYourSurname => 'Фамилиянгизни киритинг';
 
   @override
   String get enterPhoneNumber => 'Телефон рақам киритинг';
@@ -153,7 +153,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get enterVerificationCode => 'Тасдиқлаш кодини киритинг';
 
   @override
-  String get enterPhoneNumberToRegister => 'Рўйхатдан ўтиш учун телефон \n рақамингизни киритинг';
+  String get enterPhoneNumberToRegister => 'Рўйхатдан ўтиш учун телефон рақамингизни киритинг';
 
   @override
   String get chooseYourIdentity => 'Фойдаланувчи турини танланг';
@@ -285,7 +285,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get cancelAnnouncement => 'Ҳақиқатдан ҳам эълонни бекор қилмоқчимисиз?';
 
   @override
-  String get deactivate => 'Фаолсизлантириш';
+  String get deactivate => 'Бекор қилиш';
 
   @override
   String get loadWeight => 'Юк вазни';
@@ -450,7 +450,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get yourName => 'Исмингиз';
 
   @override
-  String get yourSurname => 'Фамилияингиз';
+  String get yourSurname => 'Фамилиянгиз';
 
   @override
   String get phoneNumber => 'Телефон рақами';
@@ -525,7 +525,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get notActive => 'Фаол эмас';
 
   @override
-  String get paymentType => 'To\'lov turi';
+  String get paymentType => 'Тўлов тури';
 
   @override
   String get delivery => 'Етказиб бериш';
@@ -546,7 +546,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get carRental => 'Транспорт ижараси';
 
   @override
-  String get specialTechServices => 'Махсус техника хизматлари';
+  String get specialTechServices => 'Махсус техника хизмати';
 
   @override
   String get autoRepair => 'Авто таъмирлаш';
@@ -612,7 +612,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get call => 'Қўнғироқ қилиш';
 
   @override
-  String get contactViaTelegram => 'Telegram орқали боғланиш';
+  String get contactViaTelegram => 'Телеграм орқали боғланиш';
 
   @override
   String get referralProgram => 'Реферал дастури';
@@ -642,7 +642,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get withdrawnProfit => 'Чиқариб олинган фойда';
 
   @override
-  String get confirm_delete_account => 'Ҳақиқатдан ҳам аккаунтингизни ўчириб юбормоқчимисиз?';
+  String get confirm_delete_account => 'Ҳақиқатдан ҳам аккаунтингизни ўчирмоқчимисиз?';
 
   @override
   String get faq_how_it_works_title => 'Carting хизмати қандай ишлайди?';
@@ -684,10 +684,10 @@ class AppLocalizationsKk extends AppLocalizations {
   String get about_us_why_title => 'Нега айнан Carting?';
 
   @override
-  String get about_us_why_points => '✅ Қулай ва тез буюртма бериш - бир нечта босқичда илова орқали. ✅ Ишончли ижрочилар - тажрибали мутахассислар юкингизни хавфсиз етказиб беради. ✅ Шаффоф тарифлар - яширин тўловларсиз фақат адолатли нархлар. ✅ 24/7 Қўллаб-қувватлаш - ҳар доим ёрдам беришга таййормиз.';
+  String get about_us_why_points => '✅ Қулай ва тез буюртма бериш - бир нечта босқичда илова орқали. ✅ Ишончли ижрочилар - тажрибали мутахассислар юкингизни хавфсиз етказиб беради. ✅ Шаффоф тарифлар - яширин тўловларсиз фақат адолатли нархлар. ✅ 24/7 Қўллаб-қувватлаш - ҳар доим ёрдам беришга тайёрмиз.';
 
   @override
-  String get about_us_slogan => 'Сиз қаерга йўл олишингиздан қатъи назар - юкингиз ишончли қўлларда!';
+  String get about_us_slogan => 'Сиз қаерга йўл олишингиздан қатъий назар - юкингиз ишончли қўлларда!';
 
   @override
   String get select_language => 'Тилни танланг!';
@@ -708,7 +708,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get back => 'Ортга';
 
   @override
-  String get no_service_ads => 'Хизматга оид Эълонлар ва \nҳайдовчилар йўқ';
+  String get no_service_ads => 'Хизматга оид Эълонлар ва ҳайдовчилар йўқ';
 
   @override
   String get delete => 'Ўчириш';
@@ -850,4 +850,22 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get edit_advertisement => 'Эълонни таҳрирлаш';
+
+  @override
+  String get attach_image => 'Расим бириктириш';
+
+  @override
+  String get warehouse => 'Омборхона';
+
+  @override
+  String get area => 'Майдон';
+
+  @override
+  String get from_in => 'дан';
+
+  @override
+  String get to_in => 'гача';
+
+  @override
+  String get time => 'Вақт';
 }

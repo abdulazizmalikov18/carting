@@ -137,7 +137,7 @@ class _PeregonServiceViewState extends State<PeregonServiceView> {
             ),
 
             MinTextField(
-              text: "Vaqti",
+              text: AppLocalizations.of(context)!.time,
               hintText: "",
               keyboardType: TextInputType.datetime,
               controller: controller,
@@ -188,7 +188,7 @@ class _PeregonServiceViewState extends State<PeregonServiceView> {
               children: [
                 Expanded(
                   child: MinTextField(
-                    text: "Vaqt (dan)",
+                    text: "${AppLocalizations.of(context)!.time} (${AppLocalizations.of(context)!.from_in})",
                     hintText: "",
                     keyboardType: TextInputType.datetime,
                     controller: controllerTime,
@@ -236,7 +236,7 @@ class _PeregonServiceViewState extends State<PeregonServiceView> {
                 ),
                 Expanded(
                   child: MinTextField(
-                    text: "Vaqt (gacha)",
+                    text: "${AppLocalizations.of(context)!.time} (${AppLocalizations.of(context)!.to_in})",
                     hintText: "",
                     keyboardType: TextInputType.datetime,
                     controller: controllerTime2,
@@ -335,6 +335,7 @@ class _PeregonServiceViewState extends State<PeregonServiceView> {
               payDate: payDate,
               priceOffer: priceOffer,
               images: images,
+              isImage: false,
               onSave: (list) {
                 setState(() {
                   images = list;

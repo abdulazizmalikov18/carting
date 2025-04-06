@@ -850,4 +850,22 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get edit_advertisement => 'Редактировать объявление';
+
+  @override
+  String get attach_image => 'Прикрепить изображение';
+
+  @override
+  String get warehouse => 'Склад';
+
+  @override
+  String get area => 'Площадь';
+
+  @override
+  String get from_in => 'от';
+
+  @override
+  String get to_in => 'до';
+
+  @override
+  String get time => 'Время';
 }
