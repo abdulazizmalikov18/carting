@@ -46,4 +46,5 @@ abstract class IAdvertisementRepo {
   Future<Either<Failure, ResponseModel<List<OffersModel>>>> getOffers(int id);
   Future<Either<Failure, bool>> sendOffer(Map<String, dynamic> model);
   Future<Either<Failure, bool>> replyOffer(Map<String, dynamic> model);
+  Future<Either<Failure, bool>> updateStatus(Map<String, dynamic> model);
 }

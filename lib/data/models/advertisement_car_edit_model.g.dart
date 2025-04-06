@@ -1,14 +1,15 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'advertisement_car_model.dart';
+part of 'advertisement_car_edit_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-AdvertisementCarModel _$AdvertisementCarModelFromJson(
+AdvertisementCarEditModel _$AdvertisementCarEditModelFromJson(
         Map<String, dynamic> json) =>
-    AdvertisementCarModel(
+    AdvertisementCarEditModel(
+      id: (json['id'] as num).toInt(),
       advType: json['adv_type'] as String? ?? 'PROVIDE',
       serviceTypeId: (json['service_type_id'] as num).toInt(),
       fromLocation:
@@ -19,9 +20,10 @@ AdvertisementCarModel _$AdvertisementCarModelFromJson(
       note: json['note'] as String,
     );
 
-Map<String, dynamic> _$AdvertisementCarModelToJson(
-        AdvertisementCarModel instance) =>
+Map<String, dynamic> _$AdvertisementCarEditModelToJson(
+        AdvertisementCarEditModel instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'service_type_id': instance.serviceTypeId,
       'adv_type': instance.advType,
       'from_location': instance.fromLocation,

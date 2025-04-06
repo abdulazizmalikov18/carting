@@ -300,9 +300,6 @@ class AppLocalizationsUz extends AppLocalizations {
   String get departureDate => 'Jo‘natish sanasi';
 
   @override
-  String get additionalInfo => 'Qo\'shimcha ma\'lumotlar';
-
-  @override
   String get cargoType => 'Yuk turi';
 
   @override
@@ -846,5 +843,11 @@ class AppLocalizationsUz extends AppLocalizations {
   String get transportImages => 'Transport rasmlari';
 
   @override
+  String get additionalInfo => 'Qo\'shimcha ma\'lumotlar';
+
+  @override
   String get confirm_delete => 'Haqiqatdan ham o‘chirmoqchimisiz?';
+
+  @override
+  String get edit_advertisement => 'E’lonni tahrirlash';
 }

@@ -300,9 +300,6 @@ class AppLocalizationsKk extends AppLocalizations {
   String get departureDate => 'Жўнатиш санаси';
 
   @override
-  String get additionalInfo => 'Кушимча маълумотлар';
-
-  @override
   String get cargoType => 'Юк тури';
 
   @override
@@ -846,5 +843,11 @@ class AppLocalizationsKk extends AppLocalizations {
   String get transportImages => 'Транспорт расмлари';
 
   @override
+  String get additionalInfo => 'Кушимча маълумотлар';
+
+  @override
   String get confirm_delete => 'Ҳақиқатдан ҳам ўчирмоқчимисиз?';
+
+  @override
+  String get edit_advertisement => 'Эълонни таҳрирлаш';
 }

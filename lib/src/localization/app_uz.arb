@@ -93,10 +93,8 @@
   "cancelAnnouncement": "Haqiqatan ham e’lonni bekor qilmoqchimisiz?",
   "deactivate": "Faolsizlantirish",
   "loadWeight": "Yuk vazni",
-  "passengerCount": "Yo‘lovchi soni",
   "transportCount": "Transport soni",
   "departureDate": "Jo‘natish sanasi",
-  "additionalInfo": "Qo‘shimcha ma’lumotlar",
   "cargoType": "Yuk turi",
   "cargoImage": "Yuk rasmi",
   "cargoLoadingService": "Yuklash xizmati",
@@ -135,7 +133,6 @@
   "cancellationReason": "Bekor qilish sababi",
   "writeCancellationReason": "Bekor qilish sababini yozib qoldiring",
   "orderHistory": "Buyurtmalar tarixi",
-  "completed": "Tugallangan",
   "cancelled": "Bekor qilingan",
   "tashkentToAndijan": "Tashkent → Andijan",
   "furniture": "Mebel",
@@ -240,8 +237,8 @@
   "confirm_save_referral_changes": "Haqiqatdan ham referal kod tavsifidagi o‘zgarishlarni saqlamoqchimisiz?",
   "send_time": "Jo‘natish vaqti",
   "enter_info": "Kiriting",
-  "nothing_found":"Hech narsa topilmadi",
-  "mapdan":"Xaritadan",
+  "nothing_found": "Hech narsa topilmadi",
+  "mapdan": "Xaritadan",
   "workshops": "Ustaxonalar",
   "masters": "Ustalar",
   "special_equipment": "Maxsus texnika",
@@ -282,5 +279,6 @@
   "passengerCount": "Yo‘lovchilar soni",
   "transportImages": "Transport rasmlari",
   "additionalInfo": "Qo'shimcha ma'lumotlar",
-  "confirm_delete": "Haqiqatdan ham o‘chirmoqchimisiz?"
+  "confirm_delete": "Haqiqatdan ham o‘chirmoqchimisiz?",
+  "edit_advertisement": "E’lonni tahrirlash"
 }

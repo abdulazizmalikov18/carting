@@ -126,6 +126,7 @@ Details _$DetailsFromJson(Map<String, dynamic> json) => Details(
           ?.map((e) => Fuel.fromJson(e as Map<String, dynamic>))
           .toList(),
       kg: json['kg'] as String?,
+      tn: json['tn'] as String?,
       m3: json['m3'] as String?,
       litr: json['litr'] as String?,
       madeAt: json['made_at'] as String?,
@@ -158,6 +159,7 @@ Map<String, dynamic> _$DetailsToJson(Details instance) => <String, dynamic>{
       'to_date': instance.toDate,
       'fuels': instance.fuels,
       'kg': instance.kg,
+      'tn': instance.tn,
       'm3': instance.m3,
       'litr': instance.litr,
       'made_at': instance.madeAt,

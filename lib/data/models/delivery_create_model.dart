@@ -72,6 +72,8 @@ class Details {
   final String? kg;
   @JsonKey(name: "m3")
   final String? m3;
+  @JsonKey(name: "tn")
+  final String? tn;
   @JsonKey(name: "litr")
   final String? litr;
   @JsonKey(name: "from_date")
@@ -87,6 +89,7 @@ class Details {
     this.kg,
     this.m3,
     this.litr,
+    this.tn,
     this.fromDate,
     this.toDate,
   });

@@ -681,12 +681,6 @@ abstract class AppLocalizations {
   /// **'Departure Date'**
   String get departureDate;
 
-  /// No description provided for @additionalInfo.
-  ///
-  /// In en, this message translates to:
-  /// **'Additional Information'**
-  String get additionalInfo;
-
   /// No description provided for @cargoType.
   ///
   /// In en, this message translates to:
@@ -1773,11 +1767,23 @@ abstract class AppLocalizations {
   /// **'Transport Images'**
   String get transportImages;
 
+  /// No description provided for @additionalInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Additional Information'**
+  String get additionalInfo;
+
   /// No description provided for @confirm_delete.
   ///
   /// In en, this message translates to:
   /// **'Are you sure you want to delete?'**
   String get confirm_delete;
+
+  /// No description provided for @edit_advertisement.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Advertisement'**
+  String get edit_advertisement;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

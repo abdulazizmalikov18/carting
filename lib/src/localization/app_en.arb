@@ -96,7 +96,6 @@
   "passengerCount": "Passenger Count",
   "transportCount": "Transport Count",
   "departureDate": "Departure Date",
-  "additionalInfo": "Additional Information",
   "cargoType": "Cargo Type",
   "cargoImage": "Cargo Image",
   "cargoLoadingService": "Cargo Loading Service",
@@ -262,8 +261,6 @@
   "ad_count": "Number of Ads",
   "piece": "pcs",
   "search_transport": "Search Transport",
-  "active": "Active",
-  "completed": "Completed",
   "transport_number": "Transport Number",
   "manufacture_year": "Year of Manufacture",
   "tech_passport": "Technical Passport Series and Number",
@@ -279,8 +276,8 @@
   "maxLoadCapacity": "Max Load Capacity",
   "maxPassengerCount": "Max Passenger Count",
   "maxTransportCount": "Max Transport Count",
-  "passengerCount": "Passenger Count",
   "transportImages": "Transport Images",
   "additionalInfo": "Additional Information",
-    "confirm_delete": "Are you sure you want to delete?"
+  "confirm_delete": "Are you sure you want to delete?",
+  "edit_advertisement": "Edit Advertisement"
 }

@@ -300,9 +300,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get departureDate => 'Departure Date';
 
   @override
-  String get additionalInfo => 'Additional Information';
-
-  @override
   String get cargoType => 'Cargo Type';
 
   @override
@@ -846,5 +843,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get transportImages => 'Transport Images';
 
   @override
+  String get additionalInfo => 'Additional Information';
+
+  @override
   String get confirm_delete => 'Are you sure you want to delete?';
+
+  @override
+  String get edit_advertisement => 'Edit Advertisement';
 }

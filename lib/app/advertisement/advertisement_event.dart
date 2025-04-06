@@ -8,6 +8,18 @@ class GetOffersEvent extends AdvertisementEvent {
   GetOffersEvent({required this.advertisementId});
 }
 
+class UpdateStatusEvent extends AdvertisementEvent {
+  final int advertisementId;
+  final String status;
+  final VoidCallback onSuccess;
+
+  UpdateStatusEvent({
+    required this.advertisementId,
+    required this.status,
+    required this.onSuccess,
+  });
+}
+
 class SendOffersEvent extends AdvertisementEvent {
   final int advertisementId;
   final int sum;

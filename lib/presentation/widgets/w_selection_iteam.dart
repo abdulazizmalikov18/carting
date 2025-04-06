@@ -15,8 +15,10 @@ class WSelectionItam extends StatefulWidget {
   const WSelectionItam({
     super.key,
     required this.onTap,
+    this.selectedIndex,
   });
   final Function(int index) onTap;
+  final int? selectedIndex;
 
   @override
   State<WSelectionItam> createState() => _WSelectionItamState();
@@ -28,6 +30,14 @@ class _WSelectionItamState extends State<WSelectionItam> {
   bool dismissOnTapOutside = true;
   bool useButtonSize = true;
   int selIndex = 0;
+  bool isFirst = false;
+
+  @override
+  void initState() {
+    selIndex = widget.selectedIndex ?? 0;
+    isFirst = widget.selectedIndex != null;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +50,12 @@ class _WSelectionItamState extends State<WSelectionItam> {
           );
         }
         if (state.transportationTypes.isNotEmpty) {
+          if (isFirst) {
+            selIndex = state.transportationTypes.indexWhere(
+              (element) => element.id == widget.selectedIndex,
+            );
+            isFirst = false;
+          }
           return RawFlexDropDown(
             controller: _controller,
             menuPosition: position,

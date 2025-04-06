@@ -47,6 +47,7 @@ abstract class AdvertisementDatasource {
   Future<ResponseModel<List<OffersModel>>> getOffers(int id);
   Future<bool> replyOffer(Map<String, dynamic> model);
   Future<bool> sendOffer(Map<String, dynamic> model);
+  Future<bool> updateStatus(Map<String, dynamic> model);
 }
 
 class AdvertisementDatasourceImpl implements AdvertisementDatasource {
@@ -496,6 +497,25 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
     return _handle.apiCantrol(
       request: () => dio.post(
         'send/offer',
+        data: model,
+        options: Options(
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
+              ? {
+                  'Authorization':
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                }
+              : {},
+        ),
+      ),
+      body: (response) => true,
+    );
+  }
+  
+  @override
+  Future<bool> updateStatus(Map<String, dynamic> model) {
+     return _handle.apiCantrol(
+      request: () => dio.put(
+        'advertisement',
         data: model,
         options: Options(
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty

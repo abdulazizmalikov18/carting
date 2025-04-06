@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/presentation/widgets/succes_dialog.dart';
 import 'package:carting/presentation/widgets/w_time.dart';
@@ -132,8 +133,17 @@ class _DeliveryViewState extends State<DeliveryView> {
                     //   amount: int.tryParse(controllerCount.text) ?? 0,
                     //   name: selectedUnit,
                     // ),
-                    kg: controllerKg.text.isEmpty ? null : controllerKg.text,
                     m3: controllerm3.text.isEmpty ? null : controllerm3.text,
+                    kg: selectedUnit == 'kg'
+                        ? controllerKg.text.isEmpty
+                            ? null
+                            : controllerKg.text
+                        : null,
+                    tn: selectedUnit == 'tn'
+                        ? controllerKg.text.isEmpty
+                            ? null
+                            : controllerKg.text
+                        : null,
                     litr: controllerLitr.text.isEmpty
                         ? null
                         : controllerLitr.text,
@@ -185,7 +195,6 @@ class _DeliveryViewState extends State<DeliveryView> {
                 point2 = point;
               },
             ),
-
             Container(
               decoration: BoxDecoration(
                 color: context.color.contColor,
@@ -228,7 +237,88 @@ class _DeliveryViewState extends State<DeliveryView> {
                                   style: const TextStyle(fontSize: 16),
                                 ),
                               ),
-                              const Text('kg'),
+                              Builder(
+                                builder: (context) => GestureDetector(
+                                  onTap: () async {
+                                    final RenderBox button =
+                                        context.findRenderObject() as RenderBox;
+                                    final RenderBox overlay =
+                                        Overlay.of(context)
+                                            .context
+                                            .findRenderObject() as RenderBox;
+
+                                    final RelativeRect position =
+                                        RelativeRect.fromRect(
+                                      Rect.fromPoints(
+                                        button.localToGlobal(
+                                            Offset(0, button.size.height),
+                                            ancestor: overlay),
+                                        button.localToGlobal(
+                                            button.size
+                                                .bottomRight(Offset.zero),
+                                            ancestor: overlay),
+                                      ),
+                                      Offset.zero & overlay.size,
+                                    );
+
+                                    String? selected = await showMenu<String>(
+                                      context: context,
+                                      position: position,
+                                      color: white,
+                                      shadowColor: black.withValues(alpha: .3),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      items: ['kg', 'tn'].map((choice) {
+                                        return PopupMenuItem<String>(
+                                          value: choice,
+                                          height: 40,
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                choice,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                              const Spacer(),
+                                              SizedBox(
+                                                height: 20,
+                                                width: 20,
+                                                child: choice == selectedUnit
+                                                    ? AppIcons.checkboxRadio
+                                                        .svg()
+                                                    : AppIcons.checkboxRadioDis
+                                                        .svg(),
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      }).toList(),
+                                    );
+
+                                    if (selected != null) {
+                                      setState(() {
+                                        selectedUnit = selected;
+                                      });
+                                    }
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        selectedUnit,
+                                        style: TextStyle(
+                                          color: context.color.darkText,
+                                        ),
+                                      ),
+                                      AppIcons.arrowBottom.svg(
+                                        color: context.color.iron,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -252,7 +342,10 @@ class _DeliveryViewState extends State<DeliveryView> {
                                   style: const TextStyle(fontSize: 16),
                                 ),
                               ),
-                              const Text('m3')
+                              Text(
+                                'm3',
+                                style: TextStyle(color: context.color.darkText),
+                              )
                             ],
                           ),
                         ),
@@ -276,7 +369,10 @@ class _DeliveryViewState extends State<DeliveryView> {
                                   style: const TextStyle(fontSize: 16),
                                 ),
                               ),
-                              const Text('litr')
+                              Text(
+                                'litr',
+                                style: TextStyle(color: context.color.darkText),
+                              )
                             ],
                           ),
                         ),
@@ -286,7 +382,6 @@ class _DeliveryViewState extends State<DeliveryView> {
                 ],
               ),
             ),
-
             MinTextField(
               text: AppLocalizations.of(context)!.departureDate,
               hintText: "",
@@ -438,48 +533,6 @@ class _DeliveryViewState extends State<DeliveryView> {
                 ),
               ],
             ),
-
-            // DecoratedBox(
-            //   decoration: BoxDecoration(
-            //     color: context.color.contColor,
-            //     borderRadius: BorderRadius.circular(24),
-            //   ),
-            //   child: ListTile(
-            //     title: Text(
-            //       AppLocalizations.of(context)!.additionalInfo,
-            //       style: TextStyle(
-            //         fontSize: 12,
-            //         fontWeight: FontWeight.w400,
-            //         color: context.color.darkText,
-            //       ),
-            //     ),
-            //     onTap: () {
-            //       Navigator.of(context).push(MaterialPageRoute(
-            //         builder: (context) => ,
-            //       ));
-            //     },
-            //     minVerticalPadding: 0,
-            //     subtitle: Text(
-            //       controllerCommet.text.isNotEmpty ||
-            //               controllerPrice.text.isNotEmpty
-            //           ? "${controllerCommet.text.isNotEmpty ? AppLocalizations.of(context)!.description : ""} ${controllerPrice.text.isNotEmpty ? "${AppLocalizations.of(context)!.price}, ${AppLocalizations.of(context)!.paymentType}" : ""} ${images.isEmpty ? "" : AppLocalizations.of(context)!.cargoImages}"
-            //           : AppLocalizations.of(context)!.enter_info,
-            //       maxLines: 1,
-            //       overflow: TextOverflow.ellipsis,
-            //       style: TextStyle(
-            //         fontSize: 16,
-            //         fontWeight: FontWeight.w400,
-            //         color: controllerCommet.text.isNotEmpty ||
-            //                 controllerPrice.text.isNotEmpty ||
-            //                 images.isNotEmpty
-            //             ? context.color.white
-            //             : context.color.darkText,
-            //       ),
-            //     ),
-            //     trailing: AppIcons.arrowForward.svg(),
-            //   ),
-            // ),
-
             WSelectionItam(onTap: (index) {
               trTypeId.value = index;
             }),

@@ -4,7 +4,6 @@
   "settings": "Созламалар",
   "logOut": "Чиқиш",
   "list": "Рўйхат",
-  "active": "Фаол",
   "history": "Тарих",
   "notIdentified": "Маълумот киритилмаган",
   "filter": "Филтр",
@@ -127,10 +126,8 @@
   "cancelAnnouncement": "Ҳақиқатдан ҳам эълонни бекор қилмоқчимисиз?",
   "deactivate": "Фаолсизлантириш",
   "loadWeight": "Юк вазни",
-  "passengerCount": "Йўловчи сони",
   "transportCount": "Транспорт сони",
   "departureDate": "Жўнатиш санаси",
-  "additionalInfo": "Қўшимча маълумот",
   "cargoType": "Юк тури",
   "cargoImage": "Юк расми",
   "cargoLoadingService": "Юклаш хизмати",
@@ -169,7 +166,6 @@
   "cancellationReason": "Бекор қилиш сабаби",
   "writeCancellationReason": "Бекор қилиш сабабини ёзиб қолдиринг",
   "orderHistory": "Буюртмалар тарихи",
-  "completed": "Тугалланган",
   "cancelled": "Бекор қилинган",
   "notActive": "Фаол эмас",
   "paymentType": "To'lov turi",
@@ -282,5 +278,6 @@
   "passengerCount": "Йўловчилар сони",
   "transportImages": "Транспорт расмлари",
   "additionalInfo": "Кушимча маълумотлар",
-  "confirm_delete": "Ҳақиқатдан ҳам ўчирмоқчимисиз?"
+  "confirm_delete": "Ҳақиқатдан ҳам ўчирмоқчимисиз?",
+  "edit_advertisement": "Эълонни таҳрирлаш"
 }

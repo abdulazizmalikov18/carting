@@ -172,7 +172,16 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                     // ),
                     fromDate: selectedDate.toString(),
                     toDate: selectedDate2.toString(),
-                    kg: controllerKg.text.isEmpty ? null : controllerKg.text,
+                    kg: selectedUnit == 'kg'
+                        ? controllerKg.text.isEmpty
+                            ? null
+                            : controllerKg.text
+                        : null,
+                    tn: selectedUnit == 'tn'
+                        ? controllerKg.text.isEmpty
+                            ? null
+                            : controllerKg.text
+                        : null,
                     m3: controllerm3.text.isEmpty ? null : controllerm3.text,
                     litr: controllerLitr.text.isEmpty
                         ? null
@@ -349,9 +358,87 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                                   style: const TextStyle(fontSize: 16),
                                 ),
                               ),
-                              Text(
-                                'kg',
-                                style: TextStyle(color: context.color.darkText),
+                              Builder(
+                                builder: (context) => GestureDetector(
+                                  onTap: () async {
+                                    final RenderBox button =
+                                        context.findRenderObject() as RenderBox;
+                                    final RenderBox overlay =
+                                        Overlay.of(context)
+                                            .context
+                                            .findRenderObject() as RenderBox;
+
+                                    final RelativeRect position =
+                                        RelativeRect.fromRect(
+                                      Rect.fromPoints(
+                                        button.localToGlobal(
+                                            Offset(0, button.size.height),
+                                            ancestor: overlay),
+                                        button.localToGlobal(
+                                            button.size
+                                                .bottomRight(Offset.zero),
+                                            ancestor: overlay),
+                                      ),
+                                      Offset.zero & overlay.size,
+                                    );
+
+                                    String? selected = await showMenu<String>(
+                                      context: context,
+                                      position: position,
+                                      color: white,
+                                      shadowColor: black.withValues(alpha: .3),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      items: ['kg', 'tn'].map((choice) {
+                                        return PopupMenuItem<String>(
+                                          value: choice,
+                                          height: 40,
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                choice,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                              const Spacer(),
+                                              SizedBox(
+                                                height: 20,
+                                                width: 20,
+                                                child: choice == selectedUnit
+                                                    ? AppIcons.checkboxRadio
+                                                        .svg()
+                                                    : AppIcons.checkboxRadioDis
+                                                        .svg(),
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      }).toList(),
+                                    );
+
+                                    if (selected != null) {
+                                      setState(() {
+                                        selectedUnit = selected;
+                                      });
+                                    }
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        selectedUnit,
+                                        style: TextStyle(
+                                          color: context.color.darkText,
+                                        ),
+                                      ),
+                                      AppIcons.arrowBottom.svg(
+                                        color: context.color.iron,
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -578,61 +665,6 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                 ),
               ],
             ),
-
-            // DecoratedBox(
-            //   decoration: BoxDecoration(
-            //     color: context.color.contColor,
-            //     borderRadius: BorderRadius.circular(24),
-            //   ),
-            //   child: ListTile(
-            //     onTap: () {
-            //       Navigator.of(context).push(MaterialPageRoute(
-            //         builder: (context) => AdditionalInformationView(
-            //           isDelivery: true,
-            //           controllerCommet: controllerCommet,
-            //           controllerPrice: controllerPrice,
-            //           loadServiceId: loadServiceId,
-            //           loadTypeId: loadTypeId,
-            //           payDate: ValueNotifier(false),
-            //           images: images,
-            //           onSave: (list) {
-            //             setState(() {
-            //               images = list;
-            //             });
-            //           },
-            //         ),
-            //       ));
-            //     },
-            //     title: Text(
-            //       AppLocalizations.of(context)!.additionalInfo,
-            //       style: TextStyle(
-            //         fontSize: 12,
-            //         fontWeight: FontWeight.w400,
-            //         color: context.color.darkText,
-            //       ),
-            //     ),
-            //     minVerticalPadding: 0,
-            //     subtitle: Text(
-            //       controllerCommet.text.isNotEmpty ||
-            //               controllerPrice.text.isNotEmpty
-            //           ? "${controllerCommet.text.isNotEmpty ? AppLocalizations.of(context)!.description : ""} ${controllerPrice.text.isNotEmpty ? "${AppLocalizations.of(context)!.price}, ${AppLocalizations.of(context)!.paymentType}" : ""} ${images.isEmpty ? "" : AppLocalizations.of(context)!.cargoImages}"
-            //           : AppLocalizations.of(context)!.enter_info,
-            //       maxLines: 1,
-            //       overflow: TextOverflow.ellipsis,
-            //       style: TextStyle(
-            //         fontSize: 16,
-            //         fontWeight: FontWeight.w400,
-            //         color: controllerCommet.text.isNotEmpty ||
-            //                 controllerPrice.text.isNotEmpty ||
-            //                 images.isNotEmpty
-            //             ? context.color.white
-            //             : context.color.darkText,
-            //       ),
-            //     ),
-            //     trailing: AppIcons.arrowForward.svg(),
-            //   ),
-            // ),
-
             WSelectionItam(
               onTap: (int index) {
                 trTypeId.value = index;

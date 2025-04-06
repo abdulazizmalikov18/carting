@@ -4,7 +4,6 @@
   "settings": "Настройки",
   "logOut": "Выйти",
   "list": "Список",
-  "active": "Активный",
   "history": "История",
   "notIdentified": "Данные не введены",
   "filter": "Фильтр",
@@ -93,10 +92,8 @@
   "cancelAnnouncement": "Вы уверены, что хотите отменить объявление?",
   "deactivate": "Деактивировать",
   "loadWeight": "Вес груза",
-  "passengerCount": "Количество пассажиров",
   "transportCount": "Количество транспортных средств",
   "departureDate": "Дата отправления",
-  "additionalInfo": "Дополнительная информация",
   "cargoType": "Тип груза",
   "cargoImage": "Фото груза",
   "cargoLoadingService": "Услуга погрузки",
@@ -135,7 +132,6 @@
   "cancellationReason": "Причина отмены",
   "writeCancellationReason": "Напишите причину отмены",
   "orderHistory": "История заказов",
-  "completed": "Завершено",
   "cancelled": "Отменено",
   "tashkentToAndijan": "Ташкент → Андижан",
   "furniture": "Мебель",
@@ -239,8 +235,8 @@
   "confirm_save_referral_changes": "Вы уверены, что хотите сохранить изменения в описании реферального кода?",
   "send_time": "Время отправки",
   "enter_info": "Введите",
-  "nothing_found":"Ничего не найдено",
-  "mapdan":"С карты",
+  "nothing_found": "Ничего не найдено",
+  "mapdan": "С карты",
   "workshops": "Мастерские",
   "masters": "Мастера",
   "special_equipment": "Спецтехника",
@@ -282,6 +278,6 @@
   "passengerCount": "Количество пассажиров",
   "transportImages": "Транспортные изображения",
   "additionalInfo": "Дополнительная информация",
-  "confirm_delete": "Вы действительно хотите удалить?"
+  "confirm_delete": "Вы действительно хотите удалить?",
+  "edit_advertisement": "Редактировать объявление"
 }
-

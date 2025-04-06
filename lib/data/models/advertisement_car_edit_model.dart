@@ -5,16 +5,18 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 
-part 'advertisement_car_model.g.dart';
+part 'advertisement_car_edit_model.g.dart';
 
-AdvertisementCarModel advertisementCarModelFromJson(String str) =>
-    AdvertisementCarModel.fromJson(json.decode(str));
+AdvertisementCarEditModel advertisementCarModelFromJson(String str) =>
+    AdvertisementCarEditModel.fromJson(json.decode(str));
 
-String advertisementCarModelToJson(AdvertisementCarModel data) =>
+String advertisementCarModelToJson(AdvertisementCarEditModel data) =>
     json.encode(data.toJson());
 
 @JsonSerializable()
-class AdvertisementCarModel {
+class AdvertisementCarEditModel {
+  @JsonKey(name: "id")
+  final int id;
   @JsonKey(name: "service_type_id")
   final int serviceTypeId;
   @JsonKey(name: "adv_type")
@@ -28,7 +30,8 @@ class AdvertisementCarModel {
   @JsonKey(name: "note")
   final String note;
 
-  AdvertisementCarModel({
+  AdvertisementCarEditModel({
+    required this.id,
     this.advType = 'PROVIDE',
     required this.serviceTypeId,
     required this.fromLocation,
@@ -37,10 +40,10 @@ class AdvertisementCarModel {
     required this.note,
   });
 
-  factory AdvertisementCarModel.fromJson(Map<String, dynamic> json) =>
-      _$AdvertisementCarModelFromJson(json);
+  factory AdvertisementCarEditModel.fromJson(Map<String, dynamic> json) =>
+      _$AdvertisementCarEditModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AdvertisementCarModelToJson(this);
+  Map<String, dynamic> toJson() => _$AdvertisementCarEditModelToJson(this);
 }
 
 @JsonSerializable()

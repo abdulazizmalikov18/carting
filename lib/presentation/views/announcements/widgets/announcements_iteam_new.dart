@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
+import 'package:carting/presentation/widgets/car_number_iteam.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/utils/calculate_distance.dart';
@@ -17,9 +18,11 @@ class AnnouncementsIteamNew extends StatelessWidget {
     super.key,
     required this.model,
     this.isMe = false,
+    this.isCarNumber = false,
   });
   final AdvertisementModel model;
   final bool isMe;
+  final bool isCarNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -190,7 +193,42 @@ class AnnouncementsIteamNew extends StatelessWidget {
                   )
                 ],
               ),
+            ),
+          if (isCarNumber) ...[
+            Container(
+              padding: const EdgeInsets.fromLTRB(12, 4, 4, 4),
+              height: 56,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24),
+                color: context.color.scaffoldBackground,
+              ),
+              child: Row(
+                spacing: 16,
+                children: [
+                  CachedNetworkImage(
+                    imageUrl: model.transportIcon ?? "",
+                    height: 48,
+                    width: 86,
+                  ),
+                  CarNumberIteam(
+                    carNumberFirst: model.details?.transportNumber
+                            .toString()
+                            .substring(0, 2) ??
+                        "01",
+                    carNumberSecond: model.details?.transportNumber
+                            .toString()
+                            .substring(2) ??
+                        "A 111 AA",
+                  ),
+                ],
+              ),
+            ),
+            WButton(
+              onTap: () {},
+              height: 48,
+              text: 'Statusni o’zgartirish',
             )
+          ]
         ],
       ),
     );

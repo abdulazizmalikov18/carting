@@ -300,9 +300,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get departureDate => 'Дата отправления';
 
   @override
-  String get additionalInfo => 'Дополнительная информация';
-
-  @override
   String get cargoType => 'Тип груза';
 
   @override
@@ -846,5 +843,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get transportImages => 'Транспортные изображения';
 
   @override
+  String get additionalInfo => 'Дополнительная информация';
+
+  @override
   String get confirm_delete => 'Вы действительно хотите удалить?';
+
+  @override
+  String get edit_advertisement => 'Редактировать объявление';
 }

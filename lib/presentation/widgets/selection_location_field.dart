@@ -12,10 +12,14 @@ class SelectionLocationField extends StatefulWidget {
     this.onTap1,
     this.onTap2,
     this.isOne = false,
+    this.point1,
+    this.point2,
   });
   final Function(MapPoint? point)? onTap1;
   final Function(MapPoint? point)? onTap2;
   final bool isOne;
+  final MapPoint? point1;
+  final MapPoint? point2;
 
   @override
   State<SelectionLocationField> createState() => _SelectionLocationFieldState();
@@ -24,6 +28,14 @@ class SelectionLocationField extends StatefulWidget {
 class _SelectionLocationFieldState extends State<SelectionLocationField> {
   MapPoint? point1;
   MapPoint? point2;
+
+  @override
+  void initState() {
+    point1 = widget.point1;
+    point2 = widget.point2;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(

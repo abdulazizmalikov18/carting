@@ -126,7 +126,12 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                               isOffers: true,
                             ),
                           ),
-                        ));
+                        ))
+                            .then((value) {
+                          if (value != null) {
+                            bloc.add(GetAdvertisementsReceiveEvent());
+                          }
+                        });
                       },
                       child: AnnouncementsIteamNew(
                         model: state.advertisementRECEIVE[index],
@@ -217,7 +222,12 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                               isMe: true,
                             ),
                           ),
-                        ));
+                        ))
+                            .then((value) {
+                          if (value != null) {
+                            bloc.add(GetAdvertisementsReceiveFinishEvent());
+                          }
+                        });
                       },
                       child: AnnouncementsIteamNew(
                         model: state.advertisementRECEIVEFinish[index],

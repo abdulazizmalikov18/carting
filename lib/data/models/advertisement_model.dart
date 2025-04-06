@@ -13,7 +13,7 @@ class AdvertisementModel {
   @JsonKey(name: "shipment_date")
   final String? shipmentDate;
   @JsonKey(name: "status")
-  final String status;
+  String status;
   @JsonKey(name: "service_type_id")
   final int serviceTypeId;
   @JsonKey(name: "service_name")
@@ -165,6 +165,8 @@ class Details {
   final List<Fuel>? fuels;
   @JsonKey(name: "kg")
   final String? kg;
+  @JsonKey(name: "tn")
+  final String? tn;
   @JsonKey(name: "m3")
   final String? m3;
   @JsonKey(name: "litr")
@@ -204,6 +206,7 @@ class Details {
     this.toDate,
     this.fuels,
     this.kg,
+    this.tn,
     this.m3,
     this.litr,
     this.madeAt,

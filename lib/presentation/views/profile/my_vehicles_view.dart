@@ -148,12 +148,18 @@ class _MyVehiclesViewState extends State<MyVehiclesView> {
                   WButton(
                     onTap: () {
                       final bloc = context.read<AdvertisementBloc>();
-                      Navigator.of(context).push(MaterialPageRoute(
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(
                         builder: (context) => BlocProvider.value(
                           value: bloc,
                           child: const AddCarView(),
                         ),
-                      ));
+                      ))
+                          .then((value) {
+                        if (value != null) {
+                          bloc.add(GetAdvertisementsMyCarsEvent());
+                        }
+                      });
                     },
                     height: 48,
                     padding: const EdgeInsets.symmetric(horizontal: 16),

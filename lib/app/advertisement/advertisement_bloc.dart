@@ -27,6 +27,19 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
       (event, emit) => emit(state.copyWith(tabIndex: event.index)),
     );
 
+    on<UpdateStatusEvent>((event, emit) async {
+      emit(state.copyWith(statusCreate: FormzSubmissionStatus.inProgress));
+      final respons = await _repo.updateStatus(
+        {"id": event.advertisementId, "status": event.status},
+      );
+      if (respons.isRight) {
+        emit(state.copyWith(statusCreate: FormzSubmissionStatus.success));
+        event.onSuccess();
+      } else {
+        emit(state.copyWith(statusCreate: FormzSubmissionStatus.failure));
+      }
+    });
+
     on<ReplyOffersEvent>((event, emit) async {
       emit(state.copyWith(statusCreate: FormzSubmissionStatus.inProgress));
       final respons = await _repo.replyOffer({

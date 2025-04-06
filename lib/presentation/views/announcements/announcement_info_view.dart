@@ -11,13 +11,16 @@ import 'package:carting/presentation/views/announcements/widgets/car_offer_botto
 import 'package:carting/presentation/views/announcements/widgets/offer_bottom_sheet.dart';
 import 'package:carting/presentation/views/common/comments_view.dart';
 import 'package:carting/presentation/views/common/location_info_view.dart';
+import 'package:carting/presentation/views/profile/edit_ads_view.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_info_container.dart';
+import 'package:carting/presentation/widgets/w_scale_animation.dart';
 import 'package:carting/presentation/widgets/w_shimmer.dart';
 import 'package:carting/utils/calculate_distance.dart';
 import 'package:carting/utils/caller.dart';
 import 'package:carting/utils/my_function.dart';
+import 'package:flex_dropdown/flex_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -44,6 +47,7 @@ class AnnouncementInfoView extends StatefulWidget {
 }
 
 class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
+  final OverlayPortalController _controller = OverlayPortalController();
   @override
   void initState() {
     if (widget.isOffers) {
@@ -79,7 +83,21 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                 children: [
                   Expanded(
                     child: WButton(
-                      onTap: () {},
+                      onTap: () {
+                        final bloc = context.read<AdvertisementBloc>();
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(
+                          builder: (context) => BlocProvider.value(
+                            value: bloc,
+                            child: EditAdsView(model: widget.model),
+                          ),
+                        ))
+                            .then((value) {
+                          if (value != null) {
+                            bloc.add(GetAdvertisementsMyCarsEvent());
+                          }
+                        });
+                      },
                       color: greyBack,
                       textColor: greyText,
                       child: Row(
@@ -225,7 +243,14 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                                 bloc: bloc,
                                 isOnlyCars: widget.isOnlyCar,
                               ),
-                      );
+                      ).then((value) {
+                        if (value != null && context.mounted) {
+                          CustomSnackbar.show(
+                            context,
+                            "Taklif yuorildi",
+                          );
+                        }
+                      });
                     },
                     text: "Taklif yuborish",
                     color: greyBack,
@@ -292,28 +317,161 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (widget.isMe) ...[
-              WButton(
-                onTap: () {},
-                color: widget.model.status == 'ACTIVE'
-                    ? green.withValues(alpha: .2)
-                    : red.withValues(alpha: .2),
-                textColor: widget.model.status == 'ACTIVE' ? green : red,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                text: widget.model.status == 'ACTIVE'
-                    ? AppLocalizations.of(context)!.active
-                    : AppLocalizations.of(context)!.notActive,
-                child: widget.model.status == 'ACTIVE'
-                    ? Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              AppLocalizations.of(context)!.active,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ],
+              RawFlexDropDown(
+                controller: _controller,
+                menuPosition: MenuPosition.bottomStart,
+                dismissOnTapOutside: true,
+                buttonBuilder: (context, onTap) => WButton(
+                  onTap: onTap,
+                  color: widget.model.status == 'ACTIVE'
+                      ? green.withValues(alpha: .2)
+                      : red.withValues(alpha: .2),
+                  textColor: widget.model.status == 'ACTIVE' ? green : red,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  text: widget.model.status == 'ACTIVE'
+                      ? AppLocalizations.of(context)!.active
+                      : AppLocalizations.of(context)!.notActive,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          switch (widget.model.status) {
+                            "ACTIVE" => AppLocalizations.of(context)!.active,
+                            "IN_ACTIVE" =>
+                              AppLocalizations.of(context)!.notActive,
+                            "CLOSED" => AppLocalizations.of(context)!.closed,
+                            String() => throw UnimplementedError(),
+                          },
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      AppIcons.arrowBottom.svg(
+                        color: widget.model.status == 'ACTIVE' ? green : red,
                       )
-                    : null,
+                    ],
+                  ),
+                ),
+                menuBuilder: (context, width) => Container(
+                  width: width,
+                  padding: const EdgeInsets.all(16),
+                  margin: const EdgeInsets.only(top: 4),
+                  constraints: const BoxConstraints(maxHeight: 250),
+                  decoration: BoxDecoration(
+                    color: context.color.contColor,
+                    borderRadius: BorderRadius.circular(24),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Color(0x11000000),
+                        blurRadius: 32,
+                        offset: Offset(0, 20),
+                        spreadRadius: -8,
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 8,
+                    children: [
+                      WScaleAnimation(
+                        onTap: () {
+                          widget.model.status = 'IN_ACTIVE';
+                          context
+                              .read<AdvertisementBloc>()
+                              .add(UpdateStatusEvent(
+                                advertisementId: widget.model.id,
+                                status: 'IN_ACTIVE',
+                                onSuccess: () {
+                                  _controller.hide();
+                                  setState(() {});
+                                },
+                              ));
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            WButton(
+                              onTap: () {},
+                              height: 40,
+                              text: "Band",
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              color: red.withValues(alpha: .1),
+                              textColor: red,
+                            ),
+                            widget.model.status != 'ACTIVE'
+                                ? AppIcons.checkboxRadio.svg()
+                                : AppIcons.checkboxRadioDis.svg(),
+                          ],
+                        ),
+                      ),
+                      WScaleAnimation(
+                        onTap: () {
+                          widget.model.status = 'ACTIVE';
+                          context
+                              .read<AdvertisementBloc>()
+                              .add(UpdateStatusEvent(
+                                advertisementId: widget.model.id,
+                                status: 'ACTIVE',
+                                onSuccess: () {
+                                  _controller.hide();
+                                  setState(() {});
+                                },
+                              ));
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            WButton(
+                              onTap: () {},
+                              height: 40,
+                              text: "Faol",
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              color: green.withValues(alpha: .1),
+                              textColor: green,
+                            ),
+                            widget.model.status == 'ACTIVE'
+                                ? AppIcons.checkboxRadio.svg()
+                                : AppIcons.checkboxRadioDis.svg(),
+                          ],
+                        ),
+                      ),
+                      if (!widget.isMyCar)
+                        WScaleAnimation(
+                          onTap: () {
+                            widget.model.status = 'CLOSED';
+                            context
+                                .read<AdvertisementBloc>()
+                                .add(UpdateStatusEvent(
+                                  advertisementId: widget.model.id,
+                                  status: 'CLOSED',
+                                  onSuccess: () {
+                                    _controller.hide();
+                                    setState(() {});
+                                  },
+                                ));
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              WButton(
+                                onTap: () {},
+                                height: 40,
+                                text: "Tugallangan",
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                color: red.withValues(alpha: .1),
+                                textColor: red,
+                              ),
+                              widget.model.status == 'CLOSED'
+                                  ? AppIcons.checkboxRadio.svg()
+                                  : AppIcons.checkboxRadioDis.svg(),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
               ),
               const SizedBox(height: 12),
               if (widget.isOffers)
@@ -348,7 +506,24 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                           ));
                         },
                         leading: AppIcons.layer.svg(height: 24, width: 24),
-                        title: const Text('Takliflar'),
+                        title: Row(
+                          children: [
+                            const Expanded(child: Text('Takliflar')),
+                            CircleAvatar(
+                              radius: 12,
+                              backgroundColor: context.color.contColor,
+                              child: Text(
+                                state.offersList.length > 99
+                                    ? "+${state.offersList.length}"
+                                    : state.offersList.length.toString(),
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                         trailing: AppIcons.arrowForward.svg(),
                       ),
                     );

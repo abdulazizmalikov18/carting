@@ -379,4 +379,21 @@ class AdvertisementRepo implements IAdvertisementRepo {
       ));
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> updateStatus(Map<String, dynamic> model) async {
+    try {
+      final result = await dataSourcheImpl.updateStatus(model);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+        errorMessage: e.errorMessage,
+        statusCode: e.statusCode,
+      ));
+    }
+  }
 }

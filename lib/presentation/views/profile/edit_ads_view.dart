@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/colors/colors.dart';
-import 'package:carting/data/models/advertisement_car_model.dart';
+import 'package:carting/data/models/advertisement_car_edit_model.dart';
+import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/common/map_point.dart';
-import 'package:carting/presentation/views/common/w_select_servis_iteam.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/presentation/widgets/custom_text_field.dart';
 import 'package:carting/presentation/widgets/selection_location_field.dart';
@@ -16,7 +16,6 @@ import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_scale_animation.dart';
 import 'package:carting/presentation/widgets/w_selection_iteam.dart';
 import 'package:carting/utils/formatters.dart';
-import 'package:carting/utils/log_service.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,14 +23,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:image_picker/image_picker.dart';
 
-class AddCarView extends StatefulWidget {
-  const AddCarView({super.key});
+class EditAdsView extends StatefulWidget {
+  const EditAdsView({super.key, required this.model});
+  final AdvertisementModel model;
 
   @override
-  State<AddCarView> createState() => _AddCarViewState();
+  State<EditAdsView> createState() => _EditAdsViewState();
 }
 
-class _AddCarViewState extends State<AddCarView> {
+class _EditAdsViewState extends State<EditAdsView> {
   int servisId = 1;
   MapPoint? point1;
   MapPoint? point2;
@@ -48,20 +48,40 @@ class _AddCarViewState extends State<AddCarView> {
   String selectedUnit = 'kg';
   List<File> images = [];
   bool isDisabled = true;
+
   @override
   void initState() {
     context
         .read<AdvertisementBloc>()
         .add(GetTransportationTypesEvent(serviceId: 1));
-    controllerKg = TextEditingController();
-    controllerm3 = TextEditingController();
-    controllerLitr = TextEditingController();
-    controllerCarNumber = TextEditingController();
-    controllerCarYear = TextEditingController();
-    controllerSeriya = TextEditingController();
-    controllerSeriyaNumber = TextEditingController();
-    controllerCommet = TextEditingController();
-    controllerCount = TextEditingController();
+    controllerKg = TextEditingController(text: widget.model.details?.kg);
+    controllerm3 = TextEditingController(text: widget.model.details?.m3);
+    controllerLitr = TextEditingController(text: widget.model.details?.litr);
+    controllerCarNumber =
+        TextEditingController(text: widget.model.details?.transportNumber);
+    controllerCarYear =
+        TextEditingController(text: widget.model.details?.madeAt);
+    controllerSeriya =
+        TextEditingController(text: widget.model.details?.techPassportSeria);
+    controllerSeriyaNumber =
+        TextEditingController(text: widget.model.details?.techPassportNum);
+    controllerCommet = TextEditingController(text: widget.model.note);
+    controllerCount =
+        TextEditingController(text: widget.model.details?.passengerCount);
+    point1 = widget.model.fromLocation != null
+        ? MapPoint(
+            name: widget.model.fromLocation!.name,
+            latitude: widget.model.fromLocation!.lat,
+            longitude: widget.model.fromLocation!.lng,
+          )
+        : null;
+    point2 = widget.model.toLocation != null
+        ? MapPoint(
+            name: widget.model.toLocation!.name,
+            latitude: widget.model.toLocation!.lat,
+            longitude: widget.model.toLocation!.lng,
+          )
+        : null;
     super.initState();
   }
 
@@ -122,7 +142,9 @@ class _AddCarViewState extends State<AddCarView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.add_transport)),
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.edit_advertisement),
+      ),
       bottomNavigationBar: SafeArea(
         child: BlocBuilder<AdvertisementBloc, AdvertisementState>(
           builder: (context, state) {
@@ -134,7 +156,8 @@ class _AddCarViewState extends State<AddCarView> {
                     "Ushbu xizmat uchun transport turlari mavjud emas",
                   );
                 } else {
-                  final model = AdvertisementCarModel(
+                  final model = AdvertisementCarEditModel(
+                    id: widget.model.id,
                     fromLocation: LocationCar(
                       lat: point1!.latitude,
                       lng: point1!.longitude,
@@ -173,7 +196,9 @@ class _AddCarViewState extends State<AddCarView> {
                         model: model,
                         images: images,
                         onError: () {
-                          Navigator.of(context).pop(true);
+                          Navigator.of(context)
+                            ..pop()
+                            ..pop(true);
                         },
                         onSucces: (id) {
                           succesCreate(context);
@@ -200,19 +225,9 @@ class _AddCarViewState extends State<AddCarView> {
         child: Column(
           spacing: 16,
           children: [
-            WselectServisIteam(
-              isCar: true,
-              onTap: (index, servis) {
-                servisId = servis;
-                Log.i(servisId);
-                trTypeId.value = 0;
-                context
-                    .read<AdvertisementBloc>()
-                    .add(GetTransportationTypesEvent(serviceId: servis));
-                setState(() {});
-              },
-            ),
             SelectionLocationField(
+              point1: point1,
+              point2: point2,
               onTap1: (point) {
                 point1 = point;
                 updateButtonState();
@@ -600,6 +615,7 @@ class _AddCarViewState extends State<AddCarView> {
               int() => const SizedBox(),
             },
             WSelectionItam(
+              selectedIndex: widget.model.details?.transportationTypeId,
               onTap: (int index) {
                 trTypeId.value = index;
               },
