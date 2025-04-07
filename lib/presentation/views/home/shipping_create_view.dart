@@ -214,11 +214,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                       },
                       onSucces: (id) {},
                     ));
-                succesCreate(context).then((value) {
-                  if (context.mounted) {
-                    context.go(AppRouteName.announcements);
-                  }
-                });
+                succesCreate(context);
               },
               margin: EdgeInsets.fromLTRB(
                 16,
