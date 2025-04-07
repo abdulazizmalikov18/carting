@@ -868,4 +868,7 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get time => 'Vaqti';
+
+  @override
+  String get understood => 'Tushunarli';
 }

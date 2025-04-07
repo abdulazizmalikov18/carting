@@ -82,68 +82,10 @@ sealed class AppRouts {
         builder: (context, state) => const OrderView(),
       ),
       mainView,
-      mainViewAuth,
     ],
   );
 
-  static final mainViewAuth = StatefulShellRoute.indexedStack(
-    builder: (context, state, navigationShell) {
-      return BlocProvider(
-        create: (context) => AdvertisementBloc(
-          serviceLocator<AdvertisementRepo>(),
-        ),
-        child: MainView(navigationShell: navigationShell),
-      );
-    },
-    branches: <StatefulShellBranch>[
-      StatefulShellBranch(
-        routes: [
-          GoRoute(
-            path: AppRouteName.homeAuth,
-            builder: (context, state) => const HomeView(),
-          ),
-        ],
-      ),
-      StatefulShellBranch(
-        routes: [
-          GoRoute(
-            path: AppRouteName.announcementsAuth,
-            builder: (context, state) => const AnnouncementsView(),
-          ),
-        ],
-      ),
-      StatefulShellBranch(
-        routes: [
-          GoRoute(
-            path: AppRouteName.carsAuth,
-            builder: (context, state) => const CarsNewView(),
-            // routes: [
-            //   GoRoute(
-            //     path: ':id', // ID parametrini qo'shdik
-            //     builder: (context, state) {
-            //       final String id = state.pathParameters['id'] ?? '';
-            //       return AnnouncementInfoView(id: id); // ID ni yuboramiz
-            //     },
-            //   ),
-            // ],
-          ),
-        ],
-      ),
-      StatefulShellBranch(
-        routes: [
-          GoRoute(
-            path: AppRouteName.profileAuth,
-            builder: (context, state) => const ProfileView(),
-          ),
-          GoRoute(
-            path: AppRouteName.ordersHistoryAuth,
-            builder: (context, state) => const OrderHistoryView(),
-          ),
-        ],
-      ),
-    ],
-  );
-
+ 
   static final mainView = StatefulShellRoute.indexedStack(
     builder: (context, state, navigationShell) {
       return BlocProvider(

@@ -225,9 +225,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
                         ),
                       ),
                   hintText: widget.hintText,
+                  hintMaxLines: 1,
                   hintStyle: widget.hintStyle ??
                       TextStyle(
                         color: widget.tetxColor ?? context.color.darkText,
+                        overflow: TextOverflow.ellipsis,
                       ),
                   // hintStyle: fonts.subtitle1.copyWith(
                   //     color: colors.customBlack.withValues(alpha:0.5), fontSize: 14.sp),

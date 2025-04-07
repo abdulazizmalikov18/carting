@@ -868,4 +868,7 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get time => 'Вақт';
+
+  @override
+  String get understood => 'Тушунарли';
 }

@@ -285,5 +285,6 @@
   "area": "Area",
   "from_in": "from",
   "to_in": "to",
-  "time": "Time"
+  "time": "Time",
+  "understood": "Understood"
 }

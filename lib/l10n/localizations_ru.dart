@@ -868,4 +868,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get time => 'Время';
+
+  @override
+  String get understood => 'Понятно';
 }

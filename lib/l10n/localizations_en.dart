@@ -868,4 +868,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get time => 'Time';
+
+  @override
+  String get understood => 'Understood';
 }

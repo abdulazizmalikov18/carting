@@ -46,7 +46,7 @@ Future<dynamic> succesCreate(BuildContext context) {
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24,
                 ),
-                text: 'Tushunarli',
+                text: AppLocalizations.of(context)!.understood,
                 onTap: () {
                   Navigator.of(ctx)
                     ..pop()

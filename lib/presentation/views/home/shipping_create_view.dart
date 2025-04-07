@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:carting/presentation/routes/route_name.dart';
 import 'package:flex_dropdown/flex_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +26,7 @@ import 'package:carting/presentation/widgets/w_selection_iteam.dart';
 import 'package:carting/presentation/widgets/w_time.dart';
 import 'package:carting/utils/formatters.dart';
 import 'package:carting/utils/my_function.dart';
+import 'package:go_router/go_router.dart';
 
 class ShippingCreateView extends StatefulWidget {
   const ShippingCreateView({super.key});
@@ -208,11 +210,15 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                       images: images,
                       onError: () {
                         Navigator.of(context).pop();
+                        context.go(AppRouteName.announcements);
                       },
-                      onSucces: (id) {
-                        succesCreate(context);
-                      },
+                      onSucces: (id) {},
                     ));
+                succesCreate(context).then((value) {
+                  if (context.mounted) {
+                    context.go(AppRouteName.announcements);
+                  }
+                });
               },
               margin: EdgeInsets.fromLTRB(
                 16,
@@ -566,7 +572,8 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
               children: [
                 Expanded(
                   child: MinTextField(
-                    text: "${AppLocalizations.of(context)!.send_time} (${AppLocalizations.of(context)!.from_in})",
+                    text:
+                        "${AppLocalizations.of(context)!.send_time} (${AppLocalizations.of(context)!.from_in})",
                     hintText: "",
                     keyboardType: TextInputType.datetime,
                     controller: controllerTime,
@@ -614,7 +621,8 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                 ),
                 Expanded(
                   child: MinTextField(
-                    text: "${AppLocalizations.of(context)!.send_time} (${AppLocalizations.of(context)!.to_in})",
+                    text:
+                        "${AppLocalizations.of(context)!.send_time} (${AppLocalizations.of(context)!.to_in})",
                     hintText: "",
                     keyboardType: TextInputType.datetime,
                     controller: controllerTime2,

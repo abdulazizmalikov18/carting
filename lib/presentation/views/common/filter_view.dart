@@ -470,6 +470,7 @@ class _FilterViewState extends State<FilterView> {
               borderRadius: 16,
               fillColor: context.color.contColor,
               hintText: '00.00.0000',
+             
               title:
                   '${AppLocalizations.of(context)!.date} (${AppLocalizations.of(context)!.from_in})',
               readOnly: true,
