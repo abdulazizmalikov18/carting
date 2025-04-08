@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/presentation/routes/route_name.dart';
 import 'package:carting/presentation/widgets/succes_dialog.dart';
 import 'package:carting/presentation/widgets/w_time.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ import 'package:carting/presentation/widgets/w_claendar.dart';
 import 'package:carting/presentation/widgets/w_selection_iteam.dart';
 import 'package:carting/utils/formatters.dart';
 import 'package:carting/utils/my_function.dart';
+import 'package:go_router/go_router.dart';
 
 class DeliveryView extends StatefulWidget {
   const DeliveryView({super.key});
@@ -170,10 +172,13 @@ class _DeliveryViewState extends State<DeliveryView> {
                       onError: () {
                         Navigator.of(context).pop();
                       },
-                      onSucces: (id) {
-                        succesCreate(context);
-                      },
+                      onSucces: (id) {},
                     ));
+                succesCreate(context).then((value) {
+                  if (context.mounted) {
+                    context.go(AppRouteName.announcements);
+                  }
+                });
               },
               margin: const EdgeInsets.all(16),
               isLoading: state.statusCreate.isInProgress,
@@ -434,7 +439,8 @@ class _DeliveryViewState extends State<DeliveryView> {
               children: [
                 Expanded(
                   child: MinTextField(
-                    text: "${AppLocalizations.of(context)!.send_time} (${AppLocalizations.of(context)!.from_in})",
+                    text:
+                        "${AppLocalizations.of(context)!.send_time} (${AppLocalizations.of(context)!.from_in})",
                     hintText: "",
                     keyboardType: TextInputType.datetime,
                     controller: controllerTime,
@@ -482,7 +488,8 @@ class _DeliveryViewState extends State<DeliveryView> {
                 ),
                 Expanded(
                   child: MinTextField(
-                    text: "${AppLocalizations.of(context)!.send_time} (${AppLocalizations.of(context)!.to_in})",
+                    text:
+                        "${AppLocalizations.of(context)!.send_time} (${AppLocalizations.of(context)!.to_in})",
                     hintText: "",
                     keyboardType: TextInputType.datetime,
                     controller: controllerTime2,

@@ -286,5 +286,9 @@
   "from_in": "от",
   "to_in": "до",
   "time": "Время",
-  "understood": "Понятно"
+  "understood": "Понятно",
+  "other": "Другое",
+  "company_list": "Список компаний",
+  "fuel_type": "Тип бензина",
+  "capacity": "Объём"
 }

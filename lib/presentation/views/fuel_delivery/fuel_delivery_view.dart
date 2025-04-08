@@ -71,7 +71,7 @@ class _FuelDeliveryViewState extends State<FuelDeliveryView> {
               children: [
                 Expanded(
                   child: MinTextField(
-                    text: "Hamji (litr)",
+                    text: "${AppLocalizations.of(context)!.capacity} (litr)",
                     hintText: "0 litr",
                     controller: controller,
                     keyboardType: TextInputType.number,
@@ -182,7 +182,7 @@ class _FuelDeliveryViewState extends State<FuelDeliveryView> {
                         ),
                         child: ListTile(
                           title: Text(
-                            "Benzin turi",
+                         AppLocalizations.of(context)!.fuel_type,
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,

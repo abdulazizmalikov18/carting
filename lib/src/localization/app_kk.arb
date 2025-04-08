@@ -286,5 +286,9 @@
   "from_in": "дан",
   "to_in": "гача",
   "time": "Вақт",
-  "understood": "Тушунарли"
+  "understood": "Тушунарли",
+  "other": "Бошқа",
+  "company_list": "Компаниялар рўйхати",
+  "fuel_type": "Бензин тури",
+  "capacity": "Ҳажми"
 }

@@ -120,6 +120,7 @@ class _AuthViewState extends State<AuthView>
                     hintText: "(00) 000-00-00",
                     prefixIcon: const Text("+998"),
                     controller: controller,
+                    autofocus: true,
                     formatter: [Formatters.phoneFormatter],
                     keyboardType: TextInputType.phone,
                     onChanged: (value) {

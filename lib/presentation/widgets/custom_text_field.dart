@@ -46,6 +46,7 @@ class CustomTextField extends StatefulWidget {
   final Color? borderColor;
   final Color? tetxColor;
   final TextCapitalization textCapitalization;
+  final bool autofocus;
   const CustomTextField({
     super.key,
     this.onPressed,
@@ -87,6 +88,7 @@ class CustomTextField extends StatefulWidget {
     this.hintStyle,
     this.isRequired = false,
     this.isCap = false,
+    this.autofocus = false,
     this.borderColor,
     this.tetxColor,
     this.textCapitalization = TextCapitalization.none,
@@ -159,6 +161,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 initialValue: widget.initialValue,
                 expands: widget.expands ?? true,
                 onTap: widget.onPressed,
+                autofocus: widget.autofocus,
                 textInputAction: TextInputAction.done,
                 focusNode: widget.focusNode,
                 maxLength: widget.maxLength,

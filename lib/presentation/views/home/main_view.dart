@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 import 'package:carting/assets/assets/icons.dart';
 
@@ -30,39 +31,42 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: widget.navigationShell,
-      extendBody: true,
-      bottomNavigationBar: SafeArea(
-        child: Container(
-          height: 64,
-          margin: const EdgeInsets.symmetric(horizontal: 52)
-              .copyWith(bottom: Platform.isIOS ? 0 : 16),
-          padding: const EdgeInsets.symmetric(
-            vertical: 12,
-            horizontal: 32,
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(100),
-            color: context.color.white,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: List.generate(
-              list.length,
-              (index) => GestureDetector(
-                onTap: () {
-                  _onTap(context, index);
-                },
-                child: CircleAvatar(
-                  radius: 20,
-                  backgroundColor: widget.navigationShell.currentIndex == index
-                      ? context.color.backGroundColor
-                      : context.color.white,
-                  child: list[index].svg(
-                    color: widget.navigationShell.currentIndex == index
-                        ? context.color.white
-                        : context.color.backGroundColor,
+    return KeyboardDismisser(
+      child: Scaffold(
+        body: widget.navigationShell,
+        extendBody: true,
+        bottomNavigationBar: SafeArea(
+          child: Container(
+            height: 64,
+            margin: const EdgeInsets.symmetric(horizontal: 52)
+                .copyWith(bottom: Platform.isIOS ? 0 : 16),
+            padding: const EdgeInsets.symmetric(
+              vertical: 12,
+              horizontal: 32,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+              color: context.color.white,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: List.generate(
+                list.length,
+                (index) => GestureDetector(
+                  onTap: () {
+                    _onTap(context, index);
+                  },
+                  child: CircleAvatar(
+                    radius: 20,
+                    backgroundColor:
+                        widget.navigationShell.currentIndex == index
+                            ? context.color.backGroundColor
+                            : context.color.white,
+                    child: list[index].svg(
+                      color: widget.navigationShell.currentIndex == index
+                          ? context.color.white
+                          : context.color.backGroundColor,
+                    ),
                   ),
                 ),
               ),

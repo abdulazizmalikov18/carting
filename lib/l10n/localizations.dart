@@ -1826,6 +1826,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Understood'**
   String get understood;
+
+  /// No description provided for @company_list.
+  ///
+  /// In en, this message translates to:
+  /// **'Company list'**
+  String get company_list;
+
+  /// No description provided for @fuel_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Fuel type'**
+  String get fuel_type;
+
+  /// No description provided for @capacity.
+  ///
+  /// In en, this message translates to:
+  /// **'Capacity'**
+  String get capacity;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

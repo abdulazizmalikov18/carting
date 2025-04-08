@@ -4,6 +4,7 @@ import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/data/models/special_equipment_model.dart';
 import 'package:carting/l10n/localizations.dart';
+import 'package:carting/presentation/routes/route_name.dart';
 import 'package:carting/presentation/views/common/map_point.dart';
 import 'package:carting/presentation/views/peregon_service/additional_information_view.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
@@ -19,6 +20,7 @@ import 'package:carting/utils/my_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:go_router/go_router.dart';
 
 class SpecialTechnicalServicesView extends StatefulWidget {
   const SpecialTechnicalServicesView({super.key});
@@ -122,7 +124,11 @@ class _SpecialTechnicalServicesViewState
                         Navigator.of(context).pop();
                       },
                       onSucces: (id) {
-                        succesCreate(context);
+                        succesCreate(context).then((value) {
+                          if (context.mounted) {
+                            context.go(AppRouteName.announcements);
+                          }
+                        });
                       },
                     ));
               },

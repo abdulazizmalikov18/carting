@@ -871,4 +871,13 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get understood => 'Тушунарли';
+
+  @override
+  String get company_list => 'Компаниялар рўйхати';
+
+  @override
+  String get fuel_type => 'Бензин тури';
+
+  @override
+  String get capacity => 'Ҳажми';
 }

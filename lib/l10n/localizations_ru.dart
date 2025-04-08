@@ -871,4 +871,13 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get understood => 'Понятно';
+
+  @override
+  String get company_list => 'Список компаний';
+
+  @override
+  String get fuel_type => 'Тип бензина';
+
+  @override
+  String get capacity => 'Объём';
 }

@@ -871,4 +871,13 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get understood => 'Tushunarli';
+
+  @override
+  String get company_list => 'Kompaniyalar ro‘yhati';
+
+  @override
+  String get fuel_type => 'Benzin turi';
+
+  @override
+  String get capacity => 'Hajmi';
 }

@@ -287,5 +287,9 @@
   "from_in": "dan",
   "to_in": "gacha",
   "time": "Vaqti",
-  "understood": "Tushunarli"
+  "understood": "Tushunarli",
+  "other": "Boshqa",
+  "company_list": "Kompaniyalar ro‘yhati",
+  "fuel_type": "Benzin turi",
+  "capacity": "Hajmi"
 }

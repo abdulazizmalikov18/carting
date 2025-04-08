@@ -286,5 +286,9 @@
   "from_in": "from",
   "to_in": "to",
   "time": "Time",
-  "understood": "Understood"
+  "understood": "Understood",
+  "other": "Other",
+  "company_list": "Company list",
+  "fuel_type": "Fuel type",
+  "capacity": "Capacity"
 }

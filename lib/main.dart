@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+
 import 'package:provider/provider.dart';
 
 import 'package:carting/app/auth/auth_bloc.dart';
@@ -93,7 +93,7 @@ class MyApp extends StatelessWidget {
                     break;
                 }
               },
-              child: KeyboardDismisser(child: child),
+              child: child,
             ),
           );
         },

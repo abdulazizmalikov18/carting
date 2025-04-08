@@ -233,7 +233,7 @@ class MyFunction {
       case 7:
         return localization.animal_transportation;
       default:
-        return localization.unknown;
+        return localization.other;
     }
   }
 

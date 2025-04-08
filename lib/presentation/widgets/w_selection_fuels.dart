@@ -1,4 +1,5 @@
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/utils/caller.dart';
 import 'package:flex_dropdown/flex_dropdown.dart';
@@ -55,7 +56,7 @@ class _WSelectionFuelsState extends State<WSelectionFuels> {
                 ),
                 child: ListTile(
                   onTap: onTap,
-                  title: const Text("Kompaniyalar ro‘yhati"),
+                  title:  Text(AppLocalizations.of(context)!.company_list),
                   subtitle: Text(state.fuelsModel[selIndex].companyName),
                   minVerticalPadding: 0,
                   titleTextStyle: TextStyle(

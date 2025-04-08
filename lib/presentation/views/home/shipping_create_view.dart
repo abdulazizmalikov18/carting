@@ -92,6 +92,11 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
         title: localization.animal_transportation,
         value: false,
       ),
+      CargoTypeValu(
+        id: 8,
+        title: localization.other,
+        value: false,
+      ),
     ];
   }
 
@@ -214,7 +219,11 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                       },
                       onSucces: (id) {},
                     ));
-                succesCreate(context);
+                succesCreate(context).then((value) {
+                  if (context.mounted) {
+                    context.go(AppRouteName.announcements);
+                  }
+                });
               },
               margin: EdgeInsets.fromLTRB(
                 16,

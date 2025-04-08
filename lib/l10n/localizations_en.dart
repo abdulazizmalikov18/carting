@@ -871,4 +871,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get understood => 'Understood';
+
+  @override
+  String get company_list => 'Company list';
+
+  @override
+  String get fuel_type => 'Fuel type';
+
+  @override
+  String get capacity => 'Capacity';
 }
