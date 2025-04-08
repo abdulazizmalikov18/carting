@@ -774,7 +774,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get ad_accepted => 'Эълонингиз қабул қилинди';
 
   @override
-  String get driver_will_contact => 'Тез орада юкни олиб кетиш бўйича ҳайдовчи сиз билан боғланади';
+  String get driver_will_contact => 'Тез орада ҳайдовчи сиз билан боғланади';
 
   @override
   String get my_vehicles => 'Менинг транспортларим';

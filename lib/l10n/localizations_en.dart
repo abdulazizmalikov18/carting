@@ -774,7 +774,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ad_accepted => 'Your ad has been accepted';
 
   @override
-  String get driver_will_contact => 'The driver will contact you soon to pick up the cargo';
+  String get driver_will_contact => 'The driver will contact you shortly';
 
   @override
   String get my_vehicles => 'My vehicles';

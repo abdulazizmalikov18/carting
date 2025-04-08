@@ -1632,7 +1632,7 @@ abstract class AppLocalizations {
   /// No description provided for @driver_will_contact.
   ///
   /// In en, this message translates to:
-  /// **'The driver will contact you soon to pick up the cargo'**
+  /// **'The driver will contact you shortly'**
   String get driver_will_contact;
 
   /// No description provided for @my_vehicles.

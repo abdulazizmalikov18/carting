@@ -774,7 +774,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get ad_accepted => 'Ваше объявление принято';
 
   @override
-  String get driver_will_contact => 'Водитель свяжется с вами в ближайшее время для забора груза';
+  String get driver_will_contact => 'В ближайшее время с вами свяжется водитель';
 
   @override
   String get my_vehicles => 'Мои транспортные средства';
