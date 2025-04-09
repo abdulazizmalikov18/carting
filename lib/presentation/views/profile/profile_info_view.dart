@@ -527,16 +527,16 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
               context.push(AppRouteName.editPhone, extra: true);
             },
           ),
-          const SizedBox(height: 16),
-          CustomTextField(
-            title: AppLocalizations.of(context)!.referalCode,
-            hintText: AppLocalizations.of(context)!.enterCode,
-            controller: controllerReferal,
-            readOnly: controllerReferal.text.isNotEmpty,
-            onChanged: (value) {
-              isChange.value = true;
-            },
-          ),
+          // const SizedBox(height: 16),
+          // CustomTextField(
+          //   title: AppLocalizations.of(context)!.referalCode,
+          //   hintText: AppLocalizations.of(context)!.enterCode,
+          //   controller: controllerReferal,
+          //   readOnly: controllerReferal.text.isNotEmpty,
+          //   onChanged: (value) {
+          //     isChange.value = true;
+          //   },
+          // ),
         ],
       ),
     );
