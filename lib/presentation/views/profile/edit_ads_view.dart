@@ -13,10 +13,7 @@ import 'package:carting/presentation/widgets/custom_text_field.dart';
 import 'package:carting/presentation/widgets/selection_location_field.dart';
 import 'package:carting/presentation/widgets/succes_dialog.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
-import 'package:carting/presentation/widgets/w_scale_animation.dart';
 import 'package:carting/presentation/widgets/w_selection_iteam.dart';
-import 'package:carting/utils/formatters.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -236,124 +233,125 @@ class _EditAdsViewState extends State<EditAdsView> {
                 point2 = point;
               },
             ),
-            Row(
-              spacing: 8,
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(24),
-                      color: context.color.contColor,
-                      boxShadow: wboxShadow2,
-                    ),
-                    padding: const EdgeInsets.all(12),
-                    child: CustomTextField(
-                      height: 48,
-                      borderRadius: 16,
-                      title: AppLocalizations.of(context)!.transport_number,
-                      hintText: "01 A 111 AA",
-                      keyboardType: TextInputType.text,
-                      textCapitalization: TextCapitalization.characters,
-                      formatter: [Formatters.carNum],
-                      controller: controllerCarNumber,
-                      fillColor: context.color.contColor,
-                      onChanged: (value) {
-                        if (value.length <= 1) {
-                          updateButtonState();
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(24),
-                      color: context.color.contColor,
-                      boxShadow: wboxShadow2,
-                    ),
-                    padding: const EdgeInsets.all(12),
-                    child: CustomTextField(
-                      height: 48,
-                      borderRadius: 16,
-                      title: AppLocalizations.of(context)!.manufacture_year,
-                      hintText: "2023",
-                      keyboardType: TextInputType.number,
-                      formatter: [Formatters.year],
-                      controller: controllerCarYear,
-                      fillColor: context.color.contColor,
-                      onChanged: (value) {
-                        if (value.length <= 1) {
-                          updateButtonState();
-                        }
-                      },
-                    ),
-                  ),
-                )
-              ],
-            ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                color: context.color.contColor,
-                boxShadow: wboxShadow2,
-              ),
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                spacing: 4,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.tech_passport,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: context.color.darkText,
-                    ),
-                  ),
-                  Row(
-                    spacing: 12,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: CustomTextField(
-                          height: 48,
-                          borderRadius: 16,
-                          hintText: "AAF",
-                          fillColor: context.color.contColor,
-                          keyboardType: TextInputType.text,
-                          controller: controllerSeriya,
-                          textCapitalization: TextCapitalization.characters,
-                          formatter: [Formatters.seriya],
-                          onChanged: (value) {
-                            if (value.length <= 1) {
-                              updateButtonState();
-                            }
-                          },
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: CustomTextField(
-                          height: 48,
-                          borderRadius: 16,
-                          hintText: "1234567",
-                          controller: controllerSeriyaNumber,
-                          keyboardType: TextInputType.number,
-                          formatter: [Formatters.seriyaNumber],
-                          fillColor: context.color.contColor,
-                          onChanged: (value) {
-                            if (value.length <= 1) {
-                              updateButtonState();
-                            }
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            // Row(
+            //   spacing: 8,
+            //   children: [
+            //     Expanded(
+            //       child: Container(
+            //         decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(24),
+            //           color: context.color.contColor,
+            //           boxShadow: wboxShadow2,
+            //         ),
+            //         padding: const EdgeInsets.all(12),
+            //         child: CustomTextField(
+            //           height: 48,
+            //           borderRadius: 16,
+            //           title: AppLocalizations.of(context)!.transport_number,
+            //           hintText: "01 A 111 AA",
+            //           keyboardType: TextInputType.text,
+            //           textCapitalization: TextCapitalization.characters,
+            //           formatter: [Formatters.carNum],
+            //           controller: controllerCarNumber,
+            //           fillColor: context.color.contColor,
+            //           onChanged: (value) {
+            //             if (value.length <= 1) {
+            //               updateButtonState();
+            //             }
+            //           },
+            //         ),
+            //       ),
+            //     ),
+            //     Expanded(
+            //       child: Container(
+            //         decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(24),
+            //           color: context.color.contColor,
+            //           boxShadow: wboxShadow2,
+            //         ),
+            //         padding: const EdgeInsets.all(12),
+            //         child: CustomTextField(
+            //           height: 48,
+            //           borderRadius: 16,
+            //           title: AppLocalizations.of(context)!.manufacture_year,
+            //           hintText: "2023",
+            //           keyboardType: TextInputType.number,
+            //           formatter: [Formatters.year],
+            //           controller: controllerCarYear,
+            //           fillColor: context.color.contColor,
+            //           onChanged: (value) {
+            //             if (value.length <= 1) {
+            //               updateButtonState();
+            //             }
+            //           },
+            //         ),
+            //       ),
+            //     )
+            //   ],
+            // ),
+            // Container(
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(24),
+            //     color: context.color.contColor,
+            //     boxShadow: wboxShadow2,
+            //   ),
+            //   padding: const EdgeInsets.all(12),
+            //   child: Column(
+            //     spacing: 4,
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       Text(
+            //         AppLocalizations.of(context)!.tech_passport,
+            //         style: TextStyle(
+            //           fontSize: 14,
+            //           fontWeight: FontWeight.w400,
+            //           color: context.color.darkText,
+            //         ),
+            //       ),
+            //       Row(
+            //         spacing: 12,
+            //         children: [
+            //           Expanded(
+            //             flex: 1,
+            //             child: CustomTextField(
+            //               height: 48,
+            //               borderRadius: 16,
+            //               hintText: "AAF",
+            //               fillColor: context.color.contColor,
+            //               keyboardType: TextInputType.text,
+            //               controller: controllerSeriya,
+            //               textCapitalization: TextCapitalization.characters,
+            //               formatter: [Formatters.seriya],
+            //               onChanged: (value) {
+            //                 if (value.length <= 1) {
+            //                   updateButtonState();
+            //                 }
+            //               },
+            //             ),
+            //           ),
+            //           Expanded(
+            //             flex: 2,
+            //             child: CustomTextField(
+            //               height: 48,
+            //               borderRadius: 16,
+            //               hintText: "1234567",
+            //               controller: controllerSeriyaNumber,
+            //               keyboardType: TextInputType.number,
+            //               formatter: [Formatters.seriyaNumber],
+            //               fillColor: context.color.contColor,
+            //               onChanged: (value) {
+            //                 if (value.length <= 1) {
+            //                   updateButtonState();
+            //                 }
+            //               },
+            //             ),
+            //           )
+            //         ],
+            //       ),
+            //     ],
+            //   ),
+            // ),
+
             switch (servisId) {
               1 => Container(
                   decoration: BoxDecoration(
@@ -620,99 +618,99 @@ class _EditAdsViewState extends State<EditAdsView> {
                 trTypeId.value = index;
               },
             ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                color: context.color.contColor,
-                boxShadow: wboxShadow2,
-              ),
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                spacing: 8,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.transportImages,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: context.color.darkText,
-                    ),
-                  ),
-                  ...List.generate(
-                    images.length + 1,
-                    (index) {
-                      if (images.length == index) {
-                        return WScaleAnimation(
-                          onTap: () {
-                            setState(() {
-                              imagesFile();
-                            });
-                          },
-                          child: SizedBox(
-                            height: 56,
-                            child: DottedBorder(
-                              color: green,
-                              strokeWidth: 1,
-                              borderType: BorderType.RRect,
-                              radius: const Radius.circular(16),
-                              child: Center(child: AppIcons.upload.svg()),
-                            ),
-                          ),
-                        );
-                      }
-                      return DecoratedBox(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: context.color.scaffoldBackground,
-                        ),
-                        child: ListTile(
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 8),
-                          leading: Container(
-                            height: 48,
-                            width: 48,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              image: DecorationImage(
-                                image: FileImage(images[index]),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          title: Text(
-                            images[index].path.split('/').last,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          subtitle: FutureBuilder<int>(
-                            future: images[index].length(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const Text("Hajm yuklanmoqda...");
-                              } else if (snapshot.hasError) {
-                                return const Text("Xatolik yuz berdi.");
-                              } else {
-                                return Text(formatFileSize(snapshot.data!));
-                              }
-                            },
-                          ),
-                          trailing: IconButton(
-                            onPressed: () {
-                              images.removeAt(index);
-                              setState(() {});
-                            },
-                            icon: AppIcons.trash.svg(),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
+            // Container(
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(24),
+            //     color: context.color.contColor,
+            //     boxShadow: wboxShadow2,
+            //   ),
+            //   padding: const EdgeInsets.all(12),
+            //   child: Column(
+            //     spacing: 8,
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     mainAxisSize: MainAxisSize.min,
+            //     children: [
+            //       Text(
+            //         AppLocalizations.of(context)!.transportImages,
+            //         style: TextStyle(
+            //           fontSize: 14,
+            //           fontWeight: FontWeight.w400,
+            //           color: context.color.darkText,
+            //         ),
+            //       ),
+            //       ...List.generate(
+            //         images.length + 1,
+            //         (index) {
+            //           if (images.length == index) {
+            //             return WScaleAnimation(
+            //               onTap: () {
+            //                 setState(() {
+            //                   imagesFile();
+            //                 });
+            //               },
+            //               child: SizedBox(
+            //                 height: 56,
+            //                 child: DottedBorder(
+            //                   color: green,
+            //                   strokeWidth: 1,
+            //                   borderType: BorderType.RRect,
+            //                   radius: const Radius.circular(16),
+            //                   child: Center(child: AppIcons.upload.svg()),
+            //                 ),
+            //               ),
+            //             );
+            //           }
+            //           return DecoratedBox(
+            //             decoration: BoxDecoration(
+            //               borderRadius: BorderRadius.circular(12),
+            //               color: context.color.scaffoldBackground,
+            //             ),
+            //             child: ListTile(
+            //               contentPadding:
+            //                   const EdgeInsets.symmetric(horizontal: 8),
+            //               leading: Container(
+            //                 height: 48,
+            //                 width: 48,
+            //                 decoration: BoxDecoration(
+            //                   borderRadius: BorderRadius.circular(8),
+            //                   image: DecorationImage(
+            //                     image: FileImage(images[index]),
+            //                     fit: BoxFit.cover,
+            //                   ),
+            //                 ),
+            //               ),
+            //               title: Text(
+            //                 images[index].path.split('/').last,
+            //                 maxLines: 1,
+            //                 overflow: TextOverflow.ellipsis,
+            //               ),
+            //               subtitle: FutureBuilder<int>(
+            //                 future: images[index].length(),
+            //                 builder: (context, snapshot) {
+            //                   if (snapshot.connectionState ==
+            //                       ConnectionState.waiting) {
+            //                     return const Text("Hajm yuklanmoqda...");
+            //                   } else if (snapshot.hasError) {
+            //                     return const Text("Xatolik yuz berdi.");
+            //                   } else {
+            //                     return Text(formatFileSize(snapshot.data!));
+            //                   }
+            //                 },
+            //               ),
+            //               trailing: IconButton(
+            //                 onPressed: () {
+            //                   images.removeAt(index);
+            //                   setState(() {});
+            //                 },
+            //                 icon: AppIcons.trash.svg(),
+            //               ),
+            //             ),
+            //           );
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24),

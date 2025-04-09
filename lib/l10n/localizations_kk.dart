@@ -774,7 +774,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get ad_accepted => 'Эълонингиз қабул қилинди';
 
   @override
-  String get driver_will_contact => 'Тез орада ҳайдовчи сиз билан боғланади';
+  String get driver_will_contact => 'Тез орада сизнинг йуналишдаги мижозлар сиз билан богланади';
 
   @override
   String get my_vehicles => 'Менинг транспортларим';
@@ -831,7 +831,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get clear => 'Тозалаш';
 
   @override
-  String get maxLoadCapacity => 'Максимал юк сиқими';
+  String get maxLoadCapacity => 'Максимал юк сиғими';
 
   @override
   String get maxPassengerCount => 'Максимал йўловчи сони';

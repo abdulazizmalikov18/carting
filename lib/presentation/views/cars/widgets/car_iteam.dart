@@ -70,7 +70,7 @@ class CarIteam extends StatelessWidget {
                         : red.withValues(alpha: 0.1),
                   ),
                   child: Text(
-                    model.status == 'ACTIVE' ? "Bo'sh" : "Band",
+                    model.status == 'ACTIVE' ? "Faol" : "Band",
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,

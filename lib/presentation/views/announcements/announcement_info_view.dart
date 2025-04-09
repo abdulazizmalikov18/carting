@@ -772,7 +772,10 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                 children: List.generate(
                   widget.model.details!.loadTypeList!.length,
                   (index) => WInfoContainer(
-                    text: MyFunction.getLoadTypeName(index, context),
+                    text: MyFunction.getLoadTypeName(
+                      widget.model.details!.loadTypeList![index],
+                      context,
+                    ),
                   ),
                 ),
               ),

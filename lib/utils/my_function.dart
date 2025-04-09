@@ -217,6 +217,7 @@ class MyFunction {
 
   static String getLoadTypeName(int index, BuildContext context) {
     final localization = AppLocalizations.of(context)!;
+    Log.w(index);
     switch (index) {
       case 1:
         return localization.household_appliances;

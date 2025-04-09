@@ -712,7 +712,8 @@ class _ReferalIteamState extends State<ReferalIteam> {
                                                         code: widget.model.code,
                                                         note: _controller.text,
                                                       ));
-                                                  Navigator.pop(context);
+                                                  Navigator.of(context)
+                                                      .pop(true);
                                                 },
                                               ));
                                             },
@@ -734,7 +735,12 @@ class _ReferalIteamState extends State<ReferalIteam> {
                           )
                         ],
                       ),
-                    );
+                    ).then((value) {
+                      if (value != null) {
+                        isEdit = false;
+                        setState(() {});
+                      }
+                    });
                   }
                 },
                 isDisabled: widget.model.note == _controller.text,
