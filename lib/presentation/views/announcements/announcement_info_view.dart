@@ -34,6 +34,7 @@ class AnnouncementInfoView extends StatefulWidget {
     this.isComments = false,
     this.isOnlyCar = false,
     this.isOffers = false,
+    this.isNotification = false,
   });
   final AdvertisementModel model;
   final bool isMe;
@@ -41,6 +42,7 @@ class AnnouncementInfoView extends StatefulWidget {
   final bool isComments;
   final bool isOnlyCar;
   final bool isOffers;
+  final bool isNotification;
 
   @override
   State<AnnouncementInfoView> createState() => _AnnouncementInfoViewState();
@@ -221,6 +223,7 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                 mainAxisSize: MainAxisSize.min,
                 spacing: 16,
                 children: [
+                  // if(widget.isNotification)Row()else
                   WButton(
                     onTap: () {
                       final bloc = context.read<AdvertisementBloc>();
@@ -668,27 +671,31 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                       children: [
                         AppIcons.location.svg(height: 20),
                         if (widget.model.fromLocation != null)
-                          Text(
-                            (widget.model.fromLocation?.name ??
-                                AppLocalizations.of(context)!.unknown),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: context.color.white,
+                          Expanded(
+                            child: Text(
+                              (widget.model.fromLocation?.name ??
+                                  AppLocalizations.of(context)!.unknown),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: context.color.white,
+                              ),
                             ),
                           ),
                         if (widget.model.toLocation != null)
-                          Text(
-                            (widget.model.toLocation?.name ??
-                                AppLocalizations.of(context)!.unknown),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: context.color.white,
+                          Expanded(
+                            child: Text(
+                              (widget.model.toLocation?.name ??
+                                  AppLocalizations.of(context)!.unknown),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: context.color.white,
+                              ),
                             ),
                           ),
                       ],
@@ -869,45 +876,47 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
               ),
               const SizedBox(height: 16),
             ],
-            Text(
-              '${AppLocalizations.of(context)!.transportType}:',
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
+            if (widget.model.transportName != null) ...[
+              Text(
+                '${AppLocalizations.of(context)!.transportType}:',
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
-            ),
-            const SizedBox(height: 8),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                color: context.color.grey.withValues(alpha: .5),
-              ),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 4,
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      widget.model.transportName ??
-                          AppLocalizations.of(context)!.unknown,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
+              const SizedBox(height: 8),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  color: context.color.grey.withValues(alpha: .5),
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        widget.model.transportName ??
+                            AppLocalizations.of(context)!.unknown,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                  CachedNetworkImage(
-                    imageUrl: widget.model.transportIcon ?? "",
-                    height: 48,
-                    errorWidget: (context, url, error) => const SizedBox(),
-                  )
-                ],
+                    CachedNetworkImage(
+                      imageUrl: widget.model.transportIcon ?? "",
+                      height: 48,
+                      errorWidget: (context, url, error) => const SizedBox(),
+                    )
+                  ],
+                ),
               ),
-            ),
+            ],
             if (widget.model.payType.isNotEmpty &&
                 !widget.isMyCar &&
                 !widget.isOnlyCar) ...[

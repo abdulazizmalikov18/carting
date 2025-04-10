@@ -328,4 +328,15 @@ class MyFunction {
     final now = DateTime.now();
     return now.difference(dateTimeFormat).inSeconds <= 30;
   }
+
+  static int extractCarId(String mobileLink) {
+    final regExp = RegExp(r'\/cars\/(\d+)'); // "cars"dan keyingi raqamni olish
+    final match = regExp.firstMatch(mobileLink);
+
+    if (match != null) {
+      return int.parse(match.group(1)!); // raqamni int ga aylantirish
+    }
+
+    return 0;
+  }
 }

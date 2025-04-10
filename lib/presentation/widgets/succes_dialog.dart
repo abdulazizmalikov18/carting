@@ -4,7 +4,7 @@ import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:flutter/material.dart';
 
-Future<dynamic> succesCreate(BuildContext context) {
+Future<dynamic> succesCreate(BuildContext context, {String? subtitle}) {
   return showDialog(
     context: context,
     builder: (ctx) => AlertDialog(
@@ -29,7 +29,7 @@ Future<dynamic> succesCreate(BuildContext context) {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              AppLocalizations.of(context)!.driver_will_contact,
+              subtitle ?? AppLocalizations.of(context)!.driver_will_contact,
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
