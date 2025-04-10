@@ -81,35 +81,36 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
             ? Row(
                 spacing: 16,
                 children: [
-                  Expanded(
-                    child: WButton(
-                      onTap: () {
-                        final bloc = context.read<AdvertisementBloc>();
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(
-                          builder: (context) => BlocProvider.value(
-                            value: bloc,
-                            child: EditAdsView(model: widget.model),
-                          ),
-                        ))
-                            .then((value) {
-                          if (value != null) {
-                            bloc.add(GetAdvertisementsMyCarsEvent());
-                          }
-                        });
-                      },
-                      color: greyBack,
-                      textColor: greyText,
-                      child: Row(
-                        spacing: 8,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AppIcons.editCir.svg(color: greyText),
-                          Text(AppLocalizations.of(context)!.edit),
-                        ],
+                  if (widget.isMyCar)
+                    Expanded(
+                      child: WButton(
+                        onTap: () {
+                          final bloc = context.read<AdvertisementBloc>();
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(
+                            builder: (context) => BlocProvider.value(
+                              value: bloc,
+                              child: EditAdsView(model: widget.model),
+                            ),
+                          ))
+                              .then((value) {
+                            if (value != null) {
+                              bloc.add(GetAdvertisementsMyCarsEvent());
+                            }
+                          });
+                        },
+                        color: greyBack,
+                        textColor: greyText,
+                        child: Row(
+                          spacing: 8,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AppIcons.editCir.svg(color: greyText),
+                            Text(AppLocalizations.of(context)!.edit),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
                   Expanded(
                     child: WButton(
                       onTap: () {

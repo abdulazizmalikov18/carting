@@ -8,6 +8,7 @@ import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/routes/route_name.dart';
+import 'package:carting/presentation/views/home/notification_view.dart';
 import 'package:carting/presentation/views/profile/info_view.dart';
 import 'package:carting/presentation/views/profile/my_orders_view.dart';
 import 'package:carting/presentation/views/profile/my_services_view.dart';
@@ -86,10 +87,33 @@ class _ProfileViewState extends State<ProfileView> {
             actions: [
               IconButton(
                 onPressed: () {
-                  context.push(AppRouteName.notification);
+                  final bloc = context.read<AdvertisementBloc>();
+                  Navigator.of(context, rootNavigator: true).push(
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider.value(
+                        value: bloc,
+                        child: const NotificationView(),
+                      ),
+                    ),
+                  );
                 },
-                icon: AppIcons.notifications.svg(color: context.color.iron),
-              )
+                icon: BlocBuilder<AdvertisementBloc, AdvertisementState>(
+                  builder: (context, state) {
+                    return Badge(
+                      isLabelVisible: state.notifications
+                          .where((notification) => notification.status == false)
+                          .toList()
+                          .isNotEmpty,
+                      label: Text(
+                        "${state.notifications.where((notification) => notification.status == false).toList().length}",
+                      ),
+                      child: AppIcons.notifications.svg(
+                        color: context.color.iron,
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
           body: SingleChildScrollView(

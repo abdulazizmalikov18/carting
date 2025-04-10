@@ -5,6 +5,7 @@ import 'package:carting/data/models/advertisment_filter.dart';
 import 'package:carting/data/models/cars_model.dart';
 import 'package:carting/data/models/fuels_info_model.dart';
 import 'package:carting/data/models/image_create_model.dart';
+import 'package:carting/data/models/notification_model.dart';
 import 'package:carting/data/models/offers_model.dart';
 import 'package:carting/data/models/page_model.dart';
 import 'package:carting/data/models/response_model.dart';
@@ -28,6 +29,7 @@ abstract class AdvertisementDatasource {
   Future<int> createAdvertisement(Map<String, dynamic> model);
   Future<ResponseModel<List<FuelsInfoModel>>> fuels(int fuelsId);
   Future<ResponseModel<List<CarsModel>>> cars();
+  Future<ResponseModel<List<NotificationModel>>> notifications();
   Future<bool> deactivetAdvertisement(int id);
   Future<ResponseModel<List<TransportSpecialistsModel>>>
       getTransportSpecialists();
@@ -48,6 +50,7 @@ abstract class AdvertisementDatasource {
   Future<bool> replyOffer(Map<String, dynamic> model);
   Future<bool> sendOffer(Map<String, dynamic> model);
   Future<bool> updateStatus(Map<String, dynamic> model);
+  Future<bool> notificationsRead();
 }
 
 class AdvertisementDatasourceImpl implements AdvertisementDatasource {
@@ -105,9 +108,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
       body: (response) => ResponseModel.fromJson(
         response,
         (p0) => (p0 as List)
-            .map(
-              (e) => AdvertisementModel.fromJson(e as Map<String, dynamic>),
-            )
+            .map((e) => AdvertisementModel.fromJson(e as Map<String, dynamic>))
             .toList(),
       ),
     );
@@ -134,10 +135,8 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
         body: (response) => ResponseModel.fromJson(
           response,
           (p0) => (p0 as List)
-              .map(
-                (e) => TransportationTypesModel.fromJson(
-                    e as Map<String, dynamic>),
-              )
+              .map((e) =>
+                  TransportationTypesModel.fromJson(e as Map<String, dynamic>))
               .toList(),
         ),
       );
@@ -181,9 +180,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
       body: (response) => ResponseModel.fromJson(
         response,
         (p0) => (p0 as List)
-            .map(
-              (e) => FuelsInfoModel.fromJson(e as Map<String, dynamic>),
-            )
+            .map((e) => FuelsInfoModel.fromJson(e as Map<String, dynamic>))
             .toList(),
       ),
     );
@@ -510,13 +507,55 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
       body: (response) => true,
     );
   }
-  
+
   @override
   Future<bool> updateStatus(Map<String, dynamic> model) {
-     return _handle.apiCantrol(
+    return _handle.apiCantrol(
       request: () => dio.put(
         'advertisement',
         data: model,
+        options: Options(
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
+              ? {
+                  'Authorization':
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                }
+              : {},
+        ),
+      ),
+      body: (response) => true,
+    );
+  }
+
+  @override
+  Future<ResponseModel<List<NotificationModel>>> notifications() {
+    return _handle.apiCantrol(
+      request: () => dio.get(
+        'user/notification',
+        options: Options(
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
+              ? {
+                  'Authorization':
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                }
+              : {},
+        ),
+      ),
+      body: (response) => ResponseModel.fromJson(
+        response,
+        (p0) => (p0 as List)
+            .map((e) => NotificationModel.fromJson(e as Map<String, dynamic>))
+            .toList(),
+      ),
+    );
+  }
+
+  @override
+  Future<bool> notificationsRead() {
+    return _handle.apiCantrol(
+      request: () => dio.post(
+        'read/notification',
+        data: {"is_single": true},
         options: Options(
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {

@@ -18,6 +18,7 @@ class AdvertisementState extends Equatable {
   final FormzSubmissionStatus statusChange;
   final FormzSubmissionStatus statusComment;
   final FormzSubmissionStatus statusOffers;
+  final FormzSubmissionStatus statusNotifications;
   final int advertisementCount;
   final int advertisementFilterCount;
   final List<AdvertisementModel> advertisement;
@@ -35,6 +36,7 @@ class AdvertisementState extends Equatable {
   final List<ServisModel> categoriesList;
   final List<ServisModel> servicesList;
   final List<OffersModel> offersList;
+  final List<NotificationModel> notifications;
   final int tabIndex;
   const AdvertisementState({
     this.status = FormzSubmissionStatus.initial,
@@ -53,6 +55,8 @@ class AdvertisementState extends Equatable {
     this.statusRECEIVEFinish = FormzSubmissionStatus.initial,
     this.statusMyCars = FormzSubmissionStatus.initial,
     this.statusOffers = FormzSubmissionStatus.initial,
+    this.statusNotifications = FormzSubmissionStatus.initial,
+    this.notifications = const [],
     this.advertisementMyCars = const [],
     this.advertisementRECEIVEFinish = const [],
     this.advertisementPROVIDEFinish = const [],
@@ -108,7 +112,9 @@ class AdvertisementState extends Equatable {
         advertisementCount,
         advertisementFilterCount,
         statusOffers,
-        offersList
+        offersList,
+        notifications,
+        statusNotifications,
       ];
 
   AdvertisementState copyWith({
@@ -128,6 +134,7 @@ class AdvertisementState extends Equatable {
     FormzSubmissionStatus? statusChange,
     FormzSubmissionStatus? statusComment,
     FormzSubmissionStatus? statusOffers,
+    FormzSubmissionStatus? statusNotifications,
     int? advertisementCount,
     int? advertisementFilterCount,
     List<AdvertisementModel>? advertisement,
@@ -145,6 +152,7 @@ class AdvertisementState extends Equatable {
     List<ServisModel>? categoriesList,
     List<ServisModel>? servicesList,
     List<OffersModel>? offersList,
+    List<NotificationModel>? notifications,
     int? tabIndex,
   }) {
     return AdvertisementState(
@@ -164,6 +172,7 @@ class AdvertisementState extends Equatable {
       statusChange: statusChange ?? this.statusChange,
       statusComment: statusComment ?? this.statusComment,
       statusOffers: statusOffers ?? this.statusOffers,
+      statusNotifications: statusNotifications ?? this.statusNotifications,
       advertisementCount: advertisementCount ?? this.advertisementCount,
       advertisementFilterCount: advertisementFilterCount ?? this.advertisementFilterCount,
       advertisement: advertisement ?? this.advertisement,
@@ -181,6 +190,7 @@ class AdvertisementState extends Equatable {
       categoriesList: categoriesList ?? this.categoriesList,
       servicesList: servicesList ?? this.servicesList,
       offersList: offersList ?? this.offersList,
+      notifications: notifications ?? this.notifications,
       tabIndex: tabIndex ?? this.tabIndex,
     );
   }

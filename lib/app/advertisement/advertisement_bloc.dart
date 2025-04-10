@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:carting/data/models/advertisment_filter.dart';
 import 'package:carting/data/models/cars_model.dart';
 import 'package:carting/data/models/image_create_model.dart';
+import 'package:carting/data/models/notification_model.dart';
 import 'package:carting/data/models/offers_model.dart';
 import 'package:carting/data/models/servis_model.dart';
 import 'package:carting/data/models/transport_specialists_model.dart';
@@ -26,6 +27,30 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
     on<TabIndexEvent>(
       (event, emit) => emit(state.copyWith(tabIndex: event.index)),
     );
+
+    on<GetNotifications>((event, emit) async {
+      emit(state.copyWith(
+        statusNotifications: FormzSubmissionStatus.inProgress,
+      ));
+      final respons = await _repo.notifications();
+      if (respons.isRight) {
+        emit(state.copyWith(
+          statusNotifications: FormzSubmissionStatus.success,
+          notifications: respons.right.data,
+        ));
+      } else {
+        emit(state.copyWith(
+          statusNotifications: FormzSubmissionStatus.failure,
+        ));
+      }
+    });
+
+    on<ReadNotifications>((event, emit) async {
+      final respons = await _repo.notificationsRead();
+      if (respons.isRight) {
+        add(GetNotifications());
+      }
+    });
 
     on<UpdateStatusEvent>((event, emit) async {
       emit(state.copyWith(statusCreate: FormzSubmissionStatus.inProgress));

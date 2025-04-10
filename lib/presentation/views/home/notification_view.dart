@@ -1,10 +1,13 @@
+import 'package:carting/app/advertisement/advertisement_bloc.dart';
+import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:flutter/material.dart';
 
-import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 
 class NotificationView extends StatefulWidget {
   const NotificationView({super.key});
@@ -19,57 +22,62 @@ class _NotificationViewState extends State<NotificationView> {
     return Scaffold(
       extendBody: false,
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.notifications)),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: context.color.contGrey,
+      body: BlocBuilder<AdvertisementBloc, AdvertisementState>(
+        builder: (context, state) {
+          if (state.statusNotifications.isInProgress) {
+            return ListView.separated(
+              padding: const EdgeInsets.all(16),
+              itemCount: 12,
+              separatorBuilder: (context, index) => const SizedBox(height: 16),
+              itemBuilder: (context, index) => Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: context.color.contGrey,
+                ),
+                child: Text(AppLocalizations.of(context)!.yourCargoIsOnTheWay),
+              ),
+            );
+          }
+          if (state.notifications.isEmpty) {
+            return Center(child: AppIcons.emptyFile.svg());
+          }
+          return ListView.separated(
+            padding: const EdgeInsets.all(16),
+            itemCount: state.notifications.length,
+            separatorBuilder: (context, index) => const SizedBox(height: 16),
+            itemBuilder: (context, index) => Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: state.notifications[index].status
+                    ? context.color.contGrey
+                    : context.color.green.withValues(alpha: .1),
+              ),
+              child: Text(state.notifications[index].message),
             ),
-            child: Text(AppLocalizations.of(context)!.yourCargoIsOnTheWay),
-          ),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: context.color.contGrey,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(AppLocalizations.of(context)!.driverDeliveredCargo),
-                const SizedBox(height: 12),
-                WButton(
-                  onTap: () {},
-                  textColor: red,
-                  height: 40,
-                  borderRadius: 12,
-                  color: red.withValues(alpha: .2),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AppIcons.phone.svg(color: red),
-                      const SizedBox(width: 8),
-                      Text(AppLocalizations.of(context)!.contactUs)
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
+          );
+        },
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 32),
-        child: WButton(
-          onTap: () {},
-          textColor: green,
-          color: green.withValues(alpha: .2),
-          text: AppLocalizations.of(context)!.markAsRead,
-        ),
+      bottomNavigationBar: BlocBuilder<AdvertisementBloc, AdvertisementState>(
+        builder: (context, state) {
+          final isRead = state.notifications
+              .where((notification) => notification.status == false)
+              .toList()
+              .isEmpty;
+          if (isRead) {
+            return const SizedBox();
+          }
+          return WButton(
+            onTap: () {
+              context.read<AdvertisementBloc>().add(ReadNotifications());
+            },
+            textColor: green,
+            margin: const EdgeInsets.fromLTRB(16, 8, 16, 32),
+            color: green.withValues(alpha: .2),
+            text: AppLocalizations.of(context)!.markAsRead,
+          );
+        },
       ),
     );
   }

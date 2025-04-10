@@ -3,6 +3,7 @@ import 'package:carting/data/models/advertisment_filter.dart';
 import 'package:carting/data/models/cars_model.dart';
 import 'package:carting/data/models/fuels_info_model.dart';
 import 'package:carting/data/models/image_create_model.dart';
+import 'package:carting/data/models/notification_model.dart';
 import 'package:carting/data/models/offers_model.dart';
 import 'package:carting/data/models/page_model.dart';
 import 'package:carting/data/models/response_model.dart';
@@ -47,4 +48,8 @@ abstract class IAdvertisementRepo {
   Future<Either<Failure, bool>> sendOffer(Map<String, dynamic> model);
   Future<Either<Failure, bool>> replyOffer(Map<String, dynamic> model);
   Future<Either<Failure, bool>> updateStatus(Map<String, dynamic> model);
+
+  Future<Either<Failure, ResponseModel<List<NotificationModel>>>>
+      notifications();
+  Future<Either<Failure, bool>> notificationsRead();
 }

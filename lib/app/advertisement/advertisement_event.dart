@@ -2,6 +2,10 @@ part of 'advertisement_bloc.dart';
 
 sealed class AdvertisementEvent {}
 
+class GetNotifications extends AdvertisementEvent {}
+
+class ReadNotifications extends AdvertisementEvent {}
+
 class GetOffersEvent extends AdvertisementEvent {
   final int advertisementId;
 

@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
@@ -27,6 +29,12 @@ class _MainViewState extends State<MainView> {
       index,
       initialLocation: index == widget.navigationShell.currentIndex,
     );
+  }
+
+  @override
+  void initState() {
+    context.read<AdvertisementBloc>().add(GetNotifications());
+    super.initState();
   }
 
   @override
