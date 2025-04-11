@@ -880,4 +880,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get capacity => 'Capacity';
+
+  @override
+  String get soonClientsMessage => 'Soon, clients in your area of expertise will contact you.';
+
+  @override
+  String confirmCodePhone(Object phone) {
+    return 'We\'ve sent a confirmation code to $phone. Please enter the mobile code in the field below.';
+  }
+
+  @override
+  String confirmCodeEmail(Object email) {
+    return 'We\'ve sent a confirmation code to $email. Please enter the email code in the field below.';
+  }
 }

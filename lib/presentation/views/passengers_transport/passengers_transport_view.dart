@@ -142,6 +142,9 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
                 succesCreate(context).then((value) {
                   if (context.mounted) {
                     context.go(AppRouteName.announcements);
+                    context
+                        .read<AdvertisementBloc>()
+                        .add(GetAdvertisementsEvent(isPROVIDE: false));
                   }
                 });
               },

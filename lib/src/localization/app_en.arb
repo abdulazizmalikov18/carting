@@ -290,5 +290,8 @@
   "other": "Other",
   "company_list": "Company list",
   "fuel_type": "Fuel type",
-  "capacity": "Capacity"
+  "capacity": "Capacity",
+  "soonClientsMessage": "Soon, clients in your area of expertise will contact you.",
+  "confirmCodePhone": "We've sent a confirmation code to {phone}. Please enter the mobile code in the field below.",
+  "confirmCodeEmail": "We've sent a confirmation code to {email}. Please enter the email code in the field below."
 }

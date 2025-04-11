@@ -880,4 +880,17 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get capacity => 'Объём';
+
+  @override
+  String get soonClientsMessage => 'В ближайшее время клиенты по вашему направлению свяжутся с вами.';
+
+  @override
+  String confirmCodePhone(Object phone) {
+    return 'Код подтверждения отправлен на номер $phone. Введите код из SMS в поле ниже.';
+  }
+
+  @override
+  String confirmCodeEmail(Object email) {
+    return 'Код подтверждения отправлен на адрес $email. Введите код из письма в поле ниже.';
+  }
 }

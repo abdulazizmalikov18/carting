@@ -291,5 +291,8 @@
   "other": "Boshqa",
   "company_list": "Kompaniyalar ro‘yhati",
   "fuel_type": "Benzin turi",
-  "capacity": "Hajmi"
+  "capacity": "Hajmi",
+  "soonClientsMessage": "Tez orada sizning yo‘nalishdagi mijozlar siz bilan bog‘lanadi.",
+  "confirmCodePhone": "Tasdiqlash kodini {phone} raqamiga yubordik. Quyidagi maydonga mobil kodingizni kiriting.",
+  "confirmCodeEmail": "Tasdiqlash kodini {email} manziliga yubordik. Quyidagi maydonga email kodingizni kiriting."
 }

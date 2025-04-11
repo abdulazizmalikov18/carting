@@ -880,4 +880,17 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get capacity => 'Hajmi';
+
+  @override
+  String get soonClientsMessage => 'Tez orada sizning yo‘nalishdagi mijozlar siz bilan bog‘lanadi.';
+
+  @override
+  String confirmCodePhone(Object phone) {
+    return 'Tasdiqlash kodini $phone raqamiga yubordik. Quyidagi maydonga mobil kodingizni kiriting.';
+  }
+
+  @override
+  String confirmCodeEmail(Object email) {
+    return 'Tasdiqlash kodini $email manziliga yubordik. Quyidagi maydonga email kodingizni kiriting.';
+  }
 }

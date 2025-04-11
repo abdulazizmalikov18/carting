@@ -774,7 +774,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get ad_accepted => 'Эълонингиз қабул қилинди';
 
   @override
-  String get driver_will_contact => 'Тез орада сизнинг йуналишдаги мижозлар сиз билан богланади';
+  String get driver_will_contact => 'Тез орада сизнинг йуналишдаги хайдовчилар сиз билан богланади';
 
   @override
   String get my_vehicles => 'Менинг транспортларим';
@@ -880,4 +880,17 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get capacity => 'Ҳажми';
+
+  @override
+  String get soonClientsMessage => 'Тез орада сизнинг йўналишдаги мижозлар сиз билан боғланади.';
+
+  @override
+  String confirmCodePhone(Object phone) {
+    return 'Тасдиқлаш кодини $phone рақамига юбордик. Қуйидаги майдонга мобил кодиңгизни киритинг.';
+  }
+
+  @override
+  String confirmCodeEmail(Object email) {
+    return 'Тасдиқлаш кодини $email манзилига юбордик. Қуйидаги майдонга email кодиңгизни киритинг.';
+  }
 }

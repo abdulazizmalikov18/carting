@@ -376,38 +376,39 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                     mainAxisSize: MainAxisSize.min,
                     spacing: 8,
                     children: [
-                      WScaleAnimation(
-                        onTap: () {
-                          widget.model.status = 'IN_ACTIVE';
-                          context
-                              .read<AdvertisementBloc>()
-                              .add(UpdateStatusEvent(
-                                advertisementId: widget.model.id,
-                                status: 'IN_ACTIVE',
-                                onSuccess: () {
-                                  _controller.hide();
-                                  setState(() {});
-                                },
-                              ));
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            WButton(
-                              onTap: () {},
-                              height: 40,
-                              text: "Band",
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              color: red.withValues(alpha: .1),
-                              textColor: red,
-                            ),
-                            widget.model.status != 'ACTIVE'
-                                ? AppIcons.checkboxRadio.svg()
-                                : AppIcons.checkboxRadioDis.svg(),
-                          ],
+                      if (widget.isMyCar)
+                        WScaleAnimation(
+                          onTap: () {
+                            widget.model.status = 'IN_ACTIVE';
+                            context
+                                .read<AdvertisementBloc>()
+                                .add(UpdateStatusEvent(
+                                  advertisementId: widget.model.id,
+                                  status: 'IN_ACTIVE',
+                                  onSuccess: () {
+                                    _controller.hide();
+                                    setState(() {});
+                                  },
+                                ));
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              WButton(
+                                onTap: () {},
+                                height: 40,
+                                text: "Band",
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                color: red.withValues(alpha: .1),
+                                textColor: red,
+                              ),
+                              widget.model.status != 'ACTIVE'
+                                  ? AppIcons.checkboxRadio.svg()
+                                  : AppIcons.checkboxRadioDis.svg(),
+                            ],
+                          ),
                         ),
-                      ),
                       WScaleAnimation(
                         onTap: () {
                           widget.model.status = 'ACTIVE';

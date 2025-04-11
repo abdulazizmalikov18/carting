@@ -29,7 +29,7 @@ Future<dynamic> succesCreate(BuildContext context, {String? subtitle}) {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              subtitle ?? AppLocalizations.of(context)!.driver_will_contact,
+              subtitle ?? AppLocalizations.of(context)!.soonClientsMessage,
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,

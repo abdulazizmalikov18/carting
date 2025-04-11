@@ -114,8 +114,12 @@ class _SmsViewState extends State<SmsView> with CodeAutoFill {
               const SizedBox(height: 8),
               Text(
                 widget.isPhone
-                    ? "Tasdiqlash kodini ${MyFunction.maskPhoneNumber(widget.phone)} raqamigayubordik. Quyidagi maydonga mobil kodingizni kiriting."
-                    : "Tasdiqlash kodini ${MyFunction.maskEmail(widget.phone)} ga yubordik. Quyidagi maydonga email kodingizni kiriting.",
+                    ? AppLocalizations.of(context)!.confirmCodeEmail(
+                        MyFunction.maskPhoneNumber(widget.phone),
+                      )
+                    : AppLocalizations.of(context)!.confirmCodeEmail(
+                        MyFunction.maskEmail(widget.phone),
+                      ),
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,

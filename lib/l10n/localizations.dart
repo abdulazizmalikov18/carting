@@ -1844,6 +1844,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Capacity'**
   String get capacity;
+
+  /// No description provided for @soonClientsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Soon, clients in your area of expertise will contact you.'**
+  String get soonClientsMessage;
+
+  /// No description provided for @confirmCodePhone.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ve sent a confirmation code to {phone}. Please enter the mobile code in the field below.'**
+  String confirmCodePhone(Object phone);
+
+  /// No description provided for @confirmCodeEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ve sent a confirmation code to {email}. Please enter the email code in the field below.'**
+  String confirmCodeEmail(Object email);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -176,7 +176,11 @@ class _AddCarViewState extends State<AddCarView> {
                           Navigator.of(context).pop(true);
                         },
                         onSucces: (id) {
-                          succesCreate(context);
+                          succesCreate(
+                            context,
+                            subtitle: AppLocalizations.of(context)!
+                                .driver_will_contact,
+                          );
                         },
                       ));
                 }

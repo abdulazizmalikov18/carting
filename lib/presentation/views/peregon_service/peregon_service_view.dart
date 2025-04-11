@@ -119,6 +119,9 @@ class _PeregonServiceViewState extends State<PeregonServiceView> {
                     succesCreate(context).then((value) {
                       if (context.mounted) {
                         context.go(AppRouteName.announcements);
+                        context
+                            .read<AdvertisementBloc>()
+                            .add(GetAdvertisementsEvent(isPROVIDE: false));
                       }
                     });
                   },

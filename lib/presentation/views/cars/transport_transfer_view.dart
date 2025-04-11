@@ -140,9 +140,12 @@ class _TransportTransferCreateViewState
                       },
                       onSucces: (id) {},
                     ));
-                succesCreate(context).then((value) {
+                succesCreate(context ).then((value) {
                   if (context.mounted) {
                     context.go(AppRouteName.announcements);
+                    context
+                        .read<AdvertisementBloc>()
+                        .add(GetAdvertisementsEvent(isPROVIDE: false));
                   }
                 });
               },
