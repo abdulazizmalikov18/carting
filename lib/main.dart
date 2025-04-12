@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:carting/assets/constants/storage_keys.dart';
 import 'package:carting/assets/themes/theme.dart';
 import 'package:carting/assets/themes/theme_changer.dart';
+import 'package:carting/src/settings/notification_servis.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,6 +31,7 @@ void main() async {
     Bloc.observer = LogBlocObserver();
   }
 
+  await LocalNotificationService.initialize();
   runApp(DependencyScope(
     initialModel: AppScope(
       themeMode: getTheme(StorageRepository.getString(StorageKeys.MODE)),

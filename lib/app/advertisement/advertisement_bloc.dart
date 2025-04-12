@@ -28,6 +28,12 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
       (event, emit) => emit(state.copyWith(tabIndex: event.index)),
     );
 
+    on<AddNotificationEvent>((event, emit) {
+      List<NotificationModel> list = List.from(state.notifications);
+      list.add(event.model);
+      emit(state.copyWith(notifications: list));
+    });
+
     on<GetNotifications>((event, emit) async {
       emit(state.copyWith(
         statusNotifications: FormzSubmissionStatus.inProgress,

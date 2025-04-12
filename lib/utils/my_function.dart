@@ -329,12 +329,12 @@ class MyFunction {
     return now.difference(dateTimeFormat).inSeconds <= 30;
   }
 
-  static int extractCarId(String mobileLink) {
-    final regExp = RegExp(r'\/cars\/(\d+)'); // "cars"dan keyingi raqamni olish
-    final match = regExp.firstMatch(mobileLink);
+  static int extractIdFromPath(String path) {
+    final regExp = RegExp(r'\/(?:cars|announcements)\/(\d+)');
+    final match = regExp.firstMatch(path);
 
     if (match != null) {
-      return int.parse(match.group(1)!); // raqamni int ga aylantirish
+      return int.parse(match.group(1)!);
     }
 
     return 0;

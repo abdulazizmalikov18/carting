@@ -10,9 +10,10 @@ NotificationModel _$NotificationModelFromJson(Map<String, dynamic> json) =>
     NotificationModel(
       id: (json['id'] as num).toInt(),
       message: json['message'] as String,
-      status: json['status'] as bool,
+      status: json['status'] as bool? ?? true,
       link: json['link'],
       mobileLink: json['mobile_link'] as String,
+      type: json['type'] as String? ?? 'OFFER',
     );
 
 Map<String, dynamic> _$NotificationModelToJson(NotificationModel instance) =>
@@ -22,4 +23,5 @@ Map<String, dynamic> _$NotificationModelToJson(NotificationModel instance) =>
       'status': instance.status,
       'link': instance.link,
       'mobile_link': instance.mobileLink,
+      'type': instance.type,
     };

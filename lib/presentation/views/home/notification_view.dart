@@ -39,21 +39,50 @@ class _NotificationViewState extends State<NotificationView> {
             );
           }
           if (state.notifications.isEmpty) {
-            return Center(child: AppIcons.emptyFile.svg());
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              spacing: 16,
+              children: [
+                AppIcons.emptyFile.svg(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    WButton(
+                      onTap: () {
+                        context
+                            .read<AdvertisementBloc>()
+                            .add(GetNotifications());
+                      },
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      text: AppLocalizations.of(context)!.refresh,
+                    ),
+                  ],
+                )
+              ],
+            );
           }
-          return ListView.separated(
-            padding: const EdgeInsets.all(16),
-            itemCount: state.notifications.length,
-            separatorBuilder: (context, index) => const SizedBox(height: 16),
-            itemBuilder: (context, index) => GestureDetector(
-              onTap: () {
-                context.read<AdvertisementBloc>().add(GetAdvertisementsIdEvent(
-                      id: MyFunction.extractCarId(
-                          state.notifications[index].mobileLink),
-                      onSucces: (model) {
+          return RefreshIndicator.adaptive(
+            onRefresh: () async {
+              context.read<AdvertisementBloc>().add(GetNotifications());
+              await Future.delayed(Duration.zero);
+            },
+            child: ListView.separated(
+              padding: const EdgeInsets.all(16),
+              itemCount: state.notifications.length,
+              separatorBuilder: (context, index) => const SizedBox(height: 16),
+              itemBuilder: (context, index) => GestureDetector(
+                onTap: () {
+                  final bloc = context.read<AdvertisementBloc>();
+                  bloc.add(GetAdvertisementsIdEvent(
+                    id: MyFunction.extractIdFromPath(
+                      state.notifications[index].mobileLink,
+                    ),
+                    onSucces: (model) {
+                      if (state.notifications[index].type == 'OFFER') {
                         if (state.notifications[index].mobileLink
                             .contains('cars')) {
-                          final bloc = context.read<AdvertisementBloc>();
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => BlocProvider.value(
                               value: bloc,
@@ -67,7 +96,6 @@ class _NotificationViewState extends State<NotificationView> {
                             ),
                           ));
                         } else {
-                          final bloc = context.read<AdvertisementBloc>();
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => BlocProvider.value(
                               value: bloc,
@@ -79,18 +107,45 @@ class _NotificationViewState extends State<NotificationView> {
                             ),
                           ));
                         }
-                      },
-                    ));
-              },
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: state.notifications[index].status
-                      ? context.color.contGrey
-                      : context.color.green.withValues(alpha: .1),
+                      } else {
+                        if (state.notifications[index].mobileLink
+                            .contains('cars')) {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => BlocProvider.value(
+                              value: bloc,
+                              child: AnnouncementInfoView(
+                                model: model,
+                                isMe: false,
+                                isComments: true,
+                                isOnlyCar: true,
+                              ),
+                            ),
+                          ));
+                        } else {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => BlocProvider.value(
+                              value: bloc,
+                              child: AnnouncementInfoView(
+                                model: model,
+                                isMe: false,
+                              ),
+                            ),
+                          ));
+                        }
+                      }
+                    },
+                  ));
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: state.notifications[index].status
+                        ? context.color.contGrey
+                        : context.color.green.withValues(alpha: .1),
+                  ),
+                  child: Text(state.notifications[index].message),
                 ),
-                child: Text(state.notifications[index].message),
               ),
             ),
           );

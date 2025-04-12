@@ -555,7 +555,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
     return _handle.apiCantrol(
       request: () => dio.post(
         'read/notification',
-        data: {"is_single": true},
+        data: {"is_single": false},
         options: Options(
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {

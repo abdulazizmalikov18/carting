@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/src/settings/socet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -24,6 +25,8 @@ class _MainViewState extends State<MainView> {
     AppIcons.car,
     AppIcons.profile,
   ];
+
+  final socket = LiveChatService();
   void _onTap(BuildContext context, int index) {
     widget.navigationShell.goBranch(
       index,
@@ -35,6 +38,13 @@ class _MainViewState extends State<MainView> {
   void initState() {
     context.read<AdvertisementBloc>().add(GetNotifications());
     super.initState();
+    socket.connectToLiveChat(context);
+  }
+
+  @override
+  void dispose() {
+    socket.disconnect();
+    super.dispose();
   }
 
   @override

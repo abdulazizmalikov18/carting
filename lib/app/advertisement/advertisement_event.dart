@@ -2,6 +2,12 @@ part of 'advertisement_bloc.dart';
 
 sealed class AdvertisementEvent {}
 
+class AddNotificationEvent extends AdvertisementEvent {
+  final NotificationModel model;
+
+  AddNotificationEvent({required this.model});
+}
+
 class GetNotifications extends AdvertisementEvent {}
 
 class ReadNotifications extends AdvertisementEvent {}
