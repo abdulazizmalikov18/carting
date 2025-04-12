@@ -1,3 +1,6 @@
+import 'package:carting/presentation/routes/app_routes.dart';
+import 'package:carting/presentation/routes/route_name.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class LocalNotificationService {
@@ -18,7 +21,23 @@ class LocalNotificationService {
 
     await _notificationsPlugin.initialize(
       initializationSettings,
+      onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
     );
+    final androidRequestResponse = await _notificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestNotificationsPermission();
+    debugPrint('Adnroid Request Option : $androidRequestResponse');
+  }
+
+  static Future<void> onDidReceiveNotificationResponse(
+    NotificationResponse notificationResponse,
+  ) async {
+    final payload = notificationResponse.payload;
+    debugPrint(payload);
+    if (notificationResponse.payload != null) {
+      onNavigate(notificationResponse);
+    }
   }
 
   static Future<void> showNotification({
@@ -27,10 +46,12 @@ class LocalNotificationService {
   }) async {
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
-      'chat_channel', // kanal ID
-      'Chat Messages', // kanal nomi
+      'your channel id',
+      'your channel name',
+      channelDescription: 'your channel description',
       importance: Importance.max,
       priority: Priority.high,
+      ticker: 'ticker',
       playSound: true,
     );
 
@@ -44,4 +65,8 @@ class LocalNotificationService {
       platformChannelSpecifics,
     );
   }
+}
+
+void onNavigate(NotificationResponse notificationResponse) async {
+  AppRouts.router.go(AppRouteName.profile);
 }

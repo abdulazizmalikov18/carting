@@ -42,6 +42,9 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
     context.read<AdvertisementBloc>().add(GetAdvertisementsEvent(
           isPROVIDE: false,
         ));
+    if (context.read<AdvertisementBloc>().state.advertisementMyCars.isEmpty) {
+      context.read<AdvertisementBloc>().add(GetAdvertisementsMyCarsEvent());
+    }
     super.initState();
   }
 

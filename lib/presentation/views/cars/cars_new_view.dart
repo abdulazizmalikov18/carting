@@ -39,6 +39,9 @@ class _CarsNewViewState extends State<CarsNewView> {
           status: "ACTIVE",
           isPROVIDE: true,
         ));
+    if (context.read<AdvertisementBloc>().state.advertisementRECEIVE.isEmpty) {
+      context.read<AdvertisementBloc>().add(GetAdvertisementsReceiveEvent());
+    }
     super.initState();
   }
 
