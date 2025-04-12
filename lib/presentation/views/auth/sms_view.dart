@@ -114,7 +114,7 @@ class _SmsViewState extends State<SmsView> with CodeAutoFill {
               const SizedBox(height: 8),
               Text(
                 widget.isPhone
-                    ? AppLocalizations.of(context)!.confirmCodeEmail(
+                    ? AppLocalizations.of(context)!.confirmCodePhone(
                         MyFunction.maskPhoneNumber(widget.phone),
                       )
                     : AppLocalizations.of(context)!.confirmCodeEmail(

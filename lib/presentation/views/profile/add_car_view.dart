@@ -179,7 +179,7 @@ class _AddCarViewState extends State<AddCarView> {
                           succesCreate(
                             context,
                             subtitle: AppLocalizations.of(context)!
-                                .driver_will_contact,
+                                .soonClientsMessage,
                           );
                         },
                       ));

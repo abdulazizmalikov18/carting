@@ -97,8 +97,12 @@ class _EditPhoneVerifViewState extends State<EditPhoneVerifView> {
               const SizedBox(height: 8),
               Text(
                 !widget.isEmail
-                    ? "Tasdiqlash kodini ${MyFunction.maskPhoneNumber(widget.phone)} raqamigayubordik. Quyidagi maydonga mobil kodingizni kiriting."
-                    : "Tasdiqlash kodini ${MyFunction.maskEmail(widget.phone)} ga yubordik. Quyidagi maydonga email kodingizni kiriting.",
+                    ? AppLocalizations.of(context)!.confirmCodePhone(
+                        MyFunction.maskPhoneNumber(widget.phone),
+                      )
+                    : AppLocalizations.of(context)!.confirmCodeEmail(
+                        MyFunction.maskEmail(widget.phone),
+                      ),
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,

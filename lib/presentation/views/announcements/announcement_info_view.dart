@@ -68,7 +68,7 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: AppIcons.share.svg(),
+            icon: AppIcons.share.svg(color: context.color.iron),
           ),
         ],
       ),
@@ -521,9 +521,10 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                                 state.offersList.length > 99
                                     ? "+${state.offersList.length}"
                                     : state.offersList.length.toString(),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
+                                  color: context.color.white,
                                 ),
                               ),
                             ),
@@ -551,7 +552,7 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                       ),
                     ));
                   },
-                  leading: AppIcons.message.svg(color: greyText),
+                  leading: AppIcons.message.svg(color: context.color.iron),
                   title: Row(
                     children: [
                       Expanded(
