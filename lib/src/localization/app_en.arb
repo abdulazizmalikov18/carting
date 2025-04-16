@@ -293,5 +293,9 @@
   "capacity": "Capacity",
   "soonClientsMessage": "Soon, clients in your area of expertise will contact you.",
   "confirmCodePhone": "We've sent a confirmation code to {phone}. Please enter the mobile code in the field below.",
-  "confirmCodeEmail": "We've sent a confirmation code to {email}. Please enter the email code in the field below."
+  "confirmCodeEmail": "We've sent a confirmation code to {email}. Please enter the email code in the field below.",
+  "offerByPrice": "Make an offer by price",
+  "pickImage": "Pick Image",
+  "fromCamera": "Take from Camera",
+  "fromGallery": "Choose from Gallery"
 }

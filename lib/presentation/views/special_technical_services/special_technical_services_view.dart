@@ -37,7 +37,7 @@ class _SpecialTechnicalServicesViewState
   late TextEditingController controller2;
   late TextEditingController controllerCommet;
   late TextEditingController controllerPrice;
-  ValueNotifier<int> payDate = ValueNotifier(0);
+  ValueNotifier<int> payDate = ValueNotifier(1);
   ValueNotifier<bool> priceOffer = ValueNotifier(false);
   ValueNotifier<int> trTypeId = ValueNotifier(0);
   MapPoint? point;

@@ -893,4 +893,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String confirmCodeEmail(Object email) {
     return 'We\'ve sent a confirmation code to $email. Please enter the email code in the field below.';
   }
+
+  @override
+  String get offerByPrice => 'Make an offer by price';
+
+  @override
+  String get pickImage => 'Pick Image';
+
+  @override
+  String get fromCamera => 'Take from Camera';
+
+  @override
+  String get fromGallery => 'Choose from Gallery';
 }

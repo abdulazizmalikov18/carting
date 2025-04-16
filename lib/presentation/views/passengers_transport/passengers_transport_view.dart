@@ -39,7 +39,7 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
   late TextEditingController controllerCount;
   late TextEditingController controllerCommet;
   late TextEditingController controllerPrice;
-  ValueNotifier<int> payDate = ValueNotifier(0);
+  ValueNotifier<int> payDate = ValueNotifier(1);
   ValueNotifier<bool> priceOffer = ValueNotifier(false);
   ValueNotifier<int> trTypeId = ValueNotifier(0);
   MapPoint? point1;

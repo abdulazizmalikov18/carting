@@ -135,7 +135,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
-                        color: widget.tetxColor ?? context.color.darkText,
+                        color: widget.tetxColor ?? context.color.white,
                       ),
                     )
                   : const SizedBox(),

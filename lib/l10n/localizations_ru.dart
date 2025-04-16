@@ -893,4 +893,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String confirmCodeEmail(Object email) {
     return 'Код подтверждения отправлен на адрес $email. Введите код из письма в поле ниже.';
   }
+
+  @override
+  String get offerByPrice => 'Сделайте предложение по цене';
+
+  @override
+  String get pickImage => 'Выбрать изображение';
+
+  @override
+  String get fromCamera => 'Снять на камеру';
+
+  @override
+  String get fromGallery => 'Выбрать из галереи';
 }

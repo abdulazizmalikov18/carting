@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
+import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/l10n/localizations.dart';
 import 'package:carting/src/settings/socet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
-
-import 'package:carting/assets/assets/icons.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key, required this.navigationShell});
@@ -55,13 +55,10 @@ class _MainViewState extends State<MainView> {
         extendBody: true,
         bottomNavigationBar: SafeArea(
           child: Container(
-            height: 64,
-            margin: const EdgeInsets.symmetric(horizontal: 52)
+            height: 80,
+            margin: const EdgeInsets.symmetric(horizontal: 40)
                 .copyWith(bottom: Platform.isIOS ? 0 : 16),
-            padding: const EdgeInsets.symmetric(
-              vertical: 12,
-              horizontal: 32,
-            ),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
               color: context.color.white,
@@ -75,15 +72,38 @@ class _MainViewState extends State<MainView> {
                     _onTap(context, index);
                   },
                   child: CircleAvatar(
-                    radius: 20,
+                    radius: 32,
                     backgroundColor:
                         widget.navigationShell.currentIndex == index
                             ? context.color.backGroundColor
                             : context.color.white,
-                    child: list[index].svg(
-                      color: widget.navigationShell.currentIndex == index
-                          ? context.color.white
-                          : context.color.backGroundColor,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        list[index].svg(
+                          height: 24,
+                          width: 24,
+                          color: widget.navigationShell.currentIndex == index
+                              ? context.color.white
+                              : context.color.backGroundColor,
+                        ),
+                        Text(
+                          switch (index) {
+                            0 => AppLocalizations.of(context)!.main,
+                            1 => AppLocalizations.of(context)!.announcements,
+                            2 => AppLocalizations.of(context)!.transport,
+                            3 => AppLocalizations.of(context)!.profile,
+                            int() => throw UnimplementedError(),
+                          },
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: widget.navigationShell.currentIndex == index
+                                ? context.color.white
+                                : context.color.backGroundColor,
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),

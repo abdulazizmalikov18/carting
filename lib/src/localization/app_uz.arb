@@ -294,5 +294,9 @@
   "capacity": "Hajmi",
   "soonClientsMessage": "Tez orada sizning yo‘nalishdagi mijozlar siz bilan bog‘lanadi.",
   "confirmCodePhone": "Tasdiqlash kodini {phone} raqamiga yubordik. Quyidagi maydonga mobil kodingizni kiriting.",
-  "confirmCodeEmail": "Tasdiqlash kodini {email} manziliga yubordik. Quyidagi maydonga email kodingizni kiriting."
+  "confirmCodeEmail": "Tasdiqlash kodini {email} manziliga yubordik. Quyidagi maydonga email kodingizni kiriting.",
+  "offerByPrice": "Narx bo‘yicha taklif bering",
+  "pickImage": "Rasm tanlash",
+  "fromCamera": "Kameradan olish",
+  "fromGallery": "Galereyadan tanlash"
 }

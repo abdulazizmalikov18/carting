@@ -19,7 +19,7 @@ mixin AdversmentValueMixin {
   String selectedUnit = 'kg';
   MapPoint? point1;
   MapPoint? point2;
-  ValueNotifier<int> payDate = ValueNotifier(0);
+  ValueNotifier<int> payDate = ValueNotifier(1);
   ValueNotifier<bool> priceOffer = ValueNotifier(false);
   ValueNotifier<int> trTypeId = ValueNotifier(0);
   ValueNotifier<int> loadTypeId = ValueNotifier(1);

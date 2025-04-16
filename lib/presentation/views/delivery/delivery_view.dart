@@ -47,7 +47,7 @@ class _DeliveryViewState extends State<DeliveryView> {
   String selectedUnit = 'kg';
   MapPoint? point1;
   MapPoint? point2;
-  ValueNotifier<int> payDate = ValueNotifier(0);
+  ValueNotifier<int> payDate = ValueNotifier(1);
   ValueNotifier<bool> priceOffer = ValueNotifier(false);
   ValueNotifier<int> trTypeId = ValueNotifier(0);
   ValueNotifier<int> loadTypeId = ValueNotifier(1);
@@ -207,19 +207,37 @@ class _DeliveryViewState extends State<DeliveryView> {
               decoration: BoxDecoration(
                 color: context.color.contColor,
                 borderRadius: BorderRadius.circular(24),
+                boxShadow: wboxShadow2,
               ),
               padding: const EdgeInsets.all(12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 4,
                 children: [
-                  Text(
-                    AppLocalizations.of(context)!.loadWeight,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: context.color.darkText,
-                    ),
+                  Row(
+                    spacing: 24,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          AppLocalizations.of(context)!.loadWeight,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: context.color.white,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          AppLocalizations.of(context)!.cargoVolume,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: context.color.white,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 24,
@@ -357,33 +375,6 @@ class _DeliveryViewState extends State<DeliveryView> {
                             ],
                           ),
                         ),
-                        const VerticalDivider(width: 24),
-                        Expanded(
-                          child: Row(
-                            spacing: 4,
-                            children: [
-                              Expanded(
-                                child: TextField(
-                                  controller: controllerLitr,
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                    isDense: true,
-                                    contentPadding: EdgeInsets.zero,
-                                    border: InputBorder.none,
-                                    hintText: '0',
-                                    hintStyle: TextStyle(
-                                        color: context.color.darkText),
-                                  ),
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                              ),
-                              Text(
-                                'litr',
-                                style: TextStyle(color: context.color.darkText),
-                              )
-                            ],
-                          ),
-                        ),
                       ],
                     ),
                   )
@@ -407,8 +398,13 @@ class _DeliveryViewState extends State<DeliveryView> {
                   ),
                 ).then((value) {
                   if (value != null) {
-                    selectedDate = value;
-                    selectedDate2 = value;
+                    final date =
+                        (value as DateTime).add(const Duration(hours: 8));
+                    selectedDate = date;
+                    selectedDate2 = date.add(const Duration(hours: 12));
+                    controllerTime.text = MyFunction.formattedTime(date);
+                    controllerTime2.text =
+                        MyFunction.formattedTime(selectedDate2);
                     controller.text = MyFunction.dateFormat(value);
                   }
                 });
@@ -424,8 +420,13 @@ class _DeliveryViewState extends State<DeliveryView> {
                     ),
                   ).then((value) {
                     if (value != null) {
-                      selectedDate = value;
-                      selectedDate2 = value;
+                      final date =
+                          (value as DateTime).add(const Duration(hours: 8));
+                      selectedDate = date;
+                      selectedDate2 = date.add(const Duration(hours: 12));
+                      controllerTime.text = MyFunction.formattedTime(date);
+                      controllerTime2.text =
+                          MyFunction.formattedTime(selectedDate2);
                       controller.text = MyFunction.dateFormat(value);
                     }
                   });

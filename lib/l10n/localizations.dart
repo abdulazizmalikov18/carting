@@ -1862,6 +1862,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'We\'ve sent a confirmation code to {email}. Please enter the email code in the field below.'**
   String confirmCodeEmail(Object email);
+
+  /// No description provided for @offerByPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Make an offer by price'**
+  String get offerByPrice;
+
+  /// No description provided for @pickImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick Image'**
+  String get pickImage;
+
+  /// No description provided for @fromCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'Take from Camera'**
+  String get fromCamera;
+
+  /// No description provided for @fromGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose from Gallery'**
+  String get fromGallery;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

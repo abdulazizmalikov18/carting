@@ -36,7 +36,7 @@ class _PeregonServiceViewState extends State<PeregonServiceView> {
   late TextEditingController controllerPrice;
   MapPoint? point1;
   MapPoint? point2;
-  ValueNotifier<int> payDate = ValueNotifier(0);
+  ValueNotifier<int> payDate = ValueNotifier(1);
   ValueNotifier<bool> priceOffer = ValueNotifier(false);
   DateTime selectedDate = DateTime.now();
   DateTime selectedDate2 = DateTime.now();

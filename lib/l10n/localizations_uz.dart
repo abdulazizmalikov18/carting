@@ -893,4 +893,16 @@ class AppLocalizationsUz extends AppLocalizations {
   String confirmCodeEmail(Object email) {
     return 'Tasdiqlash kodini $email manziliga yubordik. Quyidagi maydonga email kodingizni kiriting.';
   }
+
+  @override
+  String get offerByPrice => 'Narx bo‘yicha taklif bering';
+
+  @override
+  String get pickImage => 'Rasm tanlash';
+
+  @override
+  String get fromCamera => 'Kameradan olish';
+
+  @override
+  String get fromGallery => 'Galereyadan tanlash';
 }

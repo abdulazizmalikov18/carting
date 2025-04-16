@@ -280,7 +280,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
-                            color: context.color.darkText,
+                            color: context.color.white,
                           ),
                         ),
                         Row(
@@ -302,7 +302,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            AppIcons.search.svg()
+                            AppIcons.arrowBottom.svg(color: context.color.iron)
                           ],
                         )
                       ],
@@ -335,13 +335,30 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 4,
                 children: [
-                  Text(
-                    AppLocalizations.of(context)!.loadWeight,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: context.color.darkText,
-                    ),
+                  Row(
+                    spacing: 24,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          AppLocalizations.of(context)!.loadWeight,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: context.color.white,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          AppLocalizations.of(context)!.cargoVolume,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: context.color.white,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 24,
@@ -489,39 +506,6 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                             ],
                           ),
                         ),
-                        const VerticalDivider(width: 24),
-                        Expanded(
-                          child: Row(
-                            spacing: 4,
-                            children: [
-                              Expanded(
-                                child: TextField(
-                                  controller: controllerLitr,
-                                  keyboardType: TextInputType.number,
-                                  onChanged: (value) {
-                                    if (value.length <= 1) {
-                                      updateButtonState();
-                                    }
-                                  },
-                                  decoration: InputDecoration(
-                                    isDense: true,
-                                    contentPadding: EdgeInsets.zero,
-                                    border: InputBorder.none,
-                                    hintText: '0',
-                                    hintStyle: TextStyle(
-                                      color: context.color.darkText,
-                                    ),
-                                  ),
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                              ),
-                              Text(
-                                'litr',
-                                style: TextStyle(color: context.color.darkText),
-                              )
-                            ],
-                          ),
-                        ),
                       ],
                     ),
                   )
@@ -545,8 +529,13 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                   ),
                 ).then((value) {
                   if (value != null) {
-                    selectedDate = value;
-                    selectedDate2 = value;
+                    final date =
+                        (value as DateTime).add(const Duration(hours: 8));
+                    selectedDate = date;
+                    selectedDate2 = date.add(const Duration(hours: 12));
+                    controllerTime.text = MyFunction.formattedTime(date);
+                    controllerTime2.text =
+                        MyFunction.formattedTime(selectedDate2);
                     controller.text = MyFunction.dateFormat(value);
                   }
                 });
@@ -562,8 +551,13 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                     ),
                   ).then((value) {
                     if (value != null) {
-                      selectedDate = value;
-                      selectedDate2 = value;
+                      final date =
+                          (value as DateTime).add(const Duration(hours: 8));
+                      selectedDate = date;
+                      selectedDate2 = date.add(const Duration(hours: 12));
+                      controllerTime.text = MyFunction.formattedTime(date);
+                      controllerTime2.text =
+                          MyFunction.formattedTime(selectedDate2);
                       controller.text = MyFunction.dateFormat(value);
                     }
                   });

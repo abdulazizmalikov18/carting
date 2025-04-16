@@ -5,6 +5,7 @@ import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/widgets/custom_text_field.dart';
+import 'package:carting/presentation/widgets/imaga_bottom.dart';
 import 'package:carting/presentation/widgets/w_scale_animation.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,6 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
     // if (widget.loadServiceId != null) {
     //   loadServiceId.value = widget.loadServiceId!.value - 1;
     // }
-
     super.initState();
   }
 
@@ -75,6 +75,20 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
     }
   }
 
+  void imagesFileCamera() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      if (image != null) {
+        widget.images.add(File(image.path));
+      }
+      setState(() {});
+    } on PlatformException catch (e) {
+      debugPrint(e.toString());
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   String formatFileSize(int bytes) {
     if (bytes < 1024) return "$bytes B";
     if (bytes < 1024 * 1024) return "${(bytes / 1024).toStringAsFixed(2)} KB";
@@ -84,9 +98,7 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
   @override
   void dispose() {
     super.dispose();
-
     loadTypeId.dispose();
-
     loadServiceId.dispose();
   }
 
@@ -111,7 +123,7 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
-                  color: context.color.darkText,
+                  color: context.color.white,
                 ),
               ),
               ValueListenableBuilder(
@@ -209,10 +221,9 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
                 children: [
                   Text(
                     AppLocalizations.of(context)!.price,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      color: context.color.darkText,
                     ),
                   ),
                   Row(
@@ -227,6 +238,7 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
                               : context.color.contColor,
                           height: 48,
                           controller: widget.controllerPrice,
+                          keyboardType: TextInputType.number,
                           suffixIcon: Container(
                             height: 32,
                             width: 44,
@@ -248,7 +260,7 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
                       ),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: WScaleAnimation(
                             onTap: () {
                               widget.priceOffer.value =
@@ -260,11 +272,13 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
                                 !widget.priceOffer.value
                                     ? AppIcons.checkbox.svg()
                                     : AppIcons.checkboxActiv.svg(),
-                                Text(
-                                  AppLocalizations.of(context)!.price_offer,
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
+                                Expanded(
+                                  child: Text(
+                                    AppLocalizations.of(context)!.offerByPrice,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -293,10 +307,9 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
               children: [
                 Text(
                   widget.imageText ?? AppLocalizations.of(context)!.cargoImages,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
-                    color: context.color.darkText,
                   ),
                 ),
                 ListView.separated(
@@ -306,9 +319,17 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
                     if (widget.images.length == index) {
                       return WScaleAnimation(
                         onTap: () {
-                          setState(() {
-                            imagesFile();
-                          });
+                          showAdaptiveImagePicker(
+                            context: context,
+                            onImageSourceSelected: (source) {
+                              if (source == ImageSource.gallery) {
+                                imagesFile();
+                              } else {
+                                imagesFileCamera();
+                              }
+                              setState(() {});
+                            },
+                          );
                         },
                         child: SizedBox(
                           height: 56,

@@ -355,13 +355,30 @@ class _AddCarViewState extends State<AddCarView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: 4,
                     children: [
-                      Text(
-                        AppLocalizations.of(context)!.loadWeight,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: context.color.darkText,
-                        ),
+                      Row(
+                        spacing: 24,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              AppLocalizations.of(context)!.loadWeight,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: context.color.white,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              AppLocalizations.of(context)!.cargoVolume,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: context.color.white,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: 24,
@@ -511,40 +528,6 @@ class _AddCarViewState extends State<AddCarView> {
                                   ),
                                   Text(
                                     'm3',
-                                    style: TextStyle(
-                                        color: context.color.darkText),
-                                  )
-                                ],
-                              ),
-                            ),
-                            const VerticalDivider(width: 24),
-                            Expanded(
-                              child: Row(
-                                spacing: 4,
-                                children: [
-                                  Expanded(
-                                    child: TextField(
-                                      controller: controllerLitr,
-                                      keyboardType: TextInputType.number,
-                                      onChanged: (value) {
-                                        if (value.length <= 1) {
-                                          updateButtonState();
-                                        }
-                                      },
-                                      decoration: InputDecoration(
-                                        isDense: true,
-                                        contentPadding: EdgeInsets.zero,
-                                        border: InputBorder.none,
-                                        hintText: '0',
-                                        hintStyle: TextStyle(
-                                          color: context.color.darkText,
-                                        ),
-                                      ),
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                  ),
-                                  Text(
-                                    'litr',
                                     style: TextStyle(
                                         color: context.color.darkText),
                                   )

@@ -60,80 +60,79 @@ class _WSelectionItamState extends State<WSelectionItam> {
             controller: _controller,
             menuPosition: position,
             dismissOnTapOutside: dismissOnTapOutside,
-            buttonBuilder: (context, onTap) {
-              return Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: context.color.contColor,
-                  borderRadius: BorderRadius.circular(24),
-                  boxShadow: wboxShadow2,
-                ),
-                child: GestureDetector(
-                  onTap: onTap,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Expanded(
-                        child: SizedBox(
-                          height: 48,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context)!.transportType,
+            buttonBuilder: (context, onTap) => Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: context.color.contColor,
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: wboxShadow2,
+              ),
+              child: GestureDetector(
+                onTap: onTap,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        height: 48,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!.transportType,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: context.color.white,
+                              ),
+                            ),
+                            RichText(
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              text: TextSpan(
+                                text:
+                                    "${state.transportationTypes[selIndex].name}, ",
                                 style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w400,
-                                  color: context.color.darkText,
+                                  color: context.color.white,
                                 ),
+                                children: [
+                                  TextSpan(
+                                    text: state
+                                        .transportationTypes[selIndex].volume,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                      color: context.color.darkText,
+                                    ),
+                                  )
+                                ],
                               ),
-                              RichText(
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                text: TextSpan(
-                                  text:
-                                      "${state.transportationTypes[selIndex].name}, ",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                    color: context.color.white,
-                                  ),
-                                  children: [
-                                    TextSpan(
-                                      text: state
-                                          .transportationTypes[selIndex].volume,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
-                                        color: context.color.darkText,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-                      CachedNetworkImage(
-                        imageUrl: state.transportationTypes[selIndex].icon,
-                        height: 48,
-                        width: 86,
-                        errorWidget: (context, url, error) => const SizedBox(),
-                      ),
-                      AppIcons.arrowBottom.svg(color: context.color.darkText),
-                    ],
-                  ),
+                    ),
+                    CachedNetworkImage(
+                      imageUrl: state.transportationTypes[selIndex].icon,
+                      height: 48,
+                      width: 86,
+                      errorWidget: (context, url, error) => const SizedBox(),
+                    ),
+                    AppIcons.arrowBottom.svg(color: context.color.darkText),
+                  ],
                 ),
-              );
-            },
+              ),
+            ),
             menuBuilder: (context, width) {
               return Padding(
                 padding: const EdgeInsets.only(top: 4),
                 child: _MenuWidget(
                   width: useButtonSize ? width : 300,
                   transportationTypes: state.transportationTypes,
+                  carId: selIndex,
                   onItemTap: (index) {
                     selIndex = index;
                     widget.onTap(selIndex);
@@ -156,10 +155,12 @@ class _MenuWidget extends StatelessWidget {
     this.width,
     required this.onItemTap,
     required this.transportationTypes,
+    required this.carId,
   });
 
   final double? width;
   final Function(int index) onItemTap;
+  final int carId;
   final List<TransportationTypesModel> transportationTypes;
 
   @override
@@ -220,7 +221,9 @@ class _MenuWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                AppIcons.arrowCircle.svg(),
+                carId == index
+                    ? AppIcons.checkboxRadio.svg()
+                    : AppIcons.checkboxRadioDis.svg(),
               ],
             ),
           ),

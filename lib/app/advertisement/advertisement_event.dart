@@ -78,6 +78,7 @@ class GetAdvertisementsEvent extends AdvertisementEvent {
   final int? page;
   final String? bdate;
   final String? edate;
+  final String? status;
   final int? minPrice;
   final int? maxPrice;
 
@@ -89,6 +90,7 @@ class GetAdvertisementsEvent extends AdvertisementEvent {
     this.edate,
     this.minPrice,
     this.maxPrice,
+    this.status,
   });
 }
 

@@ -328,6 +328,7 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
         edate: event.edate,
         minPrice: event.minPrice,
         maxPrice: event.maxPrice,
+        status: event.status,
         advType: event.isPROVIDE == null
             ? null
             : event.isPROVIDE == true

@@ -27,208 +27,225 @@ class AnnouncementsIteamNew extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
         color: context.color.contColor,
         boxShadow: wboxShadow2,
       ),
       child: Column(
-        spacing: 16,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'ID ${model.id}',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: context.color.darkText,
-                ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(24),
               ),
-              Text(
-                MyFunction.formatDate(
-                  DateTime.tryParse(model.createdAt ?? " ") ?? DateTime.now(),
-                ),
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: context.color.darkText,
-                ),
-              ),
-            ],
-          ),
-          if (model.fromLocation != null || model.toLocation != null)
-            Row(
-              spacing: 8,
+              color: green,
+              boxShadow: wboxShadow2,
+            ),
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppIcons.columLocation.svg(),
-                Expanded(
-                  child: Column(
-                    spacing: 8,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        (model.fromLocation?.name ??
-                            AppLocalizations.of(context)!.unknown),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: context.color.white,
-                        ),
-                      ),
-                      Text(
-                        (model.toLocation?.name ??
-                            AppLocalizations.of(context)!.unknown),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: context.color.white,
-                        ),
-                      ),
-                    ],
+                Text(
+                  'ID ${model.id}',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: white,
                   ),
                 ),
                 Text(
-                  '${calculateDistance(
-                    model.fromLocation?.lat ?? 0,
-                    model.fromLocation?.lng ?? 0,
-                    model.toLocation?.lat ?? 0,
-                    model.toLocation?.lng ?? 0,
-                  ).toInt()} km',
-                  style: TextStyle(
+                  MyFunction.formatDate(
+                    DateTime.tryParse(model.createdAt ?? " ") ?? DateTime.now(),
+                  ),
+                  style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
-                    color: context.color.darkText,
+                    color: white,
                   ),
                 ),
               ],
             ),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  spacing: 12,
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+            child: Column(
+              spacing: 16,
+              children: [
+                if (model.fromLocation != null || model.toLocation != null)
+                  Row(
+                    spacing: 8,
+                    children: [
+                      AppIcons.columLocation.svg(),
+                      Expanded(
+                        child: Column(
+                          spacing: 8,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              (model.fromLocation?.name ??
+                                  AppLocalizations.of(context)!.unknown),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: context.color.white,
+                              ),
+                            ),
+                            Text(
+                              (model.toLocation?.name ??
+                                  AppLocalizations.of(context)!.unknown),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: context.color.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Text(
+                        '${calculateDistance(
+                          model.fromLocation?.lat ?? 0,
+                          model.fromLocation?.lng ?? 0,
+                          model.toLocation?.lat ?? 0,
+                          model.toLocation?.lng ?? 0,
+                        ).toInt()} km',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: context.color.darkText,
+                        ),
+                      ),
+                    ],
+                  ),
+                Row(
                   children: [
-                    RowIcon(
-                      text: (model.price == null || model.price == 0)
-                          ? AppLocalizations.of(context)!.price_offer
-                          : '${MyFunction.priceFormat(model.price ?? 0)} UZS',
-                      icon: AppIcons.layer.svg(
-                        color: context.color.iron,
-                        height: 20,
+                    Expanded(
+                      child: Column(
+                        spacing: 12,
+                        children: [
+                          RowIcon(
+                            text: (model.price == null || model.price == 0)
+                                ? AppLocalizations.of(context)!.price_offer
+                                : '${MyFunction.priceFormat(model.price ?? 0)} UZS',
+                            icon: AppIcons.layer.svg(
+                              color: context.color.iron,
+                              height: 20,
+                            ),
+                            isGreen: true,
+                          ),
+                          RowIcon(
+                            text: MyFunction.servicesNema(
+                                model.serviceTypeId, context),
+                            icon: AppIcons.shipping.svg(
+                              color: context.color.iron,
+                              height: 20,
+                            ),
+                          ),
+                          RowIcon(
+                            text:
+                                '${AppLocalizations.of(context)!.loadWeight}:${model.details?.kg == null ? '' : ' ${model.details?.kg} kg'}${model.details?.litr == null ? '' : ' ${model.details?.litr} litr'}${model.details?.m3 == null ? '' : ' ${model.details?.m3} m3'}',
+                            icon: AppIcons.box.svg(
+                              color: context.color.iron,
+                              height: 20,
+                            ),
+                          ),
+                        ],
                       ),
-                      isGreen: true,
                     ),
-                    RowIcon(
-                      text:
-                          MyFunction.servicesNema(model.serviceTypeId, context),
-                      icon: AppIcons.shipping.svg(
-                        color: context.color.iron,
-                        height: 20,
-                      ),
-                    ),
-                    RowIcon(
-                      text:
-                          '${AppLocalizations.of(context)!.loadWeight}:${model.details?.kg == null ? '' : ' ${model.details?.kg} kg'}${model.details?.litr == null ? '' : ' ${model.details?.litr} litr'}${model.details?.m3 == null ? '' : ' ${model.details?.m3} m3'}',
-                      icon: AppIcons.box.svg(
-                        color: context.color.iron,
-                        height: 20,
-                      ),
-                    ),
+                    if (model.transportIcon != null)
+                      CachedNetworkImage(
+                        imageUrl: model.transportIcon!,
+                        height: 48,
+                      )
                   ],
                 ),
-              ),
-              if (model.transportIcon != null)
-                CachedNetworkImage(
-                  imageUrl: model.transportIcon!,
-                  height: 48,
-                )
-            ],
-          ),
-          if (!isMe)
-            Container(
-              padding: const EdgeInsets.fromLTRB(12, 4, 4, 4),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                color: context.color.scaffoldBackground,
-              ),
-              height: 48,
-              child: Row(
-                spacing: 8,
-                children: [
-                  const CircleAvatar(radius: 12),
-                  Expanded(
-                    child: Text(
-                      model.createdByName ??
-                          AppLocalizations.of(context)!.unknown,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
+                if (!isMe)
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(12, 4, 4, 4),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
+                      color: context.color.scaffoldBackground,
+                    ),
+                    height: 48,
+                    child: Row(
+                      spacing: 8,
+                      children: [
+                        const CircleAvatar(radius: 12),
+                        Expanded(
+                          child: Text(
+                            model.createdByName ??
+                                AppLocalizations.of(context)!.unknown,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        WButton(
+                          onTap: () async {
+                            if (model.createdByPhone != null) {
+                              await Caller.makePhoneCall(model.createdByPhone!);
+                            } else if (model.createdByTgLink != null) {
+                              await Caller.launchTelegram(
+                                  model.createdByTgLink!);
+                            } else {
+                              CustomSnackbar.show(
+                                context,
+                                AppLocalizations.of(context)!.unknown,
+                              );
+                            }
+                          },
+                          text: AppLocalizations.of(context)!.connection,
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                        )
+                      ],
+                    ),
+                  ),
+                if (isCarNumber) ...[
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(12, 4, 4, 4),
+                    height: 56,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
+                      color: context.color.scaffoldBackground,
+                    ),
+                    child: Row(
+                      spacing: 16,
+                      children: [
+                        CachedNetworkImage(
+                          imageUrl: model.transportIcon ?? "",
+                          height: 48,
+                          width: 86,
+                        ),
+                        CarNumberIteam(
+                          carNumberFirst: model.details?.transportNumber
+                                  .toString()
+                                  .substring(0, 2) ??
+                              "01",
+                          carNumberSecond: model.details?.transportNumber
+                                  .toString()
+                                  .substring(2) ??
+                              "A 111 AA",
+                        ),
+                      ],
                     ),
                   ),
                   WButton(
-                    onTap: () async {
-                      if (model.createdByPhone != null) {
-                        await Caller.makePhoneCall(model.createdByPhone!);
-                      } else if (model.createdByTgLink != null) {
-                        await Caller.launchTelegram(model.createdByTgLink!);
-                      } else {
-                        CustomSnackbar.show(
-                          context,
-                          AppLocalizations.of(context)!.unknown,
-                        );
-                      }
-                    },
-                    text: AppLocalizations.of(context)!.connection,
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                  )
-                ],
-              ),
-            ),
-          if (isCarNumber) ...[
-            Container(
-              padding: const EdgeInsets.fromLTRB(12, 4, 4, 4),
-              height: 56,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                color: context.color.scaffoldBackground,
-              ),
-              child: Row(
-                spacing: 16,
-                children: [
-                  CachedNetworkImage(
-                    imageUrl: model.transportIcon ?? "",
+                    onTap: () {},
                     height: 48,
-                    width: 86,
-                  ),
-                  CarNumberIteam(
-                    carNumberFirst: model.details?.transportNumber
-                            .toString()
-                            .substring(0, 2) ??
-                        "01",
-                    carNumberSecond: model.details?.transportNumber
-                            .toString()
-                            .substring(2) ??
-                        "A 111 AA",
-                  ),
-                ],
-              ),
+                    text: 'Statusni o’zgartirish',
+                  )
+                ]
+              ],
             ),
-            WButton(
-              onTap: () {},
-              height: 48,
-              text: 'Statusni o’zgartirish',
-            )
-          ]
+          )
         ],
       ),
     );

@@ -39,9 +39,9 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
 
   @override
   void initState() {
-    context.read<AdvertisementBloc>().add(GetAdvertisementsEvent(
-          isPROVIDE: false,
-        ));
+    context
+        .read<AdvertisementBloc>()
+        .add(GetAdvertisementsEvent(isPROVIDE: false, status: 'ACTIVE'));
     if (context.read<AdvertisementBloc>().state.advertisementMyCars.isEmpty) {
       context.read<AdvertisementBloc>().add(GetAdvertisementsMyCarsEvent());
     }
@@ -291,13 +291,14 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
                           value: bloc,
                           child: AnnouncementInfoView(
                             model: state.advertisement[index],
-                            isMe: false,
+                            isMe: state.advertisement[index].isOwner,
                           ),
                         ),
                       ));
                     },
                     child: AnnouncementsIteamNew(
                       model: state.advertisement[index],
+                      isMe: state.advertisement[index].isOwner,
                     ),
                   ),
                   separatorBuilder: (context, index) =>

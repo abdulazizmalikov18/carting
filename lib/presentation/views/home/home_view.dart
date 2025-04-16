@@ -240,7 +240,7 @@ class ServisLocIteam extends StatelessWidget {
           typeOfService.icon,
           const SizedBox(height: 4),
           Text(
-            typeOfService.text,
+            typeOfService.text.replaceFirst(' ', '\n'),
             textAlign: TextAlign.center,
             maxLines: 2,
           )

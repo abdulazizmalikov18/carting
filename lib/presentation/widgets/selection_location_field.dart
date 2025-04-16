@@ -75,7 +75,7 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
-                  color: context.color.darkText,
+                  color: context.color.white,
                 ),
               ),
               subtitle: Text(
@@ -136,7 +136,7 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
-                  color: context.color.darkText,
+                  color: context.color.white,
                 ),
               ),
               subtitle: Text(

@@ -893,4 +893,16 @@ class AppLocalizationsKk extends AppLocalizations {
   String confirmCodeEmail(Object email) {
     return 'Тасдиқлаш кодини $email манзилига юбордик. Қуйидаги майдонга email кодиңгизни киритинг.';
   }
+
+  @override
+  String get offerByPrice => 'Нарх бўйича таклиф беринг';
+
+  @override
+  String get pickImage => 'Расм танлаш';
+
+  @override
+  String get fromCamera => 'Камерадан олиш';
+
+  @override
+  String get fromGallery => 'Галереядан танлаш';
 }

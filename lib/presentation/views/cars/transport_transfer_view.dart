@@ -41,7 +41,7 @@ class _TransportTransferCreateViewState
   late TextEditingController controllerPrice;
   MapPoint? point1;
   MapPoint? point2;
-  ValueNotifier<int> payDate = ValueNotifier(0);
+  ValueNotifier<int> payDate = ValueNotifier(1);
   ValueNotifier<bool> priceOffer = ValueNotifier(false);
   ValueNotifier<int> trTypeId = ValueNotifier(0);
   List<File> images = [];
@@ -194,8 +194,13 @@ class _TransportTransferCreateViewState
                   ),
                 ).then((value) {
                   if (value != null) {
-                    selectedDate = value;
-                    selectedDate2 = value;
+                    final date =
+                        (value as DateTime).add(const Duration(hours: 8));
+                    selectedDate = date;
+                    selectedDate2 = date.add(const Duration(hours: 12));
+                    controllerTime.text = MyFunction.formattedTime(date);
+                    controllerTime2.text =
+                        MyFunction.formattedTime(selectedDate2);
                     controller.text = MyFunction.dateFormat(value);
                   }
                 });
@@ -211,10 +216,15 @@ class _TransportTransferCreateViewState
                     ),
                   ).then((value) {
                     if (value != null) {
-                      selectedDate = value;
-                      selectedDate2 = value;
-                      controller.text = MyFunction.dateFormat(value);
-                    }
+                    final date =
+                        (value as DateTime).add(const Duration(hours: 8));
+                    selectedDate = date;
+                    selectedDate2 = date.add(const Duration(hours: 12));
+                    controllerTime.text = MyFunction.formattedTime(date);
+                    controllerTime2.text =
+                        MyFunction.formattedTime(selectedDate2);
+                    controller.text = MyFunction.dateFormat(value);
+                  }
                   });
                 },
                 child: AppIcons.calendar.svg(
