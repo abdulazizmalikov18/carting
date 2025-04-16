@@ -298,5 +298,8 @@
   "offerByPrice": "Narx bo‘yicha taklif bering",
   "pickImage": "Rasm tanlash",
   "fromCamera": "Kameradan olish",
-  "fromGallery": "Galereyadan tanlash"
+  "fromGallery": "Galereyadan tanlash",
+  "unit_kg": "kg",
+  "unit_tn": "t",
+  "unit_m3": "m³"
 }

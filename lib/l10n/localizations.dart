@@ -1886,6 +1886,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Choose from Gallery'**
   String get fromGallery;
+
+  /// No description provided for @unit_kg.
+  ///
+  /// In en, this message translates to:
+  /// **'kg'**
+  String get unit_kg;
+
+  /// No description provided for @unit_tn.
+  ///
+  /// In en, this message translates to:
+  /// **'tn'**
+  String get unit_tn;
+
+  /// No description provided for @unit_m3.
+  ///
+  /// In en, this message translates to:
+  /// **'m3'**
+  String get unit_m3;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

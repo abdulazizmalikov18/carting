@@ -297,5 +297,8 @@
   "offerByPrice": "Make an offer by price",
   "pickImage": "Pick Image",
   "fromCamera": "Take from Camera",
-  "fromGallery": "Choose from Gallery"
+  "fromGallery": "Choose from Gallery",
+  "unit_kg": "kg",
+  "unit_tn": "tn",
+  "unit_m3": "m3"
 }

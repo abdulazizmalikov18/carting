@@ -905,4 +905,13 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get fromGallery => 'Galereyadan tanlash';
+
+  @override
+  String get unit_kg => 'kg';
+
+  @override
+  String get unit_tn => 't';
+
+  @override
+  String get unit_m3 => 'm³';
 }

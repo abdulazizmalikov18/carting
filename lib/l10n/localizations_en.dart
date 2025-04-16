@@ -905,4 +905,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get fromGallery => 'Choose from Gallery';
+
+  @override
+  String get unit_kg => 'kg';
+
+  @override
+  String get unit_tn => 'tn';
+
+  @override
+  String get unit_m3 => 'm3';
 }

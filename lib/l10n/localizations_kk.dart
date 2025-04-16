@@ -905,4 +905,13 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get fromGallery => 'Галереядан танлаш';
+
+  @override
+  String get unit_kg => 'кг';
+
+  @override
+  String get unit_tn => 'т';
+
+  @override
+  String get unit_m3 => 'м³';
 }

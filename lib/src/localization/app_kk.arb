@@ -297,5 +297,8 @@
   "offerByPrice": "Нарх бўйича таклиф беринг",
   "pickImage": "Расм танлаш",
   "fromCamera": "Камерадан олиш",
-  "fromGallery": "Галереядан танлаш"
+  "fromGallery": "Галереядан танлаш",
+  "unit_kg": "кг",
+  "unit_tn": "т",
+  "unit_m3": "м³"
 }

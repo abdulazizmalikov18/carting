@@ -172,12 +172,12 @@ class _EditAdsViewState extends State<EditAdsView> {
                           state.transportationTypes[trTypeId.value].id,
                       madeAt: controllerCarYear.text,
                       transportNumber: controllerCarNumber.text,
-                      kg: selectedUnit == 'kg'
+                      kg: selectedUnit == AppLocalizations.of(context)!.unit_kg
                           ? controllerKg.text.isEmpty
                               ? null
                               : controllerKg.text
                           : null,
-                      tn: selectedUnit == 'tn'
+                      tn: selectedUnit == AppLocalizations.of(context)!.unit_tn
                           ? controllerKg.text.isEmpty
                               ? null
                               : controllerKg.text
@@ -454,7 +454,7 @@ class _EditAdsViewState extends State<EditAdsView> {
                                             borderRadius:
                                                 BorderRadius.circular(16),
                                           ),
-                                          items: ['kg', 'tn'].map((choice) {
+                                          items: [AppLocalizations.of(context)!.unit_kg, AppLocalizations.of(context)!.unit_tn].map((choice) {
                                             return PopupMenuItem<String>(
                                               value: choice,
                                               height: 40,
@@ -530,15 +530,17 @@ class _EditAdsViewState extends State<EditAdsView> {
                                         border: InputBorder.none,
                                         hintText: '0',
                                         hintStyle: TextStyle(
-                                            color: context.color.darkText),
+                                          color: context.color.darkText,
+                                        ),
                                       ),
                                       style: const TextStyle(fontSize: 16),
                                     ),
                                   ),
                                   Text(
-                                    'm3',
+                                    AppLocalizations.of(context)!.unit_m3,
                                     style: TextStyle(
-                                        color: context.color.darkText),
+                                      color: context.color.darkText,
+                                    ),
                                   )
                                 ],
                               ),

@@ -179,12 +179,12 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                     // ),
                     fromDate: selectedDate.toString(),
                     toDate: selectedDate2.toString(),
-                    kg: selectedUnit == 'kg'
+                    kg: selectedUnit == AppLocalizations.of(context)!.unit_kg
                         ? controllerKg.text.isEmpty
                             ? null
                             : controllerKg.text
                         : null,
-                    tn: selectedUnit == 'tn'
+                    tn: selectedUnit == AppLocalizations.of(context)!.unit_tn
                         ? controllerKg.text.isEmpty
                             ? null
                             : controllerKg.text
@@ -421,7 +421,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(16),
                                       ),
-                                      items: ['kg', 'tn'].map((choice) {
+                                      items: [AppLocalizations.of(context)!.unit_kg, AppLocalizations.of(context)!.unit_tn].map((choice) {
                                         return PopupMenuItem<String>(
                                           value: choice,
                                           height: 40,
@@ -500,7 +500,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                                 ),
                               ),
                               Text(
-                                'm3',
+                                AppLocalizations.of(context)!.unit_m3,
                                 style: TextStyle(color: context.color.darkText),
                               )
                             ],
