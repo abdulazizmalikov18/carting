@@ -98,6 +98,7 @@ class AppIcons {
   static const document = "assets/icons/document.svg";
   static const layer = "assets/icons/layer.svg";
   static const accept = "assets/icons/accept.svg";
+  static const messageOffer = "assets/icons/message.svg";
 }
 
 extension SvgExt on String {

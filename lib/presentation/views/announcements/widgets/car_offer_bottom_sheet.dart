@@ -3,6 +3,7 @@ import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/widgets/custom_text_field.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_scale_animation.dart';
@@ -102,7 +103,8 @@ class _CarOfferBottomSheetState extends State<CarOfferBottomSheet> {
                           ),
                           Center(
                             child: Text(
-                              "Haydovchi uchun taklif yuborish",
+                              AppLocalizations.of(context)!
+                                  .sendProposalForDriver,
                               style: TextStyle(
                                 color: context.color.darkText,
                                 fontSize: 14,
@@ -268,7 +270,7 @@ class _CarOfferBottomSheetState extends State<CarOfferBottomSheet> {
                           },
                         ));
                       },
-                      text: "Taklif yuborish",
+                      text: AppLocalizations.of(context)!.sendProposal,
                     );
                   },
                 ),

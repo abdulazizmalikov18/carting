@@ -68,7 +68,7 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: AppIcons.share.svg(color: context.color.iron),
+            icon: AppIcons.share.svg(color: context.color.white),
           ),
         ],
       ),
@@ -256,9 +256,15 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                         }
                       });
                     },
-                    text: "Taklif yuborish",
-                    color: greyBack,
-                    textColor: greyText,
+                    color: const Color(0xFFFDB022),
+                    child: Row(
+                      spacing: 10,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AppIcons.messageOffer.svg(),
+                        Text(AppLocalizations.of(context)!.sendProposal),
+                      ],
+                    ),
                   ),
                   Row(
                     spacing: 16,
@@ -832,6 +838,7 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                     text: MyFunction.formatDate2(
                       DateTime.tryParse(widget.model.shipmentDate ?? "") ??
                           DateTime.now(),
+                      context,
                     ),
                     icon: AppIcons.calendar,
                   ),

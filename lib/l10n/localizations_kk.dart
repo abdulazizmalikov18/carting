@@ -914,4 +914,25 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get unit_m3 => 'м³';
+
+  @override
+  String get sendProposal => 'Таклиф юбориш';
+
+  @override
+  String get sendProposalForAd => 'Эълон учун таклиф юбориш';
+
+  @override
+  String get sendProposalForDriver => 'Ҳайдовчи учун таклиф юбориш';
+
+  @override
+  String get today => 'Бугун';
+
+  @override
+  String get postedToday => 'Бугун жойланди';
+
+  @override
+  String get postedYesterday => 'Кеча жойланди';
+
+  @override
+  String get tomorrow => 'Эртага';
 }

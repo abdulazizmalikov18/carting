@@ -914,4 +914,25 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get unit_m3 => 'm³';
+
+  @override
+  String get sendProposal => 'Taklif yuborish';
+
+  @override
+  String get sendProposalForAd => 'E\'lon uchun taklif yuborish';
+
+  @override
+  String get sendProposalForDriver => 'Haydovchi uchun taklif yuborish';
+
+  @override
+  String get today => 'Bugun';
+
+  @override
+  String get postedToday => 'Bugun joylandi';
+
+  @override
+  String get postedYesterday => 'Kecha joylandi';
+
+  @override
+  String get tomorrow => 'Ertaga';
 }

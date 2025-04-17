@@ -914,4 +914,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get unit_m3 => 'm3';
+
+  @override
+  String get sendProposal => 'Send proposal';
+
+  @override
+  String get sendProposalForAd => 'Send proposal for ad';
+
+  @override
+  String get sendProposalForDriver => 'Send proposal for driver';
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get postedToday => 'Posted today';
+
+  @override
+  String get postedYesterday => 'Posted yesterday';
+
+  @override
+  String get tomorrow => 'Tomorrow';
 }

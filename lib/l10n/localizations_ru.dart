@@ -914,4 +914,25 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get unit_m3 => 'м³';
+
+  @override
+  String get sendProposal => 'Отправить предложение';
+
+  @override
+  String get sendProposalForAd => 'Отправить предложение для объявления';
+
+  @override
+  String get sendProposalForDriver => 'Отправить предложение водителю';
+
+  @override
+  String get today => 'Сегодня';
+
+  @override
+  String get postedToday => 'Размещено сегодня';
+
+  @override
+  String get postedYesterday => 'Размещено вчера';
+
+  @override
+  String get tomorrow => 'Завтра';
 }

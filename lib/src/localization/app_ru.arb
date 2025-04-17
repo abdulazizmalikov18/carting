@@ -300,5 +300,12 @@
   "fromGallery": "Выбрать из галереи",
   "unit_kg": "кг",
   "unit_tn": "т",
-  "unit_m3": "м³"
+  "unit_m3": "м³",
+  "sendProposal": "Отправить предложение",
+  "sendProposalForAd": "Отправить предложение для объявления",
+  "sendProposalForDriver": "Отправить предложение водителю",
+  "today": "Сегодня",
+  "postedToday": "Размещено сегодня",
+  "postedYesterday": "Размещено вчера",
+  "tomorrow": "Завтра"
 }

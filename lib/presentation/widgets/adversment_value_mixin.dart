@@ -28,7 +28,9 @@ mixin AdversmentValueMixin {
   DateTime selectedDate2 = DateTime.now();
   final OverlayPortalController overlayPortalController =
       OverlayPortalController();
+    final OverlayPortalController controllerData = OverlayPortalController();
   MenuPosition position = MenuPosition.bottomStart;
+  MenuPosition positionData = MenuPosition.bottomStart;
   bool dismissOnTapOutside = true;
   bool useButtonSize = true;
   int selIndex = 0;

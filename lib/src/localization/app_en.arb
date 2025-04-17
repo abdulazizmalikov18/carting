@@ -300,5 +300,12 @@
   "fromGallery": "Choose from Gallery",
   "unit_kg": "kg",
   "unit_tn": "tn",
-  "unit_m3": "m3"
+  "unit_m3": "m3",
+  "sendProposal": "Send proposal",
+  "sendProposalForAd": "Send proposal for ad",
+  "sendProposalForDriver": "Send proposal for driver",
+  "today": "Today",
+  "postedToday": "Posted today",
+  "postedYesterday": "Posted yesterday",
+  "tomorrow": "Tomorrow"
 }

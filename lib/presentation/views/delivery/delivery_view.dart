@@ -5,6 +5,8 @@ import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/presentation/routes/route_name.dart';
 import 'package:carting/presentation/widgets/succes_dialog.dart';
 import 'package:carting/presentation/widgets/w_time.dart';
+import 'package:flex_dropdown/flex_dropdown.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -54,6 +56,7 @@ class _DeliveryViewState extends State<DeliveryView> {
   ValueNotifier<int> loadServiceId = ValueNotifier(1);
   DateTime selectedDate = DateTime.now();
   DateTime selectedDate2 = DateTime.now();
+  final OverlayPortalController controllerData = OverlayPortalController();
   @override
   void initState() {
     controller = TextEditingController();
@@ -237,6 +240,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                           ),
                         ),
                       ),
+                      const Expanded(child: SizedBox()),
                     ],
                   ),
                   SizedBox(
@@ -295,7 +299,10 @@ class _DeliveryViewState extends State<DeliveryView> {
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(16),
                                       ),
-                                      items: [AppLocalizations.of(context)!.unit_kg, AppLocalizations.of(context)!.unit_tn].map((choice) {
+                                      items: [
+                                        AppLocalizations.of(context)!.unit_kg,
+                                        AppLocalizations.of(context)!.unit_tn
+                                      ].map((choice) {
                                         return PopupMenuItem<String>(
                                           value: choice,
                                           height: 40,
@@ -375,68 +382,201 @@ class _DeliveryViewState extends State<DeliveryView> {
                             ],
                           ),
                         ),
+                        const VerticalDivider(width: 24),
+                        Expanded(
+                          child: Row(
+                            spacing: 4,
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  controller: controllerLitr,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    isDense: true,
+                                    contentPadding: EdgeInsets.zero,
+                                    border: InputBorder.none,
+                                    hintText: '0',
+                                    hintStyle: TextStyle(
+                                      color: context.color.darkText,
+                                    ),
+                                  ),
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ),
+                              Text(
+                                'litr',
+                                style: TextStyle(color: context.color.darkText),
+                              )
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   )
                 ],
               ),
             ),
-            MinTextField(
-              text: AppLocalizations.of(context)!.departureDate,
-              hintText: "",
-              keyboardType: TextInputType.datetime,
-              controller: controller,
-              readOnly: true,
-              formatter: [Formatters.dateFormatter],
-              onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  backgroundColor: Colors.transparent,
-                  builder: (context) => WClaendar(
-                    selectedDate: selectedDate,
+            RawFlexDropDown(
+              controller: controllerData,
+              buttonBuilder: (context, onTap) => MinTextField(
+                text: AppLocalizations.of(context)!.departureDate,
+                hintText: "",
+                keyboardType: TextInputType.datetime,
+                controller: controller,
+                readOnly: true,
+                formatter: [Formatters.dateFormatter],
+                onPressed: onTap,
+                prefixIcon: GestureDetector(
+                  onTap: onTap,
+                  child: AppIcons.calendar.svg(
+                    height: 24,
+                    width: 24,
                   ),
-                ).then((value) {
-                  if (value != null) {
-                    final date =
-                        (value as DateTime).add(const Duration(hours: 8));
-                    selectedDate = date;
-                    selectedDate2 = date.add(const Duration(hours: 12));
-                    controllerTime.text = MyFunction.formattedTime(date);
-                    controllerTime2.text =
-                        MyFunction.formattedTime(selectedDate2);
-                    controller.text = MyFunction.dateFormat(value);
-                  }
-                });
-              },
-              prefixIcon: GestureDetector(
-                onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
-                    builder: (context) => WClaendar(
-                      selectedDate: selectedDate,
+                ),
+                onChanged: (value) {},
+              ),
+              menuBuilder: (context, width) => Container(
+                width: width,
+                margin: const EdgeInsets.only(top: 4),
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                decoration: BoxDecoration(
+                  color: context.color.contColor,
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x11000000),
+                      blurRadius: 32,
+                      offset: Offset(0, 20),
+                      spreadRadius: -8,
                     ),
-                  ).then((value) {
-                    if (value != null) {
-                      final date =
-                          (value as DateTime).add(const Duration(hours: 8));
-                      selectedDate = date;
-                      selectedDate2 = date.add(const Duration(hours: 12));
-                      controllerTime.text = MyFunction.formattedTime(date);
-                      controllerTime2.text =
-                          MyFunction.formattedTime(selectedDate2);
-                      controller.text = MyFunction.dateFormat(value);
-                    }
-                  });
-                },
-                child: AppIcons.calendar.svg(
-                  height: 24,
-                  width: 24,
+                  ],
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CupertinoListTile(
+                      onTap: () {
+                        controllerData.hide();
+                        final date = DateTime.now();
+                        selectedDate = date;
+                        selectedDate2 = date.add(const Duration(hours: 6));
+                        controllerTime.text = MyFunction.formattedTime(date);
+                        controllerTime2.text =
+                            MyFunction.formattedTime(selectedDate2);
+                        controller.text = MyFunction.dateFormat(date);
+                      },
+                      title: Row(
+                        spacing: 12,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.today,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'Lufga',
+                            ),
+                          ),
+                          Text(
+                            MyFunction.formatDayMonth(DateTime.now()),
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'Lufga',
+                              color: context.color.darkText,
+                            ),
+                          ),
+                        ],
+                      ),
+                      trailing:
+                          MyFunction.isSameDay(DateTime.now(), selectedDate)
+                              ? AppIcons.checkboxRadio.svg()
+                              : AppIcons.checkboxRadioDis.svg(),
+                    ),
+                    CupertinoListTile(
+                      onTap: () {
+                        controllerData.hide();
+                        final date =
+                            DateTime.now().add(const Duration(days: 1));
+                        selectedDate = date;
+                        selectedDate2 = date.add(const Duration(hours: 6));
+                        controllerTime.text = MyFunction.formattedTime(date);
+                        controllerTime2.text =
+                            MyFunction.formattedTime(selectedDate2);
+                        controller.text = MyFunction.dateFormat(date);
+                      },
+                      title: Row(
+                        spacing: 12,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.tomorrow,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'Lufga',
+                            ),
+                          ),
+                          Text(
+                            MyFunction.formatDayMonth(
+                              DateTime.now().add(const Duration(days: 1)),
+                            ),
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'Lufga',
+                              color: context.color.darkText,
+                            ),
+                          ),
+                        ],
+                      ),
+                      trailing: MyFunction.isSameDay(
+                        DateTime.now().add(const Duration(days: 1)),
+                        selectedDate,
+                      )
+                          ? AppIcons.checkboxRadio.svg()
+                          : AppIcons.checkboxRadioDis.svg(),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Divider(),
+                    ),
+                    CupertinoListTile(
+                      onTap: () {
+                        controllerData.hide();
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          builder: (context) => WClaendar(
+                            selectedDate: selectedDate,
+                          ),
+                        ).then((value) {
+                          if (value != null) {
+                            final date = (value as DateTime)
+                                .add(const Duration(hours: 8));
+                            selectedDate = date;
+                            selectedDate2 = date.add(const Duration(hours: 12));
+                            controllerTime.text =
+                                MyFunction.formattedTime(date);
+                            controllerTime2.text =
+                                MyFunction.formattedTime(selectedDate2);
+                            controller.text = MyFunction.dateFormat(value);
+                          }
+                        });
+                      },
+                      title: Text(
+                        "00.00.0000",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'Lufga',
+                          color: context.color.darkText,
+                        ),
+                      ),
+                      leading: AppIcons.calendar.svg(),
+                    ),
+                  ],
                 ),
               ),
-              onChanged: (value) {},
             ),
             Row(
               spacing: 8,

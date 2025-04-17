@@ -300,5 +300,13 @@
   "fromGallery": "Галереядан танлаш",
   "unit_kg": "кг",
   "unit_tn": "т",
-  "unit_m3": "м³"
+  "unit_m3": "м³",
+  "sendProposal": "Таклиф юбориш",
+  "sendProposalForAd": "Эълон учун таклиф юбориш",
+  "sendProposalForDriver": "Ҳайдовчи учун таклиф юбориш",
+  "today": "Бугун",
+  "postedToday": "Бугун жойланди",
+  "postedYesterday": "Кеча жойланди",
+  "tomorrow": "Эртага"
+
 }

@@ -257,14 +257,14 @@ class MyFunction {
     return titles.join(', ');
   }
 
-  static String formatDate(DateTime date) {
+  static String formatDate(DateTime date, BuildContext context) {
     DateTime now = DateTime.now();
     DateTime yesterday = now.subtract(const Duration(days: 1));
 
     if (DateUtils.isSameDay(date, now)) {
-      return "Bugun joylandi";
+      return AppLocalizations.of(context)!.postedToday;
     } else if (DateUtils.isSameDay(date, yesterday)) {
-      return "Kecha joylandi";
+      return AppLocalizations.of(context)!.postedYesterday;
     } else {
       return "${DateFormat("dd.MM.yyyy").format(date)} joylangan";
     }
@@ -277,7 +277,15 @@ class MyFunction {
     return DateFormat("dd.MM.yyyy").parse(data);
   }
 
-  static String formatDate2(DateTime date) {
+  static String formatDayMonth(DateTime date) {
+    return DateFormat('d MMMM', 'uz').format(date);
+  }
+
+  static bool isSameDay(DateTime a, DateTime b) {
+    return a.year == b.year && a.month == b.month && a.day == b.day;
+  }
+
+  static String formatDate2(DateTime date, BuildContext context) {
     DateTime today = DateTime.now();
     DateTime tomorrow = today.add(const Duration(days: 1));
     DateTime afterTomorrow = today.add(const Duration(days: 2));
@@ -287,10 +295,10 @@ class MyFunction {
 
     if (DateFormat('yyyy-MM-dd').format(date) ==
         DateFormat('yyyy-MM-dd').format(today)) {
-      return "Bugun $dayMonth";
+      return "${AppLocalizations.of(context)!.today} $dayMonth";
     } else if (DateFormat('yyyy-MM-dd').format(date) ==
         DateFormat('yyyy-MM-dd').format(tomorrow)) {
-      return "Ertaga $dayMonth";
+      return "${AppLocalizations.of(context)!.tomorrow} $dayMonth";
     } else if (DateFormat('yyyy-MM-dd').format(date) ==
         DateFormat('yyyy-MM-dd').format(afterTomorrow)) {
       return "Indinga $dayMonth";

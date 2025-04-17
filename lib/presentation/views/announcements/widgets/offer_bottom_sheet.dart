@@ -4,6 +4,7 @@ import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
+import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/widgets/car_number_iteam.dart';
 import 'package:carting/presentation/widgets/custom_text_field.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
@@ -105,7 +106,7 @@ class _OfferBottomSheetState extends State<OfferBottomSheet> {
                           ),
                           Center(
                             child: Text(
-                              "E'lon uchun taklif yuborish",
+                              AppLocalizations.of(context)!.sendProposalForAd,
                               style: TextStyle(
                                 color: context.color.darkText,
                                 fontSize: 14,
@@ -302,7 +303,7 @@ class _OfferBottomSheetState extends State<OfferBottomSheet> {
                           },
                         ));
                       },
-                      text: "Taklif yuborish",
+                      text: AppLocalizations.of(context)!.sendProposal,
                     );
                   },
                 ),

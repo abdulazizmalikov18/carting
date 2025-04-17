@@ -301,5 +301,13 @@
   "fromGallery": "Galereyadan tanlash",
   "unit_kg": "kg",
   "unit_tn": "t",
-  "unit_m3": "m³"
+  "unit_m3": "m³",
+  "sendProposal": "Taklif yuborish",
+  "sendProposalForAd": "E'lon uchun taklif yuborish",
+  "sendProposalForDriver": "Haydovchi uchun taklif yuborish",
+  "today": "Bugun",
+  "postedToday": "Bugun joylandi",
+  "postedYesterday": "Kecha joylandi",
+  "tomorrow": "Ertaga"
+
 }

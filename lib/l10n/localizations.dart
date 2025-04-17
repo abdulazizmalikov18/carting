@@ -1904,6 +1904,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'m3'**
   String get unit_m3;
+
+  /// No description provided for @sendProposal.
+  ///
+  /// In en, this message translates to:
+  /// **'Send proposal'**
+  String get sendProposal;
+
+  /// No description provided for @sendProposalForAd.
+  ///
+  /// In en, this message translates to:
+  /// **'Send proposal for ad'**
+  String get sendProposalForAd;
+
+  /// No description provided for @sendProposalForDriver.
+  ///
+  /// In en, this message translates to:
+  /// **'Send proposal for driver'**
+  String get sendProposalForDriver;
+
+  /// No description provided for @today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// No description provided for @postedToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Posted today'**
+  String get postedToday;
+
+  /// No description provided for @postedYesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'Posted yesterday'**
+  String get postedYesterday;
+
+  /// No description provided for @tomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow'**
+  String get tomorrow;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

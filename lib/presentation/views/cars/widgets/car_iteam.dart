@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
+import 'package:carting/presentation/widgets/call_bottom.dart';
 import 'package:carting/presentation/widgets/car_number_iteam.dart';
-import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/utils/caller.dart';
 import 'package:carting/utils/my_function.dart';
@@ -256,18 +256,21 @@ class CarIteam extends StatelessWidget {
                           ),
                         ),
                         WButton(
-                          onTap: () async {
-                            if (model.createdByPhone != null) {
-                              await Caller.makePhoneCall(model.createdByPhone!);
-                            } else if (model.createdByTgLink != null) {
-                              await Caller.launchTelegram(
-                                  model.createdByTgLink!);
-                            } else {
-                              CustomSnackbar.show(
-                                context,
-                                AppLocalizations.of(context)!.unknown,
-                              );
-                            }
+                          onTap: () {
+                            showAdaptiveCallBottom(
+                              context: context,
+                              onImageSourceSelected: (source) async {
+                                if (source == 0) {
+                                  await Caller.makePhoneCall(
+                                    model.createdByPhone ?? "",
+                                  );
+                                } else {
+                                  await Caller.launchTelegram(
+                                    model.createdByTgLink ?? "",
+                                  );
+                                }
+                              },
+                            );
                           },
                           text: AppLocalizations.of(context)!.connection,
                           padding: const EdgeInsets.symmetric(horizontal: 24),
