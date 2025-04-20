@@ -136,7 +136,7 @@ class _SpecialTechnicalServicesViewState
                     ));
               },
               isLoading: state.statusCreate.isInProgress,
-              margin: const EdgeInsets.all(16),
+              margin: EdgeInsets.fromLTRB(16, 16, 16, Platform.isIOS ? 0 : 16),
               text: AppLocalizations.of(context)!.confirm,
             );
           },
@@ -157,7 +157,7 @@ class _SpecialTechnicalServicesViewState
             ),
 
             MinTextField(
-              text: AppLocalizations.of(context)!.from_date,
+              text: "${AppLocalizations.of(context)!.from_date}:",
               hintText: "",
               controller: controller,
               keyboardType: TextInputType.datetime,
@@ -184,7 +184,7 @@ class _SpecialTechnicalServicesViewState
             ),
 
             MinTextField(
-              text: AppLocalizations.of(context)!.to_date,
+              text: "${AppLocalizations.of(context)!.to_date}:",
               hintText: "",
               controller: controller2,
               keyboardType: TextInputType.datetime,

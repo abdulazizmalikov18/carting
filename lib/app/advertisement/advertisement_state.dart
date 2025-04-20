@@ -19,6 +19,7 @@ class AdvertisementState extends Equatable {
   final FormzSubmissionStatus statusComment;
   final FormzSubmissionStatus statusOffers;
   final FormzSubmissionStatus statusNotifications;
+  final FormzSubmissionStatus statusLocationHistory;
   final int advertisementCount;
   final int advertisementFilterCount;
   final List<AdvertisementModel> advertisement;
@@ -37,6 +38,7 @@ class AdvertisementState extends Equatable {
   final List<ServisModel> servicesList;
   final List<OffersModel> offersList;
   final List<NotificationModel> notifications;
+  final List<LocationHistoryModel> locationHistory;
   final int tabIndex;
   const AdvertisementState({
     this.status = FormzSubmissionStatus.initial,
@@ -56,6 +58,7 @@ class AdvertisementState extends Equatable {
     this.statusMyCars = FormzSubmissionStatus.initial,
     this.statusOffers = FormzSubmissionStatus.initial,
     this.statusNotifications = FormzSubmissionStatus.initial,
+    this.statusLocationHistory = FormzSubmissionStatus.initial,
     this.notifications = const [],
     this.advertisementMyCars = const [],
     this.advertisementRECEIVEFinish = const [],
@@ -72,6 +75,7 @@ class AdvertisementState extends Equatable {
     this.categoriesList = const [],
     this.servicesList = const [],
     this.offersList = const [],
+    this.locationHistory = const [],
     this.tabIndex = 0,
     this.advertisementCount = 0,
     this.advertisementFilterCount = 0,
@@ -90,6 +94,7 @@ class AdvertisementState extends Equatable {
         statusChange,
         statusCars,
         statusMyCars,
+        statusLocationHistory,
         advertisementMyCars,
         statusComment,
         fuelsModel,
@@ -97,6 +102,7 @@ class AdvertisementState extends Equatable {
         advertisement,
         advertisementRECEIVE,
         advertisementPROVIDE,
+        locationHistory,
         carsModel,
         transportSpecialists,
         statusCategory,
@@ -135,6 +141,7 @@ class AdvertisementState extends Equatable {
     FormzSubmissionStatus? statusComment,
     FormzSubmissionStatus? statusOffers,
     FormzSubmissionStatus? statusNotifications,
+    FormzSubmissionStatus? statusLocationHistory,
     int? advertisementCount,
     int? advertisementFilterCount,
     List<AdvertisementModel>? advertisement,
@@ -153,6 +160,7 @@ class AdvertisementState extends Equatable {
     List<ServisModel>? servicesList,
     List<OffersModel>? offersList,
     List<NotificationModel>? notifications,
+    List<LocationHistoryModel>? locationHistory,
     int? tabIndex,
   }) {
     return AdvertisementState(
@@ -173,6 +181,7 @@ class AdvertisementState extends Equatable {
       statusComment: statusComment ?? this.statusComment,
       statusOffers: statusOffers ?? this.statusOffers,
       statusNotifications: statusNotifications ?? this.statusNotifications,
+      statusLocationHistory: statusLocationHistory ?? this.statusLocationHistory,
       advertisementCount: advertisementCount ?? this.advertisementCount,
       advertisementFilterCount: advertisementFilterCount ?? this.advertisementFilterCount,
       advertisement: advertisement ?? this.advertisement,
@@ -191,6 +200,7 @@ class AdvertisementState extends Equatable {
       servicesList: servicesList ?? this.servicesList,
       offersList: offersList ?? this.offersList,
       notifications: notifications ?? this.notifications,
+      locationHistory: locationHistory ?? this.locationHistory,
       tabIndex: tabIndex ?? this.tabIndex,
     );
   }

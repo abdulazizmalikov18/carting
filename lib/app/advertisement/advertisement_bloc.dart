@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:carting/data/models/advertisment_filter.dart';
 import 'package:carting/data/models/cars_model.dart';
 import 'package:carting/data/models/image_create_model.dart';
+import 'package:carting/data/models/location_history_model.dart';
 import 'package:carting/data/models/notification_model.dart';
 import 'package:carting/data/models/offers_model.dart';
 import 'package:carting/data/models/servis_model.dart';
@@ -32,6 +33,37 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
       List<NotificationModel> list = List.from(state.notifications);
       list.add(event.model);
       emit(state.copyWith(notifications: list));
+    });
+
+    on<GetLoanModeEvent>((event, emit) async {
+      final respons = await _repo.getLoanMode(event.model);
+      if (respons.isRight) {
+        event.onSucces(respons.right);
+      }
+    });
+
+    on<GetAvgPriceEvent>((event, emit) async {
+      final respons = await _repo.getAvgPrice(event.model);
+      if (respons.isRight) {
+        event.onSucces(respons.right);
+      }
+    });
+
+    on<GetLocationHistoryEvent>((event, emit) async {
+      emit(state.copyWith(
+        statusLocationHistory: FormzSubmissionStatus.inProgress,
+      ));
+      final respons = await _repo.getLocationHistory();
+      if (respons.isRight) {
+        emit(state.copyWith(
+          statusLocationHistory: FormzSubmissionStatus.success,
+          locationHistory: respons.right.data,
+        ));
+      } else {
+        emit(state.copyWith(
+          statusLocationHistory: FormzSubmissionStatus.failure,
+        ));
+      }
     });
 
     on<GetNotifications>((event, emit) async {

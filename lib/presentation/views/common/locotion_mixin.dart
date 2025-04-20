@@ -23,6 +23,7 @@ mixin LocotionMixin on State<LocationView> {
   var _mapZoom = 0.0;
   @override
   void initState() {
+    widget.bloc.add(GetLocationHistoryEvent());
     getMerk();
     controllerLat = TextEditingController(
       text: widget.point1?.name ?? "",

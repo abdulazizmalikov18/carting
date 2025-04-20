@@ -119,7 +119,7 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                AppLocalizations.of(context)!.paymentType,
+                "${AppLocalizations.of(context)!.paymentType}:",
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
@@ -220,7 +220,7 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    AppLocalizations.of(context)!.price,
+                    "${AppLocalizations.of(context)!.price}:",
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -306,7 +306,7 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.imageText ?? AppLocalizations.of(context)!.cargoImages,
+                  "${widget.imageText ?? AppLocalizations.of(context)!.cargoImages}:",
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
@@ -407,7 +407,7 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
           ),
           padding: const EdgeInsets.all(12),
           child: CustomTextField(
-            title: AppLocalizations.of(context)!.description,
+            title: "${AppLocalizations.of(context)!.description}:",
             hintText: AppLocalizations.of(context)!.leaveOrderComment,
             minLines: 4,
             maxLines: 5,

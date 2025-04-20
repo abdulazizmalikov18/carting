@@ -256,6 +256,36 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
               onTap2: (point) {
                 point2 = point;
               },
+              onSucces: (point, point2) {
+                context.read<AdvertisementBloc>().add(GetLoanModeEvent(
+                      model: {
+                        'service_type_id': 1,
+                        'from_lat': point1?.latitude,
+                        'from_lon': point1?.longitude
+                      },
+                      onSucces: (id) {
+                        for (var element in list) {
+                          if (element.id == id) {
+                            element.value = true;
+                          }
+                          break;
+                        }
+                        setState(() {});
+                      },
+                    ));
+                context.read<AdvertisementBloc>().add(GetAvgPriceEvent(
+                      model: {
+                        'service_type_id': 1,
+                        'from_lat': point1?.latitude,
+                        'from_lon': point1?.longitude,
+                        'to_lat': point2?.latitude,
+                        'to_lon': point2?.longitude
+                      },
+                      onSucces: (id) {
+                        controllerPrice.text = id.toString();
+                      },
+                    ));
+              },
             ),
             const SizedBox(),
             RawFlexDropDown(
@@ -277,7 +307,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                       spacing: 4,
                       children: [
                         Text(
-                          AppLocalizations.of(context)!.cargoType,
+                          "${AppLocalizations.of(context)!.cargoType}:",
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
@@ -341,7 +371,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                     children: [
                       Expanded(
                         child: Text(
-                          AppLocalizations.of(context)!.loadWeight,
+                          "${AppLocalizations.of(context)!.loadWeight}:",
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
@@ -351,7 +381,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                       ),
                       Expanded(
                         child: Text(
-                          AppLocalizations.of(context)!.cargoVolume,
+                          "${AppLocalizations.of(context)!.cargoVolume}:",
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
@@ -553,7 +583,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
             RawFlexDropDown(
               controller: controllerData,
               buttonBuilder: (context, onTap) => MinTextField(
-                text: AppLocalizations.of(context)!.departureDate,
+                text: AppLocalizations.of(context)!.departureDate + ":",
                 hintText: "",
                 keyboardType: TextInputType.datetime,
                 controller: controller,
@@ -718,7 +748,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                 Expanded(
                   child: MinTextField(
                     text:
-                        "${AppLocalizations.of(context)!.send_time} (${AppLocalizations.of(context)!.from_in})",
+                        "${AppLocalizations.of(context)!.send_time} (${AppLocalizations.of(context)!.from_in}):",
                     hintText: "",
                     keyboardType: TextInputType.datetime,
                     controller: controllerTime,
@@ -767,7 +797,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                 Expanded(
                   child: MinTextField(
                     text:
-                        "${AppLocalizations.of(context)!.send_time} (${AppLocalizations.of(context)!.to_in})",
+                        "${AppLocalizations.of(context)!.send_time} (${AppLocalizations.of(context)!.to_in}):",
                     hintText: "",
                     keyboardType: TextInputType.datetime,
                     controller: controllerTime2,

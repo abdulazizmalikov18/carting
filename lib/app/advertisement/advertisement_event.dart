@@ -8,6 +8,22 @@ class AddNotificationEvent extends AdvertisementEvent {
   AddNotificationEvent({required this.model});
 }
 
+class GetLoanModeEvent extends AdvertisementEvent {
+  final Map<String, dynamic> model;
+  final Function(int id) onSucces;
+
+  GetLoanModeEvent({required this.model, required this.onSucces});
+}
+
+class GetAvgPriceEvent extends AdvertisementEvent {
+  final Map<String, dynamic> model;
+  final Function(int price) onSucces;
+
+  GetAvgPriceEvent({required this.model, required this.onSucces});
+}
+
+class GetLocationHistoryEvent extends AdvertisementEvent {}
+
 class GetNotifications extends AdvertisementEvent {}
 
 class ReadNotifications extends AdvertisementEvent {}

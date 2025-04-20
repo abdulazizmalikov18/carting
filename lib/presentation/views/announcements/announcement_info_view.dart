@@ -350,7 +350,8 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                             "IN_ACTIVE" =>
                               AppLocalizations.of(context)!.notActive,
                             "CLOSED" => AppLocalizations.of(context)!.closed,
-                            String() => throw UnimplementedError(),
+                            "IN_PROCESS" => "Jarayonda",
+                            String() => widget.model.status,
                           },
                           textAlign: TextAlign.center,
                         ),

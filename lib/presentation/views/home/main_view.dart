@@ -51,59 +51,69 @@ class _MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     return KeyboardDismisser(
       child: Scaffold(
-        body: widget.navigationShell,
+        body: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width >= 600 ? 16 : 0,
+          ),
+          child: widget.navigationShell,
+        ),
         extendBody: true,
         bottomNavigationBar: SafeArea(
-          child: Container(
-            height: 80,
-            margin: const EdgeInsets.symmetric(horizontal: 40)
-                .copyWith(bottom: Platform.isIOS ? 0 : 16),
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              color: context.color.white,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: List.generate(
-                list.length,
-                (index) => GestureDetector(
-                  onTap: () {
-                    _onTap(context, index);
-                  },
-                  child: CircleAvatar(
-                    radius: 32,
-                    backgroundColor:
-                        widget.navigationShell.currentIndex == index
-                            ? context.color.backGroundColor
-                            : context.color.white,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        list[index].svg(
-                          height: 24,
-                          width: 24,
-                          color: widget.navigationShell.currentIndex == index
-                              ? context.color.white
-                              : context.color.backGroundColor,
-                        ),
-                        Text(
-                          switch (index) {
-                            0 => AppLocalizations.of(context)!.main,
-                            1 => AppLocalizations.of(context)!.announcements,
-                            2 => AppLocalizations.of(context)!.transport,
-                            3 => AppLocalizations.of(context)!.profile,
-                            int() => throw UnimplementedError(),
-                          },
-                          style: TextStyle(
-                            fontSize: 12,
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              margin: EdgeInsets.fromLTRB(32, 0, 32, Platform.isIOS ? 0 : 16),
+              padding: const EdgeInsets.all(8),
+              constraints: const BoxConstraints(maxWidth: 320, maxHeight: 80),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                color: context.color.white,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: List.generate(
+                  list.length,
+                  (index) => GestureDetector(
+                    onTap: () {
+                      _onTap(context, index);
+                    },
+                    child: CircleAvatar(
+                      radius: 32,
+                      backgroundColor:
+                          widget.navigationShell.currentIndex == index
+                              ? context.color.backGroundColor
+                              : context.color.white,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          list[index].svg(
+                            height: 24,
+                            width: 24,
                             color: widget.navigationShell.currentIndex == index
                                 ? context.color.white
                                 : context.color.backGroundColor,
                           ),
-                        )
-                      ],
+                          Text(
+                            switch (index) {
+                              0 => AppLocalizations.of(context)!.main,
+                              1 => AppLocalizations.of(context)!.announcements,
+                              2 => AppLocalizations.of(context)!.transport,
+                              3 => AppLocalizations.of(context)!.profile,
+                              int() => AppLocalizations.of(context)!.unknown,
+                            },
+                            style: TextStyle(
+                              fontSize: 12,
+                              color:
+                                  widget.navigationShell.currentIndex == index
+                                      ? context.color.white
+                                      : context.color.backGroundColor,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

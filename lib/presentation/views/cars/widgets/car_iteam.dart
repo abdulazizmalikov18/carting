@@ -73,15 +73,15 @@ class CarIteam extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(24),
                       color: model.status == 'ACTIVE'
-                          ? green.withValues(alpha: 0.1)
+                          ? white.withValues(alpha: 0.1)
                           : red.withValues(alpha: 0.1),
                     ),
                     child: Text(
                       model.status == 'ACTIVE' ? "Faol" : "Band",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
-                        color: model.status == 'ACTIVE' ? green : red,
+                        color: white,
                       ),
                     ),
                   ),

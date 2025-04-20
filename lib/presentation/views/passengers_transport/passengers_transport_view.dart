@@ -148,7 +148,7 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
                   }
                 });
               },
-              margin: const EdgeInsets.all(16),
+              margin: EdgeInsets.fromLTRB(16, 16, 16, Platform.isIOS ? 0 : 16),
               isLoading: state.statusCreate.isInProgress,
               text: AppLocalizations.of(context)!.confirm,
             );
@@ -167,10 +167,24 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
               onTap2: (point) {
                 point2 = point;
               },
+              onSucces: (point, point2) {
+                context.read<AdvertisementBloc>().add(GetAvgPriceEvent(
+                      model: {
+                        'service_type_id': 2,
+                        'from_lat': point1?.latitude,
+                        'from_lon': point1?.longitude,
+                        'to_lat': point2?.latitude,
+                        'to_lon': point2?.longitude
+                      },
+                      onSucces: (id) {
+                        controllerPrice.text = id.toString();
+                      },
+                    ));
+              },
             ),
 
             MinTextField(
-              text: AppLocalizations.of(context)!.passengerCount,
+              text: "${AppLocalizations.of(context)!.passengerCount}:",
               hintText: AppLocalizations.of(context)!.passengerCount,
               keyboardType: TextInputType.number,
               controller: controllerCount,
@@ -179,7 +193,7 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
             ),
 
             MinTextField(
-              text: "Kuni",
+              text: "Kuni:",
               hintText: "",
               keyboardType: TextInputType.datetime,
               controller: controller,
@@ -231,7 +245,7 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
                 Expanded(
                   child: MinTextField(
                     text:
-                        "${AppLocalizations.of(context)!.time} (${AppLocalizations.of(context)!.from_in})",
+                        "${AppLocalizations.of(context)!.time} (${AppLocalizations.of(context)!.from_in}):",
                     hintText: "",
                     keyboardType: TextInputType.datetime,
                     controller: controllerTime,
@@ -280,7 +294,7 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
                 Expanded(
                   child: MinTextField(
                     text:
-                        "${AppLocalizations.of(context)!.time}  (${AppLocalizations.of(context)!.to_in})",
+                        "${AppLocalizations.of(context)!.time}  (${AppLocalizations.of(context)!.to_in}):",
                     hintText: "",
                     keyboardType: TextInputType.datetime,
                     controller: controllerTime2,

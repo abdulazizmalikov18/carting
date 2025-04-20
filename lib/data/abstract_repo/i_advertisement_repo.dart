@@ -3,6 +3,7 @@ import 'package:carting/data/models/advertisment_filter.dart';
 import 'package:carting/data/models/cars_model.dart';
 import 'package:carting/data/models/fuels_info_model.dart';
 import 'package:carting/data/models/image_create_model.dart';
+import 'package:carting/data/models/location_history_model.dart';
 import 'package:carting/data/models/notification_model.dart';
 import 'package:carting/data/models/offers_model.dart';
 import 'package:carting/data/models/page_model.dart';
@@ -52,4 +53,9 @@ abstract class IAdvertisementRepo {
   Future<Either<Failure, ResponseModel<List<NotificationModel>>>>
       notifications();
   Future<Either<Failure, bool>> notificationsRead();
+
+  Future<Either<Failure, ResponseModel<List<LocationHistoryModel>>>>
+      getLocationHistory();
+  Future<Either<Failure, int>> getLoanMode(Map<String, dynamic> model);
+  Future<Either<Failure, int>> getAvgPrice(Map<String, dynamic> model);
 }

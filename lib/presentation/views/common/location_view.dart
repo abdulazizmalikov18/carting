@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/presentation/views/common/location_text_view.dart';
@@ -28,6 +29,7 @@ class LocationView extends StatefulWidget {
     this.isOne = false,
     this.point1,
     this.point2,
+    required this.bloc,
     required this.isFirst,
   });
   final Function(MapPoint? point1, MapPoint? point2) onTap;
@@ -35,6 +37,7 @@ class LocationView extends StatefulWidget {
   final MapPoint? point1;
   final MapPoint? point2;
   final bool isFirst;
+  final AdvertisementBloc bloc;
 
   @override
   State<LocationView> createState() => _LocationViewState();
@@ -46,7 +49,7 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: Container(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+        padding: EdgeInsets.fromLTRB(16, 0, 16, Platform.isIOS ? 0 : 24),
         color: context.color.scaffoldBackground,
         child: ValueListenableBuilder(
           valueListenable: isMap,
@@ -154,6 +157,7 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
                                 ),
                                 builder: (context) => LocationTextView(
                                   isOne: widget.isOne,
+                                  bloc: widget.bloc,
                                   isFirst: true,
                                   controllerLat: controllerLat,
                                   controllerLong: controllerLong,
@@ -219,6 +223,7 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
                               builder: (context) => LocationTextView(
                                 isOne: widget.isOne,
                                 isFirst: false,
+                                bloc: widget.bloc,
                                 controllerLat: controllerLat,
                                 controllerLong: controllerLong,
                                 onTap: (point, isFirst) {

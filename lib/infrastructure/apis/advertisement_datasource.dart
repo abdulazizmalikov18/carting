@@ -5,6 +5,7 @@ import 'package:carting/data/models/advertisment_filter.dart';
 import 'package:carting/data/models/cars_model.dart';
 import 'package:carting/data/models/fuels_info_model.dart';
 import 'package:carting/data/models/image_create_model.dart';
+import 'package:carting/data/models/location_history_model.dart';
 import 'package:carting/data/models/notification_model.dart';
 import 'package:carting/data/models/offers_model.dart';
 import 'package:carting/data/models/page_model.dart';
@@ -41,6 +42,7 @@ abstract class AdvertisementDatasource {
   );
   Future<ResponseModel<List<ServisModel>>> getCategories();
   Future<ResponseModel<List<ServisModel>>> getServices();
+  Future<ResponseModel<List<LocationHistoryModel>>> getLocationHistory();
   Future<bool> postReferrealCde(String note);
   Future<bool> putReferrealCde(String note, String code);
   Future<bool> deleteReferrealCde(String code);
@@ -51,6 +53,8 @@ abstract class AdvertisementDatasource {
   Future<bool> sendOffer(Map<String, dynamic> model);
   Future<bool> updateStatus(Map<String, dynamic> model);
   Future<bool> notificationsRead();
+  Future<int> getLoanMode(Map<String, dynamic> model);
+  Future<int> getAvgPrice(Map<String, dynamic> model);
 }
 
 class AdvertisementDatasourceImpl implements AdvertisementDatasource {
@@ -566,6 +570,70 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
         ),
       ),
       body: (response) => true,
+    );
+  }
+
+  @override
+  Future<ResponseModel<List<LocationHistoryModel>>> getLocationHistory() {
+    return _handle.apiCantrol(
+      request: () => dio.get(
+        'user/location/history',
+        options: Options(
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
+              ? {
+                  'Authorization':
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                }
+              : {},
+        ),
+      ),
+      body: (response) => ResponseModel.fromJson(
+        response,
+        (p0) => (p0 as List)
+            .map(
+                (e) => LocationHistoryModel.fromJson(e as Map<String, dynamic>))
+            .toList(),
+      ),
+    );
+  }
+
+  @override
+  Future<int> getAvgPrice(Map<String, dynamic> model) {
+    return _handle.apiCantrol(
+      request: () => dio.get(
+        'avg/price',
+        queryParameters: model,
+        options: Options(
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
+              ? {
+                  'Authorization':
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                }
+              : {},
+        ),
+      ),
+      body: (response) =>
+          int.tryParse(response['data']['price'].toString()) ?? 0,
+    );
+  }
+
+  @override
+  Future<int> getLoanMode(Map<String, dynamic> model) {
+    return _handle.apiCantrol(
+      request: () => dio.get(
+        'loan/mode',
+        queryParameters: model,
+        options: Options(
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
+              ? {
+                  'Authorization':
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                }
+              : {},
+        ),
+      ),
+      body: (response) =>
+          int.tryParse(response['data']['loan_type_id'].toString()) ?? 1,
     );
   }
 }

@@ -277,6 +277,10 @@ class MyFunction {
     return DateFormat("dd.MM.yyyy").parse(data);
   }
 
+  double getPadding(double width) {
+    return width >= 600 ? 32 : 16;
+  }
+
   static String formatDayMonth(DateTime date) {
     return DateFormat('d MMMM', 'uz').format(date);
   }

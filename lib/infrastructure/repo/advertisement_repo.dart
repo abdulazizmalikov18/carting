@@ -4,6 +4,7 @@ import 'package:carting/data/models/advertisment_filter.dart';
 import 'package:carting/data/models/cars_model.dart';
 import 'package:carting/data/models/fuels_info_model.dart';
 import 'package:carting/data/models/image_create_model.dart';
+import 'package:carting/data/models/location_history_model.dart';
 import 'package:carting/data/models/notification_model.dart';
 import 'package:carting/data/models/offers_model.dart';
 import 'package:carting/data/models/page_model.dart';
@@ -420,6 +421,58 @@ class AdvertisementRepo implements IAdvertisementRepo {
   Future<Either<Failure, bool>> notificationsRead() async {
     try {
       final result = await dataSourcheImpl.notificationsRead();
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+        errorMessage: e.errorMessage,
+        statusCode: e.statusCode,
+      ));
+    }
+  }
+
+  @override
+  Future<Either<Failure, int>> getAvgPrice(Map<String, dynamic> model) async {
+    try {
+      final result = await dataSourcheImpl.getAvgPrice(model);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+        errorMessage: e.errorMessage,
+        statusCode: e.statusCode,
+      ));
+    }
+  }
+
+  @override
+  Future<Either<Failure, int>> getLoanMode(Map<String, dynamic> model) async {
+    try {
+      final result = await dataSourcheImpl.getLoanMode(model);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+        errorMessage: e.errorMessage,
+        statusCode: e.statusCode,
+      ));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ResponseModel<List<LocationHistoryModel>>>>
+      getLocationHistory() async {
+    try {
+      final result = await dataSourcheImpl.getLocationHistory();
       return Right(result);
     } on DioException {
       return Left(DioFailure());

@@ -80,7 +80,7 @@ class _WSelectionItamState extends State<WSelectionItam> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              AppLocalizations.of(context)!.transportType,
+                              "${AppLocalizations.of(context)!.transportType}:",
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,

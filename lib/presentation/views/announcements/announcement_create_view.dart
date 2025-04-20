@@ -217,7 +217,7 @@ class _AnnouncementCreateViewState extends State<AnnouncementCreateView> {
                             0,
                       ).toJson(),
                     TypeOfServiceEnum.transportRental =>
-                      throw UnimplementedError(),
+                      ({} as Map<String, dynamic>),
                     TypeOfServiceEnum.workshops => WorkshopModel(
                         advType: "PROVIDE",
                         serviceTypeId: 5,
@@ -283,7 +283,7 @@ class _AnnouncementCreateViewState extends State<AnnouncementCreateView> {
                             0,
                       ).toJson(),
                     TypeOfServiceEnum.fuelDelivery =>
-                      throw UnimplementedError(),
+                      ({} as Map<String, dynamic>),
                   };
                   final bloc = context.read<AdvertisementBloc>();
                   bloc.add(CreateDeliveryEvent(

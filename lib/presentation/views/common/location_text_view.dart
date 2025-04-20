@@ -1,3 +1,4 @@
+import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/common/map_point.dart';
@@ -14,6 +15,7 @@ class LocationTextView extends StatefulWidget {
     this.point1,
     this.point2,
     required this.isFirst,
+    required this.bloc,
     required this.controllerLat,
     required this.controllerLong,
     required this.onTap,
@@ -24,6 +26,7 @@ class LocationTextView extends StatefulWidget {
   final bool isFirst;
   final TextEditingController controllerLat;
   final TextEditingController controllerLong;
+  final AdvertisementBloc bloc;
   final Function(Point? point, bool isFirst) onTap;
 
   @override
@@ -244,7 +247,32 @@ class _LocationTextViewState extends State<LocationTextView> {
     final list = <Widget>[];
 
     if (results.isEmpty) {
-      list.add((Text(AppLocalizations.of(context)!.nothing_found)));
+      final locationHistory = widget.bloc.state.locationHistory;
+      if (locationHistory.isNotEmpty) {
+        locationHistory.asMap().forEach((i, item) {
+          list.add(ListTile(
+            title: Text(item.toLocation.name),
+            onTap: () {
+              if (isFirst) {
+                widget.controllerLat.text = item.toLocation.name;
+              } else {
+                widget.controllerLong.text = item.toLocation.name;
+              }
+              widget.onTap(
+                Point(
+                  latitude: item.toLocation.lat,
+                  longitude: item.toLocation.lng,
+                ),
+                isFirst,
+              );
+              Navigator.of(context).pop();
+            },
+          ));
+          list.add(const Divider(height: 1));
+        });
+      } else {
+        list.add((Text(AppLocalizations.of(context)!.nothing_found)));
+      }
     }
 
     for (var r in results) {
