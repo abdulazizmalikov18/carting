@@ -121,12 +121,18 @@ class _MyServicesViewState extends State<MyServicesView> {
                         final bloc = context.read<AdvertisementBloc>();
                         Navigator.of(context, rootNavigator: true)
                             .push(MaterialPageRoute(
-                          builder: (context) => BlocProvider.value(
+                          builder: (_) => BlocProvider.value(
                             value: bloc,
                             child: AnnouncementInfoView(
                               model: state.advertisementPROVIDE[index],
                               isMe: true,
                               isOffers: true,
+                              // isEdit: true,
+                              // onEdit: () {
+                              //   context
+                              //       .read<AdvertisementBloc>()
+                              //       .add(GetAdvertisementsProvideEvent());
+                              // },
                             ),
                           ),
                         ));
@@ -134,6 +140,7 @@ class _MyServicesViewState extends State<MyServicesView> {
                       child: AnnouncementsIteamNew(
                         isMe: true,
                         // isCarNumber: true,
+
                         model: state.advertisementPROVIDE[index],
                       ),
                     ),

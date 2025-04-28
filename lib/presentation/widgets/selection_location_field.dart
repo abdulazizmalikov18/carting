@@ -3,10 +3,13 @@ import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
+import 'package:carting/presentation/views/common/app_lat_long.dart';
+import 'package:carting/presentation/views/common/location_service.dart';
 import 'package:carting/presentation/views/common/location_view.dart';
 import 'package:carting/presentation/views/common/map_point.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class SelectionLocationField extends StatefulWidget {
   const SelectionLocationField({
@@ -37,7 +40,57 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
   void initState() {
     point1 = widget.point1;
     point2 = widget.point2;
+    if (point1 == null) {
+      getLocation();
+    }
     super.initState();
+  }
+
+  Future<String> getPlaceMarkFromYandex(double lat, double lon) async {
+    try {
+      final resultWithSession = await YandexSearch.searchByPoint(
+        point: Point(latitude: lat, longitude: lon),
+        searchOptions: const SearchOptions(
+          searchType: SearchType.geo,
+          geometry: false,
+        ),
+      );
+
+      final results = await resultWithSession.$2;
+      if (results.items != null) {
+        if (results.items!.isNotEmpty) {
+          final address = results.items!.first.name;
+          return address;
+        }
+      }
+      return 'No address found';
+    } catch (e) {
+      return 'Error getting address';
+    }
+  }
+
+  getLocation() async {
+    const defLocation = TashketnLoaction();
+    try {
+      final location = await LocationService().getCurrentLocation();
+      final address = await getPlaceMarkFromYandex(
+        location.lat,
+        location.long,
+      );
+      point1 = MapPoint(
+        name: address,
+        latitude: location.lat,
+        longitude: location.long,
+      );
+    } catch (_) {
+      point1 = MapPoint(
+        name: "Siz turgan manzil",
+        latitude: defLocation.lat,
+        longitude: defLocation.long,
+      );
+    }
+
+    setState(() {});
   }
 
   @override

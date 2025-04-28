@@ -118,12 +118,18 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                         final bloc = context.read<AdvertisementBloc>();
                         Navigator.of(context, rootNavigator: true)
                             .push(MaterialPageRoute(
-                          builder: (context) => BlocProvider.value(
+                          builder: (_) => BlocProvider.value(
                             value: bloc,
                             child: AnnouncementInfoView(
                               model: state.advertisementRECEIVE[index],
                               isMe: true,
                               isOffers: true,
+                              // isEdit: true,
+                              // onEdit: () {
+                              //   context
+                              //       .read<AdvertisementBloc>()
+                              //       .add(GetAdvertisementsReceiveEvent());
+                              // },
                             ),
                           ),
                         ))

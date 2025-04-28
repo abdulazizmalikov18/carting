@@ -35,6 +35,8 @@ class AnnouncementInfoView extends StatefulWidget {
     this.isOnlyCar = false,
     this.isOffers = false,
     this.isNotification = false,
+    this.isEdit = false,
+    this.onEdit,
   });
   final AdvertisementModel model;
   final bool isMe;
@@ -43,6 +45,8 @@ class AnnouncementInfoView extends StatefulWidget {
   final bool isOnlyCar;
   final bool isOffers;
   final bool isNotification;
+  final bool isEdit;
+  final VoidCallback? onEdit;
 
   @override
   State<AnnouncementInfoView> createState() => _AnnouncementInfoViewState();
@@ -98,6 +102,38 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                               .then((value) {
                             if (value != null) {
                               bloc.add(GetAdvertisementsMyCarsEvent());
+                            }
+                          });
+                        },
+                        color: greyBack,
+                        textColor: greyText,
+                        child: Row(
+                          spacing: 8,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AppIcons.editCir.svg(color: greyText),
+                            Text(AppLocalizations.of(context)!.edit),
+                          ],
+                        ),
+                      ),
+                    ),
+                  if (widget.isEdit)
+                    Expanded(
+                      child: WButton(
+                        onTap: () {
+                          final bloc = context.read<AdvertisementBloc>();
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(
+                            builder: (context) => BlocProvider.value(
+                              value: bloc,
+                              child: EditAdsView(model: widget.model),
+                            ),
+                          ))
+                              .then((value) {
+                            if (value != null) {
+                              if (widget.onEdit != null) {
+                                widget.onEdit!();
+                              }
                             }
                           });
                         },

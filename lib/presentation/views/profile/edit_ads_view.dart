@@ -210,7 +210,9 @@ class _EditAdsViewState extends State<EditAdsView> {
                 Platform.isAndroid ? 16 : 0,
               ),
               isLoading: state.statusCreate.isInProgress,
-              isDisabled: isDisabled,
+              isDisabled: widget.model.details?.transportNumber != null
+                  ? isDisabled
+                  : false,
               disabledColor: context.color.darkText,
               text: AppLocalizations.of(context)!.confirm,
             );
