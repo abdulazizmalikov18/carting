@@ -583,7 +583,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
             RawFlexDropDown(
               controller: controllerData,
               buttonBuilder: (context, onTap) => MinTextField(
-                text: AppLocalizations.of(context)!.departureDate + ":",
+                text: "${AppLocalizations.of(context)!.departureDate}:",
                 hintText: "",
                 keyboardType: TextInputType.datetime,
                 controller: controller,

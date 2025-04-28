@@ -470,7 +470,10 @@ class _FilterViewState extends State<FilterView> {
               borderRadius: 16,
               fillColor: context.color.contColor,
               hintText: '00.00.0000',
-             
+              maxLines: 1,
+              expands: false,
+              contentPadding:
+                  const EdgeInsets.only(left: 0, top: 12, right: 12),
               title:
                   '${AppLocalizations.of(context)!.date} (${AppLocalizations.of(context)!.from_in})',
               readOnly: true,
@@ -524,6 +527,10 @@ class _FilterViewState extends State<FilterView> {
               },
               fillColor: context.color.contColor,
               hintText: '00.00.0000',
+              maxLines: 1,
+              contentPadding:
+                  const EdgeInsets.only(left: 0, top: 12, right: 12),
+              expands: false,
               title:
                   '${AppLocalizations.of(context)!.date} (${AppLocalizations.of(context)!.to_in})',
               keyboardType: TextInputType.datetime,

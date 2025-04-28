@@ -292,6 +292,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                                   referredBy: controllerReferal.text,
                                   orgName: controllerOrgName.text,
                                   onSucces: () {
+                                    Navigator.pop(context);
                                     CustomSnackbar.show(
                                       context,
                                       "Malumotlar yangilandi",

@@ -8,6 +8,7 @@ abstract class AppRouteName {
   static const orders = '/orders';
   static const lending = '/lending';
   static const lenguage = '/lenguage';
+  static const noConnect = '/noConnect';
   static const announcements = '/announcements';
   static const ordersHistory = '/ordersHistory';
   static const cars = '/cars';

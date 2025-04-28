@@ -159,7 +159,14 @@ class _AuthViewState extends State<AuthView>
                               : controllerEmail.text,
                           isPhone: _tabController.index == 0,
                           onError: (message) {
-                            CustomSnackbar.show(context, message);
+                            if (message.contains('connection')) {
+                              CustomSnackbar.show(
+                                context,
+                                'Интернетга уланишда муаммо бор',
+                              );
+                            } else {
+                              CustomSnackbar.show(context, message);
+                            }
                           },
                           onSucces: (model) {
                             Navigator.of(context).push(MaterialPageRoute(

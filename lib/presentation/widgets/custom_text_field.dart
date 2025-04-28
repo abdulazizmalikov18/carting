@@ -35,6 +35,7 @@ class CustomTextField extends StatefulWidget {
   final Color? enableBorderColor;
   final InputBorder? border;
   final EdgeInsets? padding;
+  final EdgeInsets? contentPadding;
   final String? Function(String? value)? validator;
   final String? initialValue;
   final bool noHeight;
@@ -55,6 +56,7 @@ class CustomTextField extends StatefulWidget {
     this.enableBorderColor,
     this.onsuffixIconPressed,
     this.onprefixIconPressed,
+    this.contentPadding,
     this.formatter,
     this.borderWidth = 1,
     this.borderRadius,
@@ -238,8 +240,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   //     color: colors.customBlack.withValues(alpha:0.5), fontSize: 14.sp),
                   // errorText: widget.error,
                   // errorStyle: fonts.caption.copyWith(color: colors.error),
-                  contentPadding:
-                      const EdgeInsets.only(left: 16, top: 12, right: 12),
+                  contentPadding:widget.contentPadding??
+                      const EdgeInsets.only(left: 12, top: 12, right: 12),
                 ),
               ),
             ),

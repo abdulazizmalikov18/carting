@@ -3,9 +3,13 @@ import 'dart:io';
 import 'package:carting/assets/constants/storage_keys.dart';
 import 'package:carting/assets/themes/theme.dart';
 import 'package:carting/assets/themes/theme_changer.dart';
+import 'package:carting/presentation/views/common/no_connect_view.dart';
 import 'package:carting/src/settings/notification_servis.dart';
+import 'package:carting/utils/connectivity_service.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -38,6 +42,14 @@ void main() async {
     ),
     child: const MyApp(),
   ));
+
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,
+    ),
+  );
 }
 
 ThemeMode getTheme(String mode) {
@@ -76,26 +88,40 @@ class MyApp extends StatelessWidget {
             themeMode: AppScope.of(context).themeMode,
             debugShowCheckedModeBanner: false,
             routerConfig: AppRouts.router,
-            builder: (context, child) => BlocListener<AuthBloc, AuthState>(
-              listener: (context, state) {
-                debugPrint('STATE LISTENER ============> ${state.status}');
-                switch (state.status) {
-                  case AuthenticationStatus.unauthenticated:
-                    if (StorageRepository.getBool(StorageKeys.LENDING)) {
-                      AppRouts.router.pushReplacement(AppRouteName.lending);
-                    } else {
-                      AppRouts.router.pushReplacement(AppRouteName.home);
-                    }
-                    break;
-                  case AuthenticationStatus.authenticated:
-                    AppRouts.router.go(AppRouteName.home);
-                    break;
-                  case AuthenticationStatus.loading:
-                  case AuthenticationStatus.cancelLoading:
-                    break;
+            builder: (context, child) =>
+                StreamBuilder<List<ConnectivityResult>>(
+              stream: ConnectivityService.connectivityStream,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.active) {
+                  if (snapshot.data!.contains(ConnectivityResult.none)) {
+                    return const NoConnectView();
+                  }
+                  return BlocListener<AuthBloc, AuthState>(
+                    listener: (context, state) {
+                      debugPrint(
+                          'STATE LISTENER ============> ${state.status}');
+                      switch (state.status) {
+                        case AuthenticationStatus.unauthenticated:
+                          if (StorageRepository.getBool(StorageKeys.LENDING)) {
+                            AppRouts.router
+                                .pushReplacement(AppRouteName.lending);
+                          } else {
+                            AppRouts.router.pushReplacement(AppRouteName.home);
+                          }
+                          break;
+                        case AuthenticationStatus.authenticated:
+                          AppRouts.router.go(AppRouteName.home);
+                          break;
+                        case AuthenticationStatus.loading:
+                        case AuthenticationStatus.cancelLoading:
+                          break;
+                      }
+                    },
+                    child: child,
+                  );
                 }
+                return const Center(child: CircularProgressIndicator());
               },
-              child: child,
             ),
           );
         },

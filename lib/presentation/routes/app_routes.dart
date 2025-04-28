@@ -1,6 +1,8 @@
 import 'package:carting/presentation/views/cars/cars_new_view.dart';
+import 'package:carting/presentation/views/common/no_connect_view.dart';
 import 'package:carting/presentation/views/lenguage_view.dart';
 import 'package:carting/presentation/views/profile/edit_phone_view.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -38,6 +40,10 @@ sealed class AppRouts {
       GoRoute(
         path: AppRouteName.lenguage,
         builder: (context, state) => const LenguageView(),
+      ),
+      GoRoute(
+        path: AppRouteName.noConnect,
+        builder: (context, state) => const NoConnectView(),
       ),
       GoRoute(
         path: AppRouteName.lending,
@@ -85,7 +91,6 @@ sealed class AppRouts {
     ],
   );
 
- 
   static final mainView = StatefulShellRoute.indexedStack(
     builder: (context, state, navigationShell) {
       return BlocProvider(
