@@ -7,6 +7,7 @@ import 'package:carting/presentation/views/common/app_lat_long.dart';
 import 'package:carting/presentation/views/common/location_service.dart';
 import 'package:carting/presentation/views/common/location_view.dart';
 import 'package:carting/presentation/views/common/map_point.dart';
+import 'package:carting/utils/log_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
@@ -47,6 +48,8 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
   }
 
   Future<String> getPlaceMarkFromYandex(double lat, double lon) async {
+    Log.i(lat);
+    Log.i(lon);
     try {
       final resultWithSession = await YandexSearch.searchByPoint(
         point: Point(latitude: lat, longitude: lon),
@@ -65,6 +68,7 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
       }
       return 'No address found';
     } catch (e) {
+      Log.e(e);
       return 'Siz turgan manzil';
     }
   }
@@ -86,6 +90,7 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
         longitude: location.long,
       );
     } catch (_) {
+      Log.e(_);
       point1 = MapPoint(
         name: "Siz turgan manzil",
         latitude: defLocation.lat,

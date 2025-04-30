@@ -226,7 +226,7 @@ mixin LocotionMixin on State<LocationView> {
       }
       return 'No address found';
     } catch (e) {
-      return 'Error getting address';
+      return 'Siz turgan manzil';
     }
   }
 
