@@ -22,7 +22,7 @@ build apk with low size:
 flutter build apk --split-per-abi
 
 build appbundle:
-flutter build appbundle --release --build-name=1.0.7 --build-number=9
+flutter build appbundle --release --build-name=1.0.16 --build-number=16
 flutter build apk --release
 
 build runner:

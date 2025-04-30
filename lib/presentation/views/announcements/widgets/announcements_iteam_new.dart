@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
+import 'package:carting/presentation/views/announcements/announcement_info_view.dart';
 import 'package:carting/presentation/widgets/call_bottom.dart';
 import 'package:carting/presentation/widgets/car_number_iteam.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
@@ -12,6 +14,7 @@ import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/utils/my_function.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AnnouncementsIteamNew extends StatelessWidget {
   const AnnouncementsIteamNew({
@@ -246,7 +249,60 @@ class AnnouncementsIteamNew extends StatelessWidget {
                     height: 48,
                     text: 'Statusni o’zgartirish',
                   )
-                ]
+                ],
+                if (model.oferrerAdvId != null)
+                  InkWell(
+                    onTap: () {
+                      final bloc = context.read<AdvertisementBloc>();
+                      bloc.add(GetAdvertisementsIdEvent(
+                        id: model.oferrerAdvId!,
+                        onSucces: (model) {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => BlocProvider.value(
+                              value: bloc,
+                              child: AnnouncementInfoView(
+                                model: model,
+                                isMe: false,
+                              ),
+                            ),
+                          ));
+                        },
+                      ));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(24),
+                        color: context.color.scaffoldBackground,
+                        boxShadow: wboxShadow2,
+                      ),
+                      padding: const EdgeInsets.all(16),
+                      height: 58,
+                      child: Row(
+                        children: [
+                          if (model.transportNumber == null)
+                            Expanded(
+                              child: Text('ID: ${model.oferrerAdvId}'),
+                            )
+                          else ...[
+                            CachedNetworkImage(
+                              imageUrl: model.transportImage ?? "",
+                            ),
+                            Expanded(
+                              child: Center(
+                                child: CarNumberIteam(
+                                  carNumberFirst: (model.transportNumber ?? '')
+                                      .split(' ')[0],
+                                  carNumberSecond: (model.transportNumber ?? '')
+                                      .substring(3),
+                                ),
+                              ),
+                            )
+                          ],
+                          AppIcons.arrowForward.svg()
+                        ],
+                      ),
+                    ),
+                  )
               ],
             ),
           )

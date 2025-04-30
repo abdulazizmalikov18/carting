@@ -46,6 +46,9 @@ AdvertisementModel _$AdvertisementModelFromJson(Map<String, dynamic> json) =>
           .toList(),
       carName: json['car_name'] as String?,
       rating: (json['rating'] as num?)?.toDouble(),
+      oferrerAdvId: (json['oferrer_adv_id'] as num?)?.toInt(),
+      transportNumber: json['transport_number'] as String?,
+      transportImage: json['transport_image'] as String?,
     );
 
 Map<String, dynamic> _$AdvertisementModelToJson(AdvertisementModel instance) =>
@@ -75,6 +78,9 @@ Map<String, dynamic> _$AdvertisementModelToJson(AdvertisementModel instance) =>
       'workshop_categories': instance.workshopCategories,
       'car_name': instance.carName,
       'rating': instance.rating,
+      'offerrer_adv_id': instance.oferrerAdvId,
+      'transport_number': instance.transportNumber,
+      'transport_image': instance.transportImage,
     };
 
 Comment _$CommentFromJson(Map<String, dynamic> json) => Comment(

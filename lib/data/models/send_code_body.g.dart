@@ -11,6 +11,7 @@ SendCodeBody _$SendCodeBodyFromJson(Map<String, dynamic> json) => SendCodeBody(
       phoneNumber: json['phone_number'] as String?,
       smsType: json['sms_type'] as String,
       type: (json['type'] as num).toInt(),
+      hash: json['hash'] as String?,
     );
 
 Map<String, dynamic> _$SendCodeBodyToJson(SendCodeBody instance) =>
@@ -19,4 +20,5 @@ Map<String, dynamic> _$SendCodeBodyToJson(SendCodeBody instance) =>
       if (instance.phoneNumber case final value?) 'phone_number': value,
       'sms_type': instance.smsType,
       'type': instance.type,
+      'hash': instance.hash,
     };

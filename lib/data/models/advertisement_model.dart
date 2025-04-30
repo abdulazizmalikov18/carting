@@ -54,6 +54,12 @@ class AdvertisementModel {
   final String? carName;
   @JsonKey(name: "rating")
   final double? rating;
+  @JsonKey(name: "oferrer_adv_id")
+  final int? oferrerAdvId;
+  @JsonKey(name: "transport_number")
+  final String? transportNumber;
+  @JsonKey(name: "transport_image")
+  final String? transportImage;
 
   AdvertisementModel({
     required this.id,
@@ -81,6 +87,9 @@ class AdvertisementModel {
     this.workshopCategories,
     this.carName,
     this.rating,
+    this.oferrerAdvId,
+    this.transportNumber,
+    this.transportImage,
   });
 
   factory AdvertisementModel.fromJson(Map<String, dynamic> json) =>
