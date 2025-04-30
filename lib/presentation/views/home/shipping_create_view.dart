@@ -55,6 +55,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    getDateTime();
     final localization = AppLocalizations.of(context)!;
 
     list = [
@@ -116,6 +117,15 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
     controllerLitr.dispose();
     controllerm3.dispose();
     super.dispose();
+  }
+
+  getDateTime() {
+    final date = DateTime.now();
+    selectedDate = date;
+    selectedDate2 = date.add(const Duration(hours: 6));
+    controllerTime.text = MyFunction.formattedTime(date);
+    controllerTime2.text = MyFunction.formattedTime(selectedDate2);
+    controller.text = MyFunction.dateFormat(date);
   }
 
   void updateButtonState() {

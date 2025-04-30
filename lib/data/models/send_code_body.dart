@@ -22,12 +22,15 @@ class SendCodeBody {
   final String smsType;
   @JsonKey(name: "type")
   final int type;
+  @JsonKey(name: "hash")
+  final String? hash;
 
   SendCodeBody({
     this.mail,
     this.phoneNumber,
     required this.smsType,
     required this.type,
+    this.hash,
   });
 
   factory SendCodeBody.fromJson(Map<String, dynamic> json) =>

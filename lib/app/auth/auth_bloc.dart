@@ -15,6 +15,7 @@ import 'package:carting/data/models/verify_body.dart';
 import 'package:carting/infrastructure/repo/auth_repo.dart';
 import 'package:carting/infrastructure/repo/storage_repository.dart';
 import 'package:carting/utils/log_service.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -121,12 +122,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         statusSms: FormzSubmissionStatus.inProgress,
         status: AuthenticationStatus.loading,
       ));
+      final appSignature = await SmsAutoFill().getAppSignature;
       final response = await _repository.sendCode(
         SendCodeBody(
           mail: event.isPhone ? null : event.phone,
           phoneNumber: event.isPhone ? event.phone : null,
           smsType: event.isPhone ? "phone" : "mail",
           type: event.isLogin ? 1 : 2,
+          hash: appSignature,
         ),
       );
       if (response.isRight) {

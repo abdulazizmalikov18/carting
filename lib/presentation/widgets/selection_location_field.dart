@@ -65,13 +65,16 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
       }
       return 'No address found';
     } catch (e) {
-      return 'Error getting address';
+      return 'Siz turgan manzil';
     }
   }
 
   getLocation() async {
     const defLocation = TashketnLoaction();
     try {
+      if (!await LocationService().checkPermission()) {
+        await LocationService().requestPermission();
+      }
       final location = await LocationService().getCurrentLocation();
       final address = await getPlaceMarkFromYandex(
         location.lat,

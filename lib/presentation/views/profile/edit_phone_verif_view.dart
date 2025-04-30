@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:pinput/pinput.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 
 class EditPhoneVerifView extends StatefulWidget {
   const EditPhoneVerifView({
@@ -28,7 +29,8 @@ class EditPhoneVerifView extends StatefulWidget {
   State<EditPhoneVerifView> createState() => _EditPhoneVerifViewState();
 }
 
-class _EditPhoneVerifViewState extends State<EditPhoneVerifView> {
+class _EditPhoneVerifViewState extends State<EditPhoneVerifView>
+    with CodeAutoFill {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController controller;
   ValueNotifier<int> start = ValueNotifier(300);
@@ -59,13 +61,20 @@ class _EditPhoneVerifViewState extends State<EditPhoneVerifView> {
   void initState() {
     controller = TextEditingController();
     super.initState();
+    listenForCode();
     startTimer();
+  }
+
+  @override
+  void codeUpdated() {
+    controller.text = code ?? '';
   }
 
   @override
   void dispose() {
     controller.dispose();
     _timer.cancel();
+    cancel();
     super.dispose();
   }
 

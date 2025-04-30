@@ -137,18 +137,6 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
               ? AppIcons.logoWhite.svg()
               : AppImages.logoTextDark.imgAsset(),
         ),
-        // bottom: PreferredSize(
-        //   preferredSize: const Size(double.infinity, 64),
-        //   child: Padding(
-        //     padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-        //     child: CustomTextField(
-        //       prefixIcon: AppIcons.searchNormal.svg(color: context.color.iron),
-        //       hintText: AppLocalizations.of(context)!.searchTransport,
-        //       controller: searchController,
-        //       onChanged: (value) {},
-        //     ),
-        //   ),
-        // ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

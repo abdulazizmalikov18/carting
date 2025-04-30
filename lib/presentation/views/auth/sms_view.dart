@@ -67,14 +67,20 @@ class _SmsViewState extends State<SmsView> with CodeAutoFill {
   void initState() {
     controller = TextEditingController();
     super.initState();
-    startTimer();
     listenForCode();
+    startTimer();
+  }
+
+  @override
+  void codeUpdated() {
+    controller.text = code ?? '';
   }
 
   @override
   void dispose() {
     controller.dispose();
     _timer.cancel();
+    cancel();
     super.dispose();
   }
 
@@ -228,56 +234,10 @@ class _SmsViewState extends State<SmsView> with CodeAutoFill {
                   )
                 ],
               )
-              // ValueListenableBuilder(
-              //   valueListenable: start,
-              //   builder: (context, value, __) {
-              //     return RichText(
-              //       text: TextSpan(
-              //         text: "SMS ko’dni olmadingizmi? Qaytadan yuborish  ",
-              //         style: const TextStyle(
-              //           fontSize: 16,
-              //           fontWeight: FontWeight.w400,
-              //           color: black,
-              //         ),
-              //         children: <TextSpan>[
-              //           TextSpan(
-              //             text: timerText,
-              //             style: const TextStyle(
-              //               fontSize: 16,
-              //               fontWeight: FontWeight.w400,
-              //               color: green,
-              //             ),
-              //           ),
-              //         ],
-              //       ),
-              //     );
-              //   },
-              // ),
             ],
           ),
         ),
       ),
-      // bottomNavigationBar: WButton(
-      //   onTap: () {
-      //     Navigator.of(context).push(MaterialPageRoute(
-      //       builder: (context) => const RegisterView(),
-      //     ));
-      //   },
-      //   margin: EdgeInsets.fromLTRB(
-      //     16,
-      //     12,
-      //     16,
-      //     MediaQuery.of(context).viewPadding.bottom + 16,
-      //   ),
-      //   text: "Davom etish",
-      // ),
     );
-  }
-
-  @override
-  void codeUpdated() {
-    setState(() {
-      controller.text = code ?? "";
-    });
   }
 }
