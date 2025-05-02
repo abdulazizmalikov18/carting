@@ -2,6 +2,15 @@ part of 'advertisement_bloc.dart';
 
 sealed class AdvertisementEvent {}
 
+class FinishOffersEvent extends AdvertisementEvent {
+  final int id;
+  final VoidCallback onSuccess;
+  FinishOffersEvent({
+    required this.id,
+    required this.onSuccess,
+  });
+}
+
 class AddNotificationEvent extends AdvertisementEvent {
   final NotificationModel model;
 

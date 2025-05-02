@@ -263,6 +263,7 @@ class AnnouncementsIteamNew extends StatelessWidget {
                               child: AnnouncementInfoView(
                                 model: model,
                                 isMe: false,
+                                isOffersButton: false,
                               ),
                             ),
                           ));

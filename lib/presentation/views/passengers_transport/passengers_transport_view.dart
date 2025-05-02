@@ -58,6 +58,12 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    getDateTime();
+  }
+
+  @override
   void dispose() {
     controllerTime.dispose();
     controller.dispose();
@@ -67,6 +73,15 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
     payDate.dispose();
     trTypeId.dispose();
     super.dispose();
+  }
+
+  getDateTime() {
+    final date = DateTime.now();
+    selectedDate = date;
+    selectedDate2 = date.add(const Duration(hours: 6));
+    controllerTime.text = MyFunction.formattedTime(date);
+    controllerTime2.text = MyFunction.formattedTime(selectedDate2);
+    controller.text = MyFunction.dateFormat(date);
   }
 
   @override

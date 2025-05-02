@@ -286,6 +286,7 @@ class CarIteam extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       final bloc = context.read<AdvertisementBloc>();
+            
                       bloc.add(GetAdvertisementsIdEvent(
                         id: model.oferrerAdvId!,
                         onSucces: (model) {
@@ -295,6 +296,9 @@ class CarIteam extends StatelessWidget {
                               child: AnnouncementInfoView(
                                 model: model,
                                 isMe: false,
+                                isOffersButton: false,
+                                isOffersFinish: true,
+                              
                               ),
                             ),
                           ));

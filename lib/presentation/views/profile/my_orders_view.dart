@@ -124,6 +124,7 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                               model: state.advertisementRECEIVE[index],
                               isMe: true,
                               isOffers: true,
+                             
                               // isEdit: true,
                               // onEdit: () {
                               //   context

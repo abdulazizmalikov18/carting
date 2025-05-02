@@ -36,6 +36,9 @@ class AnnouncementInfoView extends StatefulWidget {
     this.isOffers = false,
     this.isNotification = false,
     this.isEdit = false,
+    this.isOffersButton = true,
+    this.isOffersFinish = false,
+    this.offerId,
     this.onEdit,
   });
   final AdvertisementModel model;
@@ -44,8 +47,11 @@ class AnnouncementInfoView extends StatefulWidget {
   final bool isComments;
   final bool isOnlyCar;
   final bool isOffers;
+  final bool isOffersButton;
+  final bool isOffersFinish;
   final bool isNotification;
   final bool isEdit;
+  final int? offerId;
   final VoidCallback? onEdit;
 
   @override
@@ -259,49 +265,145 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                 mainAxisSize: MainAxisSize.min,
                 spacing: 16,
                 children: [
-                  // if(widget.isNotification)Row()else
-                  WButton(
-                    onTap: () {
-                      final bloc = context.read<AdvertisementBloc>();
-                      showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(20),
-                          ),
-                        ),
-                        builder: (context) => widget.isOnlyCar
-                            ? CarOfferBottomSheet(
-                                model: widget.model,
-                                bloc: bloc,
-                                isOnlyCars: widget.isOnlyCar,
-                              )
-                            : OfferBottomSheet(
-                                model: widget.model,
-                                bloc: bloc,
-                                isOnlyCars: widget.isOnlyCar,
+                  if (widget.isOffersFinish)
+                    WButton(
+                      onTap: () {
+                        final bloc = context.read<AdvertisementBloc>();
+                        showModalBottomSheet(
+                          context: context,
+                          backgroundColor: Colors.transparent,
+                          builder: (context) => Column(
+                            spacing: 12,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Center(
+                                child: Container(
+                                  width: 64,
+                                  height: 5,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFFC2C2C2),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
                               ),
-                      ).then((value) {
-                        if (value != null && context.mounted) {
-                          CustomSnackbar.show(
-                            context,
-                            "Taklif yuorildi",
-                          );
-                        }
-                      });
-                    },
-                    color: const Color(0xFFFDB022),
-                    child: Row(
-                      spacing: 10,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AppIcons.messageOffer.svg(),
-                        Text(AppLocalizations.of(context)!.sendProposal),
-                      ],
+                              Container(
+                                padding: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  color: context.color.scaffoldBackground,
+                                  boxShadow: wboxShadow2,
+                                  borderRadius: const BorderRadius.vertical(
+                                    top: Radius.circular(24),
+                                  ),
+                                ),
+                                child: Column(
+                                  spacing: 24,
+                                  children: [
+                                    const Text(
+                                      "Rostan ham yakunlashni xohlaysizmi?",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    Row(
+                                      spacing: 16,
+                                      children: [
+                                        Expanded(
+                                          child: WButton(
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                            },
+                                            textColor: greyText,
+                                            color: greyBack,
+                                            text: AppLocalizations.of(context)!
+                                                .no,
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: BlocBuilder<AdvertisementBloc,
+                                              AdvertisementState>(
+                                            bloc: bloc,
+                                            builder: (context, state) {
+                                              return WButton(
+                                                isLoading: state
+                                                    .statusCreate.isInProgress,
+                                                onTap: () {
+                                                  bloc.add(
+                                                    FinishOffersEvent(
+                                                      id: widget.model.id,
+                                                      onSuccess: () {
+                                                        Navigator.of(context)
+                                                          ..pop()
+                                                          ..pop(true);
+                                                      },
+                                                    ),
+                                                  );
+                                                },
+                                                textColor: greyText,
+                                                color: greyBack,
+                                                text: AppLocalizations.of(
+                                                        context)!
+                                                    .yes,
+                                              );
+                                            },
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox()
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                      text: 'Yakunlash',
+                      color: red,
                     ),
-                  ),
+                  if (widget.isOffersButton)
+                    WButton(
+                      onTap: () {
+                        final bloc = context.read<AdvertisementBloc>();
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(20),
+                            ),
+                          ),
+                          builder: (context) => widget.isOnlyCar
+                              ? CarOfferBottomSheet(
+                                  model: widget.model,
+                                  bloc: bloc,
+                                  isOnlyCars: widget.isOnlyCar,
+                                )
+                              : OfferBottomSheet(
+                                  model: widget.model,
+                                  bloc: bloc,
+                                  isOnlyCars: widget.isOnlyCar,
+                                ),
+                        ).then((value) {
+                          if (value != null && context.mounted) {
+                            CustomSnackbar.show(
+                              context,
+                              "Taklif yuorildi",
+                            );
+                          }
+                        });
+                      },
+                      color: const Color(0xFFFDB022),
+                      child: Row(
+                        spacing: 10,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AppIcons.messageOffer.svg(),
+                          Text(AppLocalizations.of(context)!.sendProposal),
+                        ],
+                      ),
+                    ),
                   Row(
                     spacing: 16,
                     children: [

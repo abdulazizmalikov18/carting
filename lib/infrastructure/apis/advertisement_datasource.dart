@@ -51,6 +51,7 @@ abstract class AdvertisementDatasource {
   Future<ResponseModel<List<OffersModel>>> getOffers(int id);
   Future<bool> replyOffer(Map<String, dynamic> model);
   Future<bool> sendOffer(Map<String, dynamic> model);
+  Future<bool> finishOffer(int id);
   Future<bool> updateStatus(Map<String, dynamic> model);
   Future<bool> notificationsRead();
   Future<int> getLoanMode(Map<String, dynamic> model);
@@ -634,6 +635,25 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
       ),
       body: (response) =>
           int.tryParse(response['data']['loan_type_id'].toString()) ?? 1,
+    );
+  }
+
+  @override
+  Future<bool> finishOffer(int id) {
+    return _handle.apiCantrol(
+      request: () => dio.post(
+        'finish/order',
+        data: {"id": id},
+        options: Options(
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
+              ? {
+                  'Authorization':
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                }
+              : {},
+        ),
+      ),
+      body: (response) => true,
     );
   }
 }

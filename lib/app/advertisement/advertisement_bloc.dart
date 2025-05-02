@@ -25,6 +25,18 @@ part 'advertisement_state.dart';
 class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
   final AdvertisementRepo _repo;
   AdvertisementBloc(this._repo) : super(const AdvertisementState()) {
+
+    on<FinishOffersEvent>((event, emit) async {
+      emit(state.copyWith(statusCreate: FormzSubmissionStatus.inProgress));
+      final respons = await _repo.finishOffer(event.id);
+      if (respons.isRight) {
+        emit(state.copyWith(statusCreate: FormzSubmissionStatus.success));
+        event.onSuccess();
+      } else {
+        emit(state.copyWith(statusCreate: FormzSubmissionStatus.failure));
+      }
+    });
+
     on<TabIndexEvent>(
       (event, emit) => emit(state.copyWith(tabIndex: event.index)),
     );

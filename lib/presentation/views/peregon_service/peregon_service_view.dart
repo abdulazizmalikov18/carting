@@ -52,6 +52,12 @@ class _PeregonServiceViewState extends State<PeregonServiceView> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    getDateTime();
+  }
+
+  @override
   void dispose() {
     controllerTime.dispose();
     controller.dispose();
@@ -59,6 +65,15 @@ class _PeregonServiceViewState extends State<PeregonServiceView> {
     controllerPrice.dispose();
     payDate.dispose();
     super.dispose();
+  }
+
+  getDateTime() {
+    final date = DateTime.now();
+    selectedDate = date;
+    selectedDate2 = date.add(const Duration(hours: 6));
+    controllerTime.text = MyFunction.formattedTime(date);
+    controllerTime2.text = MyFunction.formattedTime(selectedDate2);
+    controller.text = MyFunction.dateFormat(date);
   }
 
   @override
