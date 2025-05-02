@@ -378,7 +378,16 @@ class _AddCarViewState extends State<AddCarView> {
                               ),
                             ),
                           ),
-                          const Expanded(child: SizedBox()),
+                          Expanded(
+                        child: Text(
+                          "${AppLocalizations.of(context)!.cargoCapacity}:",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: context.color.white,
+                          ),
+                        ),
+                      ),
                         ],
                       ),
                       SizedBox(

@@ -783,6 +783,12 @@ abstract class AppLocalizations {
   /// **'Cargo Volume'**
   String get cargoVolume;
 
+  /// No description provided for @cargoCapacity.
+  ///
+  /// In en, this message translates to:
+  /// **'Cargo Capacity'**
+  String get cargoCapacity;
+
   /// No description provided for @height.
   ///
   /// In en, this message translates to:

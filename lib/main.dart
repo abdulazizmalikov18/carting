@@ -1,10 +1,6 @@
 import 'dart:io';
 
-import 'package:carting/assets/constants/storage_keys.dart';
-import 'package:carting/assets/themes/theme.dart';
-import 'package:carting/assets/themes/theme_changer.dart';
 import 'package:carting/presentation/views/common/no_connect_view.dart';
-import 'package:carting/src/settings/notification_servis.dart';
 import 'package:carting/utils/connectivity_service.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
@@ -12,16 +8,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
 import 'package:provider/provider.dart';
 
 import 'package:carting/app/auth/auth_bloc.dart';
+import 'package:carting/assets/constants/storage_keys.dart';
+import 'package:carting/assets/themes/theme.dart';
+import 'package:carting/assets/themes/theme_changer.dart';
 import 'package:carting/infrastructure/core/service_locator.dart';
 import 'package:carting/infrastructure/repo/storage_repository.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/routes/app_routes.dart';
 import 'package:carting/presentation/routes/route_name.dart';
 import 'package:carting/src/settings/local_provider.dart';
+import 'package:carting/src/settings/notification_servis.dart';
 import 'package:carting/utils/bloc_logger.dart';
 
 void main() async {
@@ -63,9 +62,14 @@ ThemeMode getTheme(String mode) {
   }
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -88,40 +92,36 @@ class MyApp extends StatelessWidget {
             themeMode: AppScope.of(context).themeMode,
             debugShowCheckedModeBanner: false,
             routerConfig: AppRouts.router,
-            builder: (context, child) =>
-                StreamBuilder<List<ConnectivityResult>>(
-              stream: ConnectivityService.connectivityStream,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.active) {
-                  if (snapshot.data!.contains(ConnectivityResult.none)) {
-                    return const NoConnectView();
-                  }
-                  return BlocListener<AuthBloc, AuthState>(
-                    listener: (context, state) {
-                      debugPrint(
-                          'STATE LISTENER ============> ${state.status}');
-                      switch (state.status) {
-                        case AuthenticationStatus.unauthenticated:
-                          if (StorageRepository.getBool(StorageKeys.LENDING)) {
-                            AppRouts.router
-                                .pushReplacement(AppRouteName.lending);
-                          } else {
-                            AppRouts.router.pushReplacement(AppRouteName.home);
-                          }
-                          break;
-                        case AuthenticationStatus.authenticated:
-                          AppRouts.router.go(AppRouteName.home);
-                          break;
-                        case AuthenticationStatus.loading:
-                        case AuthenticationStatus.cancelLoading:
-                          break;
-                      }
-                    },
-                    child: child,
-                  );
+            builder: (context, child) => BlocListener<AuthBloc, AuthState>(
+              listener: (context, state) {
+                debugPrint('STATE LISTENER ============> ${state.status}');
+                switch (state.status) {
+                  case AuthenticationStatus.unauthenticated:
+                    if (StorageRepository.getBool(StorageKeys.LENDING)) {
+                      AppRouts.router.pushReplacement(AppRouteName.lending);
+                    } else {
+                      AppRouts.router.pushReplacement(AppRouteName.home);
+                    }
+                    break;
+                  case AuthenticationStatus.authenticated:
+                    AppRouts.router.go(AppRouteName.home);
+                    break;
+                  case AuthenticationStatus.loading:
+                  case AuthenticationStatus.cancelLoading:
+                    break;
                 }
-                return const Center(child: CircularProgressIndicator());
               },
+              child: StreamBuilder<List<ConnectivityResult>>(
+                stream: ConnectivityService.connectivityStream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data!.contains(ConnectivityResult.none)) {
+                      return const NoConnectView();
+                    }
+                  }
+                  return child ?? const SizedBox();
+                },
+              ), 
             ),
           );
         },

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/assets/assets/icons.dart';
@@ -24,6 +26,7 @@ import 'package:flex_dropdown/flex_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:share_plus/share_plus.dart';
 
 class AnnouncementInfoView extends StatefulWidget {
   const AnnouncementInfoView({
@@ -77,7 +80,27 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
         title: Text("ID ${widget.model.id}"),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              if (Platform.isAndroid) {
+                await SharePlus.instance.share(
+                  ShareParams(
+                    uri: Uri.parse(
+                      "https://play.google.com/store/apps/details?id=uz.realsoft.carting",
+                    ),
+                    subject: widget.model.note,
+                  ),
+                );
+              } else {
+                await SharePlus.instance.share(
+                  ShareParams(
+                    uri: Uri.parse(
+                      "https://apps.apple.com/uz/app/carting/id6742141732",
+                    ),
+                    subject: widget.model.note,
+                  ),
+                );
+              }
+            },
             icon: AppIcons.share.svg(color: context.color.white),
           ),
         ],

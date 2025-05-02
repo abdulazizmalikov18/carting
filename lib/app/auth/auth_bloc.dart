@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:carting/infrastructure/core/exceptions/failures.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -15,6 +16,7 @@ import 'package:carting/data/models/verify_body.dart';
 import 'package:carting/infrastructure/repo/auth_repo.dart';
 import 'package:carting/infrastructure/repo/storage_repository.dart';
 import 'package:carting/utils/log_service.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
 part 'auth_event.dart';
@@ -25,6 +27,20 @@ enum AuthenticationStatus {
   unauthenticated,
   loading,
   cancelLoading,
+}
+
+Future<bool> isInternetConnected() async {
+  var connectivityResult = await (Connectivity().checkConnectivity());
+  if (connectivityResult.contains(ConnectivityResult.mobile) ||
+      connectivityResult.contains(ConnectivityResult.wifi) ||
+      connectivityResult.contains(ConnectivityResult.ethernet) ||
+      connectivityResult.contains(ConnectivityResult.vpn) ||
+      connectivityResult.contains(ConnectivityResult.bluetooth) &&
+          await InternetConnectionChecker.instance.hasConnection) {
+    return true; // Connected to mobile data or Wi-Fi
+  } else {
+    return false; // Not connected to the internet
+  }
 }
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {

@@ -48,9 +48,8 @@ class _EditAdsViewState extends State<EditAdsView> {
 
   @override
   void initState() {
-    context
-        .read<AdvertisementBloc>()
-        .add(GetTransportationTypesEvent(serviceId: 1));
+    context.read<AdvertisementBloc>().add(
+        GetTransportationTypesEvent(serviceId: widget.model.serviceTypeId));
     controllerKg = TextEditingController(text: widget.model.details?.kg);
     controllerm3 = TextEditingController(text: widget.model.details?.m3);
     controllerLitr = TextEditingController(text: widget.model.details?.litr);
@@ -166,7 +165,7 @@ class _EditAdsViewState extends State<EditAdsView> {
                       name: point2!.name,
                     ),
                     note: controllerCommet.text,
-                    serviceTypeId: servisId,
+                    serviceTypeId: widget.model.serviceTypeId,
                     details: DetailsCar(
                       transportationTypeId:
                           state.transportationTypes[trTypeId.value].id,
@@ -389,7 +388,16 @@ class _EditAdsViewState extends State<EditAdsView> {
                               ),
                             ),
                           ),
-                          const Expanded(child: SizedBox()),
+                          Expanded(
+                            child: Text(
+                              "${AppLocalizations.of(context)!.cargoCapacity}:",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: context.color.white,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                       SizedBox(

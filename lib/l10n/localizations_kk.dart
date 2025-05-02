@@ -351,6 +351,9 @@ class AppLocalizationsKk extends AppLocalizations {
   String get cargoVolume => 'Юк ҳажми';
 
   @override
+  String get cargoCapacity => 'Юк сиғими';
+
+  @override
   String get height => 'Бўйи';
 
   @override

@@ -351,6 +351,9 @@ class AppLocalizationsUz extends AppLocalizations {
   String get cargoVolume => 'Yuk hajmi';
 
   @override
+  String get cargoCapacity => 'Yuk sig‘imi';
+
+  @override
   String get height => 'Bo’yi';
 
   @override

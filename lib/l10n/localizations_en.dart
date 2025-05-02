@@ -351,6 +351,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cargoVolume => 'Cargo Volume';
 
   @override
+  String get cargoCapacity => 'Cargo Capacity';
+
+  @override
   String get height => 'Height';
 
   @override

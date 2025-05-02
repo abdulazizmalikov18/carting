@@ -86,16 +86,24 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                       //   subject: 'Look what I made!',
                                       // );
                                       if (Platform.isAndroid) {
-                                        await Share.share(
-                                          "https://play.google.com/store/apps/details?id=uz.realsoft.carting",
-                                          subject: state.userModel.referralCodes
-                                              .first.note,
+                                        await SharePlus.instance.share(
+                                          ShareParams(
+                                            uri: Uri.parse(
+                                              "https://play.google.com/store/apps/details?id=uz.realsoft.carting",
+                                            ),
+                                            subject: state.userModel
+                                                .referralCodes.first.note,
+                                          ),
                                         );
                                       } else if (Platform.isIOS) {
-                                        await Share.share(
-                                          "https://apps.apple.com/uz/app/carting/id6742141732",
-                                          subject: state.userModel.referralCodes
-                                              .first.note,
+                                        await SharePlus.instance.share(
+                                          ShareParams(
+                                            uri: Uri.parse(
+                                              "https://apps.apple.com/uz/app/carting/id6742141732",
+                                            ),
+                                            subject: state.userModel
+                                                .referralCodes.first.note,
+                                          ),
                                         );
                                       } else {
                                         CustomSnackbar.show(

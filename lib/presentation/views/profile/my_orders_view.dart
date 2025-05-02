@@ -124,7 +124,13 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                               model: state.advertisementRECEIVE[index],
                               isMe: true,
                               isOffers: true,
-                             
+                              isEdit: (state.advertisementRECEIVE[index]
+                                          .serviceTypeId ==
+                                      1 ||
+                                  state.advertisementRECEIVE[index]
+                                          .serviceTypeId ==
+                                      2),
+
                               // isEdit: true,
                               // onEdit: () {
                               //   context

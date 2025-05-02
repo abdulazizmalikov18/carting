@@ -351,6 +351,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get cargoVolume => 'Объем груза';
 
   @override
+  String get cargoCapacity => 'Юк сиғими';
+
+  @override
   String get height => 'Высота';
 
   @override

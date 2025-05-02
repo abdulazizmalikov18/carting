@@ -312,10 +312,9 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
+                ...List.generate(
+                  widget.images.length + 1,
+                  (index) {
                     if (widget.images.length == index) {
                       return WScaleAnimation(
                         onTap: () {
@@ -392,9 +391,6 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
                       ),
                     );
                   },
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 8),
-                  itemCount: widget.images.length + 1,
                 ),
               ],
             ),
