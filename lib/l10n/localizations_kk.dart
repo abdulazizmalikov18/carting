@@ -87,7 +87,8 @@ class AppLocalizationsKk extends AppLocalizations {
   String get login => 'Кириш';
 
   @override
-  String get enterRegisteredNumber => 'Профилингизга кириш учун рўйхатдан ўтган телефон рақамингизни киритинг!';
+  String get enterRegisteredNumber =>
+      'Профилингизга кириш учун рўйхатдан ўтган телефон рақамингизни киритинг!';
 
   @override
   String get phone => 'Телефон';
@@ -153,13 +154,15 @@ class AppLocalizationsKk extends AppLocalizations {
   String get enterVerificationCode => 'Тасдиқлаш кодини киритинг';
 
   @override
-  String get enterPhoneNumberToRegister => 'Рўйхатдан ўтиш учун телефон рақамингизни киритинг';
+  String get enterPhoneNumberToRegister =>
+      'Рўйхатдан ўтиш учун телефон рақамингизни киритинг';
 
   @override
   String get chooseYourIdentity => 'Фойдаланувчи турини танланг';
 
   @override
-  String get whoAreYouOnPlatform => 'Сиз иловадан ким сифатида фойдаланмоқчисиз?';
+  String get whoAreYouOnPlatform =>
+      'Сиз иловадан ким сифатида фойдаланмоқчисиз?';
 
   @override
   String get legalEntity => 'Юридик шахс';
@@ -264,7 +267,8 @@ class AppLocalizationsKk extends AppLocalizations {
   String get welcome => 'Хуш келибсиз!';
 
   @override
-  String get transportServices => 'Барча транспорт хизматлари битта иловада – тез, қулай, арзон!';
+  String get transportServices =>
+      'Барча транспорт хизматлари битта иловада – тез, қулай, арзон!';
 
   @override
   String get start => 'Бошлаш';
@@ -282,7 +286,8 @@ class AppLocalizationsKk extends AppLocalizations {
   String get cargoTransport => 'Юк ташиш';
 
   @override
-  String get cancelAnnouncement => 'Ҳақиқатдан ҳам эълонни бекор қилмоқчимисиз?';
+  String get cancelAnnouncement =>
+      'Ҳақиқатдан ҳам эълонни бекор қилмоқчимисиз?';
 
   @override
   String get deactivate => 'Бекор қилиш';
@@ -318,7 +323,8 @@ class AppLocalizationsKk extends AppLocalizations {
   String get yourCargoIsOnTheWay => 'Юкингиз аллақачон йўлда!';
 
   @override
-  String get driverDeliveredCargo => 'Ҳайдовчи юкларингизни манзилга етказди. Буни тасдиқлайсизми?';
+  String get driverDeliveredCargo =>
+      'Ҳайдовчи юкларингизни манзилга етказди. Буни тасдиқлайсизми?';
 
   @override
   String get contactUs => 'Биз билан боғланиш';
@@ -645,52 +651,63 @@ class AppLocalizationsKk extends AppLocalizations {
   String get withdrawnProfit => 'Чиқариб олинган фойда';
 
   @override
-  String get confirm_delete_account => 'Ҳақиқатдан ҳам аккаунтингизни ўчирмоқчимисиз?';
+  String get confirm_delete_account =>
+      'Ҳақиқатдан ҳам аккаунтингизни ўчирмоқчимисиз?';
 
   @override
   String get faq_how_it_works_title => 'Carting хизмати қандай ишлайди?';
 
   @override
-  String get faq_how_it_works_desc => 'Буюртма берганингиздан сўнг, энг яқин ҳайдовчи юкингизни олиб, белгиланган манзилга етказади.';
+  String get faq_how_it_works_desc =>
+      'Буюртма берганингиздан сўнг, энг яқин ҳайдовчи юкингизни олиб, белгиланган манзилга етказади.';
 
   @override
   String get faq_payment_methods_title => 'Қандай тўлов усуллари мавжуд?';
 
   @override
-  String get faq_payment_methods_desc => 'Бизнинг сервисимизда тўлов нақд пул, банк карталари ва тўлов тизимлари орқали қабул қилинади.';
+  String get faq_payment_methods_desc =>
+      'Бизнинг сервисимизда тўлов нақд пул, банк карталари ва тўлов тизимлари орқали қабул қилинади.';
 
   @override
   String get faq_pricing_title => 'Юк ташиш нархлари қандай ҳисобланади?';
 
   @override
-  String get faq_pricing_desc => 'Нарх масофа, юкнинг вазни ва ҳажмига боғлиқ. Якуний сумма буюртма беришда кўрсатилади.';
+  String get faq_pricing_desc =>
+      'Нарх масофа, юкнинг вазни ва ҳажмига боғлиқ. Якуний сумма буюртма беришда кўрсатилади.';
 
   @override
-  String get faq_referral_title => 'Фойдаланувчини жалб қилгани учун қанча миқдорда мукофот олади?';
+  String get faq_referral_title =>
+      'Фойдаланувчини жалб қилгани учун қанча миқдорда мукофот олади?';
 
   @override
-  String get faq_referral_desc => 'Агар мавжуд фойдаланувчи эҳтимолий мижозга реферал ҳаволани юборган бўлса ва ушбу мижоз шу ҳавола орқали рўйхатдан ўтиб, хизматдан фойдаланган бўлса, хизмат ҳақининг 0,15 фоизини мукофот сифатида олади.';
+  String get faq_referral_desc =>
+      'Агар мавжуд фойдаланувчи эҳтимолий мижозга реферал ҳаволани юборган бўлса ва ушбу мижоз шу ҳавола орқали рўйхатдан ўтиб, хизматдан фойдаланган бўлса, хизмат ҳақининг 0,15 фоизини мукофот сифатида олади.';
 
   @override
   String get faq_login_title => 'Иловага кириш учун нималар керак бўлади?';
 
   @override
-  String get faq_login_desc => 'Carting иловасига кириш жуда осон. Телефон рақами ёки электрон почтаси бўлса етарли. Кодни SMS ёки электрон почта орқали олиш мумкин.';
+  String get faq_login_desc =>
+      'Carting иловасига кириш жуда осон. Телефон рақами ёки электрон почтаси бўлса етарли. Кодни SMS ёки электрон почта орқали олиш мумкин.';
 
   @override
-  String get about_us_title => 'Carting – Сизнинг ишончли транспорт ҳамкорингиз!';
+  String get about_us_title =>
+      'Carting – Сизнинг ишончли транспорт ҳамкорингиз!';
 
   @override
-  String get about_us_desc => 'Carting - бу юк ташиш ва транспорт хизматларини қулай, тех ва ишончли бошқариш учун замонавий платформа. Биз хавфсиз етказиб бериш, қулай буюртма бериш ва ишончли ижрочиларни тезкор боғланишни таъминлаймиз.';
+  String get about_us_desc =>
+      'Carting - бу юк ташиш ва транспорт хизматларини қулай, тех ва ишончли бошқариш учун замонавий платформа. Биз хавфсиз етказиб бериш, қулай буюртма бериш ва ишончли ижрочиларни тезкор боғланишни таъминлаймиз.';
 
   @override
   String get about_us_why_title => 'Нега айнан Carting?';
 
   @override
-  String get about_us_why_points => '✅ Қулай ва тез буюртма бериш - бир нечта босқичда илова орқали. ✅ Ишончли ижрочилар - тажрибали мутахассислар юкингизни хавфсиз етказиб беради. ✅ Шаффоф тарифлар - яширин тўловларсиз фақат адолатли нархлар. ✅ 24/7 Қўллаб-қувватлаш - ҳар доим ёрдам беришга тайёрмиз.';
+  String get about_us_why_points =>
+      '✅ Қулай ва тез буюртма бериш - бир нечта босқичда илова орқали. ✅ Ишончли ижрочилар - тажрибали мутахассислар юкингизни хавфсиз етказиб беради. ✅ Шаффоф тарифлар - яширин тўловларсиз фақат адолатли нархлар. ✅ 24/7 Қўллаб-қувватлаш - ҳар доим ёрдам беришга тайёрмиз.';
 
   @override
-  String get about_us_slogan => 'Сиз қаерга йўл олишингиздан қатъий назар - юкингиз ишончли қўлларда!';
+  String get about_us_slogan =>
+      'Сиз қаерга йўл олишингиздан қатъий назар - юкингиз ишончли қўлларда!';
 
   @override
   String get select_language => 'Тилни танланг!';
@@ -720,7 +737,8 @@ class AppLocalizationsKk extends AppLocalizations {
   String get confirm_delete_code => 'Ҳақиқатдан ҳам кодни ўчирмоқчимисиз?';
 
   @override
-  String get confirm_save_referral_changes => 'Ҳақиқатдан ҳам реферал код тавсифидаги ўзгаришларни сақламоқчимисиз?';
+  String get confirm_save_referral_changes =>
+      'Ҳақиқатдан ҳам реферал код тавсифидаги ўзгаришларни сақламоқчимисиз?';
 
   @override
   String get send_time => 'Жўнатиш вақти';
@@ -777,7 +795,8 @@ class AppLocalizationsKk extends AppLocalizations {
   String get ad_accepted => 'Эълонингиз қабул қилинди';
 
   @override
-  String get driver_will_contact => 'Тез орада сизнинг йуналишдаги хайдовчилар сиз билан богланади';
+  String get driver_will_contact =>
+      'Тез орада сизнинг йуналишдаги хайдовчилар сиз билан богланади';
 
   @override
   String get my_vehicles => 'Менинг транспортларим';
@@ -828,7 +847,8 @@ class AppLocalizationsKk extends AppLocalizations {
   String get transport_number_plate => 'Транспорт давлат рақами';
 
   @override
-  String get your_transports_here => 'Транспортларингиз шу ерда\nбўлади. Уларни қўшинг.';
+  String get your_transports_here =>
+      'Транспортларингиз шу ерда\nбўлади. Уларни қўшинг.';
 
   @override
   String get clear => 'Тозалаш';
@@ -885,7 +905,8 @@ class AppLocalizationsKk extends AppLocalizations {
   String get capacity => 'Ҳажми';
 
   @override
-  String get soonClientsMessage => 'Тез орада сизнинг йўналишдаги мижозлар сиз билан боғланади.';
+  String get soonClientsMessage =>
+      'Тез орада сизнинг йўналишдаги мижозлар сиз билан боғланади.';
 
   @override
   String confirmCodePhone(Object phone) {

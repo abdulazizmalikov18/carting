@@ -212,7 +212,6 @@ class _LocationTextViewState extends State<LocationTextView> {
   }
 
   Future<void> _suggest(String value) async {
-    print('Suggest query: $value');
     results.clear();
     final resultWithSession = await YandexSuggest.getSuggestions(
       text: value,
@@ -234,7 +233,6 @@ class _LocationTextViewState extends State<LocationTextView> {
 
   Future<void> _handleResult(SuggestSessionResult result) async {
     if (result.error != null) {
-      print('Error: ${result.error}');
       return;
     }
 

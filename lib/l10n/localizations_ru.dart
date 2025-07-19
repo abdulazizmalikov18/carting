@@ -87,7 +87,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get login => 'Войти';
 
   @override
-  String get enterRegisteredNumber => 'Введите зарегистрированный номер телефона, чтобы получить доступ к профилю!';
+  String get enterRegisteredNumber =>
+      'Введите зарегистрированный номер телефона, чтобы получить доступ к профилю!';
 
   @override
   String get phone => 'Телефон';
@@ -153,13 +154,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get enterVerificationCode => 'Введите код подтверждения';
 
   @override
-  String get enterPhoneNumberToRegister => 'Введите номер телефона для регистрации';
+  String get enterPhoneNumberToRegister =>
+      'Введите номер телефона для регистрации';
 
   @override
   String get chooseYourIdentity => 'Выберите тип пользователя';
 
   @override
-  String get whoAreYouOnPlatform => 'В качестве кого вы будете использовать приложение?';
+  String get whoAreYouOnPlatform =>
+      'В качестве кого вы будете использовать приложение?';
 
   @override
   String get legalEntity => 'Юридическое лицо';
@@ -264,7 +267,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get welcome => 'Добро пожаловать';
 
   @override
-  String get transportServices => 'Все транспортные услуги в одном приложении – быстро, удобно, выгодно!';
+  String get transportServices =>
+      'Все транспортные услуги в одном приложении – быстро, удобно, выгодно!';
 
   @override
   String get start => 'Начать';
@@ -282,7 +286,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get cargoTransport => 'Грузоперевозки';
 
   @override
-  String get cancelAnnouncement => 'Вы уверены, что хотите отменить объявление?';
+  String get cancelAnnouncement =>
+      'Вы уверены, что хотите отменить объявление?';
 
   @override
   String get deactivate => 'Деактивировать';
@@ -318,7 +323,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get yourCargoIsOnTheWay => 'Ваш груз уже в пути!';
 
   @override
-  String get driverDeliveredCargo => 'Водитель доставил ваш груз в пункт назначения. Подтверждаете?';
+  String get driverDeliveredCargo =>
+      'Водитель доставил ваш груз в пункт назначения. Подтверждаете?';
 
   @override
   String get contactUs => 'Связаться с нами';
@@ -645,52 +651,62 @@ class AppLocalizationsRu extends AppLocalizations {
   String get withdrawnProfit => 'Выведенная прибыль';
 
   @override
-  String get confirm_delete_account => 'Вы действительно хотите удалить аккаунт?';
+  String get confirm_delete_account =>
+      'Вы действительно хотите удалить аккаунт?';
 
   @override
   String get faq_how_it_works_title => 'Как работает сервис Carting?';
 
   @override
-  String get faq_how_it_works_desc => 'После оформления заказа ближайший водитель заберёт и доставит ваш груз по указанному адресу.';
+  String get faq_how_it_works_desc =>
+      'После оформления заказа ближайший водитель заберёт и доставит ваш груз по указанному адресу.';
 
   @override
   String get faq_payment_methods_title => 'Какие способы оплаты доступны?';
 
   @override
-  String get faq_payment_methods_desc => 'В нашем сервисе оплата принимается наличными, банковскими картами и через платежные системы.';
+  String get faq_payment_methods_desc =>
+      'В нашем сервисе оплата принимается наличными, банковскими картами и через платежные системы.';
 
   @override
   String get faq_pricing_title => 'Как рассчитывается стоимость перевозки?';
 
   @override
-  String get faq_pricing_desc => 'Стоимость зависит от расстояния, веса и объема груза. Окончательная сумма будет указана при оформлении заказа.';
+  String get faq_pricing_desc =>
+      'Стоимость зависит от расстояния, веса и объема груза. Окончательная сумма будет указана при оформлении заказа.';
 
   @override
-  String get faq_referral_title => 'Какое вознаграждение я получу за приглашенного пользователя?';
+  String get faq_referral_title =>
+      'Какое вознаграждение я получу за приглашенного пользователя?';
 
   @override
-  String get faq_referral_desc => 'Если вы отправите вашу реферальную ссылку, и новый пользователь зарегистрируется по ней и оплатит услугу в приложении, вы получите 0,15% от стоимости услуги в качестве вознаграждения.';
+  String get faq_referral_desc =>
+      'Если вы отправите вашу реферальную ссылку, и новый пользователь зарегистрируется по ней и оплатит услугу в приложении, вы получите 0,15% от стоимости услуги в качестве вознаграждения.';
 
   @override
   String get faq_login_title => 'Что необходимо для входа в приложение?';
 
   @override
-  String get faq_login_desc => 'Войти в приложение Carting очень просто. Достаточно указать номер телефона или адрес электронной почты. Код для входа придёт через SMS или email.';
+  String get faq_login_desc =>
+      'Войти в приложение Carting очень просто. Достаточно указать номер телефона или адрес электронной почты. Код для входа придёт через SMS или email.';
 
   @override
   String get about_us_title => 'Carting – ваш надежный транспортный партнер!';
 
   @override
-  String get about_us_desc => 'Carting – это современная платформа для удобного, быстрого и надежного управления грузоперевозками и транспортными услугами. Мы обеспечиваем безопасную доставку, удобное оформление заказов и оперативное подключение проверенных исполнителей.';
+  String get about_us_desc =>
+      'Carting – это современная платформа для удобного, быстрого и надежного управления грузоперевозками и транспортными услугами. Мы обеспечиваем безопасную доставку, удобное оформление заказов и оперативное подключение проверенных исполнителей.';
 
   @override
   String get about_us_why_title => 'Почему именно Carting?';
 
   @override
-  String get about_us_why_points => '✅ Удобное и быстрое оформление заказов – всего в несколько шагов в приложении. ✅ Проверенные исполнители – надежные специалисты обеспечивают безопасную доставку. ✅ Прозрачные тарифы – никаких скрытых платежей, только честные цены. ✅ Круглосуточная поддержка – всегда на связи, чтобы помочь вам.';
+  String get about_us_why_points =>
+      '✅ Удобное и быстрое оформление заказов – всего в несколько шагов в приложении. ✅ Проверенные исполнители – надежные специалисты обеспечивают безопасную доставку. ✅ Прозрачные тарифы – никаких скрытых платежей, только честные цены. ✅ Круглосуточная поддержка – всегда на связи, чтобы помочь вам.';
 
   @override
-  String get about_us_slogan => 'Куда бы вы ни отправились – ваш груз в надежных руках!';
+  String get about_us_slogan =>
+      'Куда бы вы ни отправились – ваш груз в надежных руках!';
 
   @override
   String get select_language => 'Выберите язык!';
@@ -720,7 +736,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get confirm_delete_code => 'Вы действительно хотите удалить код?';
 
   @override
-  String get confirm_save_referral_changes => 'Вы уверены, что хотите сохранить изменения в описании реферального кода?';
+  String get confirm_save_referral_changes =>
+      'Вы уверены, что хотите сохранить изменения в описании реферального кода?';
 
   @override
   String get send_time => 'Время отправки';
@@ -777,7 +794,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get ad_accepted => 'Ваше объявление принято';
 
   @override
-  String get driver_will_contact => 'В ближайшее время с вами свяжется водитель';
+  String get driver_will_contact =>
+      'В ближайшее время с вами свяжется водитель';
 
   @override
   String get my_vehicles => 'Мои транспортные средства';
@@ -828,7 +846,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get transport_number_plate => 'Государственный номер транспорта';
 
   @override
-  String get your_transports_here => 'Ваши транспорты будут здесь.\nДобавьте их.';
+  String get your_transports_here =>
+      'Ваши транспорты будут здесь.\nДобавьте их.';
 
   @override
   String get clear => 'Очистить';
@@ -885,7 +904,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get capacity => 'Объём';
 
   @override
-  String get soonClientsMessage => 'В ближайшее время клиенты по вашему направлению свяжутся с вами.';
+  String get soonClientsMessage =>
+      'В ближайшее время клиенты по вашему направлению свяжутся с вами.';
 
   @override
   String confirmCodePhone(Object phone) {

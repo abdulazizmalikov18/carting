@@ -160,10 +160,11 @@ class _OrderCreateViewState extends State<OrderCreateView> {
                     imagesFile();
                   },
                   child: DottedBorder(
-                    color: green,
-                    strokeWidth: 1,
-                    borderType: BorderType.RRect,
-                    radius: const Radius.circular(20),
+                    options: const RoundedRectDottedBorderOptions(
+                      color: green,
+                      strokeWidth: 1,
+                      radius: Radius.circular(20),
+                    ),
                     child: Center(
                       child: AppIcons.upload.svg(),
                     ),

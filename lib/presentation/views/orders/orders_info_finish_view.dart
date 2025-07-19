@@ -111,10 +111,11 @@ class _OrdersInfoFinshViewState extends State<OrdersInfoFinshView> {
                     imagesFile();
                   },
                   child: DottedBorder(
-                    color: green,
-                    strokeWidth: 1,
-                    borderType: BorderType.RRect,
-                    radius: const Radius.circular(20),
+                    options: const RoundedRectDottedBorderOptions(
+                      color: green,
+                      strokeWidth: 1,
+                      radius: Radius.circular(20),
+                    ),
                     child: Center(
                       child: AppIcons.upload.svg(),
                     ),
@@ -149,7 +150,7 @@ class _OrdersInfoFinshViewState extends State<OrdersInfoFinshView> {
             ),
           ),
           const SizedBox(height: 16),
-           Text(
+          Text(
             AppLocalizations.of(context)!.description,
             style: const TextStyle(
               fontSize: 16,
@@ -184,7 +185,7 @@ class _OrdersInfoFinshViewState extends State<OrdersInfoFinshView> {
               color: whiteSmoke,
             ),
             padding: const EdgeInsets.all(20),
-            child:  Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 OrdersInfoTile(
@@ -207,7 +208,7 @@ class _OrdersInfoFinshViewState extends State<OrdersInfoFinshView> {
                   subtitle: '19.07.2024 12:00',
                 ),
                 const SizedBox(height: 16),
-                 OrdersInfoTile(
+                OrdersInfoTile(
                   title: 'To’lov turi',
                   subtitle: AppLocalizations.of(context)!.cash,
                 ),

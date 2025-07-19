@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/utils/formatters.dart';
+import 'package:carting/utils/log_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -99,7 +100,7 @@ class _RegisterInfoViewState extends State<RegisterInfoView> {
       // 3. Faylni ochish
       await OpenFilex.open(tempPath);
     } catch (e) {
-      print('Xatolik: $e');
+      Log.e('Xatolik: $e');
     }
   }
 

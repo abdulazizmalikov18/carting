@@ -87,7 +87,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get login => 'Login';
 
   @override
-  String get enterRegisteredNumber => 'Enter your registered number to access your profile!';
+  String get enterRegisteredNumber =>
+      'Enter your registered number to access your profile!';
 
   @override
   String get phone => 'Phone';
@@ -153,7 +154,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enterVerificationCode => 'Enter verification code';
 
   @override
-  String get enterPhoneNumberToRegister => 'Enter your phone number to register!';
+  String get enterPhoneNumberToRegister =>
+      'Enter your phone number to register!';
 
   @override
   String get chooseYourIdentity => 'Choose your identity!';
@@ -264,7 +266,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcome => 'Welcome';
 
   @override
-  String get transportServices => 'Fast, convenient, affordable in all transport services in one app!';
+  String get transportServices =>
+      'Fast, convenient, affordable in all transport services in one app!';
 
   @override
   String get start => 'Start';
@@ -282,7 +285,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cargoTransport => 'Cargo Transport';
 
   @override
-  String get cancelAnnouncement => 'Are you sure you want to cancel the announcement?';
+  String get cancelAnnouncement =>
+      'Are you sure you want to cancel the announcement?';
 
   @override
   String get deactivate => 'Deactivate';
@@ -318,7 +322,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get yourCargoIsOnTheWay => 'Your cargo is already on the way!';
 
   @override
-  String get driverDeliveredCargo => 'The driver delivered your cargo to the destination. Do you confirm?';
+  String get driverDeliveredCargo =>
+      'The driver delivered your cargo to the destination. Do you confirm?';
 
   @override
   String get contactUs => 'Contact Us';
@@ -480,7 +485,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get whatCanIDo => 'What can I do?';
 
   @override
-  String get yesYouCan => 'Yes, you can. You will be notified when new clients arrive.';
+  String get yesYouCan =>
+      'Yes, you can. You will be notified when new clients arrive.';
 
   @override
   String get changeNumber => 'Change Number';
@@ -645,52 +651,62 @@ class AppLocalizationsEn extends AppLocalizations {
   String get withdrawnProfit => 'Withdrawn Profit';
 
   @override
-  String get confirm_delete_account => 'Are you sure you want to delete your account?';
+  String get confirm_delete_account =>
+      'Are you sure you want to delete your account?';
 
   @override
   String get faq_how_it_works_title => 'How does the Carting service work?';
 
   @override
-  String get faq_how_it_works_desc => 'After placing an order, the nearest driver will pick up and deliver your cargo to the specified address.';
+  String get faq_how_it_works_desc =>
+      'After placing an order, the nearest driver will pick up and deliver your cargo to the specified address.';
 
   @override
   String get faq_payment_methods_title => 'What payment methods are available?';
 
   @override
-  String get faq_payment_methods_desc => 'Our service accepts payments in cash, by bank cards, and through payment systems.';
+  String get faq_payment_methods_desc =>
+      'Our service accepts payments in cash, by bank cards, and through payment systems.';
 
   @override
   String get faq_pricing_title => 'How are shipping costs calculated?';
 
   @override
-  String get faq_pricing_desc => 'The cost depends on the distance, weight, and volume of the cargo. The final amount will be displayed at the time of order placement.';
+  String get faq_pricing_desc =>
+      'The cost depends on the distance, weight, and volume of the cargo. The final amount will be displayed at the time of order placement.';
 
   @override
-  String get faq_referral_title => 'How much reward can a user get for inviting others?';
+  String get faq_referral_title =>
+      'How much reward can a user get for inviting others?';
 
   @override
-  String get faq_referral_desc => 'If you send your referral link, and a new user registers through it and pays for a service in the app, you will receive 0.15% of the service cost as a reward.';
+  String get faq_referral_desc =>
+      'If you send your referral link, and a new user registers through it and pays for a service in the app, you will receive 0.15% of the service cost as a reward.';
 
   @override
   String get faq_login_title => 'What do you need to log in to the app?';
 
   @override
-  String get faq_login_desc => 'Logging into the Carting app is very easy. Simply enter your phone number or email address. A login code will be sent via SMS or email.';
+  String get faq_login_desc =>
+      'Logging into the Carting app is very easy. Simply enter your phone number or email address. A login code will be sent via SMS or email.';
 
   @override
   String get about_us_title => 'Carting – Your Reliable Transport Partner!';
 
   @override
-  String get about_us_desc => 'Carting is a modern platform for convenient, fast, and reliable management of freight transportation and logistics services. We ensure secure delivery, easy order processing, and quick onboarding of verified service providers.';
+  String get about_us_desc =>
+      'Carting is a modern platform for convenient, fast, and reliable management of freight transportation and logistics services. We ensure secure delivery, easy order processing, and quick onboarding of verified service providers.';
 
   @override
   String get about_us_why_title => 'Why Choose Carting?';
 
   @override
-  String get about_us_why_points => '✅ Convenient and fast order processing – just a few steps in the app. ✅ Verified professionals – reliable specialists ensure safe delivery. ✅ Transparent pricing – no hidden fees, only fair prices. ✅ 24/7 support – always available to assist you.';
+  String get about_us_why_points =>
+      '✅ Convenient and fast order processing – just a few steps in the app. ✅ Verified professionals – reliable specialists ensure safe delivery. ✅ Transparent pricing – no hidden fees, only fair prices. ✅ 24/7 support – always available to assist you.';
 
   @override
-  String get about_us_slogan => 'Wherever you go – your cargo is in safe hands!';
+  String get about_us_slogan =>
+      'Wherever you go – your cargo is in safe hands!';
 
   @override
   String get select_language => 'Select Language!';
@@ -711,7 +727,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get back => 'Back';
 
   @override
-  String get no_service_ads => 'No service announcements and\ndrivers available';
+  String get no_service_ads =>
+      'No service announcements and\ndrivers available';
 
   @override
   String get delete => 'Delete';
@@ -720,7 +737,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get confirm_delete_code => 'Are you sure you want to delete the code?';
 
   @override
-  String get confirm_save_referral_changes => 'Are you sure you want to save changes to the referral code description?';
+  String get confirm_save_referral_changes =>
+      'Are you sure you want to save changes to the referral code description?';
 
   @override
   String get send_time => 'Send Time';
@@ -885,7 +903,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get capacity => 'Capacity';
 
   @override
-  String get soonClientsMessage => 'Soon, clients in your area of expertise will contact you.';
+  String get soonClientsMessage =>
+      'Soon, clients in your area of expertise will contact you.';
 
   @override
   String confirmCodePhone(Object phone) {

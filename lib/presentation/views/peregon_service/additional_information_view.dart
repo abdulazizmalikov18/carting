@@ -333,10 +333,11 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
                         child: SizedBox(
                           height: 56,
                           child: DottedBorder(
-                            color: green,
-                            strokeWidth: 1,
-                            borderType: BorderType.RRect,
-                            radius: const Radius.circular(16),
+                            options: const RoundedRectDottedBorderOptions(
+                              color: green,
+                              strokeWidth: 1,
+                              radius: Radius.circular(16),
+                            ),
                             child: Center(
                               child: AppIcons.upload.svg(),
                             ),
