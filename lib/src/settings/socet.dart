@@ -21,10 +21,7 @@ class LiveChatService {
     const url = 'wss://cabinet.carting.uz/centrifugo/connection/websocket';
 
     // Centrifugo klientini yaratamiz
-    final client = createClient(
-      url,
-      ClientConfig(token: token),
-    );
+    final client = createClient(url, ClientConfig(token: token));
 
     // Callbacklar
     // client.onConnected((ctx) {
@@ -73,9 +70,9 @@ class LiveChatService {
           body: model.message,
         );
         if (context.mounted) {
-          context
-              .read<AdvertisementBloc>()
-              .add(AddNotificationEvent(model: model));
+          context.read<AdvertisementBloc>().add(
+            AddNotificationEvent(model: model),
+          );
         }
       } catch (e) {
         Log.e('🔴 Unsubscribed to $e');

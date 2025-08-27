@@ -41,9 +41,7 @@ class Headers {
   @JsonKey(name: "user_agent")
   final String userAgent;
 
-  const Headers({
-    this.userAgent = '',
-  });
+  const Headers({this.userAgent = ''});
 
   factory Headers.fromJson(Map<String, dynamic> json) =>
       _$HeadersFromJson(json);

@@ -60,11 +60,9 @@ class _MasterInfoViewState extends State<MasterInfoView> {
                         fit: BoxFit.cover,
                       ),
                     )
-                  : AppImages.exp.imgAsset(
-                      fit: BoxFit.cover,
-                    ),
+                  : AppImages.exp.imgAsset(fit: BoxFit.cover),
             ),
-          )
+          ),
         ],
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -101,12 +99,12 @@ class _MasterInfoViewState extends State<MasterInfoView> {
                                 fontSize: 12,
                                 color: context.color.darkText,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
               const SizedBox(height: 8),
@@ -161,17 +159,16 @@ class _MasterInfoViewState extends State<MasterInfoView> {
                 ),
                 child: ListTile(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => LocationInfoView(
-                        point2: widget.model.fromLocation,
-                        isFirst: false,
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => LocationInfoView(
+                          point2: widget.model.fromLocation,
+                          isFirst: false,
+                        ),
                       ),
-                    ));
+                    );
                   },
-                  leading: AppIcons.location.svg(
-                    height: 24,
-                    width: 24,
-                  ),
+                  leading: AppIcons.location.svg(height: 24, width: 24),
                   title: Text(
                     widget.model.fromLocation?.name ??
                         AppLocalizations.of(context)!.unknown,
@@ -188,12 +185,14 @@ class _MasterInfoViewState extends State<MasterInfoView> {
                 ),
                 child: ListTile(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => CommentsView(
-                        comments: widget.model.comments ?? [],
-                        id: widget.model.id,
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CommentsView(
+                          comments: widget.model.comments ?? [],
+                          id: widget.model.id,
+                        ),
                       ),
-                    ));
+                    );
                   },
                   leading: AppIcons.message.svg(color: context.color.iron),
                   title: Text(AppLocalizations.of(context)!.comments),
@@ -238,7 +237,7 @@ class _MasterInfoViewState extends State<MasterInfoView> {
                     children: [
                       AppIcons.telegram.svg(),
                       const SizedBox(width: 12),
-                      Text(AppLocalizations.of(context)!.contactViaTelegram)
+                      Text(AppLocalizations.of(context)!.contactViaTelegram),
                     ],
                   ),
                 ),

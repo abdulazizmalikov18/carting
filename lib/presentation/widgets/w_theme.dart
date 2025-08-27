@@ -113,7 +113,7 @@ class _WThemeState extends State<WTheme> {
               );
             },
           ),
-        )
+        ),
       ],
     );
   }
@@ -123,8 +123,5 @@ class InfoRowMod {
   final Widget icon;
   final String title;
 
-  InfoRowMod({
-    required this.icon,
-    required this.title,
-  });
+  InfoRowMod({required this.icon, required this.title});
 }

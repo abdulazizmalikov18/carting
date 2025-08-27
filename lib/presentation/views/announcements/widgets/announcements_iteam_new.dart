@@ -112,12 +112,7 @@ class AnnouncementsIteamNew extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '${calculateDistance(
-                          model.fromLocation?.lat ?? 0,
-                          model.fromLocation?.lng ?? 0,
-                          model.toLocation?.lat ?? 0,
-                          model.toLocation?.lng ?? 0,
-                        ).toInt()} km',
+                        '${calculateDistance(model.fromLocation?.lat ?? 0, model.fromLocation?.lng ?? 0, model.toLocation?.lat ?? 0, model.toLocation?.lng ?? 0).toInt()} km',
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -144,7 +139,9 @@ class AnnouncementsIteamNew extends StatelessWidget {
                           ),
                           RowIcon(
                             text: MyFunction.servicesNema(
-                                model.serviceTypeId, context),
+                              model.serviceTypeId,
+                              context,
+                            ),
                             icon: AppIcons.shipping.svg(
                               color: context.color.iron,
                               height: 20,
@@ -165,7 +162,7 @@ class AnnouncementsIteamNew extends StatelessWidget {
                       CachedNetworkImage(
                         imageUrl: model.transportIcon!,
                         height: 48,
-                      )
+                      ),
                   ],
                 ),
                 if (!isMe)
@@ -211,7 +208,7 @@ class AnnouncementsIteamNew extends StatelessWidget {
                           },
                           text: AppLocalizations.of(context)!.connection,
                           padding: const EdgeInsets.symmetric(horizontal: 24),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -232,11 +229,13 @@ class AnnouncementsIteamNew extends StatelessWidget {
                           width: 86,
                         ),
                         CarNumberIteam(
-                          carNumberFirst: model.details?.transportNumber
+                          carNumberFirst:
+                              model.details?.transportNumber
                                   .toString()
                                   .substring(0, 2) ??
                               "01",
-                          carNumberSecond: model.details?.transportNumber
+                          carNumberSecond:
+                              model.details?.transportNumber
                                   .toString()
                                   .substring(2) ??
                               "A 111 AA",
@@ -248,27 +247,31 @@ class AnnouncementsIteamNew extends StatelessWidget {
                     onTap: () {},
                     height: 48,
                     text: 'Statusni o’zgartirish',
-                  )
+                  ),
                 ],
                 if (model.oferrerAdvId != null)
                   InkWell(
                     onTap: () {
                       final bloc = context.read<AdvertisementBloc>();
-                      bloc.add(GetAdvertisementsIdEvent(
-                        id: model.oferrerAdvId!,
-                        onSucces: (model) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => BlocProvider.value(
-                              value: bloc,
-                              child: AnnouncementInfoView(
-                                model: model,
-                                isMe: false,
-                                isOffersButton: false,
+                      bloc.add(
+                        GetAdvertisementsIdEvent(
+                          id: model.oferrerAdvId!,
+                          onSucces: (model) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider.value(
+                                  value: bloc,
+                                  child: AnnouncementInfoView(
+                                    model: model,
+                                    isMe: false,
+                                    isOffersButton: false,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ));
-                        },
-                      ));
+                            );
+                          },
+                        ),
+                      );
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -281,9 +284,7 @@ class AnnouncementsIteamNew extends StatelessWidget {
                       child: Row(
                         children: [
                           if (model.transportNumber == null)
-                            Expanded(
-                              child: Text('ID: ${model.oferrerAdvId}'),
-                            )
+                            Expanded(child: Text('ID: ${model.oferrerAdvId}'))
                           else ...[
                             CachedNetworkImage(
                               imageUrl: model.transportImage ?? "",
@@ -297,16 +298,16 @@ class AnnouncementsIteamNew extends StatelessWidget {
                                       .substring(3),
                                 ),
                               ),
-                            )
+                            ),
                           ],
-                          AppIcons.arrowForward.svg()
+                          AppIcons.arrowForward.svg(),
                         ],
                       ),
                     ),
-                  )
+                  ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

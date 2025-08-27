@@ -11,11 +11,7 @@ class LocationModel {
   @JsonKey(name: "name")
   final String name;
 
-  LocationModel({
-    required this.lat,
-    required this.lng,
-    required this.name,
-  });
+  LocationModel({required this.lat, required this.lng, required this.name});
 
   factory LocationModel.fromJson(Map<String, dynamic> json) =>
       _$LocationModelFromJson(json);

@@ -12,10 +12,7 @@ class UpdateCode extends AuthEvent {
   final String code;
   final String? note;
 
-  UpdateCode({
-    required this.code,
-    this.note,
-  });
+  UpdateCode({required this.code, this.note});
 }
 
 class CheckUserEvent extends AuthEvent {}
@@ -72,7 +69,7 @@ class UpdateUserEvent extends AuthEvent {
     this.callPhone,
     this.referredBy,
     this.tin,
-    this.isEmail =false,
+    this.isEmail = false,
   });
 }
 

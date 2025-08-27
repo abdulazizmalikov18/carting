@@ -6,9 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart' show SystemUiOverlayStyle;
 
 class AppScope extends Equatable {
-  const AppScope({
-    required this.themeMode,
-  });
+  const AppScope({required this.themeMode});
 
   final ThemeMode themeMode;
 
@@ -33,22 +31,18 @@ class AppScope extends Equatable {
     return overlayStyle;
   }
 
-  AppScope copyWith({
-    ThemeMode? themeMode,
-  }) =>
-      AppScope(
-        themeMode: themeMode ?? this.themeMode,
-      );
+  AppScope copyWith({ThemeMode? themeMode}) =>
+      AppScope(themeMode: themeMode ?? this.themeMode);
 
   static AppScope of(BuildContext context) {
-    final scope =
-        context.dependOnInheritedWidgetOfExactType<_ModelBindingScope>()!;
+    final scope = context
+        .dependOnInheritedWidgetOfExactType<_ModelBindingScope>()!;
     return scope.modelBindingState.currentModel;
   }
 
   static Future<void> update(BuildContext context, AppScope newModel) async {
-    final scope =
-        context.dependOnInheritedWidgetOfExactType<_ModelBindingScope>()!;
+    final scope = context
+        .dependOnInheritedWidgetOfExactType<_ModelBindingScope>()!;
 
     scope.modelBindingState.updateModel(newModel);
     // Save Storage
@@ -58,10 +52,7 @@ class AppScope extends Equatable {
   static Future<void> saveStorage(AppScope newModel) async {
     final mode = themeModeSw(newModel.themeMode);
 
-    await StorageRepository.putString(
-      StorageKeys.MODE,
-      mode,
-    );
+    await StorageRepository.putString(StorageKeys.MODE, mode);
   }
 
   @override
@@ -124,12 +115,9 @@ class _DependencyScopeState extends State<DependencyScope> {
 
   @override
   Widget build(BuildContext context) => BackGestureWidthTheme(
-        backGestureWidth: BackGestureWidth.fraction(1 / 4),
-        child: _ModelBindingScope(
-          modelBindingState: this,
-          child: widget.child,
-        ),
-      );
+    backGestureWidth: BackGestureWidth.fraction(1 / 4),
+    child: _ModelBindingScope(modelBindingState: this, child: widget.child),
+  );
 }
 
 const double kDefaultBackGestureWidth = 20;
@@ -144,12 +132,13 @@ class BackGestureWidthTheme extends InheritedWidget {
 
   final BackGestureWidthGetter backGestureWidth;
 
-  static final BackGestureWidthGetter _kDefaultTheme =
-      BackGestureWidth.fixed(kDefaultBackGestureWidth);
+  static final BackGestureWidthGetter _kDefaultTheme = BackGestureWidth.fixed(
+    kDefaultBackGestureWidth,
+  );
 
   static BackGestureWidthGetter of(BuildContext context) {
-    final inheritedTheme =
-        context.dependOnInheritedWidgetOfExactType<BackGestureWidthTheme>();
+    final inheritedTheme = context
+        .dependOnInheritedWidgetOfExactType<BackGestureWidthTheme>();
     return inheritedTheme?.backGestureWidth ?? _kDefaultTheme;
   }
 
@@ -165,7 +154,8 @@ class BackGestureWidth {
   const BackGestureWidth._();
 
   /// Always returns same value equals to [width]
-  static BackGestureWidthGetter fixed(double width) => (_) => width;
+  static BackGestureWidthGetter fixed(double width) =>
+      (_) => width;
 
   /// Always returns a value equals to [fraction] of screen width
   static BackGestureWidthGetter fraction(double fraction) =>

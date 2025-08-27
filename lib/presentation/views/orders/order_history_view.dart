@@ -45,10 +45,7 @@ class _OrderHistoryViewState extends State<OrderHistoryView> {
                           color: whiteSmoke,
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: OrderHistoryIteam(
-                          index: index,
-                          isFinsh: false,
-                        ),
+                        child: OrderHistoryIteam(index: index, isFinsh: false),
                       ),
                       separatorBuilder: (context, index) =>
                           const SizedBox(height: 16),
@@ -64,10 +61,7 @@ class _OrderHistoryViewState extends State<OrderHistoryView> {
                           color: whiteSmoke,
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: OrderHistoryIteam(
-                          index: index,
-                          isFinsh: true,
-                        ),
+                        child: OrderHistoryIteam(index: index, isFinsh: true),
                       ),
                       separatorBuilder: (context, index) =>
                           const SizedBox(height: 16),
@@ -100,10 +94,7 @@ class OrderHistoryIteam extends StatelessWidget {
         ListTile(
           title: Text(
             AppLocalizations.of(context)!.tashkentToAndijan,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-            ),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
           trailing: Container(
             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
@@ -156,7 +147,7 @@ class OrderHistoryIteam extends StatelessWidget {
           textColor: isFinsh ? red : green,
           margin: const EdgeInsets.symmetric(horizontal: 20),
           text: AppLocalizations.of(context)!.completed,
-        )
+        ),
       ],
     );
   }

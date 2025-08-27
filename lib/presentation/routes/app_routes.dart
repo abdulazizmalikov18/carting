@@ -55,9 +55,8 @@ sealed class AppRouts {
       ),
       GoRoute(
         path: AppRouteName.editPhone,
-        builder: (context, state) => EditPhoneView(
-          isEmail: (state.extra as bool),
-        ),
+        builder: (context, state) =>
+            EditPhoneView(isEmail: (state.extra as bool)),
       ),
       GoRoute(
         path: AppRouteName.auth,
@@ -94,9 +93,8 @@ sealed class AppRouts {
   static final mainView = StatefulShellRoute.indexedStack(
     builder: (context, state, navigationShell) {
       return BlocProvider(
-        create: (context) => AdvertisementBloc(
-          serviceLocator<AdvertisementRepo>(),
-        ),
+        create: (context) =>
+            AdvertisementBloc(serviceLocator<AdvertisementRepo>()),
         child: MainView(navigationShell: navigationShell),
       );
     },

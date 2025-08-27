@@ -76,12 +76,13 @@ class WButton extends StatelessWidget {
             : AnimatedDefaultTextStyle(
                 duration: const Duration(milliseconds: 200),
                 style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                      height: 1.36,
-                      color: textColor,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                    ),
-                child: child ??
+                  height: 1.36,
+                  color: textColor,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                ),
+                child:
+                    child ??
                     Text(
                       text,
                       style: textStyle,

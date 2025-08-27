@@ -22,13 +22,10 @@ class _CarAddViewState extends State<CarAddView> {
     return Scaffold(
       appBar: AppBar(title: const Text("Transport malumotlari")),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(16).copyWith(
-          bottom: MediaQuery.of(context).viewPadding.bottom,
-        ),
-        child: WButton(
-          onTap: () {},
-          text: "Transportni qo’shish",
-        ),
+        padding: const EdgeInsets.all(
+          16,
+        ).copyWith(bottom: MediaQuery.of(context).viewPadding.bottom),
+        child: WButton(onTap: () {}, text: "Transportni qo’shish"),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -37,10 +34,7 @@ class _CarAddViewState extends State<CarAddView> {
           children: [
             Text(
               AppLocalizations.of(context)!.transport_number_plate,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-              ),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
             ),
             const SizedBox(height: 8),
             Row(
@@ -86,9 +80,7 @@ class _CarAddViewState extends State<CarAddView> {
                       border: Border.all(color: grey),
                       color: whiteSmoke,
                     ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -126,7 +118,7 @@ class _CarAddViewState extends State<CarAddView> {
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ],
@@ -182,7 +174,7 @@ class _CarAddViewState extends State<CarAddView> {
                         ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -207,7 +199,7 @@ class _CarAddViewState extends State<CarAddView> {
                         color: green,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -226,25 +218,16 @@ class _CarAddViewState extends State<CarAddView> {
                     subtitle: 'Грузовик',
                   ),
                   const SizedBox(height: 16),
-                  const OrdersInfoTile(
-                    title: 'Brendi',
-                    subtitle: 'UZ OTOYOL',
-                  ),
+                  const OrdersInfoTile(title: 'Brendi', subtitle: 'UZ OTOYOL'),
                   const SizedBox(height: 16),
-                  const OrdersInfoTile(
-                    title: 'Modeli',
-                    subtitle: 'G 265 XP',
-                  ),
+                  const OrdersInfoTile(title: 'Modeli', subtitle: 'G 265 XP'),
                   const SizedBox(height: 16),
                   const OrdersInfoTile(
                     title: 'Davlat raqami',
                     subtitle: '60 X 600 YX',
                   ),
                   const SizedBox(height: 16),
-                  const OrdersInfoTile(
-                    title: 'Kuzov turi',
-                    subtitle: 'Temir',
-                  ),
+                  const OrdersInfoTile(title: 'Kuzov turi', subtitle: 'Temir'),
                   const SizedBox(height: 16),
                   OrdersInfoTile(
                     title: AppLocalizations.of(context)!.manufacture_year,

@@ -27,9 +27,7 @@ class _ThemeViewState extends State<ThemeView> {
                   selectIndex: selectIndex,
                   value: value,
                   index: 0,
-                  trailing: AppIcons.moon.svg(
-                    color: value == 0 ? green : dark,
-                  ),
+                  trailing: AppIcons.moon.svg(color: value == 0 ? green : dark),
                   title: 'Qorong’u',
                 ),
                 const SizedBox(height: 16),
@@ -37,9 +35,7 @@ class _ThemeViewState extends State<ThemeView> {
                   selectIndex: selectIndex,
                   value: value,
                   index: 1,
-                  trailing: AppIcons.sun.svg(
-                    color: value == 1 ? green : dark,
-                  ),
+                  trailing: AppIcons.sun.svg(color: value == 1 ? green : dark),
                   title: 'Yorug’',
                 ),
                 const SizedBox(height: 16),
@@ -93,10 +89,7 @@ class ThemeIteam extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: Row(
           children: [
-            if (trailing != null) ...[
-              trailing!,
-              const SizedBox(width: 8),
-            ],
+            if (trailing != null) ...[trailing!, const SizedBox(width: 8)],
             Expanded(
               child: Text(
                 title,

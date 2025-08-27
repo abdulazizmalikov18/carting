@@ -36,10 +36,7 @@ class _MastersTypeViewState extends State<MastersTypeView> {
             return ListView.separated(
               itemBuilder: (context, index) => const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
-                child: WShimmer(
-                  height: 60,
-                  width: double.infinity,
-                ),
+                child: WShimmer(height: 60, width: double.infinity),
               ),
               separatorBuilder: (context, index) => const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
@@ -59,25 +56,29 @@ class _MastersTypeViewState extends State<MastersTypeView> {
               onTap: () {
                 final bloc = context.read<AdvertisementBloc>();
                 if (widget.isCreate) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => BlocProvider.value(
-                      value: bloc,
-                      child: AnnouncementCreateView(
-                        filter: TypeOfServiceEnum.masters,
-                        carId: state.transportSpecialists[index].id,
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider.value(
+                        value: bloc,
+                        child: AnnouncementCreateView(
+                          filter: TypeOfServiceEnum.masters,
+                          carId: state.transportSpecialists[index].id,
+                        ),
                       ),
                     ),
-                  ));
+                  );
                 } else {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => BlocProvider.value(
-                      value: bloc,
-                      child: MastersListView(
-                        title: state.transportSpecialists[index].name,
-                        id: state.transportSpecialists[index].id,
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider.value(
+                        value: bloc,
+                        child: MastersListView(
+                          title: state.transportSpecialists[index].name,
+                          id: state.transportSpecialists[index].id,
+                        ),
                       ),
                     ),
-                  ));
+                  );
                 }
               },
             ),

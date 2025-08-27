@@ -79,9 +79,5 @@ class CargoTypeValu {
   String title;
   bool value;
   final int id;
-  CargoTypeValu({
-    required this.id,
-    required this.title,
-    required this.value,
-  });
+  CargoTypeValu({required this.id, required this.title, required this.value});
 }

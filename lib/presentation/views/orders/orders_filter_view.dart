@@ -26,10 +26,12 @@ class OrdersFilterView extends StatefulWidget {
 class _OrdersFilterViewState extends State<OrdersFilterView> {
   @override
   void initState() {
-    context.read<AdvertisementBloc>().add(GetAdvertisementsFilterEvent(
-          transportId: widget.model.id,
-          status: "ACTIVE",
-        ));
+    context.read<AdvertisementBloc>().add(
+      GetAdvertisementsFilterEvent(
+        transportId: widget.model.id,
+        status: "ACTIVE",
+      ),
+    );
     super.initState();
   }
 
@@ -54,33 +56,33 @@ class _OrdersFilterViewState extends State<OrdersFilterView> {
           if (state.statusFilter.isInProgress) {
             return ListView.separated(
               padding: const EdgeInsets.all(16),
-              itemBuilder: (context, index) => const WShimmer(
-                height: 316,
-                width: double.infinity,
-              ),
+              itemBuilder: (context, index) =>
+                  const WShimmer(height: 316, width: double.infinity),
               separatorBuilder: (context, index) => const SizedBox(height: 12),
               itemCount: 12,
             );
           }
           return RefreshIndicator.adaptive(
             onRefresh: () async {
-              context
-                  .read<AdvertisementBloc>()
-                  .add(GetAdvertisementsFilterEvent(
-                    transportId: widget.model.id,
-                    status: "ACTIVE",
-                  ));
+              context.read<AdvertisementBloc>().add(
+                GetAdvertisementsFilterEvent(
+                  transportId: widget.model.id,
+                  status: "ACTIVE",
+                ),
+              );
               Future.delayed(Duration.zero);
             },
             child: ListView.separated(
               padding: const EdgeInsets.all(16),
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => OrderDetailView(
-                      model: state.advertisementFilter[index],
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => OrderDetailView(
+                        model: state.advertisementFilter[index],
+                      ),
                     ),
-                  ));
+                  );
                 },
                 child: OrdersIteam(
                   model: state.advertisementFilter[index],

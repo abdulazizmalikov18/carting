@@ -36,7 +36,7 @@ class MyFunction {
                 context.pushReplacement(AppRouteName.auth, extra: isFull);
               },
               text: "Tizimga kirish",
-            )
+            ),
           ],
         ),
       );
@@ -56,7 +56,7 @@ class MyFunction {
                 context.push(AppRouteName.profileInfo);
               },
               text: "Malumotni kiritish",
-            )
+            ),
           ],
         ),
       );
@@ -326,8 +326,8 @@ class MyFunction {
     // Ro‘yxatning oxirgi 2 elementini olish
     return parts.isNotEmpty
         ? parts.first.isEmpty
-            ? parts.last
-            : parts.first
+              ? parts.last
+              : parts.first
         : "";
   }
 

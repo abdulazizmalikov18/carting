@@ -57,11 +57,9 @@ class _StorageServiceInfoViewState extends State<StorageServiceInfoView> {
                         fit: BoxFit.cover,
                       ),
                     )
-                  : AppImages.ombor.imgAsset(
-                      fit: BoxFit.cover,
-                    ),
+                  : AppImages.ombor.imgAsset(fit: BoxFit.cover),
             ),
-          )
+          ),
         ],
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -73,10 +71,7 @@ class _StorageServiceInfoViewState extends State<StorageServiceInfoView> {
                 children: [
                   const Text(
                     "Ombor",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                    ),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
                   ),
                   Row(
                     children: [
@@ -97,12 +92,12 @@ class _StorageServiceInfoViewState extends State<StorageServiceInfoView> {
                                 fontSize: 12,
                                 color: context.color.darkText,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
               Text(
@@ -139,7 +134,7 @@ class _StorageServiceInfoViewState extends State<StorageServiceInfoView> {
                         fontWeight: FontWeight.w400,
                         color: context.color.white,
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -151,17 +146,16 @@ class _StorageServiceInfoViewState extends State<StorageServiceInfoView> {
                 ),
                 child: ListTile(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => LocationInfoView(
-                        point2: widget.model.toLocation,
-                        isFirst: false,
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => LocationInfoView(
+                          point2: widget.model.toLocation,
+                          isFirst: false,
+                        ),
                       ),
-                    ));
+                    );
                   },
-                  leading: AppIcons.location.svg(
-                    height: 24,
-                    width: 24,
-                  ),
+                  leading: AppIcons.location.svg(height: 24, width: 24),
                   title: Text(
                     widget.model.toLocation?.name ??
                         AppLocalizations.of(context)!.unknown,
@@ -178,12 +172,14 @@ class _StorageServiceInfoViewState extends State<StorageServiceInfoView> {
                 ),
                 child: ListTile(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => CommentsView(
-                        comments: widget.model.comments ?? [],
-                        id: widget.model.id,
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CommentsView(
+                          comments: widget.model.comments ?? [],
+                          id: widget.model.id,
+                        ),
                       ),
-                    ));
+                    );
                   },
                   leading: AppIcons.message.svg(color: context.color.iron),
                   title: Text(AppLocalizations.of(context)!.comments),
@@ -225,7 +221,7 @@ class _StorageServiceInfoViewState extends State<StorageServiceInfoView> {
                   children: [
                     AppIcons.telegram.svg(),
                     const SizedBox(width: 12),
-                    Text(AppLocalizations.of(context)!.contactViaTelegram)
+                    Text(AppLocalizations.of(context)!.contactViaTelegram),
                   ],
                 ),
               ),

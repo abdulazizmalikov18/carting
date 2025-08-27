@@ -25,9 +25,7 @@ class WorkshopsIteam extends StatelessWidget {
       child: Column(
         children: [
           ClipRRect(
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(24),
-            ),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
             child: (model.images != null && model.images!.isNotEmpty)
                 ? CachedNetworkImage(
                     imageUrl:
@@ -37,10 +35,10 @@ class WorkshopsIteam extends StatelessWidget {
                     fit: BoxFit.cover,
                     errorWidget: (context, url, error) =>
                         AppImages.workshop.imgAsset(
-                      height: 196,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
+                          height: 196,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
                   )
                 : AppImages.workshop.imgAsset(
                     height: 196,
@@ -50,10 +48,7 @@ class WorkshopsIteam extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 12,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -68,10 +63,7 @@ class WorkshopsIteam extends StatelessWidget {
                   const Spacer(),
                   Row(
                     children: [
-                      AppIcons.location.svg(
-                        height: 16,
-                        width: 16,
-                      ),
+                      AppIcons.location.svg(height: 16, width: 16),
                       const SizedBox(width: 4),
                       Expanded(
                         child: Text(
@@ -104,7 +96,7 @@ class WorkshopsIteam extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

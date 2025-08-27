@@ -40,16 +40,13 @@ class _SplashViewState extends State<SplashView> {
             bottom: 56,
             child: Column(
               children: [
-                SpinKitCircle(
-                  size: 52,
-                  color: context.color.white,
-                ),
+                SpinKitCircle(size: 52, color: context.color.white),
                 const SizedBox(height: 10),
                 Text(
                   '© All rights reserved',
                   style: TextStyle(color: context.color.darkText),
                   textAlign: TextAlign.center,
-                )
+                ),
               ],
             ),
           ),

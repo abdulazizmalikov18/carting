@@ -13,23 +13,24 @@ String carsModelToJson(CarsModel data) => json.encode(data.toJson());
 
 @JsonSerializable()
 class CarsModel {
-    @JsonKey(name: "id")
-    final int id;
-    @JsonKey(name: "name")
-    final String name;
-    @JsonKey(name: "fuel_type")
-    final String fuelType;
-    @JsonKey(name: "type_id")
-    final String typeId;
+  @JsonKey(name: "id")
+  final int id;
+  @JsonKey(name: "name")
+  final String name;
+  @JsonKey(name: "fuel_type")
+  final String fuelType;
+  @JsonKey(name: "type_id")
+  final String typeId;
 
-    CarsModel({
-        required this.id,
-        required this.name,
-        required this.fuelType,
-        required this.typeId,
-    });
+  CarsModel({
+    required this.id,
+    required this.name,
+    required this.fuelType,
+    required this.typeId,
+  });
 
-    factory CarsModel.fromJson(Map<String, dynamic> json) => _$CarsModelFromJson(json);
+  factory CarsModel.fromJson(Map<String, dynamic> json) =>
+      _$CarsModelFromJson(json);
 
-    Map<String, dynamic> toJson() => _$CarsModelToJson(this);
+  Map<String, dynamic> toJson() => _$CarsModelToJson(this);
 }

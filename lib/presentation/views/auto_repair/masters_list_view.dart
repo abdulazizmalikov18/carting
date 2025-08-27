@@ -25,10 +25,9 @@ class _MastersListViewState extends State<MastersListView> {
   List<bool> active = [true, true, true, true, true];
   @override
   void initState() {
-    context.read<AdvertisementBloc>().add(GetAdvertisementsFilterEvent(
-          specialistId: widget.id,
-          status: "ACTIVE",
-        ));
+    context.read<AdvertisementBloc>().add(
+      GetAdvertisementsFilterEvent(specialistId: widget.id, status: "ACTIVE"),
+    );
     super.initState();
   }
 
@@ -40,12 +39,15 @@ class _MastersListViewState extends State<MastersListView> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => FilterView(
-                  filterType: FilterType.workshopServices,
-                  list: active,onSaved: (dateTime, dateTime2, fromPrice, toPrice) {},
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => FilterView(
+                    filterType: FilterType.workshopServices,
+                    list: active,
+                    onSaved: (dateTime, dateTime2, fromPrice, toPrice) {},
+                  ),
                 ),
-              ));
+              );
             },
             icon: AppIcons.filter.svg(color: context.color.iron),
           ),
@@ -56,10 +58,8 @@ class _MastersListViewState extends State<MastersListView> {
           if (state.statusFilter.isInProgress) {
             return ListView.separated(
               padding: const EdgeInsets.all(16),
-              itemBuilder: (context, index) => const WShimmer(
-                height: 316,
-                width: double.infinity,
-              ),
+              itemBuilder: (context, index) =>
+                  const WShimmer(height: 316, width: double.infinity),
               separatorBuilder: (context, index) => const SizedBox(height: 16),
               itemCount: 12,
             );
@@ -69,23 +69,25 @@ class _MastersListViewState extends State<MastersListView> {
           }
           return RefreshIndicator.adaptive(
             onRefresh: () async {
-              context
-                  .read<AdvertisementBloc>()
-                  .add(GetAdvertisementsFilterEvent(
-                    specialistId: widget.id,
-                    status: "ACTIVE",
-                  ));
+              context.read<AdvertisementBloc>().add(
+                GetAdvertisementsFilterEvent(
+                  specialistId: widget.id,
+                  status: "ACTIVE",
+                ),
+              );
               await Future.delayed(Duration.zero);
             },
             child: ListView.separated(
               padding: const EdgeInsets.all(16),
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => MasterInfoView(
-                      model: state.advertisementFilter[index],
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => MasterInfoView(
+                        model: state.advertisementFilter[index],
+                      ),
                     ),
-                  ));
+                  );
                 },
                 child: MastersIteam(model: state.advertisementFilter[index]),
               ),

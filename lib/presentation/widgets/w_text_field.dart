@@ -135,10 +135,11 @@ class _WTextFieldState extends State<WTextField> {
               minLines: widget.minLines,
               maxLines: widget.maxLines,
               controller: widget.controller,
-              style: widget.style ??
-                  Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        color: widget.textColor,
-                      ),
+              style:
+                  widget.style ??
+                  Theme.of(
+                    context,
+                  ).textTheme.bodyMedium!.copyWith(color: widget.textColor),
               obscureText: widget.obscureText,
               keyboardType: widget.keyboardType,
               validator: widget.validator,
@@ -153,20 +154,23 @@ class _WTextFieldState extends State<WTextField> {
                 prefixIcon: widget.prefixIcon != null
                     ? IconButton(
                         icon: widget.prefixIcon!,
-                        onPressed: widget.onprefixIconPressed ?? () {})
+                        onPressed: widget.onprefixIconPressed ?? () {},
+                      )
                     : null,
                 focusColor: white,
                 fillColor: widget.fillColor ?? Colors.transparent,
                 hoverColor: white,
                 filled: true,
-                border: widget.border ??
+                border:
+                    widget.border ??
                     OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
                       borderSide: BorderSide(
                         color: shuttleGrey.withValues(alpha: .2),
                       ),
                     ),
-                enabledBorder: widget.border ??
+                enabledBorder:
+                    widget.border ??
                     OutlineInputBorder(
                       borderRadius: BorderRadius.circular(
                         widget.borderRadius ?? 16,
@@ -175,7 +179,8 @@ class _WTextFieldState extends State<WTextField> {
                         color: shuttleGrey.withValues(alpha: .2),
                       ),
                     ),
-                focusedBorder: widget.border ??
+                focusedBorder:
+                    widget.border ??
                     OutlineInputBorder(
                       borderRadius: BorderRadius.circular(
                         widget.borderRadius ?? 16,
@@ -185,14 +190,18 @@ class _WTextFieldState extends State<WTextField> {
                       ),
                     ),
                 hintText: widget.hintText,
-                hintStyle: widget.hintStyle ??
+                hintStyle:
+                    widget.hintStyle ??
                     TextStyle(color: context.color.darkText),
                 // hintStyle: fonts.subtitle1.copyWith(
                 //     color: colors.customBlack.withValues(alpha:0.5), fontSize: 14.sp),
                 // errorText: widget.error,
                 // errorStyle: fonts.caption.copyWith(color: colors.error),
-                contentPadding:
-                    const EdgeInsets.only(left: 16, top: 12, right: 12),
+                contentPadding: const EdgeInsets.only(
+                  left: 16,
+                  top: 12,
+                  right: 12,
+                ),
               ),
             ),
           ),

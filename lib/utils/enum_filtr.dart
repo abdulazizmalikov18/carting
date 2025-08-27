@@ -3,7 +3,7 @@ enum FilterType {
   workshopServices,
   searchAd,
   searchTransport,
-  workshopCategories;
+  workshopCategories,
 }
 
 enum TypeOfServiceEnum {
@@ -15,5 +15,5 @@ enum TypeOfServiceEnum {
   masters,
   transportTransfer,
   storageInWarehouse,
-  fuelDelivery;
+  fuelDelivery,
 }

@@ -31,10 +31,9 @@ class AuthRepo implements IAuthRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
@@ -50,10 +49,9 @@ class AuthRepo implements IAuthRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
@@ -63,10 +61,7 @@ class AuthRepo implements IAuthRepo {
   ) async {
     try {
       final result = await dataSourcheImpl.verifyPost(body);
-      await StorageRepository.putString(
-        StorageKeys.TOKEN,
-        result.data.token,
-      );
+      await StorageRepository.putString(StorageKeys.TOKEN, result.data.token);
       await StorageRepository.putString(
         StorageKeys.REFRESH,
         result.data.refreshToken,
@@ -78,10 +73,9 @@ class AuthRepo implements IAuthRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
@@ -95,10 +89,9 @@ class AuthRepo implements IAuthRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
@@ -106,10 +99,7 @@ class AuthRepo implements IAuthRepo {
   Future<Either<Failure, ResponseModel<TokenModel>>> refreshToken() async {
     try {
       final result = await dataSourcheImpl.refreshToken();
-      await StorageRepository.putString(
-        StorageKeys.TOKEN,
-        result.data.token,
-      );
+      await StorageRepository.putString(StorageKeys.TOKEN, result.data.token);
       await StorageRepository.putString(
         StorageKeys.REFRESH,
         result.data.refreshToken,
@@ -121,10 +111,9 @@ class AuthRepo implements IAuthRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
@@ -134,10 +123,7 @@ class AuthRepo implements IAuthRepo {
   ) async {
     try {
       final result = await dataSourcheImpl.registerPost(body);
-      await StorageRepository.putString(
-        StorageKeys.TOKEN,
-        result.data.token,
-      );
+      await StorageRepository.putString(StorageKeys.TOKEN, result.data.token);
       await StorageRepository.putString(
         StorageKeys.REFRESH,
         result.data.refreshToken,
@@ -149,10 +135,9 @@ class AuthRepo implements IAuthRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 }

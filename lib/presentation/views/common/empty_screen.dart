@@ -18,18 +18,12 @@ class EmptyScreen extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             AppLocalizations.of(context)!.infoNotFound,
-            style: const TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 20,
-            ),
+            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
           ),
           const SizedBox(height: 12),
           Text(
             AppLocalizations.of(context)!.no_service_ads,
-            style: const TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-            ),
+            style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16),
@@ -39,7 +33,7 @@ class EmptyScreen extends StatelessWidget {
             },
             width: 260,
             text: AppLocalizations.of(context)!.back,
-          )
+          ),
         ],
       ),
     );

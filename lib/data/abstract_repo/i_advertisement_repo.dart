@@ -16,25 +16,23 @@ import 'package:carting/utils/either.dart';
 
 abstract class IAdvertisementRepo {
   Future<Either<Failure, ResponseModel<PageModel>>> getAdvertisements(
-      FilterModel? model);
+    FilterModel? model,
+  );
   Future<Either<Failure, ResponseModel<List<AdvertisementModel>>>>
-      getAdvertisementsMe(FilterModel model);
+  getAdvertisementsMe(FilterModel model);
   Future<Either<Failure, ResponseModel<List<TransportationTypesModel>>>>
-      getTransportationTypes(
-    int servisId, {
-    bool isRECEIVE = false,
-  });
+  getTransportationTypes(int servisId, {bool isRECEIVE = false});
   Future<Either<Failure, int>> createAdvertisement(Map<String, dynamic> model);
   Future<Either<Failure, ResponseModel<List<FuelsInfoModel>>>> fuels(
     int fuelsId,
   );
   Future<Either<Failure, ResponseModel<List<TransportSpecialistsModel>>>>
-      getTransportSpecialists();
+  getTransportSpecialists();
   Future<Either<Failure, ResponseModel<List<CarsModel>>>> cars();
 
   Future<Either<Failure, bool>> deactivetAdvertisement(int id);
   Future<Either<Failure, ResponseModel<AdvertisementModel>>>
-      getAdvertisementsId(FilterModel? model);
+  getAdvertisementsId(FilterModel? model);
   Future<Either<Failure, ResponseModel<Map<String, dynamic>>>> createImage(
     ImageCreateModel model,
   );
@@ -52,11 +50,11 @@ abstract class IAdvertisementRepo {
   Future<Either<Failure, bool>> updateStatus(Map<String, dynamic> model);
 
   Future<Either<Failure, ResponseModel<List<NotificationModel>>>>
-      notifications();
+  notifications();
   Future<Either<Failure, bool>> notificationsRead();
 
   Future<Either<Failure, ResponseModel<List<LocationHistoryModel>>>>
-      getLocationHistory();
+  getLocationHistory();
   Future<Either<Failure, int>> getLoanMode(Map<String, dynamic> model);
   Future<Either<Failure, int>> getAvgPrice(Map<String, dynamic> model);
 }

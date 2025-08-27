@@ -50,10 +50,7 @@ class _EditPhoneViewState extends State<EditPhoneView> {
                   ? "Emailni\nalmashtirish"
                   : "Raqamni\nalmashtirish",
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w600,
-              ),
+              style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
             Text(
@@ -101,18 +98,20 @@ class _EditPhoneViewState extends State<EditPhoneView> {
                 return WButton(
                   isLoading: state.statusSms.isInProgress,
                   onTap: () {
-                    context.read<AuthBloc>().add(SendCodeEvent(
-                          phone: !widget.isEmail
-                              ? MyFunction.convertPhoneNumber(
-                                  "+998 ${controller.text}",
-                                )
-                              : controller.text,
-                          isPhone: !widget.isEmail,
-                          onError: (message) {
-                            CustomSnackbar.show(context, message);
-                          },
-                          onSucces: (model) {
-                            Navigator.of(context).push(MaterialPageRoute(
+                    context.read<AuthBloc>().add(
+                      SendCodeEvent(
+                        phone: !widget.isEmail
+                            ? MyFunction.convertPhoneNumber(
+                                "+998 ${controller.text}",
+                              )
+                            : controller.text,
+                        isPhone: !widget.isEmail,
+                        onError: (message) {
+                          CustomSnackbar.show(context, message);
+                        },
+                        onSucces: (model) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
                               builder: (context) => EditPhoneVerifView(
                                 phone: !widget.isEmail
                                     ? MyFunction.convertPhoneNumber(
@@ -122,12 +121,15 @@ class _EditPhoneViewState extends State<EditPhoneView> {
                                 model: model,
                                 isEmail: widget.isEmail,
                               ),
-                            ));
-                          },
-                          isLogin: true,
-                        ));
+                            ),
+                          );
+                        },
+                        isLogin: true,
+                      ),
+                    );
                   },
-                  isDisabled: controller.text.isEmpty ||
+                  isDisabled:
+                      controller.text.isEmpty ||
                       controller.text.length < (widget.isEmail ? 10 : 14),
                   text: AppLocalizations.of(context)!.confirm,
                 );

@@ -2,7 +2,10 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:image/image.dart' as img;
 
-Future<File> resizeAndCompressImage(File imageFile, int targetSizeInBytes) async {
+Future<File> resizeAndCompressImage(
+  File imageFile,
+  int targetSizeInBytes,
+) async {
   try {
     // Fayldan rasmni yuklash
     final imageBytes = await imageFile.readAsBytes();
@@ -22,7 +25,11 @@ Future<File> resizeAndCompressImage(File imageFile, int targetSizeInBytes) async
 
     do {
       // Rasm o'lchamini o'zgartirish
-      final resizedImage = img.copyResize(originalImage, width: width, height: height);
+      final resizedImage = img.copyResize(
+        originalImage,
+        width: width,
+        height: height,
+      );
 
       // Rasmni siqish
       compressedBytes = Uint8List.fromList(
@@ -36,7 +43,9 @@ Future<File> resizeAndCompressImage(File imageFile, int targetSizeInBytes) async
     } while (compressedBytes.length > targetSizeInBytes && quality > 0);
 
     // Siqilgan rasmni saqlash
-    final resizedFile = File(imageFile.path.replaceFirst('.jpg', '_resized.jpg'));
+    final resizedFile = File(
+      imageFile.path.replaceFirst('.jpg', '_resized.jpg'),
+    );
     await resizedFile.writeAsBytes(compressedBytes);
 
     return resizedFile;

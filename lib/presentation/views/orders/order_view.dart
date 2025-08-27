@@ -39,16 +39,18 @@ class _OrderViewState extends State<OrderView> {
           WButton(
             margin: const EdgeInsets.only(right: 16),
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const TypeOfServiceView(),
-              ));
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const TypeOfServiceView(),
+                ),
+              );
             },
             height: 40,
             width: 40,
             borderRadius: 12,
             color: green,
             child: AppIcons.addCircle.svg(),
-          )
+          ),
         ],
         bottom: PreferredSize(
           preferredSize: const Size(double.infinity, 64),

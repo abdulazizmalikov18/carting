@@ -6,11 +6,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 
 class WClaendar extends StatefulWidget {
-  const WClaendar({
-    super.key,
-    this.isOldDate = false,
-    this.selectedDate,
-  });
+  const WClaendar({super.key, this.isOldDate = false, this.selectedDate});
   final bool isOldDate;
   final DateTime? selectedDate;
 
@@ -44,10 +40,7 @@ class _WClaendarState extends State<WClaendar> {
           margin: const EdgeInsets.all(12),
         ),
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 24,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
           decoration: BoxDecoration(
             color: context.color.contColor,
             borderRadius: BorderRadius.circular(24),
@@ -163,10 +156,10 @@ class _WClaendarState extends State<WClaendar> {
                   Navigator.pop(context, _selectedDay);
                 },
                 text: AppLocalizations.of(context)!.save,
-              )
+              ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

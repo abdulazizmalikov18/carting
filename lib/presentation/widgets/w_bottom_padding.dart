@@ -10,12 +10,7 @@ class WBottomPadding extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: EdgeInsets.fromLTRB(
-          16,
-          8,
-          16,
-          Platform.isIOS ? 0 : 16,
-        ),
+        padding: EdgeInsets.fromLTRB(16, 8, 16, Platform.isIOS ? 0 : 16),
         child: child,
       ),
     );

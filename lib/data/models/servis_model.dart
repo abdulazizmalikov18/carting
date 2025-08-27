@@ -9,10 +9,7 @@ class ServisModel {
   @JsonKey(name: "name")
   final String name;
 
-  ServisModel({
-    required this.id,
-    required this.name,
-  });
+  ServisModel({required this.id, required this.name});
 
   factory ServisModel.fromJson(Map<String, dynamic> json) =>
       _$ServisModelFromJson(json);

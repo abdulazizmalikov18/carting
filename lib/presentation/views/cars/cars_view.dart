@@ -59,37 +59,25 @@ class _CarsViewState extends State<CarsView> with WidgetsBindingObserver {
     super.didChangeDependencies();
     list = [
       TypeOfService(
-        icon: AppIcons.shipping.svg(
-          height: 40,
-          width: 40,
-        ),
+        icon: AppIcons.shipping.svg(height: 40, width: 40),
         text: AppLocalizations.of(context)!.shipping,
         screen: const ShippingView(),
         serviceId: 1,
       ),
       TypeOfService(
-        icon: AppIcons.transportationOfPassengers.svg(
-          height: 40,
-          width: 40,
-        ),
+        icon: AppIcons.transportationOfPassengers.svg(height: 40, width: 40),
         text: AppLocalizations.of(context)!.passengerTransport,
         screen: const TransportationOfPassengersView(),
         serviceId: 2,
       ),
       TypeOfService(
-        icon: AppIcons.specialTechnique.svg(
-          height: 40,
-          width: 40,
-        ),
+        icon: AppIcons.specialTechnique.svg(height: 40, width: 40),
         text: AppLocalizations.of(context)!.specialTechServices,
         screen: const SpecialTechniqueView(),
         serviceId: 3,
       ),
       TypeOfService(
-        icon: AppIcons.transportRental.svg(
-          height: 40,
-          width: 40,
-        ),
+        icon: AppIcons.transportRental.svg(height: 40, width: 40),
         text: AppLocalizations.of(context)!.peregonService,
         screen: const CarsTypeView(),
         serviceId: 4,
@@ -138,7 +126,7 @@ class _CarsViewState extends State<CarsView> with WidgetsBindingObserver {
                     },
                     text: AppLocalizations.of(context)!.enter,
                   ),
-                  const SizedBox(height: 60)
+                  const SizedBox(height: 60),
                 ],
               ),
             );
@@ -151,20 +139,22 @@ class _CarsViewState extends State<CarsView> with WidgetsBindingObserver {
               crossAxisSpacing: 12,
               mainAxisExtent: 120,
             ),
-            itemCount:
-                searchController.text.isEmpty ? list.length : products.length,
+            itemCount: searchController.text.isEmpty
+                ? list.length
+                : products.length,
             itemBuilder: (context, index) => GestureDetector(
               onTap: () {
                 final bloc = context.read<AdvertisementBloc>();
-                Navigator.of(context, rootNavigator: true)
-                    .push(MaterialPageRoute(
-                  builder: (context) => BlocProvider.value(
-                    value: bloc,
-                    child: searchController.text.isEmpty
-                        ? list[index].screen
-                        : products[index].screen,
+                Navigator.of(context, rootNavigator: true).push(
+                  MaterialPageRoute(
+                    builder: (context) => BlocProvider.value(
+                      value: bloc,
+                      child: searchController.text.isEmpty
+                          ? list[index].screen
+                          : products[index].screen,
+                    ),
                   ),
-                ));
+                );
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -189,7 +179,7 @@ class _CarsViewState extends State<CarsView> with WidgetsBindingObserver {
                           : products[index].text,
                       textAlign: TextAlign.center,
                       maxLines: 2,
-                    )
+                    ),
                   ],
                 ),
               ),

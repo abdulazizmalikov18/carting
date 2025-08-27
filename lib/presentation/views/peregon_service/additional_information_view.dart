@@ -157,9 +157,9 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
                                 spacing: 8,
                                 children: [
                                   AppIcons.cash.svg(),
-                                  Text(AppLocalizations.of(context)!.cash)
+                                  Text(AppLocalizations.of(context)!.cash),
                                 ],
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -191,9 +191,9 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
                                 spacing: 8,
                                 children: [
                                   AppIcons.card.svg(),
-                                  Text(AppLocalizations.of(context)!.card)
+                                  Text(AppLocalizations.of(context)!.card),
                                 ],
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -287,7 +287,7 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             );
@@ -312,87 +312,81 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                ...List.generate(
-                  widget.images.length + 1,
-                  (index) {
-                    if (widget.images.length == index) {
-                      return WScaleAnimation(
-                        onTap: () {
-                          showAdaptiveImagePicker(
-                            context: context,
-                            onImageSourceSelected: (source) {
-                              if (source == ImageSource.gallery) {
-                                imagesFile();
-                              } else {
-                                imagesFileCamera();
-                              }
-                              setState(() {});
-                            },
-                          );
-                        },
-                        child: SizedBox(
-                          height: 56,
-                          child: DottedBorder(
-                            options: const RoundedRectDottedBorderOptions(
-                              color: green,
-                              strokeWidth: 1,
-                              radius: Radius.circular(16),
-                            ),
-                            child: Center(
-                              child: AppIcons.upload.svg(),
-                            ),
-                          ),
-                        ),
-                      );
-                    }
-                    return DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: context.color.scaffoldBackground,
-                      ),
-                      child: ListTile(
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 8),
-                        leading: Container(
-                          height: 48,
-                          width: 48,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            image: DecorationImage(
-                              image: FileImage(widget.images[index]),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        title: Text(
-                          widget.images[index].path.split('/').last,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        subtitle: FutureBuilder<int>(
-                          future: widget.images[index].length(),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return const Text("Hajm yuklanmoqda...");
-                            } else if (snapshot.hasError) {
-                              return const Text("Xatolik yuz berdi.");
+                ...List.generate(widget.images.length + 1, (index) {
+                  if (widget.images.length == index) {
+                    return WScaleAnimation(
+                      onTap: () {
+                        showAdaptiveImagePicker(
+                          context: context,
+                          onImageSourceSelected: (source) {
+                            if (source == ImageSource.gallery) {
+                              imagesFile();
                             } else {
-                              return Text(formatFileSize(snapshot.data!));
+                              imagesFileCamera();
                             }
-                          },
-                        ),
-                        trailing: IconButton(
-                          onPressed: () {
-                            widget.images.removeAt(index);
                             setState(() {});
                           },
-                          icon: AppIcons.trash.svg(),
+                        );
+                      },
+                      child: SizedBox(
+                        height: 56,
+                        child: DottedBorder(
+                          options: const RoundedRectDottedBorderOptions(
+                            color: green,
+                            strokeWidth: 1,
+                            radius: Radius.circular(16),
+                          ),
+                          child: Center(child: AppIcons.upload.svg()),
                         ),
                       ),
                     );
-                  },
-                ),
+                  }
+                  return DecoratedBox(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: context.color.scaffoldBackground,
+                    ),
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+                      leading: Container(
+                        height: 48,
+                        width: 48,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          image: DecorationImage(
+                            image: FileImage(widget.images[index]),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      title: Text(
+                        widget.images[index].path.split('/').last,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      subtitle: FutureBuilder<int>(
+                        future: widget.images[index].length(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Text("Hajm yuklanmoqda...");
+                          } else if (snapshot.hasError) {
+                            return const Text("Xatolik yuz berdi.");
+                          } else {
+                            return Text(formatFileSize(snapshot.data!));
+                          }
+                        },
+                      ),
+                      trailing: IconButton(
+                        onPressed: () {
+                          widget.images.removeAt(index);
+                          setState(() {});
+                        },
+                        icon: AppIcons.trash.svg(),
+                      ),
+                    ),
+                  );
+                }),
               ],
             ),
           ),

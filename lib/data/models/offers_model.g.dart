@@ -7,14 +7,14 @@ part of 'offers_model.dart';
 // **************************************************************************
 
 OffersModel _$OffersModelFromJson(Map<String, dynamic> json) => OffersModel(
-      id: (json['id'] as num?)?.toInt() ?? 0,
-      offeredSum: (json['offered_sum'] as num?)?.toInt() ?? 0,
-      note: json['note'] as String? ?? '',
-      type: json['type'] as String? ?? '',
-      offererName: json['offerer_name'] as String? ?? '',
-      offererAvatar: json['offerer_avatar'] as String? ?? '',
-      offeredTime: json['offered_time'] as String? ?? '',
-    );
+  id: (json['id'] as num?)?.toInt() ?? 0,
+  offeredSum: (json['offered_sum'] as num?)?.toInt() ?? 0,
+  note: json['note'] as String? ?? '',
+  type: json['type'] as String? ?? '',
+  offererName: json['offerer_name'] as String? ?? '',
+  offererAvatar: json['offerer_avatar'] as String? ?? '',
+  offeredTime: json['offered_time'] as String? ?? '',
+);
 
 Map<String, dynamic> _$OffersModelToJson(OffersModel instance) =>
     <String, dynamic>{

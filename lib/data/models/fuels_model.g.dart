@@ -7,10 +7,10 @@ part of 'fuels_model.dart';
 // **************************************************************************
 
 FuelsModel _$FuelsModelFromJson(Map<String, dynamic> json) => FuelsModel(
-      id: (json['id'] as num).toInt(),
-      type: json['type'] as String,
-      price: json['price'] as String,
-    );
+  id: (json['id'] as num).toInt(),
+  type: json['type'] as String,
+  price: json['price'] as String,
+);
 
 Map<String, dynamic> _$FuelsModelToJson(FuelsModel instance) =>
     <String, dynamic>{

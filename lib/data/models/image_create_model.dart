@@ -20,10 +20,7 @@ class ImageCreateModel {
   @JsonKey(name: "images")
   final List<ImageFiles> images;
 
-  ImageCreateModel({
-    required this.advertisementId,
-    required this.images,
-  });
+  ImageCreateModel({required this.advertisementId, required this.images});
 
   factory ImageCreateModel.fromJson(Map<String, dynamic> json) =>
       _$ImageCreateModelFromJson(json);
@@ -38,10 +35,7 @@ class ImageFiles {
   @JsonKey(name: "base64")
   final String base64;
 
-  ImageFiles({
-    required this.fileName,
-    required this.base64,
-  });
+  ImageFiles({required this.fileName, required this.base64});
 
   factory ImageFiles.fromJson(Map<String, dynamic> json) =>
       _$ImageFilesFromJson(json);

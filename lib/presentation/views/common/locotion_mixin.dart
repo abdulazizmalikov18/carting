@@ -25,12 +25,8 @@ mixin LocotionMixin on State<LocationView> {
   void initState() {
     widget.bloc.add(GetLocationHistoryEvent());
     getMerk();
-    controllerLat = TextEditingController(
-      text: widget.point1?.name ?? "",
-    );
-    controllerLong = TextEditingController(
-      text: widget.point2?.name ?? "",
-    );
+    controllerLat = TextEditingController(text: widget.point1?.name ?? "");
+    controllerLong = TextEditingController(text: widget.point2?.name ?? "");
 
     point1 = widget.point1;
     point2 = widget.point2;
@@ -43,15 +39,13 @@ mixin LocotionMixin on State<LocationView> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (widget.isFirst && point1 != null) {
-      _moveToCurrentLocation(AppLatLong(
-        lat: point1!.latitude,
-        long: point1!.longitude,
-      ));
+      _moveToCurrentLocation(
+        AppLatLong(lat: point1!.latitude, long: point1!.longitude),
+      );
     } else if (point2 != null) {
-      _moveToCurrentLocation(AppLatLong(
-        lat: point2!.latitude,
-        long: point2!.longitude,
-      ));
+      _moveToCurrentLocation(
+        AppLatLong(lat: point2!.latitude, long: point2!.longitude),
+      );
     } else {
       _initPermission().ignore();
     }
@@ -120,12 +114,14 @@ mixin LocotionMixin on State<LocationView> {
     });
     setState(() {
       result.routes!.asMap().forEach((i, route) {
-        mapObjects.add(PolylineMapObject(
-          mapId: MapObjectId('route_${i}_polyline'),
-          polyline: route.geometry,
-          strokeColor: green,
-          strokeWidth: 5,
-        ));
+        mapObjects.add(
+          PolylineMapObject(
+            mapId: MapObjectId('route_${i}_polyline'),
+            polyline: route.geometry,
+            strokeColor: green,
+            strokeWidth: 5,
+          ),
+        );
       });
     });
   }
@@ -134,8 +130,9 @@ mixin LocotionMixin on State<LocationView> {
   /// Выполняется проверка на доступ к местоположению, в случае отсутствия
   /// разрешения - выводит сообщение
   Future<void> _initLocationLayer() async {
-    final locationPermissionIsGranted =
-        await Permission.location.request().isGranted;
+    final locationPermissionIsGranted = await Permission.location
+        .request()
+        .isGranted;
 
     if (locationPermissionIsGranted) {
       await mapController?.toggleUserLayer(visible: true);
@@ -174,8 +171,10 @@ mixin LocotionMixin on State<LocationView> {
       },
       onClusterTap: (self, cluster) async {
         await mapController?.moveCamera(
-          animation:
-              const MapAnimation(type: MapAnimationType.linear, duration: 0.3),
+          animation: const MapAnimation(
+            type: MapAnimationType.linear,
+            duration: 0.3,
+          ),
           CameraUpdate.newCameraPosition(
             CameraPosition(
               target: cluster.placemarks.first.point,
@@ -251,17 +250,12 @@ mixin LocotionMixin on State<LocationView> {
   }
 
   /// Метод для показа текущей позиции
-  Future<void> _moveToCurrentLocation(
-    AppLatLong appLatLong,
-  ) async {
+  Future<void> _moveToCurrentLocation(AppLatLong appLatLong) async {
     mapController?.moveCamera(
       animation: const MapAnimation(type: MapAnimationType.linear, duration: 1),
       CameraUpdate.newCameraPosition(
         CameraPosition(
-          target: Point(
-            latitude: appLatLong.lat,
-            longitude: appLatLong.long,
-          ),
+          target: Point(latitude: appLatLong.lat, longitude: appLatLong.long),
           zoom: 15,
         ),
       ),

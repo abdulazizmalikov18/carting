@@ -14,7 +14,7 @@ class DioSettings {
     headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
         ? {
             'Authorization':
-                'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
           }
         : {},
     validateStatus: (status) => status != null && status <= 500,
@@ -28,7 +28,7 @@ class DioSettings {
       headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
           ? {
               'Authorization':
-                  'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                  'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
             }
           : {},
       followRedirects: false,
@@ -64,34 +64,30 @@ class DioSettings {
       StorageRepository.getBool(StorageKeys.CHUCK, defValue: false);
 
   Dio get dio => Dio(_dioBaseOptions)
-    ..interceptors.addAll(
-      [
-        LogInterceptor(
-          requestBody: kDebugMode,
-          request: kDebugMode,
-          requestHeader: kDebugMode,
-          responseBody: kDebugMode,
-          responseHeader: kDebugMode,
-          error: kDebugMode,
-        ),
-        ErrorHandlerInterceptor(),
-      ],
-    );
+    ..interceptors.addAll([
+      LogInterceptor(
+        requestBody: kDebugMode,
+        request: kDebugMode,
+        requestHeader: kDebugMode,
+        responseBody: kDebugMode,
+        responseHeader: kDebugMode,
+        error: kDebugMode,
+      ),
+      ErrorHandlerInterceptor(),
+    ]);
 
   Dio get dioForAuth => Dio(_dioBaseOptionsForAuth)
-    ..interceptors.addAll(
-      [
-        LogInterceptor(
-          requestBody: kDebugMode,
-          request: kDebugMode,
-          requestHeader: kDebugMode,
-          responseBody: kDebugMode,
-          responseHeader: kDebugMode,
-          error: kDebugMode,
-        ),
-        ErrorHandlerInterceptor(),
-      ],
-    );
+    ..interceptors.addAll([
+      LogInterceptor(
+        requestBody: kDebugMode,
+        request: kDebugMode,
+        requestHeader: kDebugMode,
+        responseBody: kDebugMode,
+        responseHeader: kDebugMode,
+        error: kDebugMode,
+      ),
+      ErrorHandlerInterceptor(),
+    ]);
 }
 
 class ErrorHandlerInterceptor implements Interceptor {

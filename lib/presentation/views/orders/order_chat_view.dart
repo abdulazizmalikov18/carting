@@ -29,8 +29,10 @@ class _OrderChatViewState extends State<OrderChatView> {
                   borderRadius: BorderRadius.circular(16),
                   color: green,
                 ),
-                padding:
-                    const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 6,
+                  horizontal: 12,
+                ),
                 child: const Text(
                   "Let’s get lunch soon! When are you free? ",
                   style: TextStyle(

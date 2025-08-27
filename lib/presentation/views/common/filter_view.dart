@@ -36,7 +36,8 @@ class FilterView extends StatefulWidget {
     DateTime? dateTime2,
     int? fromPrice,
     int? toPrice,
-  ) onSaved;
+  )
+  onSaved;
 
   @override
   State<FilterView> createState() => _FilterViewState();
@@ -49,12 +50,7 @@ class _FilterViewState extends State<FilterView> {
   late TextEditingController dateTime2;
   late TextEditingController fromPrice;
   late TextEditingController toPrice;
-  List<String> list = [
-    "Polirovka",
-    "Keramika",
-    "Bo’yoq",
-    "Myatina",
-  ];
+  List<String> list = ["Polirovka", "Keramika", "Bo’yoq", "Myatina"];
   int servisIndex = 0;
 
   @override
@@ -129,248 +125,251 @@ class _FilterViewState extends State<FilterView> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            Builder(builder: (context) {
-              switch (widget.filterType) {
-                case FilterType.workshopServices:
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(24),
-                      color: context.color.contColor,
-                    ),
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.services,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: context.color.darkText,
+            Builder(
+              builder: (context) {
+                switch (widget.filterType) {
+                  case FilterType.workshopServices:
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(24),
+                        color: context.color.contColor,
+                      ),
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.services,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: context.color.darkText,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 12),
-                        Wrap(
-                          spacing: 12,
-                          runSpacing: 12,
-                          children: List.generate(
-                            list.length,
-                            (index) => Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: context.color.contGrey,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: green.withValues(alpha: .32),
-                                    blurRadius: 16,
-                                    spreadRadius: -24,
-                                    offset: const Offset(0, 8),
-                                  )
-                                ],
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 4,
-                                horizontal: 16,
-                              ),
-                              child: Text(
-                                list[index],
-                                style: const TextStyle(
-                                  color: white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
+                          const SizedBox(height: 12),
+                          Wrap(
+                            spacing: 12,
+                            runSpacing: 12,
+                            children: List.generate(
+                              list.length,
+                              (index) => Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: context.color.contGrey,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: green.withValues(alpha: .32),
+                                      blurRadius: 16,
+                                      spreadRadius: -24,
+                                      offset: const Offset(0, 8),
+                                    ),
+                                  ],
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 4,
+                                  horizontal: 16,
+                                ),
+                                child: Text(
+                                  list[index],
+                                  style: const TextStyle(
+                                    color: white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                case FilterType.services:
-                  return Column(
-                    children: [
-                      WselectServisIteam(
-                        onTap: (index, servisId) {
-                          servisIndex = index;
-                          setState(() {});
-                        },
+                        ],
                       ),
-                      const SizedBox(height: 12),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(24),
-                          color: context.color.contColor,
+                    );
+                  case FilterType.services:
+                    return Column(
+                      children: [
+                        WselectServisIteam(
+                          onTap: (index, servisId) {
+                            servisIndex = index;
+                            setState(() {});
+                          },
                         ),
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 12,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Reyting",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: context.color.darkText,
+                        const SizedBox(height: 12),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(24),
+                            color: context.color.contColor,
+                          ),
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Reyting",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: context.color.darkText,
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 12),
-                            Wrap(
-                              spacing: 8,
-                              runSpacing: 8,
-                              children: List.generate(
-                                5,
-                                (index) => WScaleAnimation(
-                                  onTap: () {
-                                    listActive[index] = !listActive[index];
-                                    setState(() {});
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: listActive[index]
-                                          ? green
-                                          : context.color.scaffoldBackground,
-                                      boxShadow: listActive[index]
-                                          ? [
-                                              BoxShadow(
-                                                color: green.withValues(
-                                                    alpha: .32),
-                                                blurRadius: 16,
-                                                spreadRadius: -24,
-                                                offset: const Offset(0, 8),
-                                              )
-                                            ]
-                                          : [],
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 4,
-                                      horizontal: 14,
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        AppIcons.star.svg(
-                                          color: listActive[index]
-                                              ? white
-                                              : context.color.white,
-                                        ),
-                                        const SizedBox(width: 4),
-                                        Text(
-                                          (index + 1).toString(),
-                                          style: TextStyle(
+                              const SizedBox(height: 12),
+                              Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                children: List.generate(
+                                  5,
+                                  (index) => WScaleAnimation(
+                                    onTap: () {
+                                      listActive[index] = !listActive[index];
+                                      setState(() {});
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: listActive[index]
+                                            ? green
+                                            : context.color.scaffoldBackground,
+                                        boxShadow: listActive[index]
+                                            ? [
+                                                BoxShadow(
+                                                  color: green.withValues(
+                                                    alpha: .32,
+                                                  ),
+                                                  blurRadius: 16,
+                                                  spreadRadius: -24,
+                                                  offset: const Offset(0, 8),
+                                                ),
+                                              ]
+                                            : [],
+                                      ),
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 4,
+                                        horizontal: 14,
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          AppIcons.star.svg(
                                             color: listActive[index]
                                                 ? white
                                                 : context.color.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
                                           ),
+                                          const SizedBox(width: 4),
+                                          Text(
+                                            (index + 1).toString(),
+                                            style: TextStyle(
+                                              color: listActive[index]
+                                                  ? white
+                                                  : context.color.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+                  case FilterType.searchAd:
+                    return Column(
+                      children: [
+                        _servicesListIteam(context),
+                        const SizedBox(height: 12),
+                        _fromToDate(context),
+                        const SizedBox(height: 12),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(24),
+                            color: context.color.contColor,
+                          ),
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.price,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: context.color.darkText,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Row(
+                                spacing: 12,
+                                children: [
+                                  Expanded(
+                                    child: CustomTextField(
+                                      controller: fromPrice,
+                                      height: 48,
+                                      borderRadius: 16,
+                                      fillColor: context.color.contColor,
+                                      hintText: '0',
+                                      keyboardType: TextInputType.number,
+                                      prefixIcon: Text(
+                                        AppLocalizations.of(context)!.from_in,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                          color: context.color.darkText,
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  );
-                case FilterType.searchAd:
-                  return Column(
-                    children: [
-                      _servicesListIteam(context),
-                      const SizedBox(height: 12),
-                      _fromToDate(context),
-                      const SizedBox(height: 12),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(24),
-                          color: context.color.contColor,
-                        ),
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 12,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppLocalizations.of(context)!.price,
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: context.color.darkText,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Row(
-                              spacing: 12,
-                              children: [
-                                Expanded(
-                                  child: CustomTextField(
-                                    controller: fromPrice,
-                                    height: 48,
-                                    borderRadius: 16,
-                                    fillColor: context.color.contColor,
-                                    hintText: '0',
-                                    keyboardType: TextInputType.number,
-                                    prefixIcon: Text(
-                                      AppLocalizations.of(context)!.from_in,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color: context.color.darkText,
                                       ),
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  child: CustomTextField(
-                                    controller: toPrice,
-                                    height: 48,
-                                    borderRadius: 16,
-                                    fillColor: context.color.contColor,
-                                    hintText: '0',
-                                    keyboardType: TextInputType.number,
-                                    prefixIcon: Text(
-                                      AppLocalizations.of(context)!.to_in,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color: context.color.darkText,
+                                  Expanded(
+                                    child: CustomTextField(
+                                      controller: toPrice,
+                                      height: 48,
+                                      borderRadius: 16,
+                                      fillColor: context.color.contColor,
+                                      hintText: '0',
+                                      keyboardType: TextInputType.number,
+                                      prefixIcon: Text(
+                                        AppLocalizations.of(context)!.to_in,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                          color: context.color.darkText,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            )
-                          ],
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      )
-                    ],
-                  );
-                case FilterType.searchTransport:
-                  return Column(
-                    children: [
-                      _servicesListIteam(context),
-                      const SizedBox(height: 12),
-                      _fromToDate(context),
-                    ],
-                  );
-                default:
-                  return const SizedBox();
-              }
-            }),
+                      ],
+                    );
+                  case FilterType.searchTransport:
+                    return Column(
+                      children: [
+                        _servicesListIteam(context),
+                        const SizedBox(height: 12),
+                        _fromToDate(context),
+                      ],
+                    );
+                  default:
+                    return const SizedBox();
+                }
+              },
+            ),
           ],
         ),
       ),
@@ -384,10 +383,7 @@ class _FilterViewState extends State<FilterView> {
         color: context.color.contColor,
       ),
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 12,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -423,7 +419,7 @@ class _FilterViewState extends State<FilterView> {
                               blurRadius: 16,
                               spreadRadius: -24,
                               offset: const Offset(0, 8),
-                            )
+                            ),
                           ]
                         : [],
                   ),
@@ -460,10 +456,7 @@ class _FilterViewState extends State<FilterView> {
               borderRadius: BorderRadius.circular(24),
               color: context.color.contColor,
             ),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 12,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: CustomTextField(
               controller: dateTime,
               height: 48,
@@ -472,8 +465,11 @@ class _FilterViewState extends State<FilterView> {
               hintText: '00.00.0000',
               maxLines: 1,
               expands: false,
-              contentPadding:
-                  const EdgeInsets.only(left: 0, top: 12, right: 12),
+              contentPadding: const EdgeInsets.only(
+                left: 0,
+                top: 12,
+                right: 12,
+              ),
               title:
                   '${AppLocalizations.of(context)!.date} (${AppLocalizations.of(context)!.from_in})',
               readOnly: true,
@@ -502,10 +498,7 @@ class _FilterViewState extends State<FilterView> {
               borderRadius: BorderRadius.circular(24),
               color: context.color.contColor,
             ),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 12,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: CustomTextField(
               controller: dateTime2,
               height: 48,
@@ -528,8 +521,11 @@ class _FilterViewState extends State<FilterView> {
               fillColor: context.color.contColor,
               hintText: '00.00.0000',
               maxLines: 1,
-              contentPadding:
-                  const EdgeInsets.only(left: 0, top: 12, right: 12),
+              contentPadding: const EdgeInsets.only(
+                left: 0,
+                top: 12,
+                right: 12,
+              ),
               expands: false,
               title:
                   '${AppLocalizations.of(context)!.date} (${AppLocalizations.of(context)!.to_in})',

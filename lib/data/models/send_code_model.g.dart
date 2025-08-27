@@ -22,10 +22,9 @@ Map<String, dynamic> _$SendCodeModelToJson(SendCodeModel instance) =>
       'security_code': instance.securityCode,
     };
 
-Headers _$HeadersFromJson(Map<String, dynamic> json) => Headers(
-      userAgent: json['user_agent'] as String? ?? '',
-    );
+Headers _$HeadersFromJson(Map<String, dynamic> json) =>
+    Headers(userAgent: json['user_agent'] as String? ?? '');
 
 Map<String, dynamic> _$HeadersToJson(Headers instance) => <String, dynamic>{
-      'user_agent': instance.userAgent,
-    };
+  'user_agent': instance.userAgent,
+};

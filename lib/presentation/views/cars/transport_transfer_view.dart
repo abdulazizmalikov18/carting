@@ -109,18 +109,20 @@ class _TransportTransferCreateViewState
                       point2 = point;
                     },
                     onSucces: (point, point2) {
-                      context.read<AdvertisementBloc>().add(GetAvgPriceEvent(
-                            model: {
-                              'service_type_id': 6,
-                              'from_lat': point1?.latitude,
-                              'from_lon': point1?.longitude,
-                              'to_lat': point2?.latitude,
-                              'to_lon': point2?.longitude
-                            },
-                            onSucces: (id) {
-                              controllerPrice.text = id.toString();
-                            },
-                          ));
+                      context.read<AdvertisementBloc>().add(
+                        GetAvgPriceEvent(
+                          model: {
+                            'service_type_id': 6,
+                            'from_lat': point1?.latitude,
+                            'from_lon': point1?.longitude,
+                            'to_lat': point2?.latitude,
+                            'to_lon': point2?.longitude,
+                          },
+                          onSucces: (id) {
+                            controllerPrice.text = id.toString();
+                          },
+                        ),
+                      );
                     },
                   ),
                   MinTextField(
@@ -143,18 +145,19 @@ class _TransportTransferCreateViewState
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
-                        builder: (context) => WClaendar(
-                          selectedDate: selectedDate,
-                        ),
+                        builder: (context) =>
+                            WClaendar(selectedDate: selectedDate),
                       ).then((value) {
                         if (value != null) {
-                          final date =
-                              (value as DateTime).add(const Duration(hours: 8));
+                          final date = (value as DateTime).add(
+                            const Duration(hours: 8),
+                          );
                           selectedDate = date;
                           selectedDate2 = date.add(const Duration(hours: 12));
                           controllerTime.text = MyFunction.formattedTime(date);
-                          controllerTime2.text =
-                              MyFunction.formattedTime(selectedDate2);
+                          controllerTime2.text = MyFunction.formattedTime(
+                            selectedDate2,
+                          );
                           controller.text = MyFunction.dateFormat(value);
                         }
                       });
@@ -165,27 +168,26 @@ class _TransportTransferCreateViewState
                           context: context,
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,
-                          builder: (context) => WClaendar(
-                            selectedDate: selectedDate,
-                          ),
+                          builder: (context) =>
+                              WClaendar(selectedDate: selectedDate),
                         ).then((value) {
                           if (value != null) {
-                            final date = (value as DateTime)
-                                .add(const Duration(hours: 8));
+                            final date = (value as DateTime).add(
+                              const Duration(hours: 8),
+                            );
                             selectedDate = date;
                             selectedDate2 = date.add(const Duration(hours: 12));
-                            controllerTime.text =
-                                MyFunction.formattedTime(date);
-                            controllerTime2.text =
-                                MyFunction.formattedTime(selectedDate2);
+                            controllerTime.text = MyFunction.formattedTime(
+                              date,
+                            );
+                            controllerTime2.text = MyFunction.formattedTime(
+                              selectedDate2,
+                            );
                             controller.text = MyFunction.dateFormat(value);
                           }
                         });
                       },
-                      child: AppIcons.calendar.svg(
-                        height: 24,
-                        width: 24,
-                      ),
+                      child: AppIcons.calendar.svg(height: 24, width: 24),
                     ),
                     onChanged: (value) {},
                   ),
@@ -206,14 +208,14 @@ class _TransportTransferCreateViewState
                               context: context,
                               isScrollControlled: true,
                               backgroundColor: Colors.transparent,
-                              builder: (context) => WTime(
-                                selectedDate: selectedDate,
-                              ),
+                              builder: (context) =>
+                                  WTime(selectedDate: selectedDate),
                             ).then((value) {
                               if (value != null) {
                                 selectedDate = value;
-                                controllerTime.text =
-                                    MyFunction.formattedTime(value);
+                                controllerTime.text = MyFunction.formattedTime(
+                                  value,
+                                );
                               }
                             });
                           },
@@ -223,9 +225,8 @@ class _TransportTransferCreateViewState
                                 context: context,
                                 isScrollControlled: true,
                                 backgroundColor: Colors.transparent,
-                                builder: (context) => WTime(
-                                  selectedDate: selectedDate,
-                                ),
+                                builder: (context) =>
+                                    WTime(selectedDate: selectedDate),
                               ).then((value) {
                                 if (value != null) {
                                   selectedDate = value;
@@ -234,10 +235,7 @@ class _TransportTransferCreateViewState
                                 }
                               });
                             },
-                            child: AppIcons.clock.svg(
-                              height: 24,
-                              width: 24,
-                            ),
+                            child: AppIcons.clock.svg(height: 24, width: 24),
                           ),
                           onChanged: (value) {},
                         ),
@@ -263,8 +261,9 @@ class _TransportTransferCreateViewState
                             ).then((value) {
                               if (value != null) {
                                 selectedDate2 = value;
-                                controllerTime2.text =
-                                    MyFunction.formattedTime(value);
+                                controllerTime2.text = MyFunction.formattedTime(
+                                  value,
+                                );
                               }
                             });
                           },
@@ -286,16 +285,14 @@ class _TransportTransferCreateViewState
                                 }
                               });
                             },
-                            child: AppIcons.clock.svg(
-                              height: 24,
-                              width: 24,
-                            ),
+                            child: AppIcons.clock.svg(height: 24, width: 24),
                           ),
                           onChanged: (value) {},
                         ),
                       ),
                     ],
                   ),
+
                   // Container(
                   //   decoration: BoxDecoration(
                   //     color: context.color.contColor,
@@ -332,7 +329,6 @@ class _TransportTransferCreateViewState
                   //     trailing: AppIcons.arrowForward.svg(),
                   //   ),
                   // ),
-
                   WSelectionItam(
                     onTap: (int index) {
                       trTypeId.value = index;
@@ -349,7 +345,7 @@ class _TransportTransferCreateViewState
                         images = list;
                       });
                     },
-                  )
+                  ),
                 ],
               ),
             ),
@@ -411,29 +407,36 @@ class _TransportTransferCreateViewState
                       price: priceOffer.value
                           ? 0
                           : int.tryParse(
-                                  controllerPrice.text.replaceAll(' ', '')) ??
-                              0,
+                                  controllerPrice.text.replaceAll(' ', ''),
+                                ) ??
+                                0,
                     ).toJson();
-                    context.read<AdvertisementBloc>().add(CreateDeliveryEvent(
-                          model: model,
-                          images: images,
-                          onError: () {
-                            Navigator.of(context).pop();
-                          },
-                          onSucces: (id) {},
-                        ));
+                    context.read<AdvertisementBloc>().add(
+                      CreateDeliveryEvent(
+                        model: model,
+                        images: images,
+                        onError: () {
+                          Navigator.of(context).pop();
+                        },
+                        onSucces: (id) {},
+                      ),
+                    );
                     succesCreate(context).then((value) {
                       if (context.mounted) {
                         context.go(AppRouteName.announcements);
-                        context
-                            .read<AdvertisementBloc>()
-                            .add(GetAdvertisementsEvent(isPROVIDE: false));
+                        context.read<AdvertisementBloc>().add(
+                          GetAdvertisementsEvent(isPROVIDE: false),
+                        );
                       }
                     });
                   },
                   isLoading: state.statusCreate.isInProgress,
-                  margin:
-                      EdgeInsets.fromLTRB(16, 16, 16, Platform.isIOS ? 0 : 16),
+                  margin: EdgeInsets.fromLTRB(
+                    16,
+                    16,
+                    16,
+                    Platform.isIOS ? 0 : 16,
+                  ),
                   text: AppLocalizations.of(context)!.confirm,
                 );
               },

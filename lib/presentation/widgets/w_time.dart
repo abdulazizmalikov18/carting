@@ -37,10 +37,7 @@ class _WTimeState extends State<WTime> {
           margin: const EdgeInsets.all(12),
         ),
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 24,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
           decoration: BoxDecoration(
             color: context.color.contColor,
             borderRadius: BorderRadius.circular(24),
@@ -78,10 +75,10 @@ class _WTimeState extends State<WTime> {
                   Navigator.pop(context, _selectedDay);
                 },
                 text: AppLocalizations.of(context)!.save,
-              )
+              ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

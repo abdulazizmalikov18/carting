@@ -14,10 +14,7 @@ class PageModel {
   @JsonKey(name: "datas")
   final List<AdvertisementModel> datas;
 
-  PageModel({
-    required this.allCount,
-    required this.datas,
-  });
+  PageModel({required this.allCount, required this.datas});
 
   factory PageModel.fromJson(Map<String, dynamic> json) =>
       _$PageModelFromJson(json);

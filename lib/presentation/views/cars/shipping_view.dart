@@ -21,9 +21,9 @@ class ShippingView extends StatefulWidget {
 class _ShippingViewState extends State<ShippingView> {
   @override
   void initState() {
-    context
-        .read<AdvertisementBloc>()
-        .add(GetTransportationTypesEvent(serviceId: 1));
+    context.read<AdvertisementBloc>().add(
+      GetTransportationTypesEvent(serviceId: 1),
+    );
     super.initState();
   }
 
@@ -61,16 +61,18 @@ class _ShippingViewState extends State<ShippingView> {
             itemBuilder: (context, index) => GestureDetector(
               onTap: () {
                 final bloc = context.read<AdvertisementBloc>();
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => BlocProvider.value(
-                    value: bloc,
-                    child: OrdersFilterView(
-                      model: state.transportationTypes[index],
-                      onTap: () {},
-                      type: AppLocalizations.of(context)!.shipping,
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => BlocProvider.value(
+                      value: bloc,
+                      child: OrdersFilterView(
+                        model: state.transportationTypes[index],
+                        onTap: () {},
+                        type: AppLocalizations.of(context)!.shipping,
+                      ),
                     ),
                   ),
-                ));
+                );
               },
               child: Container(
                 decoration: BoxDecoration(

@@ -85,10 +85,7 @@ class _CarOfferBottomSheetState extends State<CarOfferBottomSheet> {
               children: [
                 Row(
                   children: [
-                    const SizedBox(
-                      width: 24,
-                      height: 24,
-                    ),
+                    const SizedBox(width: 24, height: 24),
                     Expanded(
                       child: Column(
                         children: [
@@ -103,8 +100,9 @@ class _CarOfferBottomSheetState extends State<CarOfferBottomSheet> {
                           ),
                           Center(
                             child: Text(
-                              AppLocalizations.of(context)!
-                                  .sendProposalForDriver,
+                              AppLocalizations.of(
+                                context,
+                              )!.sendProposalForDriver,
                               style: TextStyle(
                                 color: context.color.darkText,
                                 fontSize: 14,
@@ -128,10 +126,7 @@ class _CarOfferBottomSheetState extends State<CarOfferBottomSheet> {
                   bloc: widget.bloc,
                   builder: (context, state) {
                     if (state.statusRECEIVE.isInProgress) {
-                      return const WShimmer(
-                        height: 80,
-                        width: double.infinity,
-                      );
+                      return const WShimmer(height: 80, width: double.infinity);
                     }
                     if (state.advertisementRECEIVE.isEmpty) {
                       return const SizedBox();
@@ -259,16 +254,18 @@ class _CarOfferBottomSheetState extends State<CarOfferBottomSheet> {
                     return WButton(
                       isDisabled: state.advertisementRECEIVE.isEmpty,
                       onTap: () {
-                        widget.bloc.add(SendOffersEvent(
-                          advertisementId: widget.model.id,
-                          fromAdvertisementId:
-                              state.advertisementRECEIVE[carId].id,
-                          fromMyAdvertisement: false,
-                          sum: int.tryParse(priceController.text) ?? 0,
-                          onSuccess: () {
-                            Navigator.of(context).pop(true);
-                          },
-                        ));
+                        widget.bloc.add(
+                          SendOffersEvent(
+                            advertisementId: widget.model.id,
+                            fromAdvertisementId:
+                                state.advertisementRECEIVE[carId].id,
+                            fromMyAdvertisement: false,
+                            sum: int.tryParse(priceController.text) ?? 0,
+                            onSuccess: () {
+                              Navigator.of(context).pop(true);
+                            },
+                          ),
+                        );
                       },
                       text: AppLocalizations.of(context)!.sendProposal,
                     );

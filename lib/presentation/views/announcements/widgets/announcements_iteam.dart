@@ -37,58 +37,61 @@ class AnnouncementsIteam extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Builder(builder: (context) {
-                      if (isPrice) {
-                        return Text(
-                          '${MyFunction.priceFormat(model.price ?? 0)} UZS',
-                          style: TextStyle(
+                    Builder(
+                      builder: (context) {
+                        if (isPrice) {
+                          return Text(
+                            '${MyFunction.priceFormat(model.price ?? 0)} UZS',
+                            style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
-                              color: isGreen ? green : null),
-                        );
-                      }
-                      if (model.status == 'ACTIVE') {
-                        return Container(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 4,
-                            horizontal: 10,
-                          ),
-                          margin: const EdgeInsets.only(bottom: 4),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: green.withValues(alpha: .2),
-                          ),
-                          child: const Text(
-                            "Faol",
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: green,
+                              color: isGreen ? green : null,
                             ),
-                          ),
-                        );
-                      } else {
-                        return Container(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 4,
-                            horizontal: 10,
-                          ),
-                          margin: const EdgeInsets.only(bottom: 4),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: red.withValues(alpha: .2),
-                          ),
-                          child: const Text(
-                            "Faol emas",
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: red,
+                          );
+                        }
+                        if (model.status == 'ACTIVE') {
+                          return Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 4,
+                              horizontal: 10,
                             ),
-                          ),
-                        );
-                      }
-                    }),
+                            margin: const EdgeInsets.only(bottom: 4),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: green.withValues(alpha: .2),
+                            ),
+                            child: const Text(
+                              "Faol",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: green,
+                              ),
+                            ),
+                          );
+                        } else {
+                          return Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 4,
+                              horizontal: 10,
+                            ),
+                            margin: const EdgeInsets.only(bottom: 4),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: red.withValues(alpha: .2),
+                            ),
+                            child: const Text(
+                              "Faol emas",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: red,
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                    ),
                     const SizedBox(height: 8),
                     Text(
                       model.serviceName ??
@@ -100,15 +103,12 @@ class AnnouncementsIteam extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                         color: isGreen ? green : context.color.darkText,
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
               if (model.transportIcon != null)
-                CachedNetworkImage(
-                  imageUrl: model.transportIcon!,
-                  height: 48,
-                )
+                CachedNetworkImage(imageUrl: model.transportIcon!, height: 48),
             ],
           ),
           const SizedBox(height: 4),
@@ -122,12 +122,12 @@ class AnnouncementsIteam extends StatelessWidget {
                               .first ==
                           "Oʻzbekiston,"
                       ? (model.fromLocation?.name ??
-                              AppLocalizations.of(context)!.unknown)
-                          .split(' ')[1]
+                                AppLocalizations.of(context)!.unknown)
+                            .split(' ')[1]
                       : (model.fromLocation?.name ??
-                              AppLocalizations.of(context)!.unknown)
-                          .split(' ')
-                          .first,
+                                AppLocalizations.of(context)!.unknown)
+                            .split(' ')
+                            .first,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
@@ -146,12 +146,12 @@ class AnnouncementsIteam extends StatelessWidget {
                             .first ==
                         "Oʻzbekiston,"
                     ? (model.toLocation?.name ??
-                            AppLocalizations.of(context)!.unknown)
-                        .split(' ')[1]
+                              AppLocalizations.of(context)!.unknown)
+                          .split(' ')[1]
                     : (model.toLocation?.name ??
-                            AppLocalizations.of(context)!.unknown)
-                        .split(' ')
-                        .first,
+                              AppLocalizations.of(context)!.unknown)
+                          .split(' ')
+                          .first,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
@@ -168,7 +168,7 @@ class AnnouncementsIteam extends StatelessWidget {
               fontWeight: FontWeight.w400,
               color: isGreen ? green : context.color.darkText,
             ),
-          )
+          ),
         ],
       ),
     );

@@ -39,9 +39,9 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
 
   @override
   void initState() {
-    context
-        .read<AdvertisementBloc>()
-        .add(GetAdvertisementsEvent(isPROVIDE: false, status: 'ACTIVE'));
+    context.read<AdvertisementBloc>().add(
+      GetAdvertisementsEvent(isPROVIDE: false, status: 'ACTIVE'),
+    );
     if (context.read<AdvertisementBloc>().state.advertisementMyCars.isEmpty) {
       context.read<AdvertisementBloc>().add(GetAdvertisementsMyCarsEvent());
     }
@@ -93,55 +93,57 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
         centerTitle: false,
         title: Text(
           AppLocalizations.of(context)!.search_ad,
-          style: const TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.w500,
-          ),
+          style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
         ),
         actions: [
           IconButton(
             onPressed: () {
               Navigator.of(context, rootNavigator: true)
-                  .push(MaterialPageRoute(
-                builder: (context) => FilterView(
-                  filterType: FilterType.searchAd,
-                  list: active,
-                  servicesList: servicesModel,
-                  fromPrice: fromPrice,
-                  toPrice: toPrice,
-                  dateTime2: dateTime2,
-                  dateTime: dateTime,
-                  onSaved: (a1, a2, b1, b2) {
-                    dateTime = a1;
-                    dateTime2 = a2;
-                    fromPrice = b1;
-                    toPrice = b2;
-                    setState(() {});
-                  },
-                ),
-              ))
+                  .push(
+                    MaterialPageRoute(
+                      builder: (context) => FilterView(
+                        filterType: FilterType.searchAd,
+                        list: active,
+                        servicesList: servicesModel,
+                        fromPrice: fromPrice,
+                        toPrice: toPrice,
+                        dateTime2: dateTime2,
+                        dateTime: dateTime,
+                        onSaved: (a1, a2, b1, b2) {
+                          dateTime = a1;
+                          dateTime2 = a2;
+                          fromPrice = b1;
+                          toPrice = b2;
+                          setState(() {});
+                        },
+                      ),
+                    ),
+                  )
                   .then((value) {
-                if (value != null && context.mounted) {
-                  context.read<AdvertisementBloc>().add(GetAdvertisementsEvent(
-                        isPROVIDE: false,
-                        serviceId: activeId(),
-                        maxPrice: toPrice,
-                        minPrice: fromPrice,
-                        bdate: dateTime != null
-                            ? MyFunction.dateFormat2(dateTime!)
-                            : null,
-                        edate: dateTime2 != null
-                            ? MyFunction.dateFormat2(dateTime2!)
-                            : null,
-                      ));
-                }
-              });
+                    if (value != null && context.mounted) {
+                      context.read<AdvertisementBloc>().add(
+                        GetAdvertisementsEvent(
+                          isPROVIDE: false,
+                          serviceId: activeId(),
+                          maxPrice: toPrice,
+                          minPrice: fromPrice,
+                          bdate: dateTime != null
+                              ? MyFunction.dateFormat2(dateTime!)
+                              : null,
+                          edate: dateTime2 != null
+                              ? MyFunction.dateFormat2(dateTime2!)
+                              : null,
+                        ),
+                      );
+                    }
+                  });
             },
             icon: Row(
               spacing: 8,
               children: [
                 Badge(
-                  isLabelVisible: activeId().length != servicesModel.length ||
+                  isLabelVisible:
+                      activeId().length != servicesModel.length ||
                       (dateTime != null || dateTime2 != null),
                   child: AppIcons.filter.svg(color: context.color.iron),
                 ),
@@ -193,7 +195,7 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
                     },
                     text: AppLocalizations.of(context)!.enter,
                   ),
-                  const SizedBox(height: 60)
+                  const SizedBox(height: 60),
                 ],
               ),
             );
@@ -203,10 +205,8 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
               if (state.status.isInProgress) {
                 return ListView.separated(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 120),
-                  itemBuilder: (context, index) => const WShimmer(
-                    height: 280,
-                    width: double.infinity,
-                  ),
+                  itemBuilder: (context, index) =>
+                      const WShimmer(height: 280, width: double.infinity),
                   separatorBuilder: (context, index) =>
                       const SizedBox(height: 16),
                   itemCount: 12,
@@ -222,20 +222,20 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
                     WButton(
                       margin: const EdgeInsets.all(16),
                       onTap: () {
-                        context
-                            .read<AdvertisementBloc>()
-                            .add(GetAdvertisementsEvent(
-                              isPROVIDE: false,
-                              serviceId: activeId(),
-                              maxPrice: toPrice,
-                              minPrice: fromPrice,
-                              bdate: dateTime != null
-                                  ? MyFunction.dateFormat2(dateTime!)
-                                  : null,
-                              edate: dateTime2 != null
-                                  ? MyFunction.dateFormat2(dateTime2!)
-                                  : null,
-                            ));
+                        context.read<AdvertisementBloc>().add(
+                          GetAdvertisementsEvent(
+                            isPROVIDE: false,
+                            serviceId: activeId(),
+                            maxPrice: toPrice,
+                            minPrice: fromPrice,
+                            bdate: dateTime != null
+                                ? MyFunction.dateFormat2(dateTime!)
+                                : null,
+                            edate: dateTime2 != null
+                                ? MyFunction.dateFormat2(dateTime2!)
+                                : null,
+                          ),
+                        );
                       },
                       text: AppLocalizations.of(context)!.refresh,
                     ),
@@ -245,7 +245,28 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
               }
               return RefreshIndicator.adaptive(
                 onRefresh: () async {
-                  context.read<AdvertisementBloc>().add(GetAdvertisementsEvent(
+                  context.read<AdvertisementBloc>().add(
+                    GetAdvertisementsEvent(
+                      isPROVIDE: false,
+                      serviceId: activeId(),
+                      maxPrice: toPrice,
+                      minPrice: fromPrice,
+                      bdate: dateTime != null
+                          ? MyFunction.dateFormat2(dateTime!)
+                          : null,
+                      edate: dateTime2 != null
+                          ? MyFunction.dateFormat2(dateTime2!)
+                          : null,
+                    ),
+                  );
+                  Future.delayed(Duration.zero);
+                },
+                child: PaginatorList(
+                  fetchMoreFunction: () {
+                    page++;
+                    context.read<AdvertisementBloc>().add(
+                      GetAdvertisementsEvent(
+                        page: page,
                         isPROVIDE: false,
                         serviceId: activeId(),
                         maxPrice: toPrice,
@@ -256,27 +277,8 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
                         edate: dateTime2 != null
                             ? MyFunction.dateFormat2(dateTime2!)
                             : null,
-                      ));
-                  Future.delayed(Duration.zero);
-                },
-                child: PaginatorList(
-                  fetchMoreFunction: () {
-                    page++;
-                    context
-                        .read<AdvertisementBloc>()
-                        .add(GetAdvertisementsEvent(
-                          page: page,
-                          isPROVIDE: false,
-                          serviceId: activeId(),
-                          maxPrice: toPrice,
-                          minPrice: fromPrice,
-                          bdate: dateTime != null
-                              ? MyFunction.dateFormat2(dateTime!)
-                              : null,
-                          edate: dateTime2 != null
-                              ? MyFunction.dateFormat2(dateTime2!)
-                              : null,
-                        ));
+                      ),
+                    );
                   },
                   hasMoreToFetch:
                       state.advertisementCount > state.advertisement.length,
@@ -285,16 +287,17 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
                   itemBuilder: (context, index) => GestureDetector(
                     onTap: () {
                       final bloc = context.read<AdvertisementBloc>();
-                      Navigator.of(context, rootNavigator: true)
-                          .push(MaterialPageRoute(
-                        builder: (context) => BlocProvider.value(
-                          value: bloc,
-                          child: AnnouncementInfoView(
-                            model: state.advertisement[index],
-                            isMe: state.advertisement[index].isOwner,
+                      Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider.value(
+                            value: bloc,
+                            child: AnnouncementInfoView(
+                              model: state.advertisement[index],
+                              isMe: state.advertisement[index].isOwner,
+                            ),
                           ),
                         ),
-                      ));
+                      );
                     },
                     child: AnnouncementsIteamNew(
                       model: state.advertisement[index],

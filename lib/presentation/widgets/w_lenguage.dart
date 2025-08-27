@@ -86,8 +86,10 @@ class _WLenguageState extends State<WLenguage> {
                     (index) => ListTile(
                       onTap: () {
                         selectIndex.value = index;
-                        Provider.of<LocaleProvider>(context, listen: false)
-                            .setLocale(Locale(list[index].type));
+                        Provider.of<LocaleProvider>(
+                          context,
+                          listen: false,
+                        ).setLocale(Locale(list[index].type));
                         Navigator.pop(context);
                       },
                       leading: list[index].icon,
@@ -102,7 +104,7 @@ class _WLenguageState extends State<WLenguage> {
               );
             },
           ),
-        )
+        ),
       ],
     );
   }
@@ -113,9 +115,5 @@ class InfoRowMod {
   final String title;
   final String type;
 
-  InfoRowMod({
-    required this.icon,
-    required this.title,
-    this.type = 'uz',
-  });
+  InfoRowMod({required this.icon, required this.title, this.type = 'uz'});
 }

@@ -57,15 +57,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<RegisterUserEvent>((event, emit) async {
       emit(state.copyWith(statusSms: FormzSubmissionStatus.inProgress));
-      final result = await _repository.registerPost(UserUpdateModel(
-        firstName: event.name,
-        lastName: event.lastName,
-        userType: event.isUser ? 'LEGAL' : 'PHYSICAL',
-        phoneNumber: event.phone,
-        tgLink: AppConstants.tgLink,
-        base64: AppConstants.image,
-        mail: event.phone,
-      ));
+      final result = await _repository.registerPost(
+        UserUpdateModel(
+          firstName: event.name,
+          lastName: event.lastName,
+          userType: event.isUser ? 'LEGAL' : 'PHYSICAL',
+          phoneNumber: event.phone,
+          tgLink: AppConstants.tgLink,
+          base64: AppConstants.image,
+          mail: event.phone,
+        ),
+      );
       if (result.isRight) {
         add(GetMeEvent());
       } else {
@@ -74,15 +76,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<UpdateUserEvent>((event, emit) async {
-      emit(state.copyWith(
-        statusSms: FormzSubmissionStatus.inProgress,
-        status: AuthenticationStatus.loading,
-      ));
+      emit(
+        state.copyWith(
+          statusSms: FormzSubmissionStatus.inProgress,
+          status: AuthenticationStatus.loading,
+        ),
+      );
       final response = await _repository.userUpdate(
         UserUpdateModel(
           firstName: event.name ?? state.userModel.firstName,
           lastName: event.lastName ?? state.userModel.lastName,
-          userType: event.userType ??
+          userType:
+              event.userType ??
               (state.userModel.type.isEmpty
                   ? "PHYSICAL"
                   : state.userModel.type),
@@ -94,8 +99,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           sessionToken: event.sessionToken,
           smsType: event.securityCode != null
               ? event.isEmail
-                  ? 'mail'
-                  : 'phone'
+                    ? 'mail'
+                    : 'phone'
               : null,
           tin: event.tin != null ? int.tryParse(event.tin ?? '') : null,
           callPhone: event.callPhone,
@@ -104,10 +109,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ),
       );
       if (response.isRight) {
-        emit(state.copyWith(
-          statusSms: FormzSubmissionStatus.inProgress,
-          status: AuthenticationStatus.loading,
-        ));
+        emit(
+          state.copyWith(
+            statusSms: FormzSubmissionStatus.inProgress,
+            status: AuthenticationStatus.loading,
+          ),
+        );
         event.onSucces();
         add(GetMeEvent(isNotAuth: event.sessionToken?.isEmpty ?? true));
       } else {
@@ -134,10 +141,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<SendCodeEvent>((event, emit) async {
-      emit(state.copyWith(
-        statusSms: FormzSubmissionStatus.inProgress,
-        status: AuthenticationStatus.loading,
-      ));
+      emit(
+        state.copyWith(
+          statusSms: FormzSubmissionStatus.inProgress,
+          status: AuthenticationStatus.loading,
+        ),
+      );
       final appSignature = await SmsAutoFill().getAppSignature;
       final response = await _repository.sendCode(
         SendCodeBody(
@@ -149,16 +158,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ),
       );
       if (response.isRight) {
-        emit(state.copyWith(
-          statusSms: FormzSubmissionStatus.success,
-          status: AuthenticationStatus.loading,
-        ));
+        emit(
+          state.copyWith(
+            statusSms: FormzSubmissionStatus.success,
+            status: AuthenticationStatus.loading,
+          ),
+        );
         event.onSucces(response.right.data);
       } else {
-        emit(state.copyWith(
-          statusSms: FormzSubmissionStatus.failure,
-          status: AuthenticationStatus.loading,
-        ));
+        emit(
+          state.copyWith(
+            statusSms: FormzSubmissionStatus.failure,
+            status: AuthenticationStatus.loading,
+          ),
+        );
         if (response.isLeft) {
           if (response.left is ServerFailure) {
             final stim = (response.left as ServerFailure).errorMessage;
@@ -202,42 +215,46 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<UpdateCode>((event, emit) async {
-      List<ReferralCode> data =
-          List<ReferralCode>.from(state.userModel.referralCodes);
+      List<ReferralCode> data = List<ReferralCode>.from(
+        state.userModel.referralCodes,
+      );
       final index = data.indexWhere((element) => element.code == event.code);
       if (event.note != null) {
-        data[index] = ReferralCode(
-          code: event.code,
-          note: event.note ?? "",
-        );
+        data[index] = ReferralCode(code: event.code, note: event.note ?? "");
       } else {
         data.removeAt(index);
       }
       final userModel = state.userModel.copyWith(referralCodes: data);
-      emit(state.copyWith(
-        userModel: userModel,
-        statusSms: FormzSubmissionStatus.initial,
-      ));
+      emit(
+        state.copyWith(
+          userModel: userModel,
+          statusSms: FormzSubmissionStatus.initial,
+        ),
+      );
     });
 
     on<GetMeEvent>((event, emit) async {
       emit(state.copyWith(statusSms: FormzSubmissionStatus.inProgress));
       final response = await _repository.getMe();
       if (response.isRight) {
-        emit(state.copyWith(
-          userModel: response.right.data,
-          statusSms: FormzSubmissionStatus.success,
-          status: event.isNotAuth
-              ? state.status
-              : AuthenticationStatus.authenticated,
-          isState: event.isNotAuth ? state.isState : !state.isState,
-        ));
+        emit(
+          state.copyWith(
+            userModel: response.right.data,
+            statusSms: FormzSubmissionStatus.success,
+            status: event.isNotAuth
+                ? state.status
+                : AuthenticationStatus.authenticated,
+            isState: event.isNotAuth ? state.isState : !state.isState,
+          ),
+        );
         Log.i("Salom Loginga kirdik holat ${state.status}");
       } else {
-        emit(state.copyWith(
-          status: AuthenticationStatus.unauthenticated,
-          statusSms: FormzSubmissionStatus.failure,
-        ));
+        emit(
+          state.copyWith(
+            status: AuthenticationStatus.unauthenticated,
+            statusSms: FormzSubmissionStatus.failure,
+          ),
+        );
       }
     });
 
@@ -246,11 +263,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await StorageRepository.putString(StorageKeys.TOKEN, "");
       await StorageRepository.putString(StorageKeys.REFRESH, "");
       await StorageRepository.putBool(StorageKeys.LENDING, true);
-      emit(state.copyWith(
-        statusSms: FormzSubmissionStatus.success,
-        status: AuthenticationStatus.unauthenticated,
-        userModel: const UserModel(),
-      ));
+      emit(
+        state.copyWith(
+          statusSms: FormzSubmissionStatus.success,
+          status: AuthenticationStatus.unauthenticated,
+          userModel: const UserModel(),
+        ),
+      );
     });
   }
 }

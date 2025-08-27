@@ -8,10 +8,7 @@ import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:flutter/material.dart';
 
 class OrdersInfoView extends StatefulWidget {
-  const OrdersInfoView({
-    super.key,
-    required this.isDelivery,
-  });
+  const OrdersInfoView({super.key, required this.isDelivery});
   final bool isDelivery;
 
   @override
@@ -47,7 +44,7 @@ class _OrdersInfoViewState extends State<OrdersInfoView> {
                         color: green,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -125,9 +122,9 @@ class _OrdersInfoViewState extends State<OrdersInfoView> {
             const SizedBox(height: 16),
             WButton(
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const OrderMapView(),
-                ));
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const OrderMapView()),
+                );
               },
               color: whiteSmoke,
               textColor: dark,
@@ -146,9 +143,11 @@ class _OrdersInfoViewState extends State<OrdersInfoView> {
                 Expanded(
                   child: WButton(
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const OrderChatView(),
-                      ));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const OrderChatView(),
+                        ),
+                      );
                     },
                     color: whiteSmoke,
                     textColor: dark,
@@ -157,7 +156,7 @@ class _OrdersInfoViewState extends State<OrdersInfoView> {
                       children: [
                         AppIcons.messagesChat.svg(),
                         const SizedBox(width: 4),
-                        Text(AppLocalizations.of(context)!.message)
+                        Text(AppLocalizations.of(context)!.message),
                       ],
                     ),
                   ),
@@ -172,7 +171,7 @@ class _OrdersInfoViewState extends State<OrdersInfoView> {
                       children: [
                         AppIcons.phone.svg(),
                         const SizedBox(width: 4),
-                        Text(AppLocalizations.of(context)!.call)
+                        Text(AppLocalizations.of(context)!.call),
                       ],
                     ),
                   ),
@@ -183,10 +182,7 @@ class _OrdersInfoViewState extends State<OrdersInfoView> {
           ] else ...[
             Text(
               AppLocalizations.of(context)!.cargoImages,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
             GridView.builder(
@@ -228,7 +224,7 @@ class _OrdersInfoViewState extends State<OrdersInfoView> {
               ],
             ),
             const SizedBox(height: 32),
-          ]
+          ],
         ],
       ),
     );
@@ -252,17 +248,11 @@ class OrdersInfoTile extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-          ),
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
         ),
         Text(
           subtitle,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-          ),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
         ),
       ],
     );

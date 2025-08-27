@@ -81,139 +81,142 @@ class _FuelDeliveryViewState extends State<FuelDeliveryView> {
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Builder(builder: (context) {
-                    return GestureDetector(
-                      onTap: () async {
-                        final state = context
-                            .read<AdvertisementBloc>()
-                            .state
-                            .fuelsModelAll;
+                  child: Builder(
+                    builder: (context) {
+                      return GestureDetector(
+                        onTap: () async {
+                          final state = context
+                              .read<AdvertisementBloc>()
+                              .state
+                              .fuelsModelAll;
 
-                        final RenderBox button =
-                            context.findRenderObject() as RenderBox;
-                        final RenderBox overlay = Overlay.of(context)
-                            .context
-                            .findRenderObject() as RenderBox;
+                          final RenderBox button =
+                              context.findRenderObject() as RenderBox;
+                          final RenderBox overlay =
+                              Overlay.of(context).context.findRenderObject()
+                                  as RenderBox;
 
-                        final RelativeRect position = RelativeRect.fromRect(
-                          Rect.fromPoints(
-                            button.localToGlobal(
-                              Offset(0, button.size.height),
-                              ancestor: overlay,
-                            ),
-                            button.localToGlobal(
-                              button.size.bottomRight(Offset.zero),
-                              ancestor: overlay,
-                            ),
-                          ),
-                          Offset.zero & overlay.size,
-                        );
-
-                        FuelsModel? selected = await showMenu<FuelsModel>(
-                          context: context,
-                          position: position,
-                          color: white,
-                          shadowColor: black.withValues(alpha: .3),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          items: AppData.fuels.map((FuelsModel choice) {
-                            return PopupMenuItem<FuelsModel>(
-                              value: choice,
-                              height: 32,
-                              onTap: () {},
-                              child: SizedBox(
-                                width: 140,
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      choice.type,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
-                                        color: state
-                                                .where((e) =>
-                                                    e.type == choice.type)
-                                                .isEmpty
-                                            ? dark.withValues(alpha: .3)
-                                            : dark,
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    SizedBox(
-                                      height: 16,
-                                      width: 16,
-                                      child: choice == selectedUnit
-                                          ? AppIcons.checkboxRadio.svg(
-                                              height: 16,
-                                              width: 16,
-                                            )
-                                          : AppIcons.checkboxRadioDis.svg(
-                                              height: 16,
-                                              width: 16,
-                                            ),
-                                    )
-                                  ],
-                                ),
+                          final RelativeRect position = RelativeRect.fromRect(
+                            Rect.fromPoints(
+                              button.localToGlobal(
+                                Offset(0, button.size.height),
+                                ancestor: overlay,
                               ),
-                            );
-                          }).toList(),
-                        );
-                        final isActive = state
-                            .where((e) => e.type == selected?.type)
-                            .isEmpty;
-
-                        if (selected != null && !isActive) {
-                          setState(() {
-                            selectedUnit = selected;
-                          });
-                          if (context.mounted) {
-                            context
-                                .read<AdvertisementBloc>()
-                                .add(GetFuelsEvent(id: selected.id));
-                          }
-                        }
-                      },
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: context.color.contColor,
-                          borderRadius: BorderRadius.circular(24),
-                          boxShadow: wboxShadow2,
-                        ),
-                        child: ListTile(
-                          title: Text(
-                         AppLocalizations.of(context)!.fuel_type,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: context.color.darkText,
+                              button.localToGlobal(
+                                button.size.bottomRight(Offset.zero),
+                                ancestor: overlay,
+                              ),
                             ),
-                          ),
-                          subtitle: Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  selectedUnit.type,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
+                            Offset.zero & overlay.size,
+                          );
+
+                          FuelsModel? selected = await showMenu<FuelsModel>(
+                            context: context,
+                            position: position,
+                            color: white,
+                            shadowColor: black.withValues(alpha: .3),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            items: AppData.fuels.map((FuelsModel choice) {
+                              return PopupMenuItem<FuelsModel>(
+                                value: choice,
+                                height: 32,
+                                onTap: () {},
+                                child: SizedBox(
+                                  width: 140,
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        choice.type,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                          color:
+                                              state
+                                                  .where(
+                                                    (e) =>
+                                                        e.type == choice.type,
+                                                  )
+                                                  .isEmpty
+                                              ? dark.withValues(alpha: .3)
+                                              : dark,
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      SizedBox(
+                                        height: 16,
+                                        width: 16,
+                                        child: choice == selectedUnit
+                                            ? AppIcons.checkboxRadio.svg(
+                                                height: 16,
+                                                width: 16,
+                                              )
+                                            : AppIcons.checkboxRadioDis.svg(
+                                                height: 16,
+                                                width: 16,
+                                              ),
+                                      ),
+                                    ],
                                   ),
                                 ),
+                              );
+                            }).toList(),
+                          );
+                          final isActive = state
+                              .where((e) => e.type == selected?.type)
+                              .isEmpty;
+
+                          if (selected != null && !isActive) {
+                            setState(() {
+                              selectedUnit = selected;
+                            });
+                            if (context.mounted) {
+                              context.read<AdvertisementBloc>().add(
+                                GetFuelsEvent(id: selected.id),
+                              );
+                            }
+                          }
+                        },
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: context.color.contColor,
+                            borderRadius: BorderRadius.circular(24),
+                            boxShadow: wboxShadow2,
+                          ),
+                          child: ListTile(
+                            title: Text(
+                              AppLocalizations.of(context)!.fuel_type,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                color: context.color.darkText,
                               ),
-                              AppIcons.arrowBottom.svg()
-                            ],
+                            ),
+                            subtitle: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    selectedUnit.type,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                                AppIcons.arrowBottom.svg(),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  }),
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
             const SizedBox(height: 12),
-            WSelectionFuels(
-              onTap: (model) {},
-            ),
+            WSelectionFuels(onTap: (model) {}),
           ],
         ),
       ),

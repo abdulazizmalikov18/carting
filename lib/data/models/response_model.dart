@@ -39,8 +39,7 @@ class ResponseModel<T> {
   factory ResponseModel.fromJson(
     Map<String, dynamic> json,
     T Function(Object? json) fetch,
-  ) =>
-      _$ResponseModelFromJson(json, fetch);
+  ) => _$ResponseModelFromJson(json, fetch);
 
   /// JSON ga obyektni o'girish
   Map<String, dynamic> toJson(Object? Function(T value) toJsonT) =>

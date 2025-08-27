@@ -127,20 +127,20 @@ class _CustomTextFieldState extends State<CustomTextField> {
                           fontWeight: FontWeight.w400,
                           color: red,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 )
               : widget.title.isNotEmpty
-                  ? Text(
-                      widget.title,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: widget.tetxColor ?? context.color.white,
-                      ),
-                    )
-                  : const SizedBox(),
+              ? Text(
+                  widget.title,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: widget.tetxColor ?? context.color.white,
+                  ),
+                )
+              : const SizedBox(),
           widget.title.isNotEmpty
               ? const SizedBox(height: 6)
               : const SizedBox(),
@@ -174,10 +174,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 minLines: widget.minLines,
                 maxLines: widget.maxLines,
                 controller: widget.controller,
-                style: widget.style ??
-                    Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: widget.textColor,
-                        ),
+                style:
+                    widget.style ??
+                    Theme.of(
+                      context,
+                    ).textTheme.bodyMedium!.copyWith(color: widget.textColor),
                 textCapitalization: widget.isCap
                     ? TextCapitalization.words
                     : widget.textCapitalization,
@@ -195,43 +196,51 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   prefixIcon: widget.prefixIcon != null
                       ? IconButton(
                           icon: widget.prefixIcon!,
-                          onPressed: widget.onprefixIconPressed ?? () {})
+                          onPressed: widget.onprefixIconPressed ?? () {},
+                        )
                       : null,
                   focusColor: context.color.contGrey,
                   fillColor: widget.fillColor ?? context.color.contGrey,
                   hoverColor: context.color.contGrey,
                   filled: true,
-                  border: widget.border ??
+                  border:
+                      widget.border ??
                       OutlineInputBorder(
                         borderRadius: BorderRadius.circular(24),
                         borderSide: BorderSide(
-                          color: widget.borderColor ??
+                          color:
+                              widget.borderColor ??
                               shuttleGrey.withValues(alpha: .2),
                         ),
                       ),
-                  enabledBorder: widget.border ??
+                  enabledBorder:
+                      widget.border ??
                       OutlineInputBorder(
                         borderRadius: BorderRadius.circular(
                           widget.borderRadius ?? 24,
                         ),
                         borderSide: BorderSide(
-                          color: widget.borderColor ??
+                          color:
+                              widget.borderColor ??
                               shuttleGrey.withValues(alpha: .2),
                         ),
                       ),
-                  focusedBorder: widget.border ??
+                  focusedBorder:
+                      widget.border ??
                       OutlineInputBorder(
                         borderRadius: BorderRadius.circular(
                           widget.borderRadius ?? 24,
                         ),
                         borderSide: BorderSide(
-                          color: widget.borderColor ??
+                          color:
+                              widget.borderColor ??
                               shuttleGrey.withValues(alpha: .2),
                         ),
                       ),
                   hintText: widget.hintText,
                   hintMaxLines: 1,
-                  hintStyle: widget.hintStyle ??
+                  hintStyle:
+                      widget.hintStyle ??
                       TextStyle(
                         color: widget.tetxColor ?? context.color.darkText,
                         overflow: TextOverflow.ellipsis,
@@ -240,7 +249,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   //     color: colors.customBlack.withValues(alpha:0.5), fontSize: 14.sp),
                   // errorText: widget.error,
                   // errorStyle: fonts.caption.copyWith(color: colors.error),
-                  contentPadding:widget.contentPadding??
+                  contentPadding:
+                      widget.contentPadding ??
                       const EdgeInsets.only(left: 12, top: 12, right: 12),
                 ),
               ),

@@ -63,7 +63,7 @@ class _OrdersInfoFinshViewState extends State<OrdersInfoFinshView> {
                       color: green,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -82,17 +82,11 @@ class _OrdersInfoFinshViewState extends State<OrdersInfoFinshView> {
           const SizedBox(height: 16),
           const Text(
             "Fotosuratli hisobot",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            ),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
           const Text(
             "Yuklaringiz yetib borganini, ularni fotosuratga olib, shu yerga yuklash orqali tasdiqlang.",
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-            ),
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
           ),
           const SizedBox(height: 8),
           GridView.builder(
@@ -116,9 +110,7 @@ class _OrdersInfoFinshViewState extends State<OrdersInfoFinshView> {
                       strokeWidth: 1,
                       radius: Radius.circular(20),
                     ),
-                    child: Center(
-                      child: AppIcons.upload.svg(),
-                    ),
+                    child: Center(child: AppIcons.upload.svg()),
                   ),
                 );
               }
@@ -135,10 +127,7 @@ class _OrdersInfoFinshViewState extends State<OrdersInfoFinshView> {
           ),
           const Text(
             "Haydovchini baholang",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            ),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 8),
           Container(
@@ -152,10 +141,7 @@ class _OrdersInfoFinshViewState extends State<OrdersInfoFinshView> {
           const SizedBox(height: 16),
           Text(
             AppLocalizations.of(context)!.description,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            ),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 8),
           Container(
@@ -174,10 +160,7 @@ class _OrdersInfoFinshViewState extends State<OrdersInfoFinshView> {
             ),
           ),
           const SizedBox(height: 16),
-          WButton(
-            onTap: () {},
-            text: "Bahoni yuborish",
-          ),
+          WButton(onTap: () {}, text: "Bahoni yuborish"),
           const SizedBox(height: 16),
           Container(
             decoration: BoxDecoration(

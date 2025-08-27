@@ -69,36 +69,20 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
         title: localization.construction_materials,
         value: false,
       ),
-      CargoTypeValu(
-        id: 3,
-        title: localization.food_products,
-        value: false,
-      ),
+      CargoTypeValu(id: 3, title: localization.food_products, value: false),
       CargoTypeValu(
         id: 4,
         title: localization.agricultural_products,
         value: false,
       ),
-      CargoTypeValu(
-        id: 5,
-        title: localization.medical_equipment,
-        value: false,
-      ),
-      CargoTypeValu(
-        id: 6,
-        title: localization.moving_furniture,
-        value: false,
-      ),
+      CargoTypeValu(id: 5, title: localization.medical_equipment, value: false),
+      CargoTypeValu(id: 6, title: localization.moving_furniture, value: false),
       CargoTypeValu(
         id: 7,
         title: localization.animal_transportation,
         value: false,
       ),
-      CargoTypeValu(
-        id: 8,
-        title: localization.other,
-        value: false,
-      ),
+      CargoTypeValu(id: 8, title: localization.other, value: false),
     ];
   }
 
@@ -130,7 +114,8 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
 
   void updateButtonState() {
     setState(() {
-      isDisabled = point1 == null ||
+      isDisabled =
+          point1 == null ||
           point2 == null ||
           (controllerKg.text.isEmpty &&
               controllerLitr.text.isEmpty &&
@@ -159,34 +144,38 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                       point2 = point;
                     },
                     onSucces: (point, point2) {
-                      context.read<AdvertisementBloc>().add(GetLoanModeEvent(
-                            model: {
-                              'service_type_id': 1,
-                              'from_lat': point1?.latitude,
-                              'from_lon': point1?.longitude
-                            },
-                            onSucces: (id) {
-                              for (var element in list) {
-                                if (element.id == id) {
-                                  element.value = true;
-                                }
-                                break;
+                      context.read<AdvertisementBloc>().add(
+                        GetLoanModeEvent(
+                          model: {
+                            'service_type_id': 1,
+                            'from_lat': point1?.latitude,
+                            'from_lon': point1?.longitude,
+                          },
+                          onSucces: (id) {
+                            for (var element in list) {
+                              if (element.id == id) {
+                                element.value = true;
                               }
-                              setState(() {});
-                            },
-                          ));
-                      context.read<AdvertisementBloc>().add(GetAvgPriceEvent(
-                            model: {
-                              'service_type_id': 1,
-                              'from_lat': point1?.latitude,
-                              'from_lon': point1?.longitude,
-                              'to_lat': point2?.latitude,
-                              'to_lon': point2?.longitude
-                            },
-                            onSucces: (id) {
-                              controllerPrice.text = id.toString();
-                            },
-                          ));
+                              break;
+                            }
+                            setState(() {});
+                          },
+                        ),
+                      );
+                      context.read<AdvertisementBloc>().add(
+                        GetAvgPriceEvent(
+                          model: {
+                            'service_type_id': 1,
+                            'from_lat': point1?.latitude,
+                            'from_lon': point1?.longitude,
+                            'to_lat': point2?.latitude,
+                            'to_lon': point2?.longitude,
+                          },
+                          onSucces: (id) {
+                            controllerPrice.text = id.toString();
+                          },
+                        ),
+                      );
                     },
                   ),
                   const SizedBox(),
@@ -222,8 +211,9 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                                   Expanded(
                                     child: Text(
                                       MyFunction.listText(list).isEmpty
-                                          ? AppLocalizations.of(context)!
-                                              .cargoType
+                                          ? AppLocalizations.of(
+                                              context,
+                                            )!.cargoType
                                           : MyFunction.listText(list),
                                       style: TextStyle(
                                         fontSize: 16,
@@ -236,10 +226,11 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
-                                  AppIcons.arrowBottom
-                                      .svg(color: context.color.iron)
+                                  AppIcons.arrowBottom.svg(
+                                    color: context.color.iron,
+                                  ),
                                 ],
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -337,75 +328,88 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                                     Builder(
                                       builder: (context) => GestureDetector(
                                         onTap: () async {
-                                          final RenderBox button = context
-                                              .findRenderObject() as RenderBox;
+                                          final RenderBox button =
+                                              context.findRenderObject()
+                                                  as RenderBox;
                                           final RenderBox overlay =
-                                              Overlay.of(context)
-                                                      .context
-                                                      .findRenderObject()
+                                              Overlay.of(
+                                                    context,
+                                                  ).context.findRenderObject()
                                                   as RenderBox;
 
                                           final RelativeRect position =
                                               RelativeRect.fromRect(
-                                            Rect.fromPoints(
-                                              button.localToGlobal(
-                                                  Offset(0, button.size.height),
-                                                  ancestor: overlay),
-                                              button.localToGlobal(
-                                                  button.size
-                                                      .bottomRight(Offset.zero),
-                                                  ancestor: overlay),
-                                            ),
-                                            Offset.zero & overlay.size,
-                                          );
+                                                Rect.fromPoints(
+                                                  button.localToGlobal(
+                                                    Offset(
+                                                      0,
+                                                      button.size.height,
+                                                    ),
+                                                    ancestor: overlay,
+                                                  ),
+                                                  button.localToGlobal(
+                                                    button.size.bottomRight(
+                                                      Offset.zero,
+                                                    ),
+                                                    ancestor: overlay,
+                                                  ),
+                                                ),
+                                                Offset.zero & overlay.size,
+                                              );
 
-                                          String? selected =
-                                              await showMenu<String>(
+                                          String?
+                                          selected = await showMenu<String>(
                                             context: context,
                                             position: position,
                                             color: white,
-                                            shadowColor:
-                                                black.withValues(alpha: .3),
+                                            shadowColor: black.withValues(
+                                              alpha: .3,
+                                            ),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(16),
                                             ),
-                                            items: [
-                                              AppLocalizations.of(context)!
-                                                  .unit_kg,
-                                              AppLocalizations.of(context)!
-                                                  .unit_tn
-                                            ].map((choice) {
-                                              return PopupMenuItem<String>(
-                                                value: choice,
-                                                height: 40,
-                                                child: Row(
-                                                  children: [
-                                                    Text(
-                                                      choice,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: const TextStyle(
-                                                        fontSize: 14,
-                                                      ),
+                                            items:
+                                                [
+                                                  AppLocalizations.of(
+                                                    context,
+                                                  )!.unit_kg,
+                                                  AppLocalizations.of(
+                                                    context,
+                                                  )!.unit_tn,
+                                                ].map((choice) {
+                                                  return PopupMenuItem<String>(
+                                                    value: choice,
+                                                    height: 40,
+                                                    child: Row(
+                                                      children: [
+                                                        Text(
+                                                          choice,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style:
+                                                              const TextStyle(
+                                                                fontSize: 14,
+                                                              ),
+                                                        ),
+                                                        const Spacer(),
+                                                        SizedBox(
+                                                          height: 20,
+                                                          width: 20,
+                                                          child:
+                                                              choice ==
+                                                                  selectedUnit
+                                                              ? AppIcons
+                                                                    .checkboxRadio
+                                                                    .svg()
+                                                              : AppIcons
+                                                                    .checkboxRadioDis
+                                                                    .svg(),
+                                                        ),
+                                                      ],
                                                     ),
-                                                    const Spacer(),
-                                                    SizedBox(
-                                                      height: 20,
-                                                      width: 20,
-                                                      child: choice ==
-                                                              selectedUnit
-                                                          ? AppIcons
-                                                              .checkboxRadio
-                                                              .svg()
-                                                          : AppIcons
-                                                              .checkboxRadioDis
-                                                              .svg(),
-                                                    )
-                                                  ],
-                                                ),
-                                              );
-                                            }).toList(),
+                                                  );
+                                                }).toList(),
                                           );
 
                                           if (selected != null) {
@@ -452,7 +456,8 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                                           border: InputBorder.none,
                                           hintText: '0',
                                           hintStyle: TextStyle(
-                                              color: context.color.darkText),
+                                            color: context.color.darkText,
+                                          ),
                                         ),
                                         style: const TextStyle(fontSize: 16),
                                       ),
@@ -460,8 +465,9 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                                     Text(
                                       AppLocalizations.of(context)!.unit_m3,
                                       style: TextStyle(
-                                          color: context.color.darkText),
-                                    )
+                                        color: context.color.darkText,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -494,14 +500,15 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                                     Text(
                                       'litr',
                                       style: TextStyle(
-                                          color: context.color.darkText),
-                                    )
+                                        color: context.color.darkText,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
                             ],
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -517,10 +524,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                       onPressed: onTap,
                       prefixIcon: GestureDetector(
                         onTap: onTap,
-                        child: AppIcons.calendar.svg(
-                          height: 24,
-                          width: 24,
-                        ),
+                        child: AppIcons.calendar.svg(height: 24, width: 24),
                       ),
                       onChanged: (value) {},
                     ),
@@ -548,12 +552,15 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                               controllerData.hide();
                               final date = DateTime.now();
                               selectedDate = date;
-                              selectedDate2 =
-                                  date.add(const Duration(hours: 6));
-                              controllerTime.text =
-                                  MyFunction.formattedTime(date);
-                              controllerTime2.text =
-                                  MyFunction.formattedTime(selectedDate2);
+                              selectedDate2 = date.add(
+                                const Duration(hours: 6),
+                              );
+                              controllerTime.text = MyFunction.formattedTime(
+                                date,
+                              );
+                              controllerTime2.text = MyFunction.formattedTime(
+                                selectedDate2,
+                              );
                               controller.text = MyFunction.dateFormat(date);
                             },
                             title: Row(
@@ -578,23 +585,30 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                                 ),
                               ],
                             ),
-                            trailing: MyFunction.isSameDay(
-                                    DateTime.now(), selectedDate)
+                            trailing:
+                                MyFunction.isSameDay(
+                                  DateTime.now(),
+                                  selectedDate,
+                                )
                                 ? AppIcons.checkboxRadio.svg()
                                 : AppIcons.checkboxRadioDis.svg(),
                           ),
                           CupertinoListTile(
                             onTap: () {
                               controllerData.hide();
-                              final date =
-                                  DateTime.now().add(const Duration(days: 1));
+                              final date = DateTime.now().add(
+                                const Duration(days: 1),
+                              );
                               selectedDate = date;
-                              selectedDate2 =
-                                  date.add(const Duration(hours: 6));
-                              controllerTime.text =
-                                  MyFunction.formattedTime(date);
-                              controllerTime2.text =
-                                  MyFunction.formattedTime(selectedDate2);
+                              selectedDate2 = date.add(
+                                const Duration(hours: 6),
+                              );
+                              controllerTime.text = MyFunction.formattedTime(
+                                date,
+                              );
+                              controllerTime2.text = MyFunction.formattedTime(
+                                selectedDate2,
+                              );
                               controller.text = MyFunction.dateFormat(date);
                             },
                             title: Row(
@@ -621,10 +635,11 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                                 ),
                               ],
                             ),
-                            trailing: MyFunction.isSameDay(
-                              DateTime.now().add(const Duration(days: 1)),
-                              selectedDate,
-                            )
+                            trailing:
+                                MyFunction.isSameDay(
+                                  DateTime.now().add(const Duration(days: 1)),
+                                  selectedDate,
+                                )
                                 ? AppIcons.checkboxRadio.svg()
                                 : AppIcons.checkboxRadioDis.svg(),
                           ),
@@ -639,22 +654,24 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                                 context: context,
                                 isScrollControlled: true,
                                 backgroundColor: Colors.transparent,
-                                builder: (context) => WClaendar(
-                                  selectedDate: selectedDate,
-                                ),
+                                builder: (context) =>
+                                    WClaendar(selectedDate: selectedDate),
                               ).then((value) {
                                 if (value != null) {
-                                  final date = (value as DateTime)
-                                      .add(const Duration(hours: 8));
+                                  final date = (value as DateTime).add(
+                                    const Duration(hours: 8),
+                                  );
                                   selectedDate = date;
-                                  selectedDate2 =
-                                      date.add(const Duration(hours: 12));
+                                  selectedDate2 = date.add(
+                                    const Duration(hours: 12),
+                                  );
                                   controllerTime.text =
                                       MyFunction.formattedTime(date);
                                   controllerTime2.text =
                                       MyFunction.formattedTime(selectedDate2);
-                                  controller.text =
-                                      MyFunction.dateFormat(value);
+                                  controller.text = MyFunction.dateFormat(
+                                    value,
+                                  );
                                 }
                               });
                             },
@@ -690,14 +707,14 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                               context: context,
                               isScrollControlled: true,
                               backgroundColor: Colors.transparent,
-                              builder: (context) => WTime(
-                                selectedDate: selectedDate,
-                              ),
+                              builder: (context) =>
+                                  WTime(selectedDate: selectedDate),
                             ).then((value) {
                               if (value != null) {
                                 selectedDate = value;
-                                controllerTime.text =
-                                    MyFunction.formattedTime(value);
+                                controllerTime.text = MyFunction.formattedTime(
+                                  value,
+                                );
                               }
                             });
                           },
@@ -707,9 +724,8 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                                 context: context,
                                 isScrollControlled: true,
                                 backgroundColor: Colors.transparent,
-                                builder: (context) => WTime(
-                                  selectedDate: selectedDate,
-                                ),
+                                builder: (context) =>
+                                    WTime(selectedDate: selectedDate),
                               ).then((value) {
                                 if (value != null) {
                                   selectedDate = value;
@@ -718,10 +734,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                                 }
                               });
                             },
-                            child: AppIcons.clock.svg(
-                              height: 24,
-                              width: 24,
-                            ),
+                            child: AppIcons.clock.svg(height: 24, width: 24),
                           ),
                           onChanged: (value) {},
                         ),
@@ -747,8 +760,9 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                             ).then((value) {
                               if (value != null) {
                                 selectedDate2 = value;
-                                controllerTime2.text =
-                                    MyFunction.formattedTime(value);
+                                controllerTime2.text = MyFunction.formattedTime(
+                                  value,
+                                );
                               }
                             });
                           },
@@ -770,10 +784,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                                 }
                               });
                             },
-                            child: AppIcons.clock.svg(
-                              height: 24,
-                              width: 24,
-                            ),
+                            child: AppIcons.clock.svg(height: 24, width: 24),
                           ),
                           onChanged: (value) {},
                         ),
@@ -855,17 +866,19 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                         // ),
                         fromDate: selectedDate.toString(),
                         toDate: selectedDate2.toString(),
-                        kg: selectedUnit ==
+                        kg:
+                            selectedUnit ==
                                 AppLocalizations.of(context)!.unit_kg
                             ? controllerKg.text.isEmpty
-                                ? null
-                                : controllerKg.text
+                                  ? null
+                                  : controllerKg.text
                             : null,
-                        tn: selectedUnit ==
+                        tn:
+                            selectedUnit ==
                                 AppLocalizations.of(context)!.unit_tn
                             ? controllerKg.text.isEmpty
-                                ? null
-                                : controllerKg.text
+                                  ? null
+                                  : controllerKg.text
                             : null,
                         m3: controllerm3.text.isEmpty
                             ? null
@@ -887,24 +900,27 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                       price: priceOffer.value
                           ? 0
                           : int.tryParse(
-                                  controllerPrice.text.replaceAll(' ', '')) ??
-                              0,
+                                  controllerPrice.text.replaceAll(' ', ''),
+                                ) ??
+                                0,
                     ).toJson();
-                    context.read<AdvertisementBloc>().add(CreateDeliveryEvent(
-                          model: model,
-                          images: images,
-                          onError: () {
-                            Navigator.of(context).pop();
-                            context.go(AppRouteName.announcements);
-                          },
-                          onSucces: (id) {},
-                        ));
+                    context.read<AdvertisementBloc>().add(
+                      CreateDeliveryEvent(
+                        model: model,
+                        images: images,
+                        onError: () {
+                          Navigator.of(context).pop();
+                          context.go(AppRouteName.announcements);
+                        },
+                        onSucces: (id) {},
+                      ),
+                    );
                     succesCreate(context).then((value) {
                       if (context.mounted) {
                         context.go(AppRouteName.announcements);
-                        context
-                            .read<AdvertisementBloc>()
-                            .add(GetAdvertisementsEvent(isPROVIDE: false));
+                        context.read<AdvertisementBloc>().add(
+                          GetAdvertisementsEvent(isPROVIDE: false),
+                        );
                       }
                     });
                   },
@@ -921,4 +937,3 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
     );
   }
 }
-

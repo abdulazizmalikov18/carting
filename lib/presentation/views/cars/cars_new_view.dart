@@ -34,11 +34,13 @@ class _CarsNewViewState extends State<CarsNewView> {
   DateTime? dateTime2;
   @override
   void initState() {
-    context.read<AdvertisementBloc>().add(GetAdvertisementsFilterEvent(
-          serviceId: [1, 2, 3, 6, 9],
-          status: "ACTIVE",
-          isPROVIDE: true,
-        ));
+    context.read<AdvertisementBloc>().add(
+      GetAdvertisementsFilterEvent(
+        serviceId: [1, 2, 3, 6, 9],
+        status: "ACTIVE",
+        isPROVIDE: true,
+      ),
+    );
     if (context.read<AdvertisementBloc>().state.advertisementRECEIVE.isEmpty) {
       context.read<AdvertisementBloc>().add(GetAdvertisementsReceiveEvent());
     }
@@ -90,52 +92,52 @@ class _CarsNewViewState extends State<CarsNewView> {
         centerTitle: false,
         title: Text(
           AppLocalizations.of(context)!.search_transport,
-          style: const TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.w500,
-          ),
+          style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
         ),
         actions: [
           IconButton(
             onPressed: () {
               Navigator.of(context, rootNavigator: true)
-                  .push(MaterialPageRoute(
-                builder: (context) => FilterView(
-                  filterType: FilterType.searchTransport,
-                  list: active,
-                  servicesList: servicesModel,
-                  dateTime2: dateTime2,
-                  dateTime: dateTime,
-                  onSaved: (a1, a2, b1, b2) {
-                    dateTime = a1;
-                    dateTime2 = a2;
-                    setState(() {});
-                  },
-                ),
-              ))
+                  .push(
+                    MaterialPageRoute(
+                      builder: (context) => FilterView(
+                        filterType: FilterType.searchTransport,
+                        list: active,
+                        servicesList: servicesModel,
+                        dateTime2: dateTime2,
+                        dateTime: dateTime,
+                        onSaved: (a1, a2, b1, b2) {
+                          dateTime = a1;
+                          dateTime2 = a2;
+                          setState(() {});
+                        },
+                      ),
+                    ),
+                  )
                   .then((value) {
-                if (value != null && context.mounted) {
-                  context
-                      .read<AdvertisementBloc>()
-                      .add(GetAdvertisementsFilterEvent(
-                        isPROVIDE: false,
-                        status: "ACTIVE",
-                        serviceId: activeId(),
-                        bdate: dateTime != null
-                            ? MyFunction.dateFormat2(dateTime!)
-                            : null,
-                        edate: dateTime2 != null
-                            ? MyFunction.dateFormat2(dateTime2!)
-                            : null,
-                      ));
-                }
-              });
+                    if (value != null && context.mounted) {
+                      context.read<AdvertisementBloc>().add(
+                        GetAdvertisementsFilterEvent(
+                          isPROVIDE: false,
+                          status: "ACTIVE",
+                          serviceId: activeId(),
+                          bdate: dateTime != null
+                              ? MyFunction.dateFormat2(dateTime!)
+                              : null,
+                          edate: dateTime2 != null
+                              ? MyFunction.dateFormat2(dateTime2!)
+                              : null,
+                        ),
+                      );
+                    }
+                  });
             },
             icon: Row(
               spacing: 8,
               children: [
                 Badge(
-                  isLabelVisible: activeId().length != servicesModel.length ||
+                  isLabelVisible:
+                      activeId().length != servicesModel.length ||
                       (dateTime != null || dateTime2 != null),
                   child: AppIcons.filter.svg(color: context.color.iron),
                 ),
@@ -187,7 +189,7 @@ class _CarsNewViewState extends State<CarsNewView> {
                     },
                     text: AppLocalizations.of(context)!.enter,
                   ),
-                  const SizedBox(height: 60)
+                  const SizedBox(height: 60),
                 ],
               ),
             );
@@ -197,10 +199,8 @@ class _CarsNewViewState extends State<CarsNewView> {
               if (state.statusFilter.isInProgress) {
                 return ListView.separated(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 120),
-                  itemBuilder: (context, index) => const WShimmer(
-                    height: 280,
-                    width: double.infinity,
-                  ),
+                  itemBuilder: (context, index) =>
+                      const WShimmer(height: 280, width: double.infinity),
                   separatorBuilder: (context, index) =>
                       const SizedBox(height: 16),
                   itemCount: 12,
@@ -216,19 +216,19 @@ class _CarsNewViewState extends State<CarsNewView> {
                     WButton(
                       margin: const EdgeInsets.all(16),
                       onTap: () {
-                        context
-                            .read<AdvertisementBloc>()
-                            .add(GetAdvertisementsFilterEvent(
-                              status: "ACTIVE",
-                              isPROVIDE: true,
-                              serviceId: activeId(),
-                              bdate: dateTime != null
-                                  ? MyFunction.dateFormat2(dateTime!)
-                                  : null,
-                              edate: dateTime2 != null
-                                  ? MyFunction.dateFormat2(dateTime2!)
-                                  : null,
-                            ));
+                        context.read<AdvertisementBloc>().add(
+                          GetAdvertisementsFilterEvent(
+                            status: "ACTIVE",
+                            isPROVIDE: true,
+                            serviceId: activeId(),
+                            bdate: dateTime != null
+                                ? MyFunction.dateFormat2(dateTime!)
+                                : null,
+                            edate: dateTime2 != null
+                                ? MyFunction.dateFormat2(dateTime2!)
+                                : null,
+                          ),
+                        );
                       },
                       text: AppLocalizations.of(context)!.refresh,
                     ),
@@ -238,9 +238,26 @@ class _CarsNewViewState extends State<CarsNewView> {
               }
               return RefreshIndicator.adaptive(
                 onRefresh: () async {
-                  context
-                      .read<AdvertisementBloc>()
-                      .add(GetAdvertisementsFilterEvent(
+                  context.read<AdvertisementBloc>().add(
+                    GetAdvertisementsFilterEvent(
+                      status: "ACTIVE",
+                      serviceId: activeId(),
+                      bdate: dateTime != null
+                          ? MyFunction.dateFormat2(dateTime!)
+                          : null,
+                      edate: dateTime2 != null
+                          ? MyFunction.dateFormat2(dateTime2!)
+                          : null,
+                      isPROVIDE: true,
+                    ),
+                  );
+                  Future.delayed(Duration.zero);
+                },
+                child: PaginatorList(
+                  fetchMoreFunction: () {
+                    page++;
+                    context.read<AdvertisementBloc>().add(
+                      GetAdvertisementsFilterEvent(
                         status: "ACTIVE",
                         serviceId: activeId(),
                         bdate: dateTime != null
@@ -250,28 +267,12 @@ class _CarsNewViewState extends State<CarsNewView> {
                             ? MyFunction.dateFormat2(dateTime2!)
                             : null,
                         isPROVIDE: true,
-                      ));
-                  Future.delayed(Duration.zero);
-                },
-                child: PaginatorList(
-                  fetchMoreFunction: () {
-                    page++;
-                    context
-                        .read<AdvertisementBloc>()
-                        .add(GetAdvertisementsFilterEvent(
-                          status: "ACTIVE",
-                          serviceId: activeId(),
-                          bdate: dateTime != null
-                              ? MyFunction.dateFormat2(dateTime!)
-                              : null,
-                          edate: dateTime2 != null
-                              ? MyFunction.dateFormat2(dateTime2!)
-                              : null,
-                          isPROVIDE: true,
-                          page: page,
-                        ));
+                        page: page,
+                      ),
+                    );
                   },
-                  hasMoreToFetch: state.advertisementFilterCount >
+                  hasMoreToFetch:
+                      state.advertisementFilterCount >
                       state.advertisementFilter.length,
                   paginatorStatus: state.statusFilter,
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 120),
@@ -281,18 +282,19 @@ class _CarsNewViewState extends State<CarsNewView> {
                   itemBuilder: (context, index) => GestureDetector(
                     onTap: () {
                       final bloc = context.read<AdvertisementBloc>();
-                      Navigator.of(context, rootNavigator: true)
-                          .push(MaterialPageRoute(
-                        builder: (context) => BlocProvider.value(
-                          value: bloc,
-                          child: AnnouncementInfoView(
-                            model: state.advertisementFilter[index],
-                            isMe: false,
-                            isComments: true,
-                            isOnlyCar: true,
+                      Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider.value(
+                            value: bloc,
+                            child: AnnouncementInfoView(
+                              model: state.advertisementFilter[index],
+                              isMe: false,
+                              isComments: true,
+                              isOnlyCar: true,
+                            ),
                           ),
                         ),
-                      ));
+                      );
                     },
                     child: CarIteam(model: state.advertisementFilter[index]),
                   ),

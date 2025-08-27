@@ -10,10 +10,6 @@ class ErrorView extends StatefulWidget {
 class _ErrorViewState extends State<ErrorView> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Error'),
-      ),
-    );
+    return const Scaffold(body: Center(child: Text('Error')));
   }
 }

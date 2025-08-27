@@ -33,7 +33,7 @@ abstract class AdvertisementDatasource {
   Future<ResponseModel<List<NotificationModel>>> notifications();
   Future<bool> deactivetAdvertisement(int id);
   Future<ResponseModel<List<TransportSpecialistsModel>>>
-      getTransportSpecialists();
+  getTransportSpecialists();
   Future<ResponseModel<AdvertisementModel>> getAdvertisementsId(
     FilterModel? model,
   );
@@ -63,9 +63,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
   final ErrorHandle _handle = ErrorHandle();
 
   @override
-  Future<ResponseModel<PageModel>> getAdvertisements(
-    FilterModel? model,
-  ) async {
+  Future<ResponseModel<PageModel>> getAdvertisements(FilterModel? model) async {
     return _handle.apiCantrol(
       request: () => dio.get(
         'advertisement',
@@ -74,7 +72,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -105,7 +103,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -132,7 +130,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
             headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
                 ? {
                     'Authorization':
-                        'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                        'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                   }
                 : {},
           ),
@@ -140,8 +138,11 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
         body: (response) => ResponseModel.fromJson(
           response,
           (p0) => (p0 as List)
-              .map((e) =>
-                  TransportationTypesModel.fromJson(e as Map<String, dynamic>))
+              .map(
+                (e) => TransportationTypesModel.fromJson(
+                  e as Map<String, dynamic>,
+                ),
+              )
               .toList(),
         ),
       );
@@ -157,7 +158,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -177,7 +178,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -201,7 +202,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -219,7 +220,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -235,7 +236,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
 
   @override
   Future<ResponseModel<List<TransportSpecialistsModel>>>
-      getTransportSpecialists() {
+  getTransportSpecialists() {
     return _handle.apiCantrol(
       request: () => dio.get(
         'list/transport_specialists',
@@ -243,7 +244,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -251,8 +252,10 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
       body: (response) => ResponseModel.fromJson(
         response,
         (p0) => (p0 as List)
-            .map((e) =>
-                TransportSpecialistsModel.fromJson(e as Map<String, dynamic>))
+            .map(
+              (e) =>
+                  TransportSpecialistsModel.fromJson(e as Map<String, dynamic>),
+            )
             .toList(),
       ),
     );
@@ -260,14 +263,17 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
 
   @override
   Future<ResponseModel<Map<String, dynamic>>> createImage(
-      ImageCreateModel model) {
+    ImageCreateModel model,
+  ) {
     final models = {
       'advertisement_id': model.advertisementId,
       'images': List.generate(
         model.images.length,
-        (index) =>
-            {"fileName": "test.jpeg", "base64": model.images[index].base64},
-      )
+        (index) => {
+          "fileName": "test.jpeg",
+          "base64": model.images[index].base64,
+        },
+      ),
     };
     return _handle.apiCantrol(
       request: () => dio.post(
@@ -277,21 +283,19 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
       ),
-      body: (response) => ResponseModel.fromJson(
-        response,
-        (p0) => response,
-      ),
+      body: (response) => ResponseModel.fromJson(response, (p0) => response),
     );
   }
 
   @override
   Future<ResponseModel<AdvertisementModel>> getAdvertisementsId(
-      FilterModel? model) {
+    FilterModel? model,
+  ) {
     return _handle.apiCantrol(
       request: () => dio.get(
         'advertisement',
@@ -300,7 +304,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -321,7 +325,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -344,7 +348,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -367,7 +371,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -386,7 +390,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -405,7 +409,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -424,7 +428,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -443,7 +447,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -461,7 +465,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -485,7 +489,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -504,7 +508,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -523,7 +527,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -541,7 +545,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -565,7 +569,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -583,7 +587,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -592,7 +596,8 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
         response,
         (p0) => (p0 as List)
             .map(
-                (e) => LocationHistoryModel.fromJson(e as Map<String, dynamic>))
+              (e) => LocationHistoryModel.fromJson(e as Map<String, dynamic>),
+            )
             .toList(),
       ),
     );
@@ -608,7 +613,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -628,7 +633,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),
@@ -648,7 +653,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                 }
               : {},
         ),

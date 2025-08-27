@@ -43,9 +43,7 @@ Future<dynamic> succesCreate(BuildContext context, {String? subtitle}) {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               WButton(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 24),
                 text: AppLocalizations.of(context)!.understood,
                 onTap: () {
                   Navigator.of(ctx)
@@ -54,7 +52,7 @@ Future<dynamic> succesCreate(BuildContext context, {String? subtitle}) {
                 },
               ),
             ],
-          )
+          ),
         ],
       ),
     ),

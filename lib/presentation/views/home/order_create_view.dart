@@ -165,9 +165,7 @@ class _OrderCreateViewState extends State<OrderCreateView> {
                       strokeWidth: 1,
                       radius: Radius.circular(20),
                     ),
-                    child: Center(
-                      child: AppIcons.upload.svg(),
-                    ),
+                    child: Center(child: AppIcons.upload.svg()),
                   ),
                 );
               }
@@ -208,8 +206,9 @@ class _OrderCreateViewState extends State<OrderCreateView> {
                         color: value == index
                             ? green.withValues(alpha: .2)
                             : whiteSmoke,
-                        border:
-                            value == index ? Border.all(color: green) : null,
+                        border: value == index
+                            ? Border.all(color: green)
+                            : null,
                       ),
                       padding: const EdgeInsets.fromLTRB(12, 12, 0, 12),
                       child: Row(
@@ -255,11 +254,11 @@ class _OrderCreateViewState extends State<OrderCreateView> {
                                       ),
                                     ),
                                   ],
-                                )
+                                ),
                               ],
                             ),
                           ),
-                          list[index].images.imgAsset()
+                          list[index].images.imgAsset(),
                         ],
                       ),
                     ),
@@ -300,18 +299,19 @@ class _OrderCreateViewState extends State<OrderCreateView> {
                 child: Text(
                   AppLocalizations.of(context)!.recipient,
                   style: const TextStyle(
-                      fontSize: 12, fontWeight: FontWeight.w400),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
-              AppIcons.orderHistory.svg(
-                height: 20,
-                width: 20,
-              ),
+              AppIcons.orderHistory.svg(height: 20, width: 20),
               const SizedBox(width: 4),
               Text(
                 AppLocalizations.of(context)!.date,
-                style:
-                    const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ],
           ),

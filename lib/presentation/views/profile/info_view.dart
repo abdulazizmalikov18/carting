@@ -21,10 +21,7 @@ class _InfoViewState extends State<InfoView> {
           children: [
             Text(
               AppLocalizations.of(context)!.about_us_title,
-              style: const TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
             Text(
@@ -34,10 +31,7 @@ class _InfoViewState extends State<InfoView> {
             const SizedBox(height: 20),
             Text(
               AppLocalizations.of(context)!.about_us_why_title,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
             Text(

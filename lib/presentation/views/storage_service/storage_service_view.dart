@@ -18,9 +18,9 @@ class StorageServiceView extends StatefulWidget {
 class _StorageServiceViewState extends State<StorageServiceView> {
   @override
   void initState() {
-    context
-        .read<AdvertisementBloc>()
-        .add(GetAdvertisementsFilterEvent(serviceId: [7]));
+    context.read<AdvertisementBloc>().add(
+      GetAdvertisementsFilterEvent(serviceId: [7]),
+    );
     super.initState();
   }
 
@@ -45,10 +45,8 @@ class _StorageServiceViewState extends State<StorageServiceView> {
           if (state.statusFilter.isInProgress) {
             return ListView.separated(
               padding: const EdgeInsets.all(16),
-              itemBuilder: (context, index) => const WShimmer(
-                height: 336,
-                width: double.infinity,
-              ),
+              itemBuilder: (context, index) =>
+                  const WShimmer(height: 336, width: double.infinity),
               separatorBuilder: (context, index) => const SizedBox(height: 16),
               itemCount: 12,
             );
@@ -58,20 +56,22 @@ class _StorageServiceViewState extends State<StorageServiceView> {
           }
           return RefreshIndicator.adaptive(
             onRefresh: () async {
-              context
-                  .read<AdvertisementBloc>()
-                  .add(GetAdvertisementsFilterEvent(serviceId: [7]));
+              context.read<AdvertisementBloc>().add(
+                GetAdvertisementsFilterEvent(serviceId: [7]),
+              );
               Future.delayed(Duration.zero);
             },
             child: ListView.separated(
               padding: const EdgeInsets.all(16),
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => StorageServiceInfoView(
-                      model: state.advertisementFilter[index],
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => StorageServiceInfoView(
+                        model: state.advertisementFilter[index],
+                      ),
                     ),
-                  ));
+                  );
                 },
                 child: StorageServiceIteam(
                   model: state.advertisementFilter[index],

@@ -12,11 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class WSelectionItam extends StatefulWidget {
-  const WSelectionItam({
-    super.key,
-    required this.onTap,
-    this.selectedIndex,
-  });
+  const WSelectionItam({super.key, required this.onTap, this.selectedIndex});
   final Function(int index) onTap;
   final int? selectedIndex;
 
@@ -44,10 +40,7 @@ class _WSelectionItamState extends State<WSelectionItam> {
     return BlocBuilder<AdvertisementBloc, AdvertisementState>(
       builder: (context, state) {
         if (state.statusTrTypes.isInProgress) {
-          return const WShimmer(
-            height: 80,
-            width: double.infinity,
-          );
+          return const WShimmer(height: 80, width: double.infinity);
         }
         if (state.transportationTypes.isNotEmpty) {
           if (isFirst) {
@@ -101,13 +94,14 @@ class _WSelectionItamState extends State<WSelectionItam> {
                                 children: [
                                   TextSpan(
                                     text: state
-                                        .transportationTypes[selIndex].volume,
+                                        .transportationTypes[selIndex]
+                                        .volume,
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w400,
                                       color: context.color.darkText,
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),

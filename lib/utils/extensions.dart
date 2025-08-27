@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -34,11 +33,7 @@ extension TextAnimation on Text {
       effects: [
         const FadeEffect(),
         SlideEffect(duration: 0.6.seconds),
-        FadeEffect(
-          begin: 0.0,
-          end: 1.0,
-          duration: 0.5.seconds,
-        )
+        FadeEffect(begin: 0.0, end: 1.0, duration: 0.5.seconds),
       ],
       child: this,
       // .animate().fade().slideX(duration: 0.5.seconds)
@@ -54,9 +49,10 @@ String formatPhoneNumber(String phoneNumber) {
 // add spaces
 String formatPhoneNumberAddSpaces(String phoneNumber) {
   String separatedNumber = phoneNumber.replaceFirstMapped(
-      RegExp(r'^(\+\d{3})(\d{2})(\d{3})(\d{2})(\d{2})$'),
-      (match) =>
-          '${match.group(1)} ${match.group(2)} ${match.group(3)} ${match.group(4)} ${match.group(5)}');
+    RegExp(r'^(\+\d{3})(\d{2})(\d{3})(\d{2})(\d{2})$'),
+    (match) =>
+        '${match.group(1)} ${match.group(2)} ${match.group(3)} ${match.group(4)} ${match.group(5)}',
+  );
   return separatedNumber;
 }
 
@@ -104,5 +100,3 @@ Color colorValue(String? value) {
     return Color(colorValue);
   }
 }
-
-

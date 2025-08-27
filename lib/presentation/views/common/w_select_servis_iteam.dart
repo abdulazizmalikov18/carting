@@ -45,8 +45,10 @@ class _WselectServisIteamState extends State<WselectServisIteam> {
               serviceId: 1,
             ),
             TypeOfService(
-              icon: AppIcons.transportationOfPassengers
-                  .svg(height: 40, width: 40),
+              icon: AppIcons.transportationOfPassengers.svg(
+                height: 40,
+                width: 40,
+              ),
               text: AppLocalizations.of(context)!.passengerTransport,
               screen: const SizedBox(),
               serviceId: 2,
@@ -90,8 +92,10 @@ class _WselectServisIteamState extends State<WselectServisIteam> {
               serviceId: 8,
             ),
             TypeOfService(
-              icon: AppIcons.transportationOfPassengers
-                  .svg(height: 40, width: 40),
+              icon: AppIcons.transportationOfPassengers.svg(
+                height: 40,
+                width: 40,
+              ),
               text: AppLocalizations.of(context)!.passengerTransport,
               screen: const SizedBox(),
               serviceId: 2,
@@ -189,7 +193,7 @@ class _WselectServisIteamState extends State<WselectServisIteam> {
             isCar: widget.isCar,
             onItemTap: (index) {
               selIndex = index;
-              widget.onTap(selIndex,listServis[index].serviceId);
+              widget.onTap(selIndex, listServis[index].serviceId);
               _controller.hide();
               setState(() {});
             },

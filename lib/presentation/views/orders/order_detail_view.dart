@@ -119,12 +119,12 @@ class _OrderDetailViewState extends State<OrderDetailView> {
                                   fontSize: 12,
                                   color: context.color.darkText,
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -144,18 +144,17 @@ class _OrderDetailViewState extends State<OrderDetailView> {
                   ),
                   child: ListTile(
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => LocationInfoView(
-                          isFirst: false,
-                          // point1: widget.model.toLocation,
-                          point2: widget.model.fromLocation,
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => LocationInfoView(
+                            isFirst: false,
+                            // point1: widget.model.toLocation,
+                            point2: widget.model.fromLocation,
+                          ),
                         ),
-                      ));
+                      );
                     },
-                    leading: AppIcons.location.svg(
-                      height: 24,
-                      width: 24,
-                    ),
+                    leading: AppIcons.location.svg(height: 24, width: 24),
                     title: Text(
                       widget.model.fromLocation?.name ??
                           AppLocalizations.of(context)!.unknown,
@@ -172,12 +171,14 @@ class _OrderDetailViewState extends State<OrderDetailView> {
                   ),
                   child: ListTile(
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CommentsView(
-                          comments: widget.model.comments ?? [],
-                          id: widget.model.id,
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => CommentsView(
+                            comments: widget.model.comments ?? [],
+                            id: widget.model.id,
+                          ),
                         ),
-                      ));
+                      );
                     },
                     leading: AppIcons.message.svg(color: context.color.iron),
                     title: Text(AppLocalizations.of(context)!.comments),
@@ -188,9 +189,7 @@ class _OrderDetailViewState extends State<OrderDetailView> {
                 if (widget.model.createdByPhone != null)
                   WButton(
                     onTap: () async {
-                      await Caller.makePhoneCall(
-                        widget.model.createdByPhone!,
-                      );
+                      await Caller.makePhoneCall(widget.model.createdByPhone!);
                     },
                     text: MyFunction.formatPhoneNumber(
                       widget.model.createdByPhone ?? "",
@@ -210,14 +209,14 @@ class _OrderDetailViewState extends State<OrderDetailView> {
                       children: [
                         AppIcons.telegram.svg(),
                         const SizedBox(width: 12),
-                        Text(AppLocalizations.of(context)!.contactViaTelegram)
+                        Text(AppLocalizations.of(context)!.contactViaTelegram),
                       ],
                     ),
                   ),
                 const SizedBox(height: 16),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

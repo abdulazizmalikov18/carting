@@ -7,40 +7,38 @@ import 'dart:convert';
 
 part 'location_history_model.g.dart';
 
-LocationHistoryModel locationHistoryModelFromJson(String str) => LocationHistoryModel.fromJson(json.decode(str));
+LocationHistoryModel locationHistoryModelFromJson(String str) =>
+    LocationHistoryModel.fromJson(json.decode(str));
 
-String locationHistoryModelToJson(LocationHistoryModel data) => json.encode(data.toJson());
+String locationHistoryModelToJson(LocationHistoryModel data) =>
+    json.encode(data.toJson());
 
 @JsonSerializable()
 class LocationHistoryModel {
-    @JsonKey(name: "to_location")
-    final ToLocation toLocation;
+  @JsonKey(name: "to_location")
+  final ToLocation toLocation;
 
-    LocationHistoryModel({
-        required this.toLocation,
-    });
+  LocationHistoryModel({required this.toLocation});
 
-    factory LocationHistoryModel.fromJson(Map<String, dynamic> json) => _$LocationHistoryModelFromJson(json);
+  factory LocationHistoryModel.fromJson(Map<String, dynamic> json) =>
+      _$LocationHistoryModelFromJson(json);
 
-    Map<String, dynamic> toJson() => _$LocationHistoryModelToJson(this);
+  Map<String, dynamic> toJson() => _$LocationHistoryModelToJson(this);
 }
 
 @JsonSerializable()
 class ToLocation {
-    @JsonKey(name: "lng")
-    final double lng;
-    @JsonKey(name: "name")
-    final String name;
-    @JsonKey(name: "lat")
-    final double lat;
+  @JsonKey(name: "lng")
+  final double lng;
+  @JsonKey(name: "name")
+  final String name;
+  @JsonKey(name: "lat")
+  final double lat;
 
-    ToLocation({
-        required this.lng,
-        required this.name,
-        required this.lat,
-    });
+  ToLocation({required this.lng, required this.name, required this.lat});
 
-    factory ToLocation.fromJson(Map<String, dynamic> json) => _$ToLocationFromJson(json);
+  factory ToLocation.fromJson(Map<String, dynamic> json) =>
+      _$ToLocationFromJson(json);
 
-    Map<String, dynamic> toJson() => _$ToLocationToJson(this);
+  Map<String, dynamic> toJson() => _$ToLocationToJson(this);
 }

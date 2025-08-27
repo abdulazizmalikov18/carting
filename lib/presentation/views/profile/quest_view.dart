@@ -70,7 +70,7 @@ class _QuestViewState extends State<QuestView> {
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -86,8 +86,5 @@ class FaqInfo {
   final String title;
   final String description;
 
-  FaqInfo({
-    required this.title,
-    required this.description,
-  });
+  FaqInfo({required this.title, required this.description});
 }

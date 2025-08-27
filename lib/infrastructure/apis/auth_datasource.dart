@@ -37,19 +37,16 @@ class AuthDataSourcheImpl implements AuthDatasourche {
             headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
                 ? {
                     'Authorization':
-                        'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                        'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                   }
                 : {},
           ),
         );
       },
-      body: (response) => ResponseModel.fromJson(
-        response,
-        (p0) {
-          Log.wtf(p0);
-          return UserModel.fromJson(p0 as Map<String, dynamic>);
-        },
-      ),
+      body: (response) => ResponseModel.fromJson(response, (p0) {
+        Log.wtf(p0);
+        return UserModel.fromJson(p0 as Map<String, dynamic>);
+      }),
     );
   }
 
@@ -57,10 +54,7 @@ class AuthDataSourcheImpl implements AuthDatasourche {
   Future<ResponseModel<SendCodeModel>> sendCode(SendCodeBody body) {
     return _handle.apiCantrol(
       request: () {
-        return dioAuth.post(
-          'phone/register',
-          data: body.toJson(),
-        );
+        return dioAuth.post('phone/register', data: body.toJson());
       },
       body: (response) => ResponseModel.fromJson(
         response,
@@ -73,10 +67,7 @@ class AuthDataSourcheImpl implements AuthDatasourche {
   Future<ResponseModel<TokenModel>> verifyPost(VerifyBody body) {
     return _handle.apiCantrol(
       request: () {
-        return dioAuth.post(
-          'phone/verify',
-          data: body.toJson(),
-        );
+        return dioAuth.post('phone/verify', data: body.toJson());
       },
       body: (response) => ResponseModel.fromJson(
         response,
@@ -92,7 +83,7 @@ class AuthDataSourcheImpl implements AuthDatasourche {
         return dioAuth.post(
           'refresh_token',
           data: {
-            "refreshToken": StorageRepository.getString(StorageKeys.REFRESH)
+            "refreshToken": StorageRepository.getString(StorageKeys.REFRESH),
           },
         );
       },
@@ -113,7 +104,7 @@ class AuthDataSourcheImpl implements AuthDatasourche {
             headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
                 ? {
                     'Authorization':
-                        'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                        'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
                   }
                 : {},
           ),
@@ -128,10 +119,7 @@ class AuthDataSourcheImpl implements AuthDatasourche {
   Future<ResponseModel<TokenModel>> registerPost(UserUpdateModel body) {
     return _handle.apiCantrol(
       request: () {
-        return dioAuth.post(
-          'user/register',
-          data: body.toJson(),
-        );
+        return dioAuth.post('user/register', data: body.toJson());
       },
       body: (response) => ResponseModel.fromJson(
         response,

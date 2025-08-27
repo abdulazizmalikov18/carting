@@ -10,11 +10,13 @@ WorkshopModel _$WorkshopModelFromJson(Map<String, dynamic> json) =>
     WorkshopModel(
       advType: json['adv_type'] as String,
       serviceTypeId: (json['service_type_id'] as num).toInt(),
-      fromLocation:
-          LocationModel.fromJson(json['from_location'] as Map<String, dynamic>),
+      fromLocation: LocationModel.fromJson(
+        json['from_location'] as Map<String, dynamic>,
+      ),
       price: (json['price'] as num).toInt(),
-      details:
-          DetailsWorkshop.fromJson(json['details'] as Map<String, dynamic>),
+      details: DetailsWorkshop.fromJson(
+        json['details'] as Map<String, dynamic>,
+      ),
       note: json['note'] as String,
     );
 

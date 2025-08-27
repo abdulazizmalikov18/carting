@@ -14,11 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class CommentsView extends StatefulWidget {
-  const CommentsView({
-    super.key,
-    required this.comments,
-    required this.id,
-  });
+  const CommentsView({super.key, required this.comments, required this.id});
   final List<Comment> comments;
   final int id;
 
@@ -50,8 +46,9 @@ class _CommentsViewState extends State<CommentsView> {
                 child: Column(
                   children: [
                     AnimatedRatingBar(
-                      activeFillColor:
-                          Theme.of(context).colorScheme.inversePrimary,
+                      activeFillColor: Theme.of(
+                        context,
+                      ).colorScheme.inversePrimary,
                       strokeColor: Colors.green,
                       initialRating: 0,
                       height: 60,
@@ -78,23 +75,25 @@ class _CommentsViewState extends State<CommentsView> {
                         return WButton(
                           onTap: () {
                             context.read<AdvertisementBloc>().add(
-                                  PostCommentEvent(
-                                    model: {
-                                      "id": widget.id,
-                                      "comment_text": controller.text,
-                                      "rating": ratingInfo.value
-                                    },
-                                    onSucces: () {
-                                      widget.comments.add(Comment(
-                                        rating: ratingInfo.value.toInt(),
-                                        commentText: controller.text,
-                                        createdAt: DateTime.now().toString(),
-                                        createdBy: 'User',
-                                      ));
-                                      setState(() {});
-                                    },
-                                  ),
-                                );
+                              PostCommentEvent(
+                                model: {
+                                  "id": widget.id,
+                                  "comment_text": controller.text,
+                                  "rating": ratingInfo.value,
+                                },
+                                onSucces: () {
+                                  widget.comments.add(
+                                    Comment(
+                                      rating: ratingInfo.value.toInt(),
+                                      commentText: controller.text,
+                                      createdAt: DateTime.now().toString(),
+                                      createdBy: 'User',
+                                    ),
+                                  );
+                                  setState(() {});
+                                },
+                              ),
+                            );
                           },
                           isLoading: state.statusComment.isInProgress,
                           text: 'Publikatsiya qilish',

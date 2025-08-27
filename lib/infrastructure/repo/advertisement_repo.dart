@@ -25,7 +25,8 @@ class AdvertisementRepo implements IAdvertisementRepo {
 
   @override
   Future<Either<Failure, ResponseModel<PageModel>>> getAdvertisements(
-      FilterModel? model) async {
+    FilterModel? model,
+  ) async {
     try {
       final result = await dataSourcheImpl.getAdvertisements(model);
       return Right(result);
@@ -34,16 +35,15 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
   @override
   Future<Either<Failure, ResponseModel<List<AdvertisementModel>>>>
-      getAdvertisementsMe(FilterModel model) async {
+  getAdvertisementsMe(FilterModel model) async {
     try {
       final result = await dataSourcheImpl.getAdvertisementsMe(model);
       return Right(result);
@@ -52,32 +52,29 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
   @override
   Future<Either<Failure, ResponseModel<List<TransportationTypesModel>>>>
-      getTransportationTypes(
-    int servisId, {
-    bool isRECEIVE = false,
-  }) async {
+  getTransportationTypes(int servisId, {bool isRECEIVE = false}) async {
     try {
-      final result = await dataSourcheImpl.getTransportationTypes(servisId,
-          isRECEIVE: isRECEIVE);
+      final result = await dataSourcheImpl.getTransportationTypes(
+        servisId,
+        isRECEIVE: isRECEIVE,
+      );
       return Right(result);
     } on DioException {
       return Left(DioFailure());
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
@@ -93,10 +90,9 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
@@ -112,10 +108,9 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
@@ -129,10 +124,9 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
@@ -146,16 +140,15 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
   @override
   Future<Either<Failure, ResponseModel<List<TransportSpecialistsModel>>>>
-      getTransportSpecialists() async {
+  getTransportSpecialists() async {
     try {
       final result = await dataSourcheImpl.getTransportSpecialists();
       return Right(result);
@@ -164,16 +157,16 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
   @override
   Future<Either<Failure, ResponseModel<Map<String, dynamic>>>> createImage(
-      ImageCreateModel model) async {
+    ImageCreateModel model,
+  ) async {
     try {
       final result = await dataSourcheImpl.createImage(model);
       return Right(result);
@@ -182,16 +175,15 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
   @override
   Future<Either<Failure, ResponseModel<AdvertisementModel>>>
-      getAdvertisementsId(FilterModel? model) async {
+  getAdvertisementsId(FilterModel? model) async {
     try {
       final result = await dataSourcheImpl.getAdvertisementsId(model);
       return Right(result);
@@ -200,16 +192,15 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
   @override
   Future<Either<Failure, ResponseModel<List<ServisModel>>>>
-      getCategories() async {
+  getCategories() async {
     try {
       final result = await dataSourcheImpl.getCategories();
       return Right(result);
@@ -218,16 +209,15 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
   @override
   Future<Either<Failure, ResponseModel<List<ServisModel>>>>
-      getServices() async {
+  getServices() async {
     try {
       final result = await dataSourcheImpl.getServices();
       return Right(result);
@@ -236,10 +226,9 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
@@ -253,10 +242,9 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
@@ -270,16 +258,17 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
   @override
   Future<Either<Failure, bool>> putReferrealCde(
-      String note, String code) async {
+    String note,
+    String code,
+  ) async {
     try {
       final result = await dataSourcheImpl.putReferrealCde(note, code);
       return Right(result);
@@ -288,10 +277,9 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
@@ -305,10 +293,9 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
@@ -322,10 +309,9 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
@@ -341,10 +327,9 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
@@ -358,10 +343,9 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
@@ -375,10 +359,9 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
@@ -392,16 +375,15 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
   @override
   Future<Either<Failure, ResponseModel<List<NotificationModel>>>>
-      notifications() async {
+  notifications() async {
     try {
       final result = await dataSourcheImpl.notifications();
       return Right(result);
@@ -410,10 +392,9 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
@@ -427,10 +408,9 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
@@ -444,10 +424,9 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
@@ -461,16 +440,15 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
   @override
   Future<Either<Failure, ResponseModel<List<LocationHistoryModel>>>>
-      getLocationHistory() async {
+  getLocationHistory() async {
     try {
       final result = await dataSourcheImpl.getLocationHistory();
       return Right(result);
@@ -479,10 +457,9 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 
@@ -496,10 +473,9 @@ class AdvertisementRepo implements IAdvertisementRepo {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
     }
   }
 }

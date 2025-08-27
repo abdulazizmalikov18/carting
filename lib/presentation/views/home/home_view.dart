@@ -126,8 +126,6 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
     ];
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,15 +142,12 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(
-              bottom: 8,
-            ),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+            ).copyWith(bottom: 8),
             child: Text(
               AppLocalizations.of(context)!.services,
-              style: const TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.w400,
-              ),
+              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w400),
             ),
           ),
           Expanded(
@@ -164,28 +159,32 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
                 crossAxisSpacing: 12,
                 mainAxisExtent: 120,
               ),
-              itemCount:
-                  searchController.text.isEmpty ? list.length : products.length,
+              itemCount: searchController.text.isEmpty
+                  ? list.length
+                  : products.length,
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
                   MyFunction.authChek(
                     context: context,
                     onTap: () {
                       final bloc = context.read<AdvertisementBloc>();
-                      bloc.add(GetTransportationTypesEvent(
-                        serviceId: searchController.text.isEmpty
-                            ? list[index].serviceId
-                            : products[index].serviceId,
-                      ));
-                      Navigator.of(context, rootNavigator: true)
-                          .push(MaterialPageRoute(
-                        builder: (context) => BlocProvider.value(
-                          value: bloc,
-                          child: searchController.text.isEmpty
-                              ? list[index].screen
-                              : products[index].screen,
+                      bloc.add(
+                        GetTransportationTypesEvent(
+                          serviceId: searchController.text.isEmpty
+                              ? list[index].serviceId
+                              : products[index].serviceId,
                         ),
-                      ));
+                      );
+                      Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider.value(
+                            value: bloc,
+                            child: searchController.text.isEmpty
+                                ? list[index].screen
+                                : products[index].screen,
+                          ),
+                        ),
+                      );
                     },
                     isFull: (index != 5 && index != 7 && index != 9),
                   );
@@ -205,10 +204,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
 }
 
 class ServisLocIteam extends StatelessWidget {
-  const ServisLocIteam({
-    super.key,
-    required this.typeOfService,
-  });
+  const ServisLocIteam({super.key, required this.typeOfService});
 
   final TypeOfService typeOfService;
 
@@ -233,7 +229,7 @@ class ServisLocIteam extends StatelessWidget {
             typeOfService.text.replaceFirst(' ', '\n'),
             textAlign: TextAlign.center,
             maxLines: 2,
-          )
+          ),
         ],
       ),
     );

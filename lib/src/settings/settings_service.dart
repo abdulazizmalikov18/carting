@@ -2,7 +2,6 @@ import 'package:carting/assets/constants/storage_keys.dart';
 import 'package:carting/infrastructure/repo/storage_repository.dart';
 import 'package:flutter/material.dart';
 
-
 /// A service that stores and retrieves user settings.
 ///
 /// By default, this class does not persist user settings. If you'd like to
@@ -19,10 +18,7 @@ class SettingsService {
     // Use the shared_preferences package to persist settings locally or the
     // http package to persist settings over the network.
     final mode = putTheme(theme);
-    await StorageRepository.putString(
-      StorageKeys.MODE,
-      mode,
-    );
+    await StorageRepository.putString(StorageKeys.MODE, mode);
   }
 }
 

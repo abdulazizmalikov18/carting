@@ -39,17 +39,19 @@ class _MyVehiclesViewState extends State<MyVehiclesView> {
                 onTap: () {
                   final bloc = context.read<AdvertisementBloc>();
                   Navigator.of(context)
-                      .push(MaterialPageRoute(
-                    builder: (context) => BlocProvider.value(
-                      value: bloc,
-                      child: const AddCarView(),
-                    ),
-                  ))
+                      .push(
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider.value(
+                            value: bloc,
+                            child: const AddCarView(),
+                          ),
+                        ),
+                      )
                       .then((value) {
-                    if (value != null) {
-                      bloc.add(GetAdvertisementsMyCarsEvent());
-                    }
-                  });
+                        if (value != null) {
+                          bloc.add(GetAdvertisementsMyCarsEvent());
+                        }
+                      });
                 },
                 margin: EdgeInsets.fromLTRB(
                   16,
@@ -76,10 +78,8 @@ class _MyVehiclesViewState extends State<MyVehiclesView> {
           if (state.statusMyCars.isInProgress) {
             return ListView.separated(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-              itemBuilder: (context, index) => const WShimmer(
-                height: 218,
-                width: double.infinity,
-              ),
+              itemBuilder: (context, index) =>
+                  const WShimmer(height: 218, width: double.infinity),
               separatorBuilder: (context, index) => const SizedBox(height: 16),
               itemCount: 12,
             );
@@ -87,9 +87,9 @@ class _MyVehiclesViewState extends State<MyVehiclesView> {
           if (state.advertisementMyCars.isNotEmpty) {
             return RefreshIndicator.adaptive(
               onRefresh: () async {
-                context
-                    .read<AdvertisementBloc>()
-                    .add(GetAdvertisementsMyCarsEvent());
+                context.read<AdvertisementBloc>().add(
+                  GetAdvertisementsMyCarsEvent(),
+                );
                 Future.delayed(Duration.zero);
               },
               child: ListView.separated(
@@ -101,23 +101,25 @@ class _MyVehiclesViewState extends State<MyVehiclesView> {
                   onTap: () {
                     final bloc = context.read<AdvertisementBloc>();
                     Navigator.of(context, rootNavigator: true)
-                        .push(MaterialPageRoute(
-                      builder: (context) => BlocProvider.value(
-                        value: bloc,
-                        child: AnnouncementInfoView(
-                          model: state.advertisementMyCars[index],
-                          isMe: true,
-                          isMyCar: true,
-                          isComments: true,
-                          isOffers: true,
-                        ),
-                      ),
-                    ))
+                        .push(
+                          MaterialPageRoute(
+                            builder: (context) => BlocProvider.value(
+                              value: bloc,
+                              child: AnnouncementInfoView(
+                                model: state.advertisementMyCars[index],
+                                isMe: true,
+                                isMyCar: true,
+                                isComments: true,
+                                isOffers: true,
+                              ),
+                            ),
+                          ),
+                        )
                         .then((value) {
-                      if (value != null) {
-                        bloc.add(GetAdvertisementsMyCarsEvent());
-                      }
-                    });
+                          if (value != null) {
+                            bloc.add(GetAdvertisementsMyCarsEvent());
+                          }
+                        });
                   },
                   child: CarIteam(
                     model: state.advertisementMyCars[index],
@@ -149,17 +151,19 @@ class _MyVehiclesViewState extends State<MyVehiclesView> {
                     onTap: () {
                       final bloc = context.read<AdvertisementBloc>();
                       Navigator.of(context)
-                          .push(MaterialPageRoute(
-                        builder: (context) => BlocProvider.value(
-                          value: bloc,
-                          child: const AddCarView(),
-                        ),
-                      ))
+                          .push(
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider.value(
+                                value: bloc,
+                                child: const AddCarView(),
+                              ),
+                            ),
+                          )
                           .then((value) {
-                        if (value != null) {
-                          bloc.add(GetAdvertisementsMyCarsEvent());
-                        }
-                      });
+                            if (value != null) {
+                              bloc.add(GetAdvertisementsMyCarsEvent());
+                            }
+                          });
                     },
                     height: 48,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -172,7 +176,7 @@ class _MyVehiclesViewState extends State<MyVehiclesView> {
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           );
         },

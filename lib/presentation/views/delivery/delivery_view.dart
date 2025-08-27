@@ -124,18 +124,20 @@ class _DeliveryViewState extends State<DeliveryView> {
                       point2 = point;
                     },
                     onSucces: (point, point2) {
-                      context.read<AdvertisementBloc>().add(GetAvgPriceEvent(
-                            model: {
-                              'service_type_id': 9,
-                              'from_lat': point1?.latitude,
-                              'from_lon': point1?.longitude,
-                              'to_lat': point2?.latitude,
-                              'to_lon': point2?.longitude
-                            },
-                            onSucces: (id) {
-                              controllerPrice.text = id.toString();
-                            },
-                          ));
+                      context.read<AdvertisementBloc>().add(
+                        GetAvgPriceEvent(
+                          model: {
+                            'service_type_id': 9,
+                            'from_lat': point1?.latitude,
+                            'from_lon': point1?.longitude,
+                            'to_lat': point2?.latitude,
+                            'to_lon': point2?.longitude,
+                          },
+                          onSucces: (id) {
+                            controllerPrice.text = id.toString();
+                          },
+                        ),
+                      );
                     },
                   ),
                   Container(
@@ -211,75 +213,88 @@ class _DeliveryViewState extends State<DeliveryView> {
                                     Builder(
                                       builder: (context) => GestureDetector(
                                         onTap: () async {
-                                          final RenderBox button = context
-                                              .findRenderObject() as RenderBox;
+                                          final RenderBox button =
+                                              context.findRenderObject()
+                                                  as RenderBox;
                                           final RenderBox overlay =
-                                              Overlay.of(context)
-                                                      .context
-                                                      .findRenderObject()
+                                              Overlay.of(
+                                                    context,
+                                                  ).context.findRenderObject()
                                                   as RenderBox;
 
                                           final RelativeRect position =
                                               RelativeRect.fromRect(
-                                            Rect.fromPoints(
-                                              button.localToGlobal(
-                                                  Offset(0, button.size.height),
-                                                  ancestor: overlay),
-                                              button.localToGlobal(
-                                                  button.size
-                                                      .bottomRight(Offset.zero),
-                                                  ancestor: overlay),
-                                            ),
-                                            Offset.zero & overlay.size,
-                                          );
+                                                Rect.fromPoints(
+                                                  button.localToGlobal(
+                                                    Offset(
+                                                      0,
+                                                      button.size.height,
+                                                    ),
+                                                    ancestor: overlay,
+                                                  ),
+                                                  button.localToGlobal(
+                                                    button.size.bottomRight(
+                                                      Offset.zero,
+                                                    ),
+                                                    ancestor: overlay,
+                                                  ),
+                                                ),
+                                                Offset.zero & overlay.size,
+                                              );
 
-                                          String? selected =
-                                              await showMenu<String>(
+                                          String?
+                                          selected = await showMenu<String>(
                                             context: context,
                                             position: position,
                                             color: white,
-                                            shadowColor:
-                                                black.withValues(alpha: .3),
+                                            shadowColor: black.withValues(
+                                              alpha: .3,
+                                            ),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(16),
                                             ),
-                                            items: [
-                                              AppLocalizations.of(context)!
-                                                  .unit_kg,
-                                              AppLocalizations.of(context)!
-                                                  .unit_tn
-                                            ].map((choice) {
-                                              return PopupMenuItem<String>(
-                                                value: choice,
-                                                height: 40,
-                                                child: Row(
-                                                  children: [
-                                                    Text(
-                                                      choice,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: const TextStyle(
-                                                        fontSize: 14,
-                                                      ),
+                                            items:
+                                                [
+                                                  AppLocalizations.of(
+                                                    context,
+                                                  )!.unit_kg,
+                                                  AppLocalizations.of(
+                                                    context,
+                                                  )!.unit_tn,
+                                                ].map((choice) {
+                                                  return PopupMenuItem<String>(
+                                                    value: choice,
+                                                    height: 40,
+                                                    child: Row(
+                                                      children: [
+                                                        Text(
+                                                          choice,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style:
+                                                              const TextStyle(
+                                                                fontSize: 14,
+                                                              ),
+                                                        ),
+                                                        const Spacer(),
+                                                        SizedBox(
+                                                          height: 20,
+                                                          width: 20,
+                                                          child:
+                                                              choice ==
+                                                                  selectedUnit
+                                                              ? AppIcons
+                                                                    .checkboxRadio
+                                                                    .svg()
+                                                              : AppIcons
+                                                                    .checkboxRadioDis
+                                                                    .svg(),
+                                                        ),
+                                                      ],
                                                     ),
-                                                    const Spacer(),
-                                                    SizedBox(
-                                                      height: 20,
-                                                      width: 20,
-                                                      child: choice ==
-                                                              selectedUnit
-                                                          ? AppIcons
-                                                              .checkboxRadio
-                                                              .svg()
-                                                          : AppIcons
-                                                              .checkboxRadioDis
-                                                              .svg(),
-                                                    )
-                                                  ],
-                                                ),
-                                              );
-                                            }).toList(),
+                                                  );
+                                                }).toList(),
                                           );
 
                                           if (selected != null) {
@@ -321,7 +336,8 @@ class _DeliveryViewState extends State<DeliveryView> {
                                           border: InputBorder.none,
                                           hintText: '0',
                                           hintStyle: TextStyle(
-                                              color: context.color.darkText),
+                                            color: context.color.darkText,
+                                          ),
                                         ),
                                         style: const TextStyle(fontSize: 16),
                                       ),
@@ -329,8 +345,9 @@ class _DeliveryViewState extends State<DeliveryView> {
                                     Text(
                                       AppLocalizations.of(context)!.unit_m3,
                                       style: TextStyle(
-                                          color: context.color.darkText),
-                                    )
+                                        color: context.color.darkText,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -358,14 +375,15 @@ class _DeliveryViewState extends State<DeliveryView> {
                                     Text(
                                       'litr',
                                       style: TextStyle(
-                                          color: context.color.darkText),
-                                    )
+                                        color: context.color.darkText,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
                             ],
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -381,10 +399,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                       onPressed: onTap,
                       prefixIcon: GestureDetector(
                         onTap: onTap,
-                        child: AppIcons.calendar.svg(
-                          height: 24,
-                          width: 24,
-                        ),
+                        child: AppIcons.calendar.svg(height: 24, width: 24),
                       ),
                       onChanged: (value) {},
                     ),
@@ -412,12 +427,15 @@ class _DeliveryViewState extends State<DeliveryView> {
                               controllerData.hide();
                               final date = DateTime.now();
                               selectedDate = date;
-                              selectedDate2 =
-                                  date.add(const Duration(hours: 6));
-                              controllerTime.text =
-                                  MyFunction.formattedTime(date);
-                              controllerTime2.text =
-                                  MyFunction.formattedTime(selectedDate2);
+                              selectedDate2 = date.add(
+                                const Duration(hours: 6),
+                              );
+                              controllerTime.text = MyFunction.formattedTime(
+                                date,
+                              );
+                              controllerTime2.text = MyFunction.formattedTime(
+                                selectedDate2,
+                              );
                               controller.text = MyFunction.dateFormat(date);
                             },
                             title: Row(
@@ -442,23 +460,30 @@ class _DeliveryViewState extends State<DeliveryView> {
                                 ),
                               ],
                             ),
-                            trailing: MyFunction.isSameDay(
-                                    DateTime.now(), selectedDate)
+                            trailing:
+                                MyFunction.isSameDay(
+                                  DateTime.now(),
+                                  selectedDate,
+                                )
                                 ? AppIcons.checkboxRadio.svg()
                                 : AppIcons.checkboxRadioDis.svg(),
                           ),
                           CupertinoListTile(
                             onTap: () {
                               controllerData.hide();
-                              final date =
-                                  DateTime.now().add(const Duration(days: 1));
+                              final date = DateTime.now().add(
+                                const Duration(days: 1),
+                              );
                               selectedDate = date;
-                              selectedDate2 =
-                                  date.add(const Duration(hours: 6));
-                              controllerTime.text =
-                                  MyFunction.formattedTime(date);
-                              controllerTime2.text =
-                                  MyFunction.formattedTime(selectedDate2);
+                              selectedDate2 = date.add(
+                                const Duration(hours: 6),
+                              );
+                              controllerTime.text = MyFunction.formattedTime(
+                                date,
+                              );
+                              controllerTime2.text = MyFunction.formattedTime(
+                                selectedDate2,
+                              );
                               controller.text = MyFunction.dateFormat(date);
                             },
                             title: Row(
@@ -485,10 +510,11 @@ class _DeliveryViewState extends State<DeliveryView> {
                                 ),
                               ],
                             ),
-                            trailing: MyFunction.isSameDay(
-                              DateTime.now().add(const Duration(days: 1)),
-                              selectedDate,
-                            )
+                            trailing:
+                                MyFunction.isSameDay(
+                                  DateTime.now().add(const Duration(days: 1)),
+                                  selectedDate,
+                                )
                                 ? AppIcons.checkboxRadio.svg()
                                 : AppIcons.checkboxRadioDis.svg(),
                           ),
@@ -503,22 +529,24 @@ class _DeliveryViewState extends State<DeliveryView> {
                                 context: context,
                                 isScrollControlled: true,
                                 backgroundColor: Colors.transparent,
-                                builder: (context) => WClaendar(
-                                  selectedDate: selectedDate,
-                                ),
+                                builder: (context) =>
+                                    WClaendar(selectedDate: selectedDate),
                               ).then((value) {
                                 if (value != null) {
-                                  final date = (value as DateTime)
-                                      .add(const Duration(hours: 8));
+                                  final date = (value as DateTime).add(
+                                    const Duration(hours: 8),
+                                  );
                                   selectedDate = date;
-                                  selectedDate2 =
-                                      date.add(const Duration(hours: 12));
+                                  selectedDate2 = date.add(
+                                    const Duration(hours: 12),
+                                  );
                                   controllerTime.text =
                                       MyFunction.formattedTime(date);
                                   controllerTime2.text =
                                       MyFunction.formattedTime(selectedDate2);
-                                  controller.text =
-                                      MyFunction.dateFormat(value);
+                                  controller.text = MyFunction.dateFormat(
+                                    value,
+                                  );
                                 }
                               });
                             },
@@ -554,14 +582,14 @@ class _DeliveryViewState extends State<DeliveryView> {
                               context: context,
                               isScrollControlled: true,
                               backgroundColor: Colors.transparent,
-                              builder: (context) => WTime(
-                                selectedDate: selectedDate,
-                              ),
+                              builder: (context) =>
+                                  WTime(selectedDate: selectedDate),
                             ).then((value) {
                               if (value != null) {
                                 selectedDate = value;
-                                controllerTime.text =
-                                    MyFunction.formattedTime(value);
+                                controllerTime.text = MyFunction.formattedTime(
+                                  value,
+                                );
                               }
                             });
                           },
@@ -571,9 +599,8 @@ class _DeliveryViewState extends State<DeliveryView> {
                                 context: context,
                                 isScrollControlled: true,
                                 backgroundColor: Colors.transparent,
-                                builder: (context) => WTime(
-                                  selectedDate: selectedDate,
-                                ),
+                                builder: (context) =>
+                                    WTime(selectedDate: selectedDate),
                               ).then((value) {
                                 if (value != null) {
                                   selectedDate = value;
@@ -582,10 +609,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                                 }
                               });
                             },
-                            child: AppIcons.clock.svg(
-                              height: 24,
-                              width: 24,
-                            ),
+                            child: AppIcons.clock.svg(height: 24, width: 24),
                           ),
                           onChanged: (value) {},
                         ),
@@ -611,8 +635,9 @@ class _DeliveryViewState extends State<DeliveryView> {
                             ).then((value) {
                               if (value != null) {
                                 selectedDate2 = value;
-                                controllerTime2.text =
-                                    MyFunction.formattedTime(value);
+                                controllerTime2.text = MyFunction.formattedTime(
+                                  value,
+                                );
                               }
                             });
                           },
@@ -634,19 +659,18 @@ class _DeliveryViewState extends State<DeliveryView> {
                                 }
                               });
                             },
-                            child: AppIcons.clock.svg(
-                              height: 24,
-                              width: 24,
-                            ),
+                            child: AppIcons.clock.svg(height: 24, width: 24),
                           ),
                           onChanged: (value) {},
                         ),
                       ),
                     ],
                   ),
-                  WSelectionItam(onTap: (index) {
-                    trTypeId.value = index;
-                  }),
+                  WSelectionItam(
+                    onTap: (index) {
+                      trTypeId.value = index;
+                    },
+                  ),
                   AdditionalInformationView(
                     isDelivery: false,
                     controllerCommet: controllerCommet,
@@ -659,7 +683,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                         images = list;
                       });
                     },
-                  )
+                  ),
                 ],
               ),
             ),
@@ -718,17 +742,19 @@ class _DeliveryViewState extends State<DeliveryView> {
                         m3: controllerm3.text.isEmpty
                             ? null
                             : controllerm3.text,
-                        kg: selectedUnit ==
+                        kg:
+                            selectedUnit ==
                                 AppLocalizations.of(context)!.unit_kg
                             ? controllerKg.text.isEmpty
-                                ? null
-                                : controllerKg.text
+                                  ? null
+                                  : controllerKg.text
                             : null,
-                        tn: selectedUnit ==
+                        tn:
+                            selectedUnit ==
                                 AppLocalizations.of(context)!.unit_tn
                             ? controllerKg.text.isEmpty
-                                ? null
-                                : controllerKg.text
+                                  ? null
+                                  : controllerKg.text
                             : null,
                         litr: controllerLitr.text.isEmpty
                             ? null
@@ -747,23 +773,26 @@ class _DeliveryViewState extends State<DeliveryView> {
                       price: priceOffer.value
                           ? 0
                           : int.tryParse(
-                                  controllerPrice.text.replaceAll(' ', '')) ??
-                              0,
+                                  controllerPrice.text.replaceAll(' ', ''),
+                                ) ??
+                                0,
                     ).toJson();
-                    context.read<AdvertisementBloc>().add(CreateDeliveryEvent(
-                          model: model,
-                          images: images,
-                          onError: () {
-                            Navigator.of(context).pop();
-                          },
-                          onSucces: (id) {},
-                        ));
+                    context.read<AdvertisementBloc>().add(
+                      CreateDeliveryEvent(
+                        model: model,
+                        images: images,
+                        onError: () {
+                          Navigator.of(context).pop();
+                        },
+                        onSucces: (id) {},
+                      ),
+                    );
                     succesCreate(context).then((value) {
                       if (context.mounted) {
                         context.go(AppRouteName.announcements);
-                        context
-                            .read<AdvertisementBloc>()
-                            .add(GetAdvertisementsEvent(isPROVIDE: false));
+                        context.read<AdvertisementBloc>().add(
+                          GetAdvertisementsEvent(isPROVIDE: false),
+                        );
                       }
                     });
                   },

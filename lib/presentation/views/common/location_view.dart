@@ -132,8 +132,9 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
                       borderRadius: BorderRadius.circular(24),
                       boxShadow: [
                         BoxShadow(
-                          color:
-                              const Color(0xFF292D32).withValues(alpha: 0.02),
+                          color: const Color(
+                            0xFF292D32,
+                          ).withValues(alpha: 0.02),
                           offset: const Offset(0, 2),
                           blurRadius: 8.5,
                         ),
@@ -163,10 +164,12 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
                                   controllerLong: controllerLong,
                                   onTap: (point, isFirst) {
                                     Log.wtf(isFirst);
-                                    _moveToCurrentLocation(AppLatLong(
-                                      lat: point?.latitude ?? 0,
-                                      long: point?.longitude ?? 0,
-                                    ));
+                                    _moveToCurrentLocation(
+                                      AppLatLong(
+                                        lat: point?.latitude ?? 0,
+                                        long: point?.longitude ?? 0,
+                                      ),
+                                    );
                                     Log.wtf(controllerLong.text);
                                     if (isFirst) {
                                       point1 = MapPoint(
@@ -227,10 +230,12 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
                                 controllerLat: controllerLat,
                                 controllerLong: controllerLong,
                                 onTap: (point, isFirst) {
-                                  _moveToCurrentLocation(AppLatLong(
-                                    lat: point?.latitude ?? 0,
-                                    long: point?.longitude ?? 0,
-                                  ));
+                                  _moveToCurrentLocation(
+                                    AppLatLong(
+                                      lat: point?.latitude ?? 0,
+                                      long: point?.longitude ?? 0,
+                                    ),
+                                  );
                                   if (isFirst) {
                                     isMapIndex.value = 1;
                                     point1 = MapPoint(
@@ -287,73 +292,79 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
               return YandexMap(
                 onMapCreated: (controller) async {
                   _onMapCreated(controller);
-                  mapController?.moveCamera(CameraUpdate.newCameraPosition(
-                    const CameraPosition(
-                      target: Point(
-                        latitude: 41.2995,
-                        longitude: 69.2401,
-                      ), // O'zbekiston markazi
-                      zoom: 3.0, // Kattaroq zoom
+                  mapController?.moveCamera(
+                    CameraUpdate.newCameraPosition(
+                      const CameraPosition(
+                        target: Point(
+                          latitude: 41.2995,
+                          longitude: 69.2401,
+                        ), // O'zbekiston markazi
+                        zoom: 3.0, // Kattaroq zoom
+                      ),
                     ),
-                  ));
+                  );
                   if (widget.point1 == null || widget.point2 == null) {
                     await _initLocationLayer();
                   } else {
                     if (widget.point1 != null) {
-                      mapController?.moveCamera(CameraUpdate.newCameraPosition(
-                        CameraPosition(
-                          target: Point(
-                            latitude: widget.point1!.latitude,
-                            longitude: widget.point1!.longitude,
+                      mapController?.moveCamera(
+                        CameraUpdate.newCameraPosition(
+                          CameraPosition(
+                            target: Point(
+                              latitude: widget.point1!.latitude,
+                              longitude: widget.point1!.longitude,
+                            ),
                           ),
                         ),
-                      ));
+                      );
                     } else {
-                      mapController?.moveCamera(CameraUpdate.newCameraPosition(
-                        CameraPosition(
-                          target: Point(
-                            latitude: widget.point2!.latitude,
-                            longitude: widget.point2!.longitude,
+                      mapController?.moveCamera(
+                        CameraUpdate.newCameraPosition(
+                          CameraPosition(
+                            target: Point(
+                              latitude: widget.point2!.latitude,
+                              longitude: widget.point2!.longitude,
+                            ),
                           ),
                         ),
-                      ));
+                      );
                     }
                   }
                 },
                 onCameraPositionChanged:
                     (cameraPosition, reason, finished) async {
-                  if ((widget.point1 == null || widget.point2 == null) ||
-                      isMap.value) {
-                    Log.i("message");
-                    if (finished) {
-                      _address = await getPlaceMarkFromYandex(
-                        cameraPosition.target.latitude,
-                        cameraPosition.target.longitude,
-                      );
-                      _position = cameraPosition;
-                      if (widget.isFirst && isMapIndex.value == 1) {
-                        Log.i("message 1");
-                        controllerLat.text = _address;
-                        point1 = MapPoint(
-                          name: controllerLat.text,
-                          latitude: _position?.target.latitude ?? 0,
-                          longitude: _position?.target.longitude ?? 0,
-                        );
-                      } else {
-                        Log.i("message 2");
-                        controllerLong.text = _address;
-                        point2 = MapPoint(
-                          name: controllerLong.text,
-                          latitude: _position?.target.latitude ?? 0,
-                          longitude: _position?.target.longitude ?? 0,
-                        );
+                      if ((widget.point1 == null || widget.point2 == null) ||
+                          isMap.value) {
+                        Log.i("message");
+                        if (finished) {
+                          _address = await getPlaceMarkFromYandex(
+                            cameraPosition.target.latitude,
+                            cameraPosition.target.longitude,
+                          );
+                          _position = cameraPosition;
+                          if (widget.isFirst && isMapIndex.value == 1) {
+                            Log.i("message 1");
+                            controllerLat.text = _address;
+                            point1 = MapPoint(
+                              name: controllerLat.text,
+                              latitude: _position?.target.latitude ?? 0,
+                              longitude: _position?.target.longitude ?? 0,
+                            );
+                          } else {
+                            Log.i("message 2");
+                            controllerLong.text = _address;
+                            point2 = MapPoint(
+                              name: controllerLong.text,
+                              latitude: _position?.target.latitude ?? 0,
+                              longitude: _position?.target.longitude ?? 0,
+                            );
+                          }
+                        }
+                        setState(() {
+                          _mapZoom = cameraPosition.zoom;
+                        });
                       }
-                    }
-                    setState(() {
-                      _mapZoom = cameraPosition.zoom;
-                    });
-                  }
-                },
+                    },
                 mapObjects: [
                   _getClusterizedCollection(
                     placemarks: _getPlacemarkObjects(context),
@@ -444,8 +455,8 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
               );
             },
           ),
-          // Location marker in the center
 
+          // Location marker in the center
           if ((widget.point1 == null || widget.point2 == null) || isMap.value)
             Center(
               child: CircleAvatar(
@@ -510,7 +521,7 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

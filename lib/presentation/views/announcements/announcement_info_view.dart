@@ -66,9 +66,9 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
   @override
   void initState() {
     if (widget.isOffers) {
-      context
-          .read<AdvertisementBloc>()
-          .add(GetOffersEvent(advertisementId: widget.model.id));
+      context.read<AdvertisementBloc>().add(
+        GetOffersEvent(advertisementId: widget.model.id),
+      );
     }
     super.initState();
   }
@@ -122,17 +122,19 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                         onTap: () {
                           final bloc = context.read<AdvertisementBloc>();
                           Navigator.of(context)
-                              .push(MaterialPageRoute(
-                            builder: (context) => BlocProvider.value(
-                              value: bloc,
-                              child: EditAdsView(model: widget.model),
-                            ),
-                          ))
+                              .push(
+                                MaterialPageRoute(
+                                  builder: (context) => BlocProvider.value(
+                                    value: bloc,
+                                    child: EditAdsView(model: widget.model),
+                                  ),
+                                ),
+                              )
                               .then((value) {
-                            if (value != null) {
-                              bloc.add(GetAdvertisementsMyCarsEvent());
-                            }
-                          });
+                                if (value != null) {
+                                  bloc.add(GetAdvertisementsMyCarsEvent());
+                                }
+                              });
                         },
                         color: greyBack,
                         textColor: greyText,
@@ -152,19 +154,21 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                         onTap: () {
                           final bloc = context.read<AdvertisementBloc>();
                           Navigator.of(context)
-                              .push(MaterialPageRoute(
-                            builder: (context) => BlocProvider.value(
-                              value: bloc,
-                              child: EditAdsView(model: widget.model),
-                            ),
-                          ))
+                              .push(
+                                MaterialPageRoute(
+                                  builder: (context) => BlocProvider.value(
+                                    value: bloc,
+                                    child: EditAdsView(model: widget.model),
+                                  ),
+                                ),
+                              )
                               .then((value) {
-                            if (value != null) {
-                              if (widget.onEdit != null) {
-                                widget.onEdit!();
-                              }
-                            }
-                          });
+                                if (value != null) {
+                                  if (widget.onEdit != null) {
+                                    widget.onEdit!();
+                                  }
+                                }
+                              });
                         },
                         color: greyBack,
                         textColor: greyText,
@@ -212,8 +216,9 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                                   spacing: 24,
                                   children: [
                                     Text(
-                                      AppLocalizations.of(context)!
-                                          .confirm_delete,
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.confirm_delete,
                                       style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w400,
@@ -229,43 +234,49 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                                             },
                                             textColor: greyText,
                                             color: greyBack,
-                                            text: AppLocalizations.of(context)!
-                                                .no,
+                                            text: AppLocalizations.of(
+                                              context,
+                                            )!.no,
                                           ),
                                         ),
                                         Expanded(
-                                          child: BlocBuilder<AdvertisementBloc,
-                                              AdvertisementState>(
-                                            bloc: bloc,
-                                            builder: (context, state) {
-                                              return WButton(
-                                                onTap: () {
-                                                  bloc.add(
-                                                    DeleteAdvertisementEvent(
-                                                      id: widget.model.id,
-                                                      onSucces: () {
-                                                        Navigator.of(context)
-                                                          ..pop()
-                                                          ..pop(true);
-                                                      },
-                                                    ),
+                                          child:
+                                              BlocBuilder<
+                                                AdvertisementBloc,
+                                                AdvertisementState
+                                              >(
+                                                bloc: bloc,
+                                                builder: (context, state) {
+                                                  return WButton(
+                                                    onTap: () {
+                                                      bloc.add(
+                                                        DeleteAdvertisementEvent(
+                                                          id: widget.model.id,
+                                                          onSucces: () {
+                                                            Navigator.of(
+                                                                context,
+                                                              )
+                                                              ..pop()
+                                                              ..pop(true);
+                                                          },
+                                                        ),
+                                                      );
+                                                    },
+                                                    textColor: greyText,
+                                                    color: greyBack,
+                                                    text: AppLocalizations.of(
+                                                      context,
+                                                    )!.yes,
                                                   );
                                                 },
-                                                textColor: greyText,
-                                                color: greyBack,
-                                                text: AppLocalizations.of(
-                                                        context)!
-                                                    .yes,
-                                              );
-                                            },
-                                          ),
-                                        )
+                                              ),
+                                        ),
                                       ],
                                     ),
-                                    const SizedBox()
+                                    const SizedBox(),
                                   ],
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         );
@@ -338,45 +349,52 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                                             },
                                             textColor: greyText,
                                             color: greyBack,
-                                            text: AppLocalizations.of(context)!
-                                                .no,
+                                            text: AppLocalizations.of(
+                                              context,
+                                            )!.no,
                                           ),
                                         ),
                                         Expanded(
-                                          child: BlocBuilder<AdvertisementBloc,
-                                              AdvertisementState>(
-                                            bloc: bloc,
-                                            builder: (context, state) {
-                                              return WButton(
-                                                isLoading: state
-                                                    .statusCreate.isInProgress,
-                                                onTap: () {
-                                                  bloc.add(
-                                                    FinishOffersEvent(
-                                                      id: widget.model.id,
-                                                      onSuccess: () {
-                                                        Navigator.of(context)
-                                                          ..pop()
-                                                          ..pop(true);
-                                                      },
-                                                    ),
+                                          child:
+                                              BlocBuilder<
+                                                AdvertisementBloc,
+                                                AdvertisementState
+                                              >(
+                                                bloc: bloc,
+                                                builder: (context, state) {
+                                                  return WButton(
+                                                    isLoading: state
+                                                        .statusCreate
+                                                        .isInProgress,
+                                                    onTap: () {
+                                                      bloc.add(
+                                                        FinishOffersEvent(
+                                                          id: widget.model.id,
+                                                          onSuccess: () {
+                                                            Navigator.of(
+                                                                context,
+                                                              )
+                                                              ..pop()
+                                                              ..pop(true);
+                                                          },
+                                                        ),
+                                                      );
+                                                    },
+                                                    textColor: greyText,
+                                                    color: greyBack,
+                                                    text: AppLocalizations.of(
+                                                      context,
+                                                    )!.yes,
                                                   );
                                                 },
-                                                textColor: greyText,
-                                                color: greyBack,
-                                                text: AppLocalizations.of(
-                                                        context)!
-                                                    .yes,
-                                              );
-                                            },
-                                          ),
-                                        )
+                                              ),
+                                        ),
                                       ],
                                     ),
-                                    const SizedBox()
+                                    const SizedBox(),
                                   ],
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         );
@@ -410,10 +428,7 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                                 ),
                         ).then((value) {
                           if (value != null && context.mounted) {
-                            CustomSnackbar.show(
-                              context,
-                              "Taklif yuorildi",
-                            );
+                            CustomSnackbar.show(context, "Taklif yuorildi");
                           }
                         });
                       },
@@ -435,7 +450,8 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                           onTap: () async {
                             if (widget.model.createdByTgLink != null) {
                               await Caller.launchTelegram(
-                                  widget.model.createdByTgLink!);
+                                widget.model.createdByTgLink!,
+                              );
                             } else {
                               CustomSnackbar.show(
                                 context,
@@ -459,7 +475,8 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                           onTap: () async {
                             if (widget.model.createdByPhone != null) {
                               await Caller.makePhoneCall(
-                                  widget.model.createdByPhone!);
+                                widget.model.createdByPhone!,
+                              );
                             } else {
                               CustomSnackbar.show(
                                 context,
@@ -505,21 +522,19 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                   child: Row(
                     children: [
                       Expanded(
-                        child: Text(
-                          switch (widget.model.status) {
-                            "ACTIVE" => AppLocalizations.of(context)!.active,
-                            "IN_ACTIVE" =>
-                              AppLocalizations.of(context)!.notActive,
-                            "CLOSED" => AppLocalizations.of(context)!.closed,
-                            "IN_PROCESS" => "Jarayonda",
-                            String() => widget.model.status,
-                          },
-                          textAlign: TextAlign.center,
-                        ),
+                        child: Text(switch (widget.model.status) {
+                          "ACTIVE" => AppLocalizations.of(context)!.active,
+                          "IN_ACTIVE" => AppLocalizations.of(
+                            context,
+                          )!.notActive,
+                          "CLOSED" => AppLocalizations.of(context)!.closed,
+                          "IN_PROCESS" => "Jarayonda",
+                          String() => widget.model.status,
+                        }, textAlign: TextAlign.center),
                       ),
                       AppIcons.arrowBottom.svg(
                         color: widget.model.status == 'ACTIVE' ? green : red,
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -548,16 +563,16 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                         WScaleAnimation(
                           onTap: () {
                             widget.model.status = 'IN_ACTIVE';
-                            context
-                                .read<AdvertisementBloc>()
-                                .add(UpdateStatusEvent(
-                                  advertisementId: widget.model.id,
-                                  status: 'IN_ACTIVE',
-                                  onSuccess: () {
-                                    _controller.hide();
-                                    setState(() {});
-                                  },
-                                ));
+                            context.read<AdvertisementBloc>().add(
+                              UpdateStatusEvent(
+                                advertisementId: widget.model.id,
+                                status: 'IN_ACTIVE',
+                                onSuccess: () {
+                                  _controller.hide();
+                                  setState(() {});
+                                },
+                              ),
+                            );
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -566,8 +581,9 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                                 onTap: () {},
                                 height: 40,
                                 text: "Band",
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
                                 color: red.withValues(alpha: .1),
                                 textColor: red,
                               ),
@@ -580,16 +596,16 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                       WScaleAnimation(
                         onTap: () {
                           widget.model.status = 'ACTIVE';
-                          context
-                              .read<AdvertisementBloc>()
-                              .add(UpdateStatusEvent(
-                                advertisementId: widget.model.id,
-                                status: 'ACTIVE',
-                                onSuccess: () {
-                                  _controller.hide();
-                                  setState(() {});
-                                },
-                              ));
+                          context.read<AdvertisementBloc>().add(
+                            UpdateStatusEvent(
+                              advertisementId: widget.model.id,
+                              status: 'ACTIVE',
+                              onSuccess: () {
+                                _controller.hide();
+                                setState(() {});
+                              },
+                            ),
+                          );
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -598,8 +614,9 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                               onTap: () {},
                               height: 40,
                               text: "Faol",
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                              ),
                               color: green.withValues(alpha: .1),
                               textColor: green,
                             ),
@@ -613,16 +630,16 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                         WScaleAnimation(
                           onTap: () {
                             widget.model.status = 'CLOSED';
-                            context
-                                .read<AdvertisementBloc>()
-                                .add(UpdateStatusEvent(
-                                  advertisementId: widget.model.id,
-                                  status: 'CLOSED',
-                                  onSuccess: () {
-                                    _controller.hide();
-                                    setState(() {});
-                                  },
-                                ));
+                            context.read<AdvertisementBloc>().add(
+                              UpdateStatusEvent(
+                                advertisementId: widget.model.id,
+                                status: 'CLOSED',
+                                onSuccess: () {
+                                  _controller.hide();
+                                  setState(() {});
+                                },
+                              ),
+                            );
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -631,8 +648,9 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                                 onTap: () {},
                                 height: 40,
                                 text: "Tugallangan",
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
                                 color: red.withValues(alpha: .1),
                                 textColor: red,
                               ),
@@ -651,10 +669,7 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                 BlocBuilder<AdvertisementBloc, AdvertisementState>(
                   builder: (context, state) {
                     if (state.statusOffers.isInProgress) {
-                      return const WShimmer(
-                        height: 56,
-                        width: double.infinity,
-                      );
+                      return const WShimmer(height: 56, width: double.infinity);
                     }
                     if (state.offersList.isEmpty) {
                       return const SizedBox();
@@ -668,15 +683,17 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                       child: ListTile(
                         onTap: () {
                           final bloc = context.read<AdvertisementBloc>();
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => BlocProvider.value(
-                              value: bloc,
-                              child: OffersView(
-                                offersList: state.offersList,
-                                advertisementId: widget.model.id,
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider.value(
+                                value: bloc,
+                                child: OffersView(
+                                  offersList: state.offersList,
+                                  advertisementId: widget.model.id,
+                                ),
                               ),
                             ),
-                          ));
+                          );
                         },
                         leading: AppIcons.layer.svg(height: 24, width: 24),
                         title: Row(
@@ -713,12 +730,14 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                 margin: const EdgeInsets.only(bottom: 16),
                 child: ListTile(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => CommentsView(
-                        comments: widget.model.comments ?? [],
-                        id: widget.model.id,
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CommentsView(
+                          comments: widget.model.comments ?? [],
+                          id: widget.model.id,
+                        ),
                       ),
-                    ));
+                    );
                   },
                   leading: AppIcons.message.svg(color: context.color.iron),
                   title: Row(
@@ -740,16 +759,18 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                                 left: 16,
                                 child: CircleAvatar(
                                   radius: 12,
-                                  backgroundImage:
-                                      AssetImage(AppImages.avatar_2),
+                                  backgroundImage: AssetImage(
+                                    AppImages.avatar_2,
+                                  ),
                                 ),
                               ),
                               const Positioned(
                                 left: 32,
                                 child: CircleAvatar(
                                   radius: 12,
-                                  backgroundImage:
-                                      AssetImage(AppImages.avatar_3),
+                                  backgroundImage: AssetImage(
+                                    AppImages.avatar_3,
+                                  ),
                                 ),
                               ),
                               Positioned(
@@ -821,12 +842,7 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                           ),
                         ),
                         Text(
-                          '${calculateDistance(
-                            widget.model.fromLocation?.lat ?? 0,
-                            widget.model.fromLocation?.lng ?? 0,
-                            widget.model.toLocation?.lat ?? 0,
-                            widget.model.toLocation?.lng ?? 0,
-                          ).toInt()} km',
+                          '${calculateDistance(widget.model.fromLocation?.lat ?? 0, widget.model.fromLocation?.lng ?? 0, widget.model.toLocation?.lat ?? 0, widget.model.toLocation?.lng ?? 0).toInt()} km',
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
@@ -872,13 +888,15 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                     ),
                   WButton(
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => LocationInfoView(
-                          point1: widget.model.fromLocation,
-                          point2: widget.model.toLocation,
-                          isFirst: true,
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => LocationInfoView(
+                            point1: widget.model.fromLocation,
+                            point2: widget.model.toLocation,
+                            isFirst: true,
+                          ),
                         ),
-                      ));
+                      );
                     },
                     text: "Karta orqali ko’rish",
                     color: greyBack,
@@ -926,9 +944,11 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                 spacing: 16,
                 children: [
                   WInfoContainer(
-                      text: widget.model.details?.techPassportSeria ?? ""),
+                    text: widget.model.details?.techPassportSeria ?? "",
+                  ),
                   WInfoContainer(
-                      text: widget.model.details?.techPassportNum ?? ""),
+                    text: widget.model.details?.techPassportNum ?? "",
+                  ),
                 ],
               ),
               const SizedBox(height: 8),
@@ -1005,9 +1025,11 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                     icon: AppIcons.calendar,
                   ),
                   WInfoContainer(
-                    text: MyFunction.formattedTime(
+                    text:
+                        MyFunction.formattedTime(
                           DateTime.tryParse(
-                                  widget.model.details?.fromDate ?? "") ??
+                                widget.model.details?.fromDate ?? "",
+                              ) ??
                               DateTime.now(),
                         ) +
                         (widget.model.details?.toDate != null
@@ -1083,7 +1105,7 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                       imageUrl: widget.model.transportIcon ?? "",
                       height: 48,
                       errorWidget: (context, url, error) => const SizedBox(),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -1194,10 +1216,7 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
             const SizedBox(height: 16),
             Text(
               widget.model.note,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-              ),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
             ),
           ],
         ),

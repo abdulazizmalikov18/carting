@@ -80,17 +80,13 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
         await LocationService().requestPermission();
       }
       final location = await LocationService().getCurrentLocation();
-      final address = await getPlaceMarkFromYandex(
-        location.lat,
-        location.long,
-      );
+      final address = await getPlaceMarkFromYandex(location.lat, location.long);
       point1 = MapPoint(
         name: address,
         latitude: location.lat,
         longitude: location.long,
       );
     } catch (_) {
-      Log.e(_);
       point1 = MapPoint(
         name: "Siz turgan manzil",
         latitude: defLocation.lat,
@@ -115,30 +111,32 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
             ListTile(
               onTap: () {
                 final bloc = context.read<AdvertisementBloc>();
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => LocationView(
-                    isFirst: true,
-                    point1: point1,
-                    point2: point2,
-                    bloc: bloc,
-                    onTap: (mapPoint1, mapPoint2) {
-                      Navigator.pop(context);
-                      if (mapPoint1 != null) {
-                        point1 = mapPoint1;
-                        widget.onTap1!(point1);
-                        setState(() {});
-                      }
-                      if (mapPoint2 != null) {
-                        point2 = mapPoint2;
-                        widget.onTap2!(point2);
-                        setState(() {});
-                      }
-                      if (widget.onSucces != null) {
-                        widget.onSucces!(mapPoint1, mapPoint2);
-                      }
-                    },
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => LocationView(
+                      isFirst: true,
+                      point1: point1,
+                      point2: point2,
+                      bloc: bloc,
+                      onTap: (mapPoint1, mapPoint2) {
+                        Navigator.pop(context);
+                        if (mapPoint1 != null) {
+                          point1 = mapPoint1;
+                          widget.onTap1!(point1);
+                          setState(() {});
+                        }
+                        if (mapPoint2 != null) {
+                          point2 = mapPoint2;
+                          widget.onTap2!(point2);
+                          setState(() {});
+                        }
+                        if (widget.onSucces != null) {
+                          widget.onSucces!(mapPoint1, mapPoint2);
+                        }
+                      },
+                    ),
                   ),
-                ));
+                );
               },
               title: Text(
                 '${AppLocalizations.of(context)!.from}:',

@@ -27,11 +27,7 @@ class CarsRenatlDitealsView extends StatefulWidget {
 }
 
 class _CarsRenatlDitealsViewState extends State<CarsRenatlDitealsView> {
-  List<Color> list3 = [
-    Colors.amber,
-    Colors.brown,
-    Colors.black,
-  ];
+  List<Color> list3 = [Colors.amber, Colors.brown, Colors.black];
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +65,7 @@ class _CarsRenatlDitealsViewState extends State<CarsRenatlDitealsView> {
                     )
                   : const SizedBox(),
             ),
-          )
+          ),
         ],
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -106,12 +102,12 @@ class _CarsRenatlDitealsViewState extends State<CarsRenatlDitealsView> {
                                 fontSize: 12,
                                 color: context.color.darkText,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
               Text(
@@ -180,10 +176,7 @@ class _CarsRenatlDitealsViewState extends State<CarsRenatlDitealsView> {
                 ),
                 child: ListTile(
                   onTap: () {},
-                  leading: AppIcons.location.svg(
-                    height: 24,
-                    width: 24,
-                  ),
+                  leading: AppIcons.location.svg(height: 24, width: 24),
                   title: Text(
                     widget.model.fromLocation?.name ??
                         AppLocalizations.of(context)!.unknown,
@@ -242,7 +235,7 @@ class _CarsRenatlDitealsViewState extends State<CarsRenatlDitealsView> {
                           fontWeight: FontWeight.w400,
                           color: context.color.white,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -259,7 +252,11 @@ class _CarsRenatlDitealsViewState extends State<CarsRenatlDitealsView> {
                     ),
                     children: [
                       TextSpan(
-                        text: widget.model.details?.characteristics
+                        text:
+                            widget
+                                    .model
+                                    .details
+                                    ?.characteristics
                                     ?.hasInsurance ==
                                 true
                             ? "Bor"
@@ -269,7 +266,7 @@ class _CarsRenatlDitealsViewState extends State<CarsRenatlDitealsView> {
                           fontWeight: FontWeight.w400,
                           color: context.color.white,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -292,7 +289,7 @@ class _CarsRenatlDitealsViewState extends State<CarsRenatlDitealsView> {
                           fontWeight: FontWeight.w400,
                           color: context.color.white,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -309,7 +306,11 @@ class _CarsRenatlDitealsViewState extends State<CarsRenatlDitealsView> {
                     ),
                     children: [
                       TextSpan(
-                        text: widget.model.details?.characteristics
+                        text:
+                            widget
+                                    .model
+                                    .details
+                                    ?.characteristics
                                     ?.hasInsurance ==
                                 true
                             ? "OSAGO"
@@ -319,7 +320,7 @@ class _CarsRenatlDitealsViewState extends State<CarsRenatlDitealsView> {
                           fontWeight: FontWeight.w400,
                           color: context.color.white,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -342,7 +343,7 @@ class _CarsRenatlDitealsViewState extends State<CarsRenatlDitealsView> {
                           fontWeight: FontWeight.w400,
                           color: context.color.white,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -366,7 +367,7 @@ class _CarsRenatlDitealsViewState extends State<CarsRenatlDitealsView> {
                           fontWeight: FontWeight.w400,
                           color: context.color.white,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -390,7 +391,7 @@ class _CarsRenatlDitealsViewState extends State<CarsRenatlDitealsView> {
                           fontWeight: FontWeight.w400,
                           color: context.color.white,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -414,7 +415,7 @@ class _CarsRenatlDitealsViewState extends State<CarsRenatlDitealsView> {
                           fontWeight: FontWeight.w400,
                           color: context.color.white,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -427,12 +428,14 @@ class _CarsRenatlDitealsViewState extends State<CarsRenatlDitealsView> {
                 ),
                 child: ListTile(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => CommentsView(
-                        comments: widget.model.comments ?? [],
-                        id: widget.model.id,
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CommentsView(
+                          comments: widget.model.comments ?? [],
+                          id: widget.model.id,
+                        ),
                       ),
-                    ));
+                    );
                   },
                   leading: AppIcons.message.svg(color: context.color.iron),
                   title: Text(AppLocalizations.of(context)!.comments),
@@ -491,8 +494,11 @@ class _CarsRenatlDitealsViewState extends State<CarsRenatlDitealsView> {
                               children: [
                                 AppIcons.telegram.svg(),
                                 const SizedBox(width: 12),
-                                Text(AppLocalizations.of(context)!
-                                    .contactViaTelegram)
+                                Text(
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.contactViaTelegram,
+                                ),
                               ],
                             ),
                           ),
@@ -501,7 +507,7 @@ class _CarsRenatlDitealsViewState extends State<CarsRenatlDitealsView> {
                     );
                   }
                 },
-              )
+              ),
             ],
           ),
         ),

@@ -25,7 +25,6 @@ part 'advertisement_state.dart';
 class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
   final AdvertisementRepo _repo;
   AdvertisementBloc(this._repo) : super(const AdvertisementState()) {
-
     on<FinishOffersEvent>((event, emit) async {
       emit(state.copyWith(statusCreate: FormzSubmissionStatus.inProgress));
       final respons = await _repo.finishOffer(event.id);
@@ -62,36 +61,40 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
     });
 
     on<GetLocationHistoryEvent>((event, emit) async {
-      emit(state.copyWith(
-        statusLocationHistory: FormzSubmissionStatus.inProgress,
-      ));
+      emit(
+        state.copyWith(statusLocationHistory: FormzSubmissionStatus.inProgress),
+      );
       final respons = await _repo.getLocationHistory();
       if (respons.isRight) {
-        emit(state.copyWith(
-          statusLocationHistory: FormzSubmissionStatus.success,
-          locationHistory: respons.right.data,
-        ));
+        emit(
+          state.copyWith(
+            statusLocationHistory: FormzSubmissionStatus.success,
+            locationHistory: respons.right.data,
+          ),
+        );
       } else {
-        emit(state.copyWith(
-          statusLocationHistory: FormzSubmissionStatus.failure,
-        ));
+        emit(
+          state.copyWith(statusLocationHistory: FormzSubmissionStatus.failure),
+        );
       }
     });
 
     on<GetNotifications>((event, emit) async {
-      emit(state.copyWith(
-        statusNotifications: FormzSubmissionStatus.inProgress,
-      ));
+      emit(
+        state.copyWith(statusNotifications: FormzSubmissionStatus.inProgress),
+      );
       final respons = await _repo.notifications();
       if (respons.isRight) {
-        emit(state.copyWith(
-          statusNotifications: FormzSubmissionStatus.success,
-          notifications: respons.right.data,
-        ));
+        emit(
+          state.copyWith(
+            statusNotifications: FormzSubmissionStatus.success,
+            notifications: respons.right.data,
+          ),
+        );
       } else {
-        emit(state.copyWith(
-          statusNotifications: FormzSubmissionStatus.failure,
-        ));
+        emit(
+          state.copyWith(statusNotifications: FormzSubmissionStatus.failure),
+        );
       }
     });
 
@@ -104,9 +107,10 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
 
     on<UpdateStatusEvent>((event, emit) async {
       emit(state.copyWith(statusCreate: FormzSubmissionStatus.inProgress));
-      final respons = await _repo.updateStatus(
-        {"id": event.advertisementId, "status": event.status},
-      );
+      final respons = await _repo.updateStatus({
+        "id": event.advertisementId,
+        "status": event.status,
+      });
       if (respons.isRight) {
         emit(state.copyWith(statusCreate: FormzSubmissionStatus.success));
         event.onSuccess();
@@ -120,7 +124,7 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
       final respons = await _repo.replyOffer({
         "id": event.offerId,
         "advertisement_id": event.advertisementId,
-        "status": event.status ? 'ACCEPTED' : "REJECTED"
+        "status": event.status ? 'ACCEPTED' : "REJECTED",
       });
       if (respons.isRight) {
         emit(state.copyWith(statusCreate: FormzSubmissionStatus.success));
@@ -139,7 +143,7 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
         "from_advertisement_id": event.fromAdvertisementId,
         "type": event.fromMyAdvertisement
             ? "FROM_ADVERTISEMENT"
-            : "TO_ADVERTISEMENT"
+            : "TO_ADVERTISEMENT",
       });
       if (respons.isRight) {
         emit(state.copyWith(statusCreate: FormzSubmissionStatus.success));
@@ -153,10 +157,12 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
       emit(state.copyWith(statusOffers: FormzSubmissionStatus.inProgress));
       final respons = await _repo.getOffers(event.advertisementId);
       if (respons.isRight) {
-        emit(state.copyWith(
-          statusOffers: FormzSubmissionStatus.success,
-          offersList: respons.right.data,
-        ));
+        emit(
+          state.copyWith(
+            statusOffers: FormzSubmissionStatus.success,
+            offersList: respons.right.data,
+          ),
+        );
       } else {
         emit(state.copyWith(statusOffers: FormzSubmissionStatus.failure));
       }
@@ -218,10 +224,12 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
       emit(state.copyWith(statusCategory: FormzSubmissionStatus.inProgress));
       final respons = await _repo.getCategories();
       if (respons.isRight) {
-        emit(state.copyWith(
-          categoriesList: respons.right.data,
-          statusCategory: FormzSubmissionStatus.success,
-        ));
+        emit(
+          state.copyWith(
+            categoriesList: respons.right.data,
+            statusCategory: FormzSubmissionStatus.success,
+          ),
+        );
       } else {
         emit(state.copyWith(statusCategory: FormzSubmissionStatus.failure));
       }
@@ -231,10 +239,12 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
       emit(state.copyWith(statusServices: FormzSubmissionStatus.inProgress));
       final respons = await _repo.getServices();
       if (respons.isRight) {
-        emit(state.copyWith(
-          servicesList: respons.right.data,
-          statusServices: FormzSubmissionStatus.success,
-        ));
+        emit(
+          state.copyWith(
+            servicesList: respons.right.data,
+            statusServices: FormzSubmissionStatus.success,
+          ),
+        );
       } else {
         emit(state.copyWith(statusServices: FormzSubmissionStatus.failure));
       }
@@ -248,8 +258,9 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
 
     on<GetAdvertisementsIdEvent>((event, emit) async {
       emit(state.copyWith(statusCars: FormzSubmissionStatus.inProgress));
-      final respons =
-          await _repo.getAdvertisementsId(FilterModel(advId: event.id));
+      final respons = await _repo.getAdvertisementsId(
+        FilterModel(advId: event.id),
+      );
       if (respons.isRight) {
         emit(state.copyWith(statusCars: FormzSubmissionStatus.success));
         event.onSucces(respons.right.data);
@@ -261,10 +272,12 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
       emit(state.copyWith(statusCars: FormzSubmissionStatus.inProgress));
       final respons = await _repo.cars();
       if (respons.isRight) {
-        emit(state.copyWith(
-          carsModel: respons.right.data,
-          statusCars: FormzSubmissionStatus.success,
-        ));
+        emit(
+          state.copyWith(
+            carsModel: respons.right.data,
+            statusCars: FormzSubmissionStatus.success,
+          ),
+        );
       } else {
         emit(state.copyWith(statusCars: FormzSubmissionStatus.failure));
       }
@@ -274,10 +287,12 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
       emit(state.copyWith(statusFuels: FormzSubmissionStatus.inProgress));
       final respons = await _repo.getTransportSpecialists();
       if (respons.isRight) {
-        emit(state.copyWith(
-          transportSpecialists: respons.right.data,
-          statusFuels: FormzSubmissionStatus.success,
-        ));
+        emit(
+          state.copyWith(
+            transportSpecialists: respons.right.data,
+            statusFuels: FormzSubmissionStatus.success,
+          ),
+        );
       } else {
         emit(state.copyWith(statusFuels: FormzSubmissionStatus.failure));
       }
@@ -287,11 +302,13 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
       emit(state.copyWith(statusFuels: FormzSubmissionStatus.inProgress));
       final respons = await _repo.fuels(event.id);
       if (respons.isRight) {
-        emit(state.copyWith(
-          fuelsModel: respons.right.data,
-          fuelsModelAll: event.id == null ? respons.right.data : null,
-          statusFuels: FormzSubmissionStatus.success,
-        ));
+        emit(
+          state.copyWith(
+            fuelsModel: respons.right.data,
+            fuelsModelAll: event.id == null ? respons.right.data : null,
+            statusFuels: FormzSubmissionStatus.success,
+          ),
+        );
       } else {
         emit(state.copyWith(statusFuels: FormzSubmissionStatus.failure));
       }
@@ -318,22 +335,26 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
           List<ImageFiles> list = [];
           for (var element in event.images) {
             final text = await MyFunction.convertFileToBase64(element);
-            list.add(ImageFiles(
-              fileName: element.uri.pathSegments.last,
-              base64: text ?? '',
-            ));
+            list.add(
+              ImageFiles(
+                fileName: element.uri.pathSegments.last,
+                base64: text ?? '',
+              ),
+            );
           }
-          add(ImageCreateEvent(
-            model: ImageCreateModel(
-              advertisementId: respons.right,
-              images: list,
+          add(
+            ImageCreateEvent(
+              model: ImageCreateModel(
+                advertisementId: respons.right,
+                images: list,
+              ),
+              onSucces: () {
+                event.onSucces(respons.right);
+                add(GetAdvertisementsProvideEvent());
+                add(GetAdvertisementsReceiveEvent());
+              },
             ),
-            onSucces: () {
-              event.onSucces(respons.right);
-              add(GetAdvertisementsProvideEvent());
-              add(GetAdvertisementsReceiveEvent());
-            },
-          ));
+          );
         } else {
           event.onSucces(respons.right);
           add(GetAdvertisementsProvideEvent());
@@ -352,10 +373,12 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
         isRECEIVE: event.isRECEIVE,
       );
       if (respons.isRight) {
-        emit(state.copyWith(
-          statusTrTypes: FormzSubmissionStatus.success,
-          transportationTypes: respons.right.data,
-        ));
+        emit(
+          state.copyWith(
+            statusTrTypes: FormzSubmissionStatus.success,
+            transportationTypes: respons.right.data,
+          ),
+        );
       } else {
         emit(state.copyWith(statusTrTypes: FormzSubmissionStatus.failure));
       }
@@ -365,28 +388,32 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
       if (event.page == null) {
         emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
       }
-      final respons = await _repo.getAdvertisements(FilterModel(
-        serviceId: event.serviceId?.join(","),
-        page: event.page,
-        bdate: event.bdate,
-        edate: event.edate,
-        minPrice: event.minPrice,
-        maxPrice: event.maxPrice,
-        status: event.status,
-        advType: event.isPROVIDE == null
-            ? null
-            : event.isPROVIDE == true
-                ? "PROVIDE"
-                : "RECEIVE",
-      ));
+      final respons = await _repo.getAdvertisements(
+        FilterModel(
+          serviceId: event.serviceId?.join(","),
+          page: event.page,
+          bdate: event.bdate,
+          edate: event.edate,
+          minPrice: event.minPrice,
+          maxPrice: event.maxPrice,
+          status: event.status,
+          advType: event.isPROVIDE == null
+              ? null
+              : event.isPROVIDE == true
+              ? "PROVIDE"
+              : "RECEIVE",
+        ),
+      );
       if (respons.isRight) {
-        emit(state.copyWith(
-          status: FormzSubmissionStatus.success,
-          advertisement: event.page != null
-              ? [...state.advertisement, ...respons.right.data.datas]
-              : respons.right.data.datas,
-          advertisementCount: respons.right.data.allCount,
-        ));
+        emit(
+          state.copyWith(
+            status: FormzSubmissionStatus.success,
+            advertisement: event.page != null
+                ? [...state.advertisement, ...respons.right.data.datas]
+                : respons.right.data.datas,
+            advertisementCount: respons.right.data.allCount,
+          ),
+        );
       } else {
         emit(state.copyWith(status: FormzSubmissionStatus.failure));
       }
@@ -396,32 +423,36 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
       if (event.page == null) {
         emit(state.copyWith(statusFilter: FormzSubmissionStatus.inProgress));
       }
-      final respons = await _repo.getAdvertisements(FilterModel(
-        serviceId: event.serviceId?.join(","),
-        specialistId: event.specialistId,
-        status: event.status,
-        carId: event.carId,
-        transportId: event.transportId,
-        repairTypeId: event.repairTypeId,
-        page: event.page,
-        bdate: event.bdate,
-        edate: event.edate,
-        minPrice: event.minPrice,
-        maxPrice: event.maxPrice,
-        advType: event.isPROVIDE == null
-            ? null
-            : event.isPROVIDE == true
-                ? "PROVIDE"
-                : "RECEIVE",
-      ));
+      final respons = await _repo.getAdvertisements(
+        FilterModel(
+          serviceId: event.serviceId?.join(","),
+          specialistId: event.specialistId,
+          status: event.status,
+          carId: event.carId,
+          transportId: event.transportId,
+          repairTypeId: event.repairTypeId,
+          page: event.page,
+          bdate: event.bdate,
+          edate: event.edate,
+          minPrice: event.minPrice,
+          maxPrice: event.maxPrice,
+          advType: event.isPROVIDE == null
+              ? null
+              : event.isPROVIDE == true
+              ? "PROVIDE"
+              : "RECEIVE",
+        ),
+      );
       if (respons.isRight) {
-        emit(state.copyWith(
-          statusFilter: FormzSubmissionStatus.success,
-          advertisementFilter: event.page != null
-              ? [...state.advertisementFilter, ...respons.right.data.datas]
-              : respons.right.data.datas,
-          advertisementFilterCount: respons.right.data.allCount,
-        ));
+        emit(
+          state.copyWith(
+            statusFilter: FormzSubmissionStatus.success,
+            advertisementFilter: event.page != null
+                ? [...state.advertisementFilter, ...respons.right.data.datas]
+                : respons.right.data.datas,
+            advertisementFilterCount: respons.right.data.allCount,
+          ),
+        );
       } else {
         emit(state.copyWith(statusFilter: FormzSubmissionStatus.failure));
       }
@@ -429,86 +460,92 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
 
     on<GetAdvertisementsProvideEvent>((event, emit) async {
       emit(state.copyWith(statusPROVIDE: FormzSubmissionStatus.inProgress));
-      final respons = await _repo.getAdvertisementsMe(FilterModel(
-        advType: 'PROVIDE',
-        statusString: 'ACTIVE',
-      ));
+      final respons = await _repo.getAdvertisementsMe(
+        FilterModel(advType: 'PROVIDE', statusString: 'ACTIVE'),
+      );
       if (respons.isRight) {
-        emit(state.copyWith(
-          statusPROVIDE: FormzSubmissionStatus.success,
-          advertisementPROVIDE: respons.right.data,
-        ));
+        emit(
+          state.copyWith(
+            statusPROVIDE: FormzSubmissionStatus.success,
+            advertisementPROVIDE: respons.right.data,
+          ),
+        );
       } else {
         emit(state.copyWith(statusPROVIDE: FormzSubmissionStatus.failure));
       }
     });
 
     on<GetAdvertisementsProvideFinishEvent>((event, emit) async {
-      emit(state.copyWith(
-        statusPROVIDEFinish: FormzSubmissionStatus.inProgress,
-      ));
-      final respons = await _repo.getAdvertisementsMe(FilterModel(
-        advType: 'PROVIDE',
-      ));
+      emit(
+        state.copyWith(statusPROVIDEFinish: FormzSubmissionStatus.inProgress),
+      );
+      final respons = await _repo.getAdvertisementsMe(
+        FilterModel(advType: 'PROVIDE'),
+      );
       if (respons.isRight) {
-        emit(state.copyWith(
-          statusPROVIDEFinish: FormzSubmissionStatus.success,
-          advertisementPROVIDEFinish: respons.right.data,
-        ));
+        emit(
+          state.copyWith(
+            statusPROVIDEFinish: FormzSubmissionStatus.success,
+            advertisementPROVIDEFinish: respons.right.data,
+          ),
+        );
       } else {
-        emit(state.copyWith(
-          statusPROVIDEFinish: FormzSubmissionStatus.failure,
-        ));
+        emit(
+          state.copyWith(statusPROVIDEFinish: FormzSubmissionStatus.failure),
+        );
       }
     });
 
     on<GetAdvertisementsReceiveEvent>((event, emit) async {
       emit(state.copyWith(statusRECEIVE: FormzSubmissionStatus.inProgress));
-      final respons = await _repo.getAdvertisementsMe(FilterModel(
-        advType: 'RECEIVE',
-        statusString: 'ACTIVE',
-      ));
+      final respons = await _repo.getAdvertisementsMe(
+        FilterModel(advType: 'RECEIVE', statusString: 'ACTIVE'),
+      );
       if (respons.isRight) {
-        emit(state.copyWith(
-          statusRECEIVE: FormzSubmissionStatus.success,
-          advertisementRECEIVE: respons.right.data,
-        ));
+        emit(
+          state.copyWith(
+            statusRECEIVE: FormzSubmissionStatus.success,
+            advertisementRECEIVE: respons.right.data,
+          ),
+        );
       } else {
         emit(state.copyWith(statusRECEIVE: FormzSubmissionStatus.failure));
       }
     });
 
     on<GetAdvertisementsReceiveFinishEvent>((event, emit) async {
-      emit(state.copyWith(
-        statusRECEIVEFinish: FormzSubmissionStatus.inProgress,
-      ));
-      final respons = await _repo.getAdvertisementsMe(FilterModel(
-        advType: 'RECEIVE',
-        statusString: 'CLOSED',
-      ));
+      emit(
+        state.copyWith(statusRECEIVEFinish: FormzSubmissionStatus.inProgress),
+      );
+      final respons = await _repo.getAdvertisementsMe(
+        FilterModel(advType: 'RECEIVE', statusString: 'CLOSED'),
+      );
       if (respons.isRight) {
-        emit(state.copyWith(
-          statusRECEIVEFinish: FormzSubmissionStatus.success,
-          advertisementRECEIVEFinish: respons.right.data,
-        ));
+        emit(
+          state.copyWith(
+            statusRECEIVEFinish: FormzSubmissionStatus.success,
+            advertisementRECEIVEFinish: respons.right.data,
+          ),
+        );
       } else {
-        emit(state.copyWith(
-          statusRECEIVEFinish: FormzSubmissionStatus.failure,
-        ));
+        emit(
+          state.copyWith(statusRECEIVEFinish: FormzSubmissionStatus.failure),
+        );
       }
     });
 
     on<GetAdvertisementsMyCarsEvent>((event, emit) async {
       emit(state.copyWith(statusMyCars: FormzSubmissionStatus.inProgress));
-      final respons = await _repo.getAdvertisementsMe(FilterModel(
-        advType: 'PROVIDE',
-        serviceId: [1, 2].join(","),
-      ));
+      final respons = await _repo.getAdvertisementsMe(
+        FilterModel(advType: 'PROVIDE', serviceId: [1, 2].join(",")),
+      );
       if (respons.isRight) {
-        emit(state.copyWith(
-          statusMyCars: FormzSubmissionStatus.success,
-          advertisementMyCars: respons.right.data,
-        ));
+        emit(
+          state.copyWith(
+            statusMyCars: FormzSubmissionStatus.success,
+            advertisementMyCars: respons.right.data,
+          ),
+        );
       } else {
         emit(state.copyWith(statusMyCars: FormzSubmissionStatus.failure));
       }

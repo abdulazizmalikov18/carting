@@ -104,10 +104,7 @@ class _SpecialTechnicalServicesViewState
                           }
                         });
                       },
-                      child: AppIcons.calendar.svg(
-                        height: 24,
-                        width: 24,
-                      ),
+                      child: AppIcons.calendar.svg(height: 24, width: 24),
                     ),
                     onChanged: (value) {},
                   ),
@@ -131,10 +128,7 @@ class _SpecialTechnicalServicesViewState
                           }
                         });
                       },
-                      child: AppIcons.calendar.svg(
-                        height: 24,
-                        width: 24,
-                      ),
+                      child: AppIcons.calendar.svg(height: 24, width: 24),
                     ),
                     onChanged: (value) {},
                   ),
@@ -179,7 +173,6 @@ class _SpecialTechnicalServicesViewState
                   //     trailing: AppIcons.arrowForward.svg(),
                   //   ),
                   // ),
-
                   WSelectionItam(
                     onTap: (int index) {
                       trTypeId.value = index;
@@ -197,7 +190,7 @@ class _SpecialTechnicalServicesViewState
                         images = list;
                       });
                     },
-                  )
+                  ),
                 ],
               ),
             ),
@@ -232,8 +225,9 @@ class _SpecialTechnicalServicesViewState
                         lng: point!.longitude,
                         name: point!.name,
                       ),
-                      serviceName:
-                          AppLocalizations.of(context)!.special_equipment,
+                      serviceName: AppLocalizations.of(
+                        context,
+                      )!.special_equipment,
                       details: DetailsSpecial(
                         transportationTypeId: 1,
                         fromDate: controller.text,
@@ -251,34 +245,42 @@ class _SpecialTechnicalServicesViewState
                       price: priceOffer.value
                           ? 0
                           : int.tryParse(
-                                  controllerPrice.text.replaceAll(' ', '')) ??
-                              0,
+                                  controllerPrice.text.replaceAll(' ', ''),
+                                ) ??
+                                0,
                     ).toJson();
-                    context.read<AdvertisementBloc>().add(CreateDeliveryEvent(
-                          model: model,
-                          images: images,
-                          onError: () {
-                            Navigator.of(context).pop();
-                          },
-                          onSucces: (id) {
-                            succesCreate(context).then((value) {
-                              if (context.mounted) {
-                                context.go(AppRouteName.announcements);
-                                context.read<AdvertisementBloc>().add(
-                                    GetAdvertisementsEvent(isPROVIDE: false));
-                              }
-                            });
-                          },
-                        ));
+                    context.read<AdvertisementBloc>().add(
+                      CreateDeliveryEvent(
+                        model: model,
+                        images: images,
+                        onError: () {
+                          Navigator.of(context).pop();
+                        },
+                        onSucces: (id) {
+                          succesCreate(context).then((value) {
+                            if (context.mounted) {
+                              context.go(AppRouteName.announcements);
+                              context.read<AdvertisementBloc>().add(
+                                GetAdvertisementsEvent(isPROVIDE: false),
+                              );
+                            }
+                          });
+                        },
+                      ),
+                    );
                   },
                   isLoading: state.statusCreate.isInProgress,
-                  margin:
-                      EdgeInsets.fromLTRB(16, 16, 16, Platform.isIOS ? 0 : 16),
+                  margin: EdgeInsets.fromLTRB(
+                    16,
+                    16,
+                    16,
+                    Platform.isIOS ? 0 : 16,
+                  ),
                   text: AppLocalizations.of(context)!.confirm,
                 );
               },
             ),
-          )
+          ),
         ],
       ),
     );

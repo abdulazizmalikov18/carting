@@ -81,8 +81,8 @@ class _MainViewState extends State<MainView> {
                       radius: 32,
                       backgroundColor:
                           widget.navigationShell.currentIndex == index
-                              ? context.color.backGroundColor
-                              : context.color.white,
+                          ? context.color.backGroundColor
+                          : context.color.white,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -106,12 +106,12 @@ class _MainViewState extends State<MainView> {
                               fontSize: 12,
                               color:
                                   widget.navigationShell.currentIndex == index
-                                      ? context.color.white
-                                      : context.color.backGroundColor,
+                                  ? context.color.white
+                                  : context.color.backGroundColor,
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                          )
+                          ),
                         ],
                       ),
                     ),

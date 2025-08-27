@@ -37,17 +37,14 @@ class _EditPhoneVerifViewState extends State<EditPhoneVerifView>
   late Timer _timer;
   void startTimer() {
     const oneSec = Duration(seconds: 1);
-    _timer = Timer.periodic(
-      oneSec,
-      (Timer timer) {
-        if (start.value == 0) {
-          timer.cancel();
-        } else {
-          start.value--;
-        }
-        setState(() {});
-      },
-    );
+    _timer = Timer.periodic(oneSec, (Timer timer) {
+      if (start.value == 0) {
+        timer.cancel();
+      } else {
+        start.value--;
+      }
+      setState(() {});
+    });
   }
 
   void resetAndStartTimer() {
@@ -109,9 +106,9 @@ class _EditPhoneVerifViewState extends State<EditPhoneVerifView>
                     ? AppLocalizations.of(context)!.confirmCodePhone(
                         MyFunction.maskPhoneNumber(widget.phone),
                       )
-                    : AppLocalizations.of(context)!.confirmCodeEmail(
-                        MyFunction.maskEmail(widget.phone),
-                      ),
+                    : AppLocalizations.of(
+                        context,
+                      )!.confirmCodeEmail(MyFunction.maskEmail(widget.phone)),
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
@@ -169,17 +166,19 @@ class _EditPhoneVerifViewState extends State<EditPhoneVerifView>
                     onTap: () {
                       if (widget.model.securityCode == controller.text ||
                           '5555' == controller.text) {
-                        context.read<AuthBloc>().add(UpdateUserEvent(
-                              phone: widget.isEmail ? null : widget.phone,
-                              email: widget.isEmail ? widget.phone : null,
-                              isEmail: widget.isEmail,
-                              onError: (message) {
-                                CustomSnackbar.show(context, message);
-                              },
-                              onSucces: () {},
-                              sessionToken: widget.model.sessionToken,
-                              securityCode: controller.text,
-                            ));
+                        context.read<AuthBloc>().add(
+                          UpdateUserEvent(
+                            phone: widget.isEmail ? null : widget.phone,
+                            email: widget.isEmail ? widget.phone : null,
+                            isEmail: widget.isEmail,
+                            onError: (message) {
+                              CustomSnackbar.show(context, message);
+                            },
+                            onSucces: () {},
+                            sessionToken: widget.model.sessionToken,
+                            securityCode: controller.text,
+                          ),
+                        );
                       } else {
                         CustomSnackbar.show(context, 'Kod hato kiritildi');
                       }
@@ -222,9 +221,9 @@ class _EditPhoneVerifViewState extends State<EditPhoneVerifView>
                         ),
                       );
                     },
-                  )
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),

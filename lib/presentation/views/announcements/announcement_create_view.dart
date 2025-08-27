@@ -133,45 +133,49 @@ class _AnnouncementCreateViewState extends State<AnnouncementCreateView> {
                         : true)) {
                   final model = switch (widget.filter) {
                     TypeOfServiceEnum.storageInWarehouse => WarehouseModel(
-                        toLocation: ToLocation(
-                          lat: point2!.latitude,
-                          lng: point2!.longitude,
-                          name: point2!.name,
-                        ),
-                        details: DetailsWarehouse(area: controllerCount.text),
-                        advType: 'PROVIDE',
-                        serviceTypeId: 7,
-                        note: controllerCommet.text,
-                        price: int.tryParse(
-                                controllerPrice.text.replaceAll(' ', '')) ??
-                            0,
-                      ).toJson(),
+                      toLocation: ToLocation(
+                        lat: point2!.latitude,
+                        lng: point2!.longitude,
+                        name: point2!.name,
+                      ),
+                      details: DetailsWarehouse(area: controllerCount.text),
+                      advType: 'PROVIDE',
+                      serviceTypeId: 7,
+                      note: controllerCommet.text,
+                      price:
+                          int.tryParse(
+                            controllerPrice.text.replaceAll(' ', ''),
+                          ) ??
+                          0,
+                    ).toJson(),
                     TypeOfServiceEnum.shipping => AdvertisementDeliveryModel(
-                        toLocation: LocationModel(
-                          lat: point2!.latitude,
-                          lng: point2!.longitude,
-                          name: point2!.name,
+                      toLocation: LocationModel(
+                        lat: point2!.latitude,
+                        lng: point2!.longitude,
+                        name: point2!.name,
+                      ),
+                      fromLocation: LocationModel(
+                        lat: point1!.latitude,
+                        lng: point1!.longitude,
+                        name: point1!.name,
+                      ),
+                      serviceName: 'Yuk tashish',
+                      details: Details(
+                        transportationTypeId: widget.carId,
+                        loadWeight: LoadWeight(
+                          amount: int.tryParse(controllerCount.text) ?? 0,
+                          name: selectedUnit,
                         ),
-                        fromLocation: LocationModel(
-                          lat: point1!.latitude,
-                          lng: point1!.longitude,
-                          name: point1!.name,
-                        ),
-                        serviceName: 'Yuk tashish',
-                        details: Details(
-                          transportationTypeId: widget.carId,
-                          loadWeight: LoadWeight(
-                            amount: int.tryParse(controllerCount.text) ?? 0,
-                            name: selectedUnit,
-                          ),
-                        ),
-                        advType: 'PROVIDE',
-                        serviceTypeId: 1,
-                        note: controllerCommet.text,
-                        price: int.tryParse(
-                                controllerPrice.text.replaceAll(' ', '')) ??
-                            0,
-                      ).toJson(),
+                      ),
+                      advType: 'PROVIDE',
+                      serviceTypeId: 1,
+                      note: controllerCommet.text,
+                      price:
+                          int.tryParse(
+                            controllerPrice.text.replaceAll(' ', ''),
+                          ) ??
+                          0,
+                    ).toJson(),
                     TypeOfServiceEnum.transportationOfPassengers =>
                       PassengerTransportationCreateModel(
                         toLocation: LocationModel(
@@ -195,8 +199,10 @@ class _AnnouncementCreateViewState extends State<AnnouncementCreateView> {
                         shipmentDate: '',
                         note: controllerCommet.text,
                         payType: 'CASH',
-                        price: int.tryParse(
-                                controllerPrice.text.replaceAll(' ', '')) ??
+                        price:
+                            int.tryParse(
+                              controllerPrice.text.replaceAll(' ', ''),
+                            ) ??
                             0,
                       ).toJson(),
                     TypeOfServiceEnum.specialTechnique =>
@@ -212,51 +218,57 @@ class _AnnouncementCreateViewState extends State<AnnouncementCreateView> {
                         advType: 'PROVIDE',
                         serviceTypeId: 3,
                         note: controllerCommet.text,
-                        price: int.tryParse(
-                                controllerPrice.text.replaceAll(' ', '')) ??
+                        price:
+                            int.tryParse(
+                              controllerPrice.text.replaceAll(' ', ''),
+                            ) ??
                             0,
                       ).toJson(),
                     TypeOfServiceEnum.transportRental =>
                       ({} as Map<String, dynamic>),
                     TypeOfServiceEnum.workshops => WorkshopModel(
-                        advType: "PROVIDE",
-                        serviceTypeId: 5,
-                        fromLocation: LocationModel(
-                          lat: point2!.latitude,
-                          lng: point2!.longitude,
-                          name: point2!.name,
-                        ),
-                        price: int.tryParse(
-                                controllerPrice.text.replaceAll(' ', '')) ??
-                            0,
-                        details: DetailsWorkshop(
-                          repairTypeId: 1,
-                          category: categoriesList.map((e) => e.id).toList(),
-                          services: servicesList.map((e) => e.id).toList(),
-                          companyName: controllerCompany.text,
-                        ),
-                        note: controllerCommet.text,
-                      ).toJson(),
+                      advType: "PROVIDE",
+                      serviceTypeId: 5,
+                      fromLocation: LocationModel(
+                        lat: point2!.latitude,
+                        lng: point2!.longitude,
+                        name: point2!.name,
+                      ),
+                      price:
+                          int.tryParse(
+                            controllerPrice.text.replaceAll(' ', ''),
+                          ) ??
+                          0,
+                      details: DetailsWorkshop(
+                        repairTypeId: 1,
+                        category: categoriesList.map((e) => e.id).toList(),
+                        services: servicesList.map((e) => e.id).toList(),
+                        companyName: controllerCompany.text,
+                      ),
+                      note: controllerCommet.text,
+                    ).toJson(),
                     TypeOfServiceEnum.masters => MasterModel(
-                        advType: "PROVIDE",
-                        serviceTypeId: 5,
-                        fromLocation: LocationModel(
-                          lat: point2!.latitude,
-                          lng: point2!.longitude,
-                          name: point2!.name,
-                        ),
-                        price: int.tryParse(
-                                controllerPrice.text.replaceAll(' ', '')) ??
-                            0,
-                        details: DetailsMaster(
-                          repairTypeId: 2,
-                          services: servicesList.map((e) => e.id).toList(),
-                          transportSpecialistId: widget.carId,
-                          specialistLastName: controllerCompany2.text,
-                          specialistFirstName: controllerCompany.text,
-                        ),
-                        note: controllerCommet.text,
-                      ).toJson(),
+                      advType: "PROVIDE",
+                      serviceTypeId: 5,
+                      fromLocation: LocationModel(
+                        lat: point2!.latitude,
+                        lng: point2!.longitude,
+                        name: point2!.name,
+                      ),
+                      price:
+                          int.tryParse(
+                            controllerPrice.text.replaceAll(' ', ''),
+                          ) ??
+                          0,
+                      details: DetailsMaster(
+                        repairTypeId: 2,
+                        services: servicesList.map((e) => e.id).toList(),
+                        transportSpecialistId: widget.carId,
+                        specialistLastName: controllerCompany2.text,
+                        specialistFirstName: controllerCompany.text,
+                      ),
+                      note: controllerCommet.text,
+                    ).toJson(),
                     TypeOfServiceEnum.transportTransfer =>
                       TransportTransferModel(
                         toLocation: LocationModel(
@@ -278,49 +290,57 @@ class _AnnouncementCreateViewState extends State<AnnouncementCreateView> {
                         advType: 'PROVIDE',
                         serviceTypeId: 6,
                         note: controllerCommet.text,
-                        price: int.tryParse(
-                                controllerPrice.text.replaceAll(' ', '')) ??
+                        price:
+                            int.tryParse(
+                              controllerPrice.text.replaceAll(' ', ''),
+                            ) ??
                             0,
                       ).toJson(),
                     TypeOfServiceEnum.fuelDelivery =>
                       ({} as Map<String, dynamic>),
                   };
                   final bloc = context.read<AdvertisementBloc>();
-                  bloc.add(CreateDeliveryEvent(
-                    model: model,
-                    images: images,
-                    onError: () {
-                      Navigator.of(context).pop();
-                    },
-                    onSucces: (id) {
-                      bloc.add(GetAdvertisementsIdEvent(
-                        id: id,
-                        onSucces: (model) {
-                          if (widget.filter ==
-                              TypeOfServiceEnum.transportRental) {
-                            Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(
-                              builder: (context) => CarsRenatlDitealsView(
-                                myAnnouncement: true,
-                                model: model,
-                              ),
-                            ));
-                          } else {
-                            Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(
-                              builder: (context) => BlocProvider.value(
-                                value: bloc,
-                                child: AnnouncementsCreateInfoView(
-                                  filter: widget.filter,
-                                  model: model,
-                                ),
-                              ),
-                            ));
-                          }
-                        },
-                      ));
-                    },
-                  ));
+                  bloc.add(
+                    CreateDeliveryEvent(
+                      model: model,
+                      images: images,
+                      onError: () {
+                        Navigator.of(context).pop();
+                      },
+                      onSucces: (id) {
+                        bloc.add(
+                          GetAdvertisementsIdEvent(
+                            id: id,
+                            onSucces: (model) {
+                              if (widget.filter ==
+                                  TypeOfServiceEnum.transportRental) {
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) => CarsRenatlDitealsView(
+                                      myAnnouncement: true,
+                                      model: model,
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) => BlocProvider.value(
+                                      value: bloc,
+                                      child: AnnouncementsCreateInfoView(
+                                        filter: widget.filter,
+                                        model: model,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  );
                 } else {
                   CustomSnackbar.show(
                     context,
@@ -342,8 +362,8 @@ class _AnnouncementCreateViewState extends State<AnnouncementCreateView> {
               builder: (context) {
                 switch (widget.filter) {
                   case TypeOfServiceEnum.shipping ||
-                        TypeOfServiceEnum.transportationOfPassengers ||
-                        TypeOfServiceEnum.transportTransfer:
+                      TypeOfServiceEnum.transportationOfPassengers ||
+                      TypeOfServiceEnum.transportTransfer:
                     return SelectionLocationField(
                       onTap1: (point) {
                         point1 = point;
@@ -389,9 +409,7 @@ class _AnnouncementCreateViewState extends State<AnnouncementCreateView> {
                         strokeWidth: 1,
                         radius: Radius.circular(20),
                       ),
-                      child: Center(
-                        child: AppIcons.upload.svg(),
-                      ),
+                      child: Center(child: AppIcons.upload.svg()),
                     ),
                   );
                 }
@@ -401,11 +419,7 @@ class _AnnouncementCreateViewState extends State<AnnouncementCreateView> {
                       images.removeAt(index);
                       setState(() {});
                     },
-                    child: const Icon(
-                      Icons.close,
-                      color: white,
-                      size: 16,
-                    ),
+                    child: const Icon(Icons.close, color: white, size: 16),
                   ),
                   child: Container(
                     decoration: BoxDecoration(
@@ -591,52 +605,62 @@ class _AnnouncementCreateViewState extends State<AnnouncementCreateView> {
                   default:
                     return Column(
                       children: [
-                        Builder(builder: (context) {
-                          switch (widget.filter) {
-                            case TypeOfServiceEnum.shipping:
-                              return MinTextField(
-                                text: "Maksimal yuk sig‘imi",
-                                hintText: "0",
-                                keyboardType: TextInputType.number,
-                                controller: controllerCount,
-                                formatter: [Formatters.numberFormat],
-                                suffixIcon: Builder(
-                                  builder: (context) => GestureDetector(
-                                    onTap: () async {
-                                      final RenderBox button = context
-                                          .findRenderObject() as RenderBox;
-                                      final RenderBox overlay =
-                                          Overlay.of(context)
-                                              .context
-                                              .findRenderObject() as RenderBox;
+                        Builder(
+                          builder: (context) {
+                            switch (widget.filter) {
+                              case TypeOfServiceEnum.shipping:
+                                return MinTextField(
+                                  text: "Maksimal yuk sig‘imi",
+                                  hintText: "0",
+                                  keyboardType: TextInputType.number,
+                                  controller: controllerCount,
+                                  formatter: [Formatters.numberFormat],
+                                  suffixIcon: Builder(
+                                    builder: (context) => GestureDetector(
+                                      onTap: () async {
+                                        final RenderBox button =
+                                            context.findRenderObject()
+                                                as RenderBox;
+                                        final RenderBox overlay =
+                                            Overlay.of(
+                                                  context,
+                                                ).context.findRenderObject()
+                                                as RenderBox;
 
-                                      final RelativeRect position =
-                                          RelativeRect.fromRect(
-                                        Rect.fromPoints(
-                                          button.localToGlobal(
-                                              Offset(0, button.size.height),
-                                              ancestor: overlay),
-                                          button.localToGlobal(
-                                              button.size
-                                                  .bottomRight(Offset.zero),
-                                              ancestor: overlay),
-                                        ),
-                                        Offset.zero & overlay.size,
-                                      );
+                                        final RelativeRect position =
+                                            RelativeRect.fromRect(
+                                              Rect.fromPoints(
+                                                button.localToGlobal(
+                                                  Offset(0, button.size.height),
+                                                  ancestor: overlay,
+                                                ),
+                                                button.localToGlobal(
+                                                  button.size.bottomRight(
+                                                    Offset.zero,
+                                                  ),
+                                                  ancestor: overlay,
+                                                ),
+                                              ),
+                                              Offset.zero & overlay.size,
+                                            );
 
-                                      String? selected = await showMenu<String>(
-                                        context: context,
-                                        position: position,
-                                        color: white,
-                                        shadowColor:
-                                            black.withValues(alpha: .3),
-                                        // menuPadding: const EdgeInsets.symmetric(vertical: 4),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                        ),
-                                        items: ['kg', 'm³', 'litr'].map(
-                                          (String choice) {
+                                        String?
+                                        selected = await showMenu<String>(
+                                          context: context,
+                                          position: position,
+                                          color: white,
+                                          shadowColor: black.withValues(
+                                            alpha: .3,
+                                          ),
+                                          // menuPadding: const EdgeInsets.symmetric(vertical: 4),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              16,
+                                            ),
+                                          ),
+                                          items: ['kg', 'm³', 'litr'].map((
+                                            String choice,
+                                          ) {
                                             return PopupMenuItem<String>(
                                               value: choice,
                                               height: 40,
@@ -649,395 +673,424 @@ class _AnnouncementCreateViewState extends State<AnnouncementCreateView> {
                                                     SizedBox(
                                                       height: 20,
                                                       width: 20,
-                                                      child: choice ==
-                                                              selectedUnit
+                                                      child:
+                                                          choice == selectedUnit
                                                           ? AppIcons
-                                                              .checkboxRadio
-                                                              .svg(
-                                                              height: 20,
-                                                              width: 20,
-                                                            )
+                                                                .checkboxRadio
+                                                                .svg(
+                                                                  height: 20,
+                                                                  width: 20,
+                                                                )
                                                           : AppIcons
-                                                              .checkboxRadioDis
-                                                              .svg(
-                                                              height: 20,
-                                                              width: 20,
-                                                            ),
-                                                    )
+                                                                .checkboxRadioDis
+                                                                .svg(
+                                                                  height: 20,
+                                                                  width: 20,
+                                                                ),
+                                                    ),
                                                   ],
                                                 ),
                                               ),
                                             );
-                                          },
-                                        ).toList(),
-                                      );
+                                          }).toList(),
+                                        );
 
-                                      if (selected != null) {
-                                        setState(() {
-                                          selectedUnit = selected;
-                                        });
-                                      }
-                                    },
-                                    child: Row(
-                                      children: [
-                                        Text(selectedUnit),
-                                        AppIcons.arrowBottom.svg(
-                                          color: context.color.iron,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                onChanged: (value) {},
-                              );
-                            case TypeOfServiceEnum.transportationOfPassengers:
-                              return MinTextField(
-                                text: AppLocalizations.of(context)!
-                                    .maxPassengerCount,
-                                hintText: "0",
-                                controller: controllerCount,
-                                keyboardType: TextInputType.number,
-                                formatter: [Formatters.numberFormat],
-                                onChanged: (value) {},
-                              );
-                            case TypeOfServiceEnum.transportTransfer:
-                              return MinTextField(
-                                text: AppLocalizations.of(context)!
-                                    .maxTransportCount,
-                                hintText: "0",
-                                controller: controllerCount,
-                                keyboardType: TextInputType.number,
-                                formatter: [Formatters.numberFormat],
-                                onChanged: (value) {},
-                              );
-                            case TypeOfServiceEnum.storageInWarehouse:
-                              return MinTextField(
-                                text: "Maydon",
-                                hintText: "0",
-                                keyboardType: TextInputType.number,
-                                suffixIcon: Text(
-                                  "m2",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: context.color.white,
-                                  ),
-                                ),
-                                controller: controllerCount,
-                                formatter: [Formatters.numberFormat],
-                                onChanged: (value) {},
-                              );
-                            case TypeOfServiceEnum.workshops:
-                              return Column(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(24),
-                                      color: context.color.contColor,
-                                    ),
-                                    width: double.infinity,
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 16,
-                                      vertical: 12,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Toifalar",
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                            color: context.color.darkText,
+                                        if (selected != null) {
+                                          setState(() {
+                                            selectedUnit = selected;
+                                          });
+                                        }
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Text(selectedUnit),
+                                          AppIcons.arrowBottom.svg(
+                                            color: context.color.iron,
                                           ),
-                                        ),
-                                        const SizedBox(height: 8),
-                                        BlocBuilder<AdvertisementBloc,
-                                            AdvertisementState>(
-                                          builder: (context, state) {
-                                            if (state
-                                                .statusCategory.isInProgress) {
-                                              return const WShimmer(
-                                                height: 80,
-                                                width: double.infinity,
-                                              );
-                                            }
-                                            return Wrap(
-                                              spacing: 8,
-                                              runSpacing: 8,
-                                              children: List.generate(
-                                                state.categoriesList.length,
-                                                (index) => GestureDetector(
-                                                  onTap: () {
-                                                    if (categoriesList.contains(
-                                                        state.categoriesList[
-                                                            index])) {
-                                                      categoriesList.remove(
-                                                          state.categoriesList[
-                                                              index]);
-                                                    } else {
-                                                      categoriesList.add(
-                                                          state.categoriesList[
-                                                              index]);
-                                                    }
-                                                    setState(() {});
-                                                  },
-                                                  child: ServisIteam(
-                                                    model: state
-                                                        .categoriesList[index],
-                                                    isActive: categoriesList
-                                                        .contains(state
-                                                                .categoriesList[
-                                                            index]),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  onChanged: (value) {},
+                                );
+                              case TypeOfServiceEnum.transportationOfPassengers:
+                                return MinTextField(
+                                  text: AppLocalizations.of(
+                                    context,
+                                  )!.maxPassengerCount,
+                                  hintText: "0",
+                                  controller: controllerCount,
+                                  keyboardType: TextInputType.number,
+                                  formatter: [Formatters.numberFormat],
+                                  onChanged: (value) {},
+                                );
+                              case TypeOfServiceEnum.transportTransfer:
+                                return MinTextField(
+                                  text: AppLocalizations.of(
+                                    context,
+                                  )!.maxTransportCount,
+                                  hintText: "0",
+                                  controller: controllerCount,
+                                  keyboardType: TextInputType.number,
+                                  formatter: [Formatters.numberFormat],
+                                  onChanged: (value) {},
+                                );
+                              case TypeOfServiceEnum.storageInWarehouse:
+                                return MinTextField(
+                                  text: "Maydon",
+                                  hintText: "0",
+                                  keyboardType: TextInputType.number,
+                                  suffixIcon: Text(
+                                    "m2",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: context.color.white,
+                                    ),
+                                  ),
+                                  controller: controllerCount,
+                                  formatter: [Formatters.numberFormat],
+                                  onChanged: (value) {},
+                                );
+                              case TypeOfServiceEnum.workshops:
+                                return Column(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(24),
+                                        color: context.color.contColor,
+                                      ),
+                                      width: double.infinity,
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 16,
+                                        vertical: 12,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Toifalar",
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: context.color.darkText,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          BlocBuilder<
+                                            AdvertisementBloc,
+                                            AdvertisementState
+                                          >(
+                                            builder: (context, state) {
+                                              if (state
+                                                  .statusCategory
+                                                  .isInProgress) {
+                                                return const WShimmer(
+                                                  height: 80,
+                                                  width: double.infinity,
+                                                );
+                                              }
+                                              return Wrap(
+                                                spacing: 8,
+                                                runSpacing: 8,
+                                                children: List.generate(
+                                                  state.categoriesList.length,
+                                                  (index) => GestureDetector(
+                                                    onTap: () {
+                                                      if (categoriesList.contains(
+                                                        state
+                                                            .categoriesList[index],
+                                                      )) {
+                                                        categoriesList.remove(
+                                                          state
+                                                              .categoriesList[index],
+                                                        );
+                                                      } else {
+                                                        categoriesList.add(
+                                                          state
+                                                              .categoriesList[index],
+                                                        );
+                                                      }
+                                                      setState(() {});
+                                                    },
+                                                    child: ServisIteam(
+                                                      model: state
+                                                          .categoriesList[index],
+                                                      isActive: categoriesList
+                                                          .contains(
+                                                            state
+                                                                .categoriesList[index],
+                                                          ),
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 16),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(24),
-                                      color: context.color.contColor,
-                                    ),
-                                    width: double.infinity,
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 16,
-                                      vertical: 12,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          AppLocalizations.of(context)!
-                                              .services,
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                            color: context.color.darkText,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 8),
-                                        BlocBuilder<AdvertisementBloc,
-                                            AdvertisementState>(
-                                          builder: (context, state) {
-                                            if (state
-                                                .statusServices.isInProgress) {
-                                              return const WShimmer(
-                                                height: 80,
-                                                width: double.infinity,
                                               );
-                                            }
-                                            return Wrap(
-                                              spacing: 8,
-                                              runSpacing: 8,
-                                              children: List.generate(
-                                                state.servicesList.length,
-                                                (index) => GestureDetector(
-                                                  onTap: () {
-                                                    if (servicesList.contains(
-                                                        state.servicesList[
-                                                            index])) {
-                                                      servicesList.remove(state
-                                                          .servicesList[index]);
-                                                    } else {
-                                                      servicesList.add(state
-                                                          .servicesList[index]);
-                                                    }
-                                                    setState(() {});
-                                                  },
-                                                  child: ServisIteam(
-                                                    model: state
-                                                        .servicesList[index],
-                                                    isActive:
-                                                        servicesList.contains(
-                                                            state.servicesList[
-                                                                index]),
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(24),
+                                        color: context.color.contColor,
+                                      ),
+                                      width: double.infinity,
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 16,
+                                        vertical: 12,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            AppLocalizations.of(
+                                              context,
+                                            )!.services,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: context.color.darkText,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          BlocBuilder<
+                                            AdvertisementBloc,
+                                            AdvertisementState
+                                          >(
+                                            builder: (context, state) {
+                                              if (state
+                                                  .statusServices
+                                                  .isInProgress) {
+                                                return const WShimmer(
+                                                  height: 80,
+                                                  width: double.infinity,
+                                                );
+                                              }
+                                              return Wrap(
+                                                spacing: 8,
+                                                runSpacing: 8,
+                                                children: List.generate(
+                                                  state.servicesList.length,
+                                                  (index) => GestureDetector(
+                                                    onTap: () {
+                                                      if (servicesList.contains(
+                                                        state
+                                                            .servicesList[index],
+                                                      )) {
+                                                        servicesList.remove(
+                                                          state
+                                                              .servicesList[index],
+                                                        );
+                                                      } else {
+                                                        servicesList.add(
+                                                          state
+                                                              .servicesList[index],
+                                                        );
+                                                      }
+                                                      setState(() {});
+                                                    },
+                                                    child: ServisIteam(
+                                                      model: state
+                                                          .servicesList[index],
+                                                      isActive: servicesList
+                                                          .contains(
+                                                            state
+                                                                .servicesList[index],
+                                                          ),
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 24),
-                                  WTextField(
-                                    title: 'Kompaniya nomi',
-                                    hintText: 'Kompaniya nomini kiriting!',
-                                    controller: controllerCompany,
-                                    onChanged: (value) {},
-                                  ),
-                                  const SizedBox(height: 12),
-                                ],
-                              );
-                            case TypeOfServiceEnum.masters:
-                              return Column(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(24),
-                                      color: context.color.contColor,
-                                    ),
-                                    width: double.infinity,
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 16,
-                                      vertical: 12,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          AppLocalizations.of(context)!
-                                              .services,
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                            color: context.color.darkText,
+                                              );
+                                            },
                                           ),
-                                        ),
-                                        const SizedBox(height: 8),
-                                        Wrap(
-                                          spacing: 8,
-                                          runSpacing: 8,
-                                          children: List.generate(
-                                            AppData.services.length,
-                                            (index) => Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                color: green,
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: green.withValues(
-                                                        alpha: .32),
-                                                    blurRadius: 16,
-                                                    spreadRadius: -24,
-                                                    offset: const Offset(0, 8),
-                                                  )
-                                                ],
-                                              ),
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                vertical: 4,
-                                                horizontal: 14,
-                                              ),
-                                              child: Text(
-                                                AppData.services[index],
-                                                style: const TextStyle(
-                                                  color: white,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w400,
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 24),
+                                    WTextField(
+                                      title: 'Kompaniya nomi',
+                                      hintText: 'Kompaniya nomini kiriting!',
+                                      controller: controllerCompany,
+                                      onChanged: (value) {},
+                                    ),
+                                    const SizedBox(height: 12),
+                                  ],
+                                );
+                              case TypeOfServiceEnum.masters:
+                                return Column(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(24),
+                                        color: context.color.contColor,
+                                      ),
+                                      width: double.infinity,
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 16,
+                                        vertical: 12,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            AppLocalizations.of(
+                                              context,
+                                            )!.services,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: context.color.darkText,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Wrap(
+                                            spacing: 8,
+                                            runSpacing: 8,
+                                            children: List.generate(
+                                              AppData.services.length,
+                                              (index) => Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  color: green,
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: green.withValues(
+                                                        alpha: .32,
+                                                      ),
+                                                      blurRadius: 16,
+                                                      spreadRadius: -24,
+                                                      offset: const Offset(
+                                                        0,
+                                                        8,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                      vertical: 4,
+                                                      horizontal: 14,
+                                                    ),
+                                                child: Text(
+                                                  AppData.services[index],
+                                                  style: const TextStyle(
+                                                    color: white,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 24),
-                                  WTextField(
-                                    title: 'Ism',
-                                    hintText: 'Sherzod',
-                                    controller: controllerCompany,
-                                    onChanged: (value) {},
-                                  ),
-                                  const SizedBox(height: 12),
-                                  WTextField(
-                                    title: 'Familiya',
-                                    hintText: 'Shermatov',
-                                    controller: controllerCompany2,
-                                    onChanged: (value) {},
-                                  ),
-                                  const SizedBox(height: 12),
-                                ],
-                              );
-                            case TypeOfServiceEnum.fuelDelivery:
-                              return Column(
-                                children: [
-                                  WTextField(
-                                    title: 'Kompaniya nomi',
-                                    hintText: 'LukOil',
-                                    onChanged: (value) {},
-                                  ),
-                                  const SizedBox(height: 24),
-                                  WTitle(
-                                    title: 'Yoqilg‘i turi va narxlari',
-                                    color: context.color.contColor,
-                                  ),
-                                  const SizedBox(height: 16),
-                                  ListView.separated(
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) => Row(
-                                      children: [
-                                        Expanded(
-                                          child: WTextField(
-                                            title: 'Yoqilg‘i',
-                                            hintText: 'Yoqilg‘i',
-                                            controller:
-                                                fuelList[index].controllerName,
+                                    const SizedBox(height: 24),
+                                    WTextField(
+                                      title: 'Ism',
+                                      hintText: 'Sherzod',
+                                      controller: controllerCompany,
+                                      onChanged: (value) {},
+                                    ),
+                                    const SizedBox(height: 12),
+                                    WTextField(
+                                      title: 'Familiya',
+                                      hintText: 'Shermatov',
+                                      controller: controllerCompany2,
+                                      onChanged: (value) {},
+                                    ),
+                                    const SizedBox(height: 12),
+                                  ],
+                                );
+                              case TypeOfServiceEnum.fuelDelivery:
+                                return Column(
+                                  children: [
+                                    WTextField(
+                                      title: 'Kompaniya nomi',
+                                      hintText: 'LukOil',
+                                      onChanged: (value) {},
+                                    ),
+                                    const SizedBox(height: 24),
+                                    WTitle(
+                                      title: 'Yoqilg‘i turi va narxlari',
+                                      color: context.color.contColor,
+                                    ),
+                                    const SizedBox(height: 16),
+                                    ListView.separated(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemBuilder: (context, index) => Row(
+                                        children: [
+                                          Expanded(
+                                            child: WTextField(
+                                              title: 'Yoqilg‘i',
+                                              hintText: 'Yoqilg‘i',
+                                              controller: fuelList[index]
+                                                  .controllerName,
+                                            ),
                                           ),
-                                        ),
-                                        const SizedBox(width: 12),
-                                        Expanded(
-                                          child: WTextField(
-                                            title: AppLocalizations.of(context)!
-                                                .price,
-                                            hintText: 'Miqdorni kiriting!',
-                                            keyboardType: TextInputType.number,
-                                            controller:
-                                                fuelList[index].controllerPrice,
-                                            formatter: [PriceFormatter()],
-                                            onChanged: (value) {},
+                                          const SizedBox(width: 12),
+                                          Expanded(
+                                            child: WTextField(
+                                              title: AppLocalizations.of(
+                                                context,
+                                              )!.price,
+                                              hintText: 'Miqdorni kiriting!',
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              controller: fuelList[index]
+                                                  .controllerPrice,
+                                              formatter: [PriceFormatter()],
+                                              onChanged: (value) {},
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
+                                      separatorBuilder: (context, index) =>
+                                          const SizedBox(height: 12),
+                                      itemCount: fuelList.length,
                                     ),
-                                    separatorBuilder: (context, index) =>
-                                        const SizedBox(height: 12),
-                                    itemCount: fuelList.length,
-                                  ),
-                                  const SizedBox(height: 16),
-                                  WButton(
-                                    onTap: () {
-                                      fuelList.add(FuelType(
-                                        controllerName: TextEditingController(),
-                                        controllerPrice:
-                                            TextEditingController(),
-                                      ));
-                                      setState(() {});
-                                    },
-                                    textColor: green,
-                                    color: Colors.transparent,
-                                    height: 48,
-                                    border: Border.all(color: green),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        AppIcons.add.svg(),
-                                        const SizedBox(width: 8),
-                                        const Text("Qo’shish")
-                                      ],
+                                    const SizedBox(height: 16),
+                                    WButton(
+                                      onTap: () {
+                                        fuelList.add(
+                                          FuelType(
+                                            controllerName:
+                                                TextEditingController(),
+                                            controllerPrice:
+                                                TextEditingController(),
+                                          ),
+                                        );
+                                        setState(() {});
+                                      },
+                                      textColor: green,
+                                      color: Colors.transparent,
+                                      height: 48,
+                                      border: Border.all(color: green),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          AppIcons.add.svg(),
+                                          const SizedBox(width: 8),
+                                          const Text("Qo’shish"),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 24),
-                                ],
-                              );
-                            default:
-                              return const SizedBox();
-                          }
-                        }),
+                                    const SizedBox(height: 24),
+                                  ],
+                                );
+                              default:
+                                return const SizedBox();
+                            }
+                          },
+                        ),
                         const SizedBox(height: 8),
                         WTextField(
                           title: AppLocalizations.of(context)!.description,
@@ -1062,7 +1115,7 @@ class _AnnouncementCreateViewState extends State<AnnouncementCreateView> {
                     );
                 }
               },
-            )
+            ),
           ],
         ),
       ),
@@ -1071,11 +1124,7 @@ class _AnnouncementCreateViewState extends State<AnnouncementCreateView> {
 }
 
 class ServisIteam extends StatelessWidget {
-  const ServisIteam({
-    super.key,
-    required this.model,
-    required this.isActive,
-  });
+  const ServisIteam({super.key, required this.model, required this.isActive});
 
   final ServisModel model;
   final bool isActive;
@@ -1084,9 +1133,7 @@ class ServisIteam extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(
-          20,
-        ),
+        borderRadius: BorderRadius.circular(20),
         color: isActive ? green : context.color.scaffoldBackground,
         boxShadow: isActive
             ? [
@@ -1095,14 +1142,11 @@ class ServisIteam extends StatelessWidget {
                   blurRadius: 16,
                   spreadRadius: -24,
                   offset: const Offset(0, 8),
-                )
+                ),
               ]
             : [],
       ),
-      padding: const EdgeInsets.symmetric(
-        vertical: 4,
-        horizontal: 14,
-      ),
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 14),
       child: Text(
         model.name,
         style: TextStyle(

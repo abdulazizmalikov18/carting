@@ -7,14 +7,15 @@ part of 'master_model.dart';
 // **************************************************************************
 
 MasterModel _$MasterModelFromJson(Map<String, dynamic> json) => MasterModel(
-      advType: json['adv_type'] as String,
-      serviceTypeId: (json['service_type_id'] as num).toInt(),
-      fromLocation:
-          LocationModel.fromJson(json['from_location'] as Map<String, dynamic>),
-      price: (json['price'] as num).toInt(),
-      details: DetailsMaster.fromJson(json['details'] as Map<String, dynamic>),
-      note: json['note'] as String,
-    );
+  advType: json['adv_type'] as String,
+  serviceTypeId: (json['service_type_id'] as num).toInt(),
+  fromLocation: LocationModel.fromJson(
+    json['from_location'] as Map<String, dynamic>,
+  ),
+  price: (json['price'] as num).toInt(),
+  details: DetailsMaster.fromJson(json['details'] as Map<String, dynamic>),
+  note: json['note'] as String,
+);
 
 Map<String, dynamic> _$MasterModelToJson(MasterModel instance) =>
     <String, dynamic>{

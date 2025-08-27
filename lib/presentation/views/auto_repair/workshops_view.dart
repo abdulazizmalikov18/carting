@@ -24,9 +24,9 @@ class _WorkshopsViewState extends State<WorkshopsView> {
   List<bool> active = [true, true, true, true, true];
   @override
   void initState() {
-    context
-        .read<AdvertisementBloc>()
-        .add(GetAdvertisementsFilterEvent(repairTypeId: 1));
+    context.read<AdvertisementBloc>().add(
+      GetAdvertisementsFilterEvent(repairTypeId: 1),
+    );
     super.initState();
   }
 
@@ -38,12 +38,15 @@ class _WorkshopsViewState extends State<WorkshopsView> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => FilterView(
-                  filterType: FilterType.workshopCategories,
-                  list: active,onSaved: (dateTime, dateTime2, fromPrice, toPrice) {},
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => FilterView(
+                    filterType: FilterType.workshopCategories,
+                    list: active,
+                    onSaved: (dateTime, dateTime2, fromPrice, toPrice) {},
+                  ),
                 ),
-              ));
+              );
             },
             icon: AppIcons.filter.svg(color: context.color.iron),
           ),
@@ -54,10 +57,8 @@ class _WorkshopsViewState extends State<WorkshopsView> {
           if (state.statusFilter.isInProgress) {
             return ListView.separated(
               padding: const EdgeInsets.all(16),
-              itemBuilder: (context, index) => const WShimmer(
-                height: 316,
-                width: double.infinity,
-              ),
+              itemBuilder: (context, index) =>
+                  const WShimmer(height: 316, width: double.infinity),
               separatorBuilder: (context, index) => const SizedBox(height: 12),
               itemCount: 12,
             );
@@ -67,20 +68,22 @@ class _WorkshopsViewState extends State<WorkshopsView> {
           }
           return RefreshIndicator.adaptive(
             onRefresh: () async {
-              context
-                  .read<AdvertisementBloc>()
-                  .add(GetAdvertisementsFilterEvent(repairTypeId: 1));
+              context.read<AdvertisementBloc>().add(
+                GetAdvertisementsFilterEvent(repairTypeId: 1),
+              );
               Future.delayed(Duration.zero);
             },
             child: ListView.separated(
               padding: const EdgeInsets.all(16),
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => WorkshopsInfoView(
-                      model: state.advertisementFilter[index],
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => WorkshopsInfoView(
+                        model: state.advertisementFilter[index],
+                      ),
                     ),
-                  ));
+                  );
                 },
                 child: WorkshopsIteam(model: state.advertisementFilter[index]),
               ),

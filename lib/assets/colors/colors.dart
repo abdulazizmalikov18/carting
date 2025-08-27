@@ -87,7 +87,7 @@ List<BoxShadow> wboxShadow = [
     blurRadius: 8.4,
     spreadRadius: 0,
     offset: const Offset(0, 2),
-  )
+  ),
 ];
 
 List<BoxShadow> wboxShadow2 = [
@@ -96,7 +96,7 @@ List<BoxShadow> wboxShadow2 = [
     blurRadius: 8.4,
     spreadRadius: 0,
     offset: const Offset(0, 2),
-  )
+  ),
 ];
 
 List<BoxShadow> wboxShadowRed = [
@@ -111,30 +111,18 @@ List<BoxShadow> wboxShadowRed = [
 LinearGradient wgradient = const LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
-  colors: [
-    Color(0xFFF53183),
-    Color(0xFFFDA70F),
-  ],
+  colors: [Color(0xFFF53183), Color(0xFFFDA70F)],
 );
 LinearGradient wgradientRed = const LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
-  colors: [
-    Color(0xFFFA193E),
-    Color(0xFF940F25),
-  ],
+  colors: [Color(0xFFFA193E), Color(0xFF940F25)],
 );
 
 LinearGradient wgradientBlack = const LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
-  colors: [
-    Color(0xFF271C09),
-    dark,
-    dark,
-    dark,
-    dark,
-  ],
+  colors: [Color(0xFF271C09), dark, dark, dark, dark],
 );
 
 RadialGradient radialGradient = RadialGradient(
@@ -142,10 +130,7 @@ RadialGradient radialGradient = RadialGradient(
   stops: const [0.1, 5],
   center: Alignment.centerRight,
   radius: 1.5,
-  colors: [
-    blue.withValues(alpha: .5),
-    backGroundColor.withValues(alpha: .5),
-  ],
+  colors: [blue.withValues(alpha: .5), backGroundColor.withValues(alpha: .5)],
 );
 
 BoxDecoration wdecoration = BoxDecoration(

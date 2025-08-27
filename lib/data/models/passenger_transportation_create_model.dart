@@ -9,12 +9,12 @@ import 'dart:convert';
 part 'passenger_transportation_create_model.g.dart';
 
 PassengerTransportationCreateModel passengerTransportationCreateModelFromJson(
-        String str) =>
-    PassengerTransportationCreateModel.fromJson(json.decode(str));
+  String str,
+) => PassengerTransportationCreateModel.fromJson(json.decode(str));
 
 String passengerTransportationCreateModelToJson(
-        PassengerTransportationCreateModel data) =>
-    json.encode(data.toJson());
+  PassengerTransportationCreateModel data,
+) => json.encode(data.toJson());
 
 @JsonSerializable()
 class PassengerTransportationCreateModel {
@@ -53,8 +53,8 @@ class PassengerTransportationCreateModel {
   });
 
   factory PassengerTransportationCreateModel.fromJson(
-          Map<String, dynamic> json) =>
-      _$PassengerTransportationCreateModelFromJson(json);
+    Map<String, dynamic> json,
+  ) => _$PassengerTransportationCreateModelFromJson(json);
 
   Map<String, dynamic> toJson() =>
       _$PassengerTransportationCreateModelToJson(this);

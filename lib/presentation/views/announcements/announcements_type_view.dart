@@ -32,19 +32,13 @@ class _AnnouncementsTypeViewState extends State<AnnouncementsTypeView> {
     super.didChangeDependencies();
     list = [
       TypeOfService(
-        icon: AppIcons.shipping.svg(
-          height: 40,
-          width: 40,
-        ),
+        icon: AppIcons.shipping.svg(height: 40, width: 40),
         text: AppLocalizations.of(context)!.shipping,
         screen: const AnnouncementsShippingTypeView(),
         serviceId: 1,
       ),
       TypeOfService(
-        icon: AppIcons.transportationOfPassengers.svg(
-          height: 40,
-          width: 40,
-        ),
+        icon: AppIcons.transportationOfPassengers.svg(height: 40, width: 40),
         text: AppLocalizations.of(context)!.passengerTransport,
         screen: const AnnouncementsTransportationOfPassengersView(),
         serviceId: 2,
@@ -56,10 +50,7 @@ class _AnnouncementsTypeViewState extends State<AnnouncementsTypeView> {
         serviceId: 3,
       ),
       TypeOfService(
-        icon: AppIcons.specialTechnique.svg(
-          height: 40,
-          width: 40,
-        ),
+        icon: AppIcons.specialTechnique.svg(height: 40, width: 40),
         text: AppLocalizations.of(context)!.specialTechServices,
         screen: const SpecialTechniqueView(isCreate: true),
         serviceId: 3,
@@ -112,12 +103,14 @@ class _AnnouncementsTypeViewState extends State<AnnouncementsTypeView> {
         itemCount: list.length,
         itemBuilder: (context, index) => GestureDetector(
           onTap: () {
-            Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
-              builder: (context) => BlocProvider.value(
-                value: widget.bloc,
-                child: list[index].screen,
+            Navigator.of(context, rootNavigator: true).push(
+              MaterialPageRoute(
+                builder: (context) => BlocProvider.value(
+                  value: widget.bloc,
+                  child: list[index].screen,
+                ),
               ),
-            ));
+            );
           },
           child: Container(
             decoration: BoxDecoration(
@@ -138,7 +131,7 @@ class _AnnouncementsTypeViewState extends State<AnnouncementsTypeView> {
                   list[index].text,
                   textAlign: TextAlign.center,
                   maxLines: 2,
-                )
+                ),
               ],
             ),
           ),

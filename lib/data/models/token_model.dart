@@ -21,11 +21,7 @@ class TokenModel {
   @JsonKey(name: "status")
   final String status;
 
-  TokenModel({
-    this.token = '',
-    this.refreshToken = '',
-    this.status = '',
-  });
+  TokenModel({this.token = '', this.refreshToken = '', this.status = ''});
 
   factory TokenModel.fromJson(Map<String, dynamic> json) =>
       _$TokenModelFromJson(json);

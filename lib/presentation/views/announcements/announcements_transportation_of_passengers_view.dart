@@ -23,18 +23,18 @@ class _AnnouncementsTransportationOfPassengersViewState
     extends State<AnnouncementsTransportationOfPassengersView> {
   @override
   void initState() {
-    context.read<AdvertisementBloc>().add(GetTransportationTypesEvent(
-          serviceId: 2,
-          isRECEIVE: true,
-        ));
+    context.read<AdvertisementBloc>().add(
+      GetTransportationTypesEvent(serviceId: 2, isRECEIVE: true),
+    );
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          AppBar(title: Text(AppLocalizations.of(context)!.passengerTransport)),
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.passengerTransport),
+      ),
       body: BlocBuilder<AdvertisementBloc, AdvertisementState>(
         builder: (context, state) {
           if (state.statusTrTypes.isInProgress) {
@@ -62,15 +62,17 @@ class _AnnouncementsTransportationOfPassengersViewState
             itemBuilder: (context, index) => GestureDetector(
               onTap: () {
                 final bloc = context.read<AdvertisementBloc>();
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => BlocProvider.value(
-                    value: bloc,
-                    child: AnnouncementCreateView(
-                      filter: TypeOfServiceEnum.transportationOfPassengers,
-                      carId: state.transportationTypes[index].id,
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => BlocProvider.value(
+                      value: bloc,
+                      child: AnnouncementCreateView(
+                        filter: TypeOfServiceEnum.transportationOfPassengers,
+                        carId: state.transportationTypes[index].id,
+                      ),
                     ),
                   ),
-                ));
+                );
               },
               child: Container(
                 decoration: BoxDecoration(

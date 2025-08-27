@@ -25,9 +25,7 @@ class OrdersIteam extends StatelessWidget {
       child: Column(
         children: [
           ClipRRect(
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(24),
-            ),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
             child: (model.images != null && model.images!.isNotEmpty)
                 ? CachedNetworkImage(
                     imageUrl:
@@ -35,10 +33,8 @@ class OrdersIteam extends StatelessWidget {
                     height: 196,
                     width: double.infinity,
                     fit: BoxFit.cover,
-                    errorWidget: (context, url, error) => const SizedBox(
-                      height: 196,
-                      width: double.infinity,
-                    ),
+                    errorWidget: (context, url, error) =>
+                        const SizedBox(height: 196, width: double.infinity),
                   )
                 : AppImages.workshop.imgAsset(
                     height: 196,
@@ -48,10 +44,7 @@ class OrdersIteam extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 12,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -66,10 +59,7 @@ class OrdersIteam extends StatelessWidget {
                   const Spacer(),
                   Row(
                     children: [
-                      AppIcons.shipping.svg(
-                        height: 16,
-                        width: 16,
-                      ),
+                      AppIcons.shipping.svg(height: 16, width: 16),
                       const SizedBox(width: 4),
                       Expanded(
                         child: Text(
@@ -85,10 +75,7 @@ class OrdersIteam extends StatelessWidget {
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      AppIcons.location.svg(
-                        height: 16,
-                        width: 16,
-                      ),
+                      AppIcons.location.svg(height: 16, width: 16),
                       const SizedBox(width: 4),
                       Expanded(
                         child: Text(
@@ -123,7 +110,7 @@ class OrdersIteam extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

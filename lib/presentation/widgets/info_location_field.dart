@@ -7,11 +7,7 @@ import 'package:carting/presentation/views/common/location_info_view.dart';
 import 'package:flutter/material.dart';
 
 class InfoLocationField extends StatefulWidget {
-  const InfoLocationField({
-    super.key,
-    this.point1,
-    this.point2,
-  });
+  const InfoLocationField({super.key, this.point1, this.point2});
   final Location? point1;
   final Location? point2;
 
@@ -49,13 +45,15 @@ class _InfoLocationFieldState extends State<InfoLocationField> {
               ),
               trailing: GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => LocationInfoView(
-                      isFirst: true,
-                      point1: widget.point1,
-                      point2: widget.point2,
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => LocationInfoView(
+                        isFirst: true,
+                        point1: widget.point1,
+                        point2: widget.point2,
+                      ),
                     ),
-                  ));
+                  );
                 },
                 child: Container(
                   decoration: BoxDecoration(

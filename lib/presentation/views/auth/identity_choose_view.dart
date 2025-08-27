@@ -43,10 +43,7 @@ class _IdentityChooseViewState extends State<IdentityChooseView> {
           children: [
             Text(
               AppLocalizations.of(context)!.chooseYourIdentity,
-              style: const TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w600,
-              ),
+              style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w600),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),

@@ -57,10 +57,7 @@ class Details {
   @JsonKey(name: "load_weight")
   final LoadWeight loadWeight;
 
-  Details({
-    required this.transportationTypeId,
-    required this.loadWeight,
-  });
+  Details({required this.transportationTypeId, required this.loadWeight});
 
   factory Details.fromJson(Map<String, dynamic> json) =>
       _$DetailsFromJson(json);
@@ -75,15 +72,10 @@ class LoadWeight {
   @JsonKey(name: "name")
   final String name;
 
-  LoadWeight({
-    required this.amount,
-    required this.name,
-  });
+  LoadWeight({required this.amount, required this.name});
 
   factory LoadWeight.fromJson(Map<String, dynamic> json) =>
       _$LoadWeightFromJson(json);
 
   Map<String, dynamic> toJson() => _$LoadWeightToJson(this);
 }
-
-

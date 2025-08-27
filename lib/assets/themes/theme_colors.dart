@@ -203,7 +203,9 @@ class AppThemeColor extends ThemeExtension<AppThemeColor> {
 
   @override
   ThemeExtension<AppThemeColor> lerp(
-      covariant ThemeExtension<AppThemeColor>? other, double t) {
+    covariant ThemeExtension<AppThemeColor>? other,
+    double t,
+  ) {
     if (other is! AppThemeColor) {
       return this;
     }
@@ -232,10 +234,16 @@ class AppThemeColor extends ThemeExtension<AppThemeColor> {
       backGroundColor: Color.lerp(backGroundColor, other.backGroundColor, t)!,
       longGrey: Color.lerp(longGrey, other.longGrey, t)!,
       inputBlue: Color.lerp(inputBlue, other.inputBlue, t)!,
-      scaffoldBackground:
-          Color.lerp(scaffoldBackground, other.scaffoldBackground, t)!,
-      buttonBackgroundColor:
-          Color.lerp(buttonBackgroundColor, other.buttonBackgroundColor, t)!,
+      scaffoldBackground: Color.lerp(
+        scaffoldBackground,
+        other.scaffoldBackground,
+        t,
+      )!,
+      buttonBackgroundColor: Color.lerp(
+        buttonBackgroundColor,
+        other.buttonBackgroundColor,
+        t,
+      )!,
       contColor: Color.lerp(contColor, other.contColor, t)!,
       contBlue: Color.lerp(contBlue, other.contBlue, t)!,
       contGrey: Color.lerp(contGrey, other.contGrey, t)!,

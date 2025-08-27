@@ -9,7 +9,8 @@ part 'fuels_info_model.g.dart';
 
 List<FuelsInfoModel> fuelsInfoModelFromJson(String str) =>
     List<FuelsInfoModel>.from(
-        json.decode(str).map((x) => FuelsInfoModel.fromJson(x)));
+      json.decode(str).map((x) => FuelsInfoModel.fromJson(x)),
+    );
 
 String fuelsInfoModelToJson(List<FuelsInfoModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));

@@ -284,11 +284,7 @@ class Fuel {
   @JsonKey(name: "price")
   final String? price;
 
-  Fuel({
-    this.id,
-    this.type,
-    this.price,
-  });
+  Fuel({this.id, this.type, this.price});
 
   factory Fuel.fromJson(Map<String, dynamic> json) => _$FuelFromJson(json);
 
@@ -302,10 +298,7 @@ class LoadWeight {
   @JsonKey(name: "name")
   final String? name;
 
-  LoadWeight({
-    this.amount,
-    this.name,
-  });
+  LoadWeight({this.amount, this.name});
 
   factory LoadWeight.fromJson(Map<String, dynamic> json) =>
       _$LoadWeightFromJson(json);
@@ -320,10 +313,7 @@ class Tariff {
   @JsonKey(name: "price")
   final int price;
 
-  Tariff({
-    required this.day,
-    required this.price,
-  });
+  Tariff({required this.day, required this.price});
 
   factory Tariff.fromJson(Map<String, dynamic> json) => _$TariffFromJson(json);
 
@@ -339,11 +329,7 @@ class Location {
   @JsonKey(name: "name")
   final String name;
 
-  Location({
-    required this.lat,
-    required this.lng,
-    required this.name,
-  });
+  Location({required this.lat, required this.lng, required this.name});
 
   factory Location.fromJson(Map<String, dynamic> json) =>
       _$LocationFromJson(json);

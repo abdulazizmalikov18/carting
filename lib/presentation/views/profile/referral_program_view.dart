@@ -91,8 +91,11 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                             uri: Uri.parse(
                                               "https://play.google.com/store/apps/details?id=uz.realsoft.carting",
                                             ),
-                                            subject: state.userModel
-                                                .referralCodes.first.note,
+                                            subject: state
+                                                .userModel
+                                                .referralCodes
+                                                .first
+                                                .note,
                                           ),
                                         );
                                       } else if (Platform.isIOS) {
@@ -101,8 +104,11 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                             uri: Uri.parse(
                                               "https://apps.apple.com/uz/app/carting/id6742141732",
                                             ),
-                                            subject: state.userModel
-                                                .referralCodes.first.note,
+                                            subject: state
+                                                .userModel
+                                                .referralCodes
+                                                .first
+                                                .note,
                                           ),
                                         );
                                       } else {
@@ -112,8 +118,9 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                         );
                                       }
                                     },
-                                    icon: AppIcons.share
-                                        .svg(color: context.color.white),
+                                    icon: AppIcons.share.svg(
+                                      color: context.color.white,
+                                    ),
                                   ),
                                 // WScaleAnimation(
                                 //   onTap: () {
@@ -176,8 +183,9 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                           builder: (context) => AlertDialog(
                                             backgroundColor:
                                                 context.color.contColor,
-                                            insetPadding:
-                                                const EdgeInsets.all(16),
+                                            insetPadding: const EdgeInsets.all(
+                                              16,
+                                            ),
                                             title: const Text("Kod qo‘shish"),
                                             content: SizedBox(
                                               width: 500,
@@ -185,11 +193,11 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                               child: CustomTextField(
                                                 controller: controller,
                                                 title: AppLocalizations.of(
-                                                        context)!
-                                                    .description,
+                                                  context,
+                                                )!.description,
                                                 hintText: AppLocalizations.of(
-                                                        context)!
-                                                    .description,
+                                                  context,
+                                                )!.description,
                                                 noHeight: true,
                                                 minLines: 5,
                                                 maxLines: 5,
@@ -204,12 +212,13 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                                   Expanded(
                                                     child: WButton(
                                                       onTap: () {
-                                                        Navigator.of(context)
-                                                            .pop(false);
+                                                        Navigator.of(
+                                                          context,
+                                                        ).pop(false);
                                                       },
                                                       text: AppLocalizations.of(
-                                                              context)!
-                                                          .cancel,
+                                                        context,
+                                                      )!.cancel,
                                                       color: context.color.iron,
                                                     ),
                                                   ),
@@ -217,16 +226,17 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                                   Expanded(
                                                     child: WButton(
                                                       onTap: () {
-                                                        Navigator.of(context)
-                                                            .pop(true);
+                                                        Navigator.of(
+                                                          context,
+                                                        ).pop(true);
                                                       },
                                                       text: AppLocalizations.of(
-                                                              context)!
-                                                          .save,
+                                                        context,
+                                                      )!.save,
                                                     ),
-                                                  )
+                                                  ),
                                                 ],
-                                              )
+                                              ),
                                             ],
                                           ),
                                         ).then((value) {
@@ -234,15 +244,20 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                             if (context.mounted) {
                                               context
                                                   .read<AdvertisementBloc>()
-                                                  .add(PostRefCodeEvent(
-                                                    note: controller.text,
-                                                    onSucces: () {
-                                                      context
-                                                          .read<AuthBloc>()
-                                                          .add(GetMeEvent(
-                                                              isNotAuth: true));
-                                                    },
-                                                  ));
+                                                  .add(
+                                                    PostRefCodeEvent(
+                                                      note: controller.text,
+                                                      onSucces: () {
+                                                        context
+                                                            .read<AuthBloc>()
+                                                            .add(
+                                                              GetMeEvent(
+                                                                isNotAuth: true,
+                                                              ),
+                                                            );
+                                                      },
+                                                    ),
+                                                  );
                                             }
                                           }
                                         });
@@ -254,10 +269,11 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                           AppIcons.addCircle.svg(),
                                           const SizedBox(width: 8),
                                           Text(
-                                              AppLocalizations.of(context)!.add)
+                                            AppLocalizations.of(context)!.add,
+                                          ),
                                         ],
                                       ),
-                                    )
+                                    ),
                                 ],
                               ),
                             ),
@@ -301,15 +317,22 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    if (state.userModel.referralUsers[index]
-                                        .clientType.isNotEmpty)
+                                    if (state
+                                        .userModel
+                                        .referralUsers[index]
+                                        .clientType
+                                        .isNotEmpty)
                                       Text(
-                                        state.userModel.referralUsers[index]
+                                        state
+                                            .userModel
+                                            .referralUsers[index]
                                             .clientType,
                                       ),
                                     Text(
                                       MyFunction.formatPhoneNumber(
-                                        state.userModel.referralUsers[index]
+                                        state
+                                            .userModel
+                                            .referralUsers[index]
                                             .phoneNumber,
                                       ),
                                     ),
@@ -395,7 +418,7 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                   ),
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                         BlocBuilder<AuthBloc, AuthState>(
@@ -415,8 +438,9 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                 spacing: 16,
                                 children: [
                                   InfoColum(
-                                    title: AppLocalizations.of(context)!
-                                        .totalProfit,
+                                    title: AppLocalizations.of(
+                                      context,
+                                    )!.totalProfit,
                                     subtitle:
                                         '\$${state.userModel.totalProfit}',
                                     colorText: context.color.white,
@@ -426,8 +450,9 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                     children: [
                                       Expanded(
                                         child: InfoColum(
-                                          title: AppLocalizations.of(context)!
-                                              .earnedProfit,
+                                          title: AppLocalizations.of(
+                                            context,
+                                          )!.earnedProfit,
                                           subtitle:
                                               '\$${state.userModel.withdrawnProfit}',
                                           colorText: green,
@@ -436,8 +461,9 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                       ),
                                       Expanded(
                                         child: InfoColum(
-                                          title: AppLocalizations.of(context)!
-                                              .withdrawnProfit,
+                                          title: AppLocalizations.of(
+                                            context,
+                                          )!.withdrawnProfit,
                                           subtitle:
                                               '\$${state.userModel.earnedProfit}',
                                           colorText: blue,
@@ -445,7 +471,7 @@ class _ReferralProgramViewState extends State<ReferralProgramView> {
                                         ),
                                       ),
                                     ],
-                                  )
+                                  ),
                                 ],
                               ),
                             );
@@ -609,7 +635,7 @@ class _ReferalIteamState extends State<ReferalIteam> {
                         fontWeight: FontWeight.w400,
                         color: context.color.red,
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -680,8 +706,9 @@ class _ReferalIteamState extends State<ReferalIteam> {
                             child: Column(
                               children: [
                                 Text(
-                                  AppLocalizations.of(context)!
-                                      .confirm_save_referral_changes,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.confirm_save_referral_changes,
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
@@ -696,51 +723,68 @@ class _ReferalIteamState extends State<ReferalIteam> {
                                         onTap: () {
                                           Navigator.pop(context);
                                         },
-                                        text: AppLocalizations.of(context)!
-                                            .cancel,
+                                        text: AppLocalizations.of(
+                                          context,
+                                        )!.cancel,
                                         textColor: darkText,
                                         color: const Color(0xFFF3F3F3),
                                       ),
                                     ),
                                     const SizedBox(width: 12),
                                     Expanded(
-                                      child: BlocBuilder<AdvertisementBloc,
-                                          AdvertisementState>(
-                                        bloc: bloc,
-                                        builder: (context, state) {
-                                          return WButton(
-                                            onTap: () {
-                                              bloc.add(PutRefCodeEvent(
-                                                code: widget.model.code,
-                                                note: _controller.text,
-                                                onSucces: () {
-                                                  context
-                                                      .read<AuthBloc>()
-                                                      .add(UpdateCode(
-                                                        code: widget.model.code,
-                                                        note: _controller.text,
-                                                      ));
-                                                  Navigator.of(context)
-                                                      .pop(true);
+                                      child:
+                                          BlocBuilder<
+                                            AdvertisementBloc,
+                                            AdvertisementState
+                                          >(
+                                            bloc: bloc,
+                                            builder: (context, state) {
+                                              return WButton(
+                                                onTap: () {
+                                                  bloc.add(
+                                                    PutRefCodeEvent(
+                                                      code: widget.model.code,
+                                                      note: _controller.text,
+                                                      onSucces: () {
+                                                        context
+                                                            .read<AuthBloc>()
+                                                            .add(
+                                                              UpdateCode(
+                                                                code: widget
+                                                                    .model
+                                                                    .code,
+                                                                note:
+                                                                    _controller
+                                                                        .text,
+                                                              ),
+                                                            );
+                                                        Navigator.of(
+                                                          context,
+                                                        ).pop(true);
+                                                      },
+                                                    ),
+                                                  );
                                                 },
-                                              ));
+                                                text: AppLocalizations.of(
+                                                  context,
+                                                )!.save,
+                                                isLoading: state
+                                                    .statusChange
+                                                    .isInProgress,
+                                                textColor: red,
+                                                color: red.withValues(
+                                                  alpha: .1,
+                                                ),
+                                              );
                                             },
-                                            text: AppLocalizations.of(context)!
-                                                .save,
-                                            isLoading:
-                                                state.statusChange.isInProgress,
-                                            textColor: red,
-                                            color: red.withValues(alpha: .1),
-                                          );
-                                        },
-                                      ),
+                                          ),
                                     ),
                                   ],
                                 ),
                                 const SizedBox(height: 24),
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ).then((value) {
@@ -756,8 +800,8 @@ class _ReferalIteamState extends State<ReferalIteam> {
                 text: AppLocalizations.of(context)!.save,
               ),
             ],
-          )
-        ]
+          ),
+        ],
       ],
     );
   }

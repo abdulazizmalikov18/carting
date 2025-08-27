@@ -5,10 +5,7 @@ import 'package:flutter/material.dart';
 
 class LocaleProvider with ChangeNotifier {
   Locale _locale = Locale(
-    StorageRepository.getString(
-      StorageKeys.LANGUAGE,
-      defValue: 'uz',
-    ),
+    StorageRepository.getString(StorageKeys.LANGUAGE, defValue: 'uz'),
   );
   Locale get locale => _locale;
   void setLocale(Locale locale) async {

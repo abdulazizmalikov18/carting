@@ -19,10 +19,9 @@ class CarsRentalInfoView extends StatefulWidget {
 class _CarsRentalInfoViewState extends State<CarsRentalInfoView> {
   @override
   void initState() {
-    context.read<AdvertisementBloc>().add(GetAdvertisementsFilterEvent(
-          carId: widget.model.id,
-          status: "ACTIVE",
-        ));
+    context.read<AdvertisementBloc>().add(
+      GetAdvertisementsFilterEvent(carId: widget.model.id, status: "ACTIVE"),
+    );
     super.initState();
   }
 
@@ -35,10 +34,8 @@ class _CarsRentalInfoViewState extends State<CarsRentalInfoView> {
           if (state.statusFilter.isInProgress) {
             return ListView.separated(
               padding: const EdgeInsets.all(16),
-              itemBuilder: (context, index) => const WShimmer(
-                height: 316,
-                width: double.infinity,
-              ),
+              itemBuilder: (context, index) =>
+                  const WShimmer(height: 316, width: double.infinity),
               separatorBuilder: (context, index) => const SizedBox(height: 12),
               itemCount: 12,
             );
@@ -48,23 +45,25 @@ class _CarsRentalInfoViewState extends State<CarsRentalInfoView> {
           }
           return RefreshIndicator.adaptive(
             onRefresh: () async {
-              context
-                  .read<AdvertisementBloc>()
-                  .add(GetAdvertisementsFilterEvent(
-                    carId: widget.model.id,
-                    status: "ACTIVE",
-                  ));
+              context.read<AdvertisementBloc>().add(
+                GetAdvertisementsFilterEvent(
+                  carId: widget.model.id,
+                  status: "ACTIVE",
+                ),
+              );
               await Future.delayed(Duration.zero);
             },
             child: ListView.separated(
               padding: const EdgeInsets.all(16),
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => CarsRenatlDitealsView(
-                      model: state.advertisementFilter[index],
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => CarsRenatlDitealsView(
+                        model: state.advertisementFilter[index],
+                      ),
                     ),
-                  ));
+                  );
                 },
                 child: CarsRentalIteam(model: state.advertisementFilter[index]),
               ),

@@ -19,10 +19,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class CreateInfoView extends StatefulWidget {
-  const CreateInfoView({
-    super.key,
-    required this.model,
-  });
+  const CreateInfoView({super.key, required this.model});
   final AdvertisementModel model;
 
   @override
@@ -99,12 +96,12 @@ class _CreateInfoViewState extends State<CreateInfoView> {
                                     fontSize: 12,
                                     color: context.color.darkText,
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                   Text(
@@ -187,6 +184,7 @@ class _CreateInfoViewState extends State<CreateInfoView> {
                         ),
                       ),
                     ),
+
                   // Builder(builder: (context) {
                   //   switch (widget.filter) {
                   //     case TypeOfServiceEnum.shipping:
@@ -598,7 +596,6 @@ class _CreateInfoViewState extends State<CreateInfoView> {
                   //       return const SizedBox();
                   //   }
                   // }),
-
                   const SizedBox(height: 16),
                   Container(
                     decoration: BoxDecoration(
@@ -607,20 +604,20 @@ class _CreateInfoViewState extends State<CreateInfoView> {
                     ),
                     child: ListTile(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => CommentsView(
-                            comments: widget.model.comments ?? [],
-                            id: widget.model.id,
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => CommentsView(
+                              comments: widget.model.comments ?? [],
+                              id: widget.model.id,
+                            ),
                           ),
-                        ));
+                        );
                       },
                       leading: AppIcons.message.svg(color: context.color.iron),
                       title: Row(
                         children: [
                           Expanded(
-                            child: Text(
-                              AppLocalizations.of(context)!.comments,
-                            ),
+                            child: Text(AppLocalizations.of(context)!.comments),
                           ),
                           const SizedBox(
                             width: 72,
@@ -629,23 +626,26 @@ class _CreateInfoViewState extends State<CreateInfoView> {
                               children: [
                                 CircleAvatar(
                                   radius: 12,
-                                  backgroundImage:
-                                      AssetImage(AppImages.avatar_1),
+                                  backgroundImage: AssetImage(
+                                    AppImages.avatar_1,
+                                  ),
                                 ),
                                 Positioned(
                                   left: 16,
                                   child: CircleAvatar(
                                     radius: 12,
-                                    backgroundImage:
-                                        AssetImage(AppImages.avatar_2),
+                                    backgroundImage: AssetImage(
+                                      AppImages.avatar_2,
+                                    ),
                                   ),
                                 ),
                                 Positioned(
                                   left: 32,
                                   child: CircleAvatar(
                                     radius: 12,
-                                    backgroundImage:
-                                        AssetImage(AppImages.avatar_3),
+                                    backgroundImage: AssetImage(
+                                      AppImages.avatar_3,
+                                    ),
                                   ),
                                 ),
                                 Positioned(
@@ -859,8 +859,8 @@ class _CreateInfoViewState extends State<CreateInfoView> {
                                                   Navigator.pop(context);
                                                 },
                                                 text: AppLocalizations.of(
-                                                        context)!
-                                                    .no,
+                                                  context,
+                                                )!.no,
                                                 textColor: darkText,
                                                 color: const Color(0xFFF3F3F3),
                                               ),
@@ -870,14 +870,16 @@ class _CreateInfoViewState extends State<CreateInfoView> {
                                               child: WButton(
                                                 onTap: () {
                                                   Navigator.pop(context);
-                                                  bloc.add(DeactivetEvent(
-                                                    id: widget.model.id,
-                                                  ));
+                                                  bloc.add(
+                                                    DeactivetEvent(
+                                                      id: widget.model.id,
+                                                    ),
+                                                  );
                                                   Navigator.pop(context);
                                                 },
                                                 text: AppLocalizations.of(
-                                                        context)!
-                                                    .yes,
+                                                  context,
+                                                )!.yes,
                                                 textColor: darkText,
                                                 color: const Color(0xFFF3F3F3),
                                               ),
@@ -887,7 +889,7 @@ class _CreateInfoViewState extends State<CreateInfoView> {
                                         const SizedBox(height: 24),
                                       ],
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             );

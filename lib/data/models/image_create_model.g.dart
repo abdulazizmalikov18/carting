@@ -21,12 +21,9 @@ Map<String, dynamic> _$ImageCreateModelToJson(ImageCreateModel instance) =>
     };
 
 ImageFiles _$ImageFilesFromJson(Map<String, dynamic> json) => ImageFiles(
-      fileName: json['fileName'] as String,
-      base64: json['base64'] as String,
-    );
+  fileName: json['fileName'] as String,
+  base64: json['base64'] as String,
+);
 
 Map<String, dynamic> _$ImageFilesToJson(ImageFiles instance) =>
-    <String, dynamic>{
-      'fileName': instance.fileName,
-      'base64': instance.base64,
-    };
+    <String, dynamic>{'fileName': instance.fileName, 'base64': instance.base64};

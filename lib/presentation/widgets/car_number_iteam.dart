@@ -23,9 +23,7 @@ class CarNumberIteam extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
                 carNumberFirst,
                 style: const TextStyle(
@@ -35,15 +33,9 @@ class CarNumberIteam extends StatelessWidget {
                 ),
               ),
             ),
-            VerticalDivider(
-              color: context.color.white,
-              thickness: 1,
-              width: 1,
-            ),
+            VerticalDivider(color: context.color.white, thickness: 1, width: 1),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
                 carNumberSecond,
                 style: const TextStyle(

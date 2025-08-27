@@ -12,16 +12,9 @@ class BottomContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
-      padding: EdgeInsets.fromLTRB(
-        16,
-        12,
-        16,
-        bottom > 0 ? 12 : 32,
-      ),
+      padding: EdgeInsets.fromLTRB(16, 12, 16, bottom > 0 ? 12 : 32),
       decoration: BoxDecoration(
-        borderRadius: const BorderRadius.vertical(
-          top: Radius.circular(24),
-        ),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         color: context.color.contColor,
         boxShadow: wboxShadow2,
       ),

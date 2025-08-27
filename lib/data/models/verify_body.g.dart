@@ -7,12 +7,12 @@ part of 'verify_body.dart';
 // **************************************************************************
 
 VerifyBody _$VerifyBodyFromJson(Map<String, dynamic> json) => VerifyBody(
-      mail: json['mail'] as String?,
-      phoneNumber: json['phone_number'] as String?,
-      smsType: json['sms_type'] as String,
-      sessionToken: json['session_token'] as String,
-      securityCode: json['security_code'] as String,
-    );
+  mail: json['mail'] as String?,
+  phoneNumber: json['phone_number'] as String?,
+  smsType: json['sms_type'] as String,
+  sessionToken: json['session_token'] as String,
+  securityCode: json['security_code'] as String,
+);
 
 Map<String, dynamic> _$VerifyBodyToJson(VerifyBody instance) =>
     <String, dynamic>{

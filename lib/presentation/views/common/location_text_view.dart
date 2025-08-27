@@ -81,10 +81,7 @@ class _LocationTextViewState extends State<LocationTextView> {
         Hero(
           tag: 'imageHero',
           child: Container(
-            padding: const EdgeInsets.symmetric(
-              vertical: 12,
-              horizontal: 16,
-            ),
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             margin: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: context.color.contColor,
@@ -127,8 +124,9 @@ class _LocationTextViewState extends State<LocationTextView> {
                                     fontSize: 12,
                                     color: context.color.white,
                                   ),
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 8),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                  ),
                                   color: context.color.grey,
                                   onTap: () {
                                     Navigator.of(context).pop(1);
@@ -177,8 +175,9 @@ class _LocationTextViewState extends State<LocationTextView> {
                                   fontSize: 12,
                                   color: context.color.white,
                                 ),
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                ),
                                 color: context.color.grey,
                                 onTap: () {
                                   Navigator.of(context).pop(2);
@@ -201,11 +200,7 @@ class _LocationTextViewState extends State<LocationTextView> {
           ),
         ),
         Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              children: _getList(),
-            ),
-          ),
+          child: SingleChildScrollView(child: Column(children: _getList())),
         ),
       ],
     );
@@ -222,10 +217,7 @@ class _LocationTextViewState extends State<LocationTextView> {
       suggestOptions: const SuggestOptions(
         suggestType: SuggestType.unspecified,
         suggestWords: true,
-        userPosition: Point(
-          latitude: 45.0,
-          longitude: 70.0,
-        ),
+        userPosition: Point(latitude: 45.0, longitude: 70.0),
       ),
     );
     await _handleResult(await resultWithSession.$2);
@@ -248,24 +240,26 @@ class _LocationTextViewState extends State<LocationTextView> {
       final locationHistory = widget.bloc.state.locationHistory;
       if (locationHistory.isNotEmpty) {
         locationHistory.asMap().forEach((i, item) {
-          list.add(ListTile(
-            title: Text(item.toLocation.name),
-            onTap: () {
-              if (isFirst) {
-                widget.controllerLat.text = item.toLocation.name;
-              } else {
-                widget.controllerLong.text = item.toLocation.name;
-              }
-              widget.onTap(
-                Point(
-                  latitude: item.toLocation.lat,
-                  longitude: item.toLocation.lng,
-                ),
-                isFirst,
-              );
-              Navigator.of(context).pop();
-            },
-          ));
+          list.add(
+            ListTile(
+              title: Text(item.toLocation.name),
+              onTap: () {
+                if (isFirst) {
+                  widget.controllerLat.text = item.toLocation.name;
+                } else {
+                  widget.controllerLong.text = item.toLocation.name;
+                }
+                widget.onTap(
+                  Point(
+                    latitude: item.toLocation.lat,
+                    longitude: item.toLocation.lng,
+                  ),
+                  isFirst,
+                );
+                Navigator.of(context).pop();
+              },
+            ),
+          );
           list.add(const Divider(height: 1));
         });
       } else {
@@ -275,19 +269,21 @@ class _LocationTextViewState extends State<LocationTextView> {
 
     for (var r in results) {
       r.items!.asMap().forEach((i, item) {
-        list.add(ListTile(
-          title: Text(item.title),
-          subtitle: Text(item.subtitle ?? "Nomalum"),
-          onTap: () {
-            if (isFirst) {
-              widget.controllerLat.text = item.title;
-            } else {
-              widget.controllerLong.text = item.title;
-            }
-            widget.onTap(item.center, isFirst);
-            Navigator.of(context).pop();
-          },
-        ));
+        list.add(
+          ListTile(
+            title: Text(item.title),
+            subtitle: Text(item.subtitle ?? "Nomalum"),
+            onTap: () {
+              if (isFirst) {
+                widget.controllerLat.text = item.title;
+              } else {
+                widget.controllerLong.text = item.title;
+              }
+              widget.onTap(item.center, isFirst);
+              Navigator.of(context).pop();
+            },
+          ),
+        );
         list.add(const Divider(height: 1));
       });
     }

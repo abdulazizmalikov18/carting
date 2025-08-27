@@ -26,9 +26,7 @@ class _ReferalEditViewState extends State<ReferalEditView> {
   void initState() {
     list = List.generate(
       widget.referralCodes.length,
-      (index) => TextEditingController(
-        text: widget.referralCodes[index].note,
-      ),
+      (index) => TextEditingController(text: widget.referralCodes[index].note),
     );
     setState(() {});
     super.initState();
@@ -138,8 +136,9 @@ class _ReferalEditViewState extends State<ReferalEditView> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      AppLocalizations.of(context)!
-                                          .confirm_delete_code,
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.confirm_delete_code,
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w400,
@@ -154,56 +153,71 @@ class _ReferalEditViewState extends State<ReferalEditView> {
                                             onTap: () {
                                               Navigator.pop(context);
                                             },
-                                            text: AppLocalizations.of(context)!
-                                                .no,
+                                            text: AppLocalizations.of(
+                                              context,
+                                            )!.no,
                                             textColor: darkText,
                                             color: const Color(0xFFF3F3F3),
                                           ),
                                         ),
                                         const SizedBox(width: 12),
                                         Expanded(
-                                          child: BlocBuilder<AdvertisementBloc,
-                                              AdvertisementState>(
-                                            bloc: bloc,
-                                            builder: (context, state) {
-                                              return WButton(
-                                                onTap: () {
-                                                  bloc.add(DelRefCodeEvent(
-                                                    code: widget
-                                                        .referralCodes[index]
-                                                        .code,
-                                                    onSucces: () {
-                                                      context
-                                                          .read<AuthBloc>()
-                                                          .add(UpdateCode(
-                                                            code: widget
-                                                                .referralCodes[
-                                                                    index]
-                                                                .code,
-                                                          ));
-                                                      Navigator.pop(context);
-                                                      Navigator.pop(context);
+                                          child:
+                                              BlocBuilder<
+                                                AdvertisementBloc,
+                                                AdvertisementState
+                                              >(
+                                                bloc: bloc,
+                                                builder: (context, state) {
+                                                  return WButton(
+                                                    onTap: () {
+                                                      bloc.add(
+                                                        DelRefCodeEvent(
+                                                          code: widget
+                                                              .referralCodes[index]
+                                                              .code,
+                                                          onSucces: () {
+                                                            context
+                                                                .read<
+                                                                  AuthBloc
+                                                                >()
+                                                                .add(
+                                                                  UpdateCode(
+                                                                    code: widget
+                                                                        .referralCodes[index]
+                                                                        .code,
+                                                                  ),
+                                                                );
+                                                            Navigator.pop(
+                                                              context,
+                                                            );
+                                                            Navigator.pop(
+                                                              context,
+                                                            );
+                                                          },
+                                                        ),
+                                                      );
                                                     },
-                                                  ));
+                                                    text: AppLocalizations.of(
+                                                      context,
+                                                    )!.yes,
+                                                    isLoading: state
+                                                        .statusChange
+                                                        .isInProgress,
+                                                    textColor: red,
+                                                    color: red.withValues(
+                                                      alpha: .1,
+                                                    ),
+                                                  );
                                                 },
-                                                text: AppLocalizations.of(
-                                                        context)!
-                                                    .yes,
-                                                isLoading: state
-                                                    .statusChange.isInProgress,
-                                                textColor: red,
-                                                color:
-                                                    red.withValues(alpha: .1),
-                                              );
-                                            },
-                                          ),
+                                              ),
                                         ),
                                       ],
                                     ),
                                     const SizedBox(height: 24),
                                   ],
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         );
@@ -257,8 +271,9 @@ class _ReferalEditViewState extends State<ReferalEditView> {
                                   child: Column(
                                     children: [
                                       Text(
-                                        AppLocalizations.of(context)!
-                                            .confirm_save_referral_changes,
+                                        AppLocalizations.of(
+                                          context,
+                                        )!.confirm_save_referral_changes,
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w400,
@@ -273,62 +288,69 @@ class _ReferalEditViewState extends State<ReferalEditView> {
                                               onTap: () {
                                                 Navigator.pop(context);
                                               },
-                                              text:
-                                                  AppLocalizations.of(context)!
-                                                      .cancel,
+                                              text: AppLocalizations.of(
+                                                context,
+                                              )!.cancel,
                                               textColor: darkText,
                                               color: const Color(0xFFF3F3F3),
                                             ),
                                           ),
                                           const SizedBox(width: 12),
                                           Expanded(
-                                            child: BlocBuilder<
-                                                AdvertisementBloc,
-                                                AdvertisementState>(
-                                              bloc: bloc,
-                                              builder: (context, state) {
-                                                return WButton(
-                                                  onTap: () {
-                                                    bloc.add(PutRefCodeEvent(
-                                                      code: widget
-                                                          .referralCodes[index]
-                                                          .code,
-                                                      note: list[index].text,
-                                                      onSucces: () {
-                                                        context
-                                                            .read<AuthBloc>()
-                                                            .add(UpdateCode(
-                                                              code: widget
-                                                                  .referralCodes[
-                                                                      index]
-                                                                  .code,
-                                                              note: widget
-                                                                  .referralCodes[
-                                                                      index]
-                                                                  .note,
-                                                            ));
-                                                        Navigator.pop(context);
+                                            child:
+                                                BlocBuilder<
+                                                  AdvertisementBloc,
+                                                  AdvertisementState
+                                                >(
+                                                  bloc: bloc,
+                                                  builder: (context, state) {
+                                                    return WButton(
+                                                      onTap: () {
+                                                        bloc.add(
+                                                          PutRefCodeEvent(
+                                                            code: widget
+                                                                .referralCodes[index]
+                                                                .code,
+                                                            note: list[index]
+                                                                .text,
+                                                            onSucces: () {
+                                                              context.read<AuthBloc>().add(
+                                                                UpdateCode(
+                                                                  code: widget
+                                                                      .referralCodes[index]
+                                                                      .code,
+                                                                  note: widget
+                                                                      .referralCodes[index]
+                                                                      .note,
+                                                                ),
+                                                              );
+                                                              Navigator.pop(
+                                                                context,
+                                                              );
+                                                            },
+                                                          ),
+                                                        );
                                                       },
-                                                    ));
+                                                      text: AppLocalizations.of(
+                                                        context,
+                                                      )!.save,
+                                                      isLoading: state
+                                                          .statusChange
+                                                          .isInProgress,
+                                                      textColor: red,
+                                                      color: red.withValues(
+                                                        alpha: .1,
+                                                      ),
+                                                    );
                                                   },
-                                                  text: AppLocalizations.of(
-                                                          context)!
-                                                      .save,
-                                                  isLoading: state.statusChange
-                                                      .isInProgress,
-                                                  textColor: red,
-                                                  color:
-                                                      red.withValues(alpha: .1),
-                                                );
-                                              },
-                                            ),
+                                                ),
                                           ),
                                         ],
                                       ),
                                       const SizedBox(height: 24),
                                     ],
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           );
@@ -338,7 +360,7 @@ class _ReferalEditViewState extends State<ReferalEditView> {
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),

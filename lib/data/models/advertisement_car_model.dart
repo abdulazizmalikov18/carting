@@ -91,11 +91,7 @@ class LocationCar {
   @JsonKey(name: "name")
   final String name;
 
-  LocationCar({
-    required this.lat,
-    required this.lng,
-    required this.name,
-  });
+  LocationCar({required this.lat, required this.lng, required this.name});
 
   factory LocationCar.fromJson(Map<String, dynamic> json) =>
       _$LocationCarFromJson(json);

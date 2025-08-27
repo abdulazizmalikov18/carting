@@ -19,10 +19,7 @@ import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/utils/my_function.dart';
 
 class RegisterInfoView extends StatefulWidget {
-  const RegisterInfoView({
-    super.key,
-    required this.isLegal,
-  });
+  const RegisterInfoView({super.key, required this.isLegal});
   final bool isLegal;
 
   @override
@@ -88,8 +85,10 @@ class _RegisterInfoViewState extends State<RegisterInfoView> {
     try {
       // 1. Faylni assetsdan o'qish
       ByteData data = await rootBundle.load('assets/documents/$fileName');
-      List<int> bytes =
-          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+      List<int> bytes = data.buffer.asUint8List(
+        data.offsetInBytes,
+        data.lengthInBytes,
+      );
 
       // 2. Faylni vaqtinchalik papkaga saqlash
       Directory tempDir = await getTemporaryDirectory();
@@ -157,7 +156,7 @@ class _RegisterInfoViewState extends State<RegisterInfoView> {
                       fontWeight: FontWeight.w400,
                       color: blue,
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -169,27 +168,34 @@ class _RegisterInfoViewState extends State<RegisterInfoView> {
                     return WButton(
                       onTap: () {
                         if (checkInfo()) {
-                          context.read<AuthBloc>().add(UpdateUserEvent(
-                                name: controllerName.text,
-                                lastName: controllerLastName.text,
-                                phone: controllerPhone.text,
-                                orgName: controllerOrgName.text,
-                                tin: controllerTin.text,
-                                referredBy: controllerReferal.text,
-                                callPhone: MyFunction.convertPhoneNumber(
-                                  controllerCallPhone.text,
-                                ),
-                                userType: widget.isLegal ? 'LEGAL' : 'PHYSICAL',
-                                onSucces: () {},
-                                onError: (message) {
-                                  CustomSnackbar.show(context, message);
-                                },
-                              ));
+                          context.read<AuthBloc>().add(
+                            UpdateUserEvent(
+                              name: controllerName.text,
+                              lastName: controllerLastName.text,
+                              phone: controllerPhone.text,
+                              orgName: controllerOrgName.text,
+                              tin: controllerTin.text,
+                              referredBy: controllerReferal.text,
+                              callPhone: MyFunction.convertPhoneNumber(
+                                controllerCallPhone.text,
+                              ),
+                              userType: widget.isLegal ? 'LEGAL' : 'PHYSICAL',
+                              onSucces: () {},
+                              onError: (message) {
+                                CustomSnackbar.show(context, message);
+                              },
+                            ),
+                          );
                         } else {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text(AppLocalizations.of(context)!
-                                .fillInTheInformation),
-                          ));
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                AppLocalizations.of(
+                                  context,
+                                )!.fillInTheInformation,
+                              ),
+                            ),
+                          );
                         }
                       },
                       isDisabled: !value,

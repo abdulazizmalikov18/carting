@@ -8,7 +8,8 @@ class WInfoContainer extends StatelessWidget {
     required this.text,
     this.icon,
     this.padding,
-    this.iconCollor = true, this.iconLast,
+    this.iconCollor = true,
+    this.iconLast,
   });
   final String text;
   final String? icon;
@@ -42,7 +43,6 @@ class WInfoContainer extends StatelessWidget {
               color: context.color.iconGrey,
             ),
           ),
-          
         ],
       ),
     );

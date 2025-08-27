@@ -10,10 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class OrdersInfoDeliverView extends StatefulWidget {
-  const OrdersInfoDeliverView({
-    super.key,
-    required this.isActiv,
-  });
+  const OrdersInfoDeliverView({super.key, required this.isActiv});
   final bool isActiv;
 
   @override
@@ -49,7 +46,7 @@ class _OrdersInfoDeliverViewState extends State<OrdersInfoDeliverView> {
                         color: green,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -142,10 +139,7 @@ class _OrdersInfoDeliverViewState extends State<OrdersInfoDeliverView> {
             const SizedBox(height: 16),
             Text(
               AppLocalizations.of(context)!.cargoImages,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
             GridView.builder(
@@ -174,7 +168,8 @@ class _OrdersInfoDeliverViewState extends State<OrdersInfoDeliverView> {
                         context: context,
                         backgroundColor: white,
                         constraints: BoxConstraints(
-                          maxHeight: MediaQuery.sizeOf(context).height -
+                          maxHeight:
+                              MediaQuery.sizeOf(context).height -
                               (MediaQuery.of(context).viewPadding.top +
                                   MediaQuery.of(context).viewInsets.top),
                         ),
@@ -200,10 +195,7 @@ class _OrdersInfoDeliverViewState extends State<OrdersInfoDeliverView> {
           ] else ...[
             Text(
               AppLocalizations.of(context)!.cargoImages,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
             GridView.builder(
@@ -247,7 +239,7 @@ class _OrdersInfoDeliverViewState extends State<OrdersInfoDeliverView> {
               ],
             ),
             const SizedBox(height: 32),
-          ]
+          ],
         ],
       ),
     );
@@ -289,9 +281,7 @@ class _CancelViewState extends State<CancelView> {
           width: double.infinity,
           decoration: const BoxDecoration(
             color: whiteSmoke,
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(20),
-            ),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
           ),
           child: Stack(
             children: [
@@ -315,7 +305,7 @@ class _CancelViewState extends State<CancelView> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -346,12 +336,11 @@ class _CancelViewState extends State<CancelView> {
                     borderRadius: BorderRadius.circular(20),
                     color: whiteSmoke,
                   ),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 6,
-                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 6),
                   child: CustomTextField(
-                    hintText:
-                        AppLocalizations.of(context)!.writeCancellationReason,
+                    hintText: AppLocalizations.of(
+                      context,
+                    )!.writeCancellationReason,
                     minLines: 4,
                     maxLines: 5,
                     expands: false,
@@ -367,11 +356,11 @@ class _CancelViewState extends State<CancelView> {
                   },
                   color: red,
                   text: AppLocalizations.of(context)!.cancel,
-                )
+                ),
               ],
             ),
           ),
-        )
+        ),
       ],
     );
   }
@@ -446,17 +435,11 @@ class OrdersInfoTile extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-          ),
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
         ),
         Text(
           subtitle,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-          ),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
         ),
       ],
     );

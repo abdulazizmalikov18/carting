@@ -26,8 +26,9 @@ AdvertisementModel _$AdvertisementModelFromJson(Map<String, dynamic> json) =>
       details: json['details'] == null
           ? null
           : Details.fromJson(json['details'] as Map<String, dynamic>),
-      images:
-          (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      images: (json['images'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       isOwner: json['is_owner'] as bool? ?? false,
       note: json['note'] as String? ?? "",
       comments: (json['comments'] as List<dynamic>?)
@@ -84,95 +85,96 @@ Map<String, dynamic> _$AdvertisementModelToJson(AdvertisementModel instance) =>
     };
 
 Comment _$CommentFromJson(Map<String, dynamic> json) => Comment(
-      rating: (json['rating'] as num?)?.toInt() ?? 0,
-      commentText: json['comment_text'] as String? ?? '',
-      createdAt: json['created_at'] as String? ?? '',
-      createdBy: json['created_by'] as String? ?? '',
-    );
+  rating: (json['rating'] as num?)?.toInt() ?? 0,
+  commentText: json['comment_text'] as String? ?? '',
+  createdAt: json['created_at'] as String? ?? '',
+  createdBy: json['created_by'] as String? ?? '',
+);
 
 Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
-      'rating': instance.rating,
-      'comment_text': instance.commentText,
-      'created_at': instance.createdAt,
-      'created_by': instance.createdBy,
-    };
+  'rating': instance.rating,
+  'comment_text': instance.commentText,
+  'created_at': instance.createdAt,
+  'created_by': instance.createdBy,
+};
 
 Details _$DetailsFromJson(Map<String, dynamic> json) => Details(
-      transportationTypeId: (json['transportation_type_id'] as num?)?.toInt(),
-      loadWeight: json['load_weight'] == null
-          ? null
-          : LoadWeight.fromJson(json['load_weight'] as Map<String, dynamic>),
-      passengerCount: json['passenger_count'],
-      transportTypeId: (json['transport_type_id'] as num?)?.toInt(),
-      characteristics: json['characteristics'] == null
-          ? null
-          : Characteristics.fromJson(
-              json['characteristics'] as Map<String, dynamic>),
-      tariffs: (json['tariffs'] as List<dynamic>?)
-          ?.map((e) => Tariff.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      repairTypeId: (json['repair_type_id'] as num?)?.toInt(),
-      loadTypeList: (json['load_type_list'] as List<dynamic>?)
-          ?.map((e) => (e as num).toInt())
-          .toList(),
-      companyName: json['company_name'] as String?,
-      transportSpecialistId: (json['transport_specialist_id'] as num?)?.toInt(),
-      specialistFirstName: json['specialist_first_name'] as String?,
-      specialistLastName: json['specialist_last_name'] as String?,
-      transportCount: json['transport_count'],
-      area: json['area'] as String?,
-      loadTypeId: json['load_type_id'],
-      loadServiceId: json['load_service_id'],
-      fuelAmount: (json['fuel_amount'] as num?)?.toInt(),
-      fuelTypeId: (json['fuel_type_id'] as num?)?.toInt(),
-      advertisementId: (json['advertisement_id'] as num?)?.toInt(),
-      fromDate: json['from_date'] as String?,
-      toDate: json['to_date'] as String?,
-      fuels: (json['fuels'] as List<dynamic>?)
-          ?.map((e) => Fuel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      kg: json['kg'] as String?,
-      tn: json['tn'] as String?,
-      m3: json['m3'] as String?,
-      litr: json['litr'] as String?,
-      madeAt: json['made_at'] as String?,
-      transportNumber: json['transport_number'] as String?,
-      techPassportSeria: json['tech_passport_seria'] as String?,
-      techPassportNum: json['tech_passport_num'] as String?,
-    );
+  transportationTypeId: (json['transportation_type_id'] as num?)?.toInt(),
+  loadWeight: json['load_weight'] == null
+      ? null
+      : LoadWeight.fromJson(json['load_weight'] as Map<String, dynamic>),
+  passengerCount: json['passenger_count'],
+  transportTypeId: (json['transport_type_id'] as num?)?.toInt(),
+  characteristics: json['characteristics'] == null
+      ? null
+      : Characteristics.fromJson(
+          json['characteristics'] as Map<String, dynamic>,
+        ),
+  tariffs: (json['tariffs'] as List<dynamic>?)
+      ?.map((e) => Tariff.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  repairTypeId: (json['repair_type_id'] as num?)?.toInt(),
+  loadTypeList: (json['load_type_list'] as List<dynamic>?)
+      ?.map((e) => (e as num).toInt())
+      .toList(),
+  companyName: json['company_name'] as String?,
+  transportSpecialistId: (json['transport_specialist_id'] as num?)?.toInt(),
+  specialistFirstName: json['specialist_first_name'] as String?,
+  specialistLastName: json['specialist_last_name'] as String?,
+  transportCount: json['transport_count'],
+  area: json['area'] as String?,
+  loadTypeId: json['load_type_id'],
+  loadServiceId: json['load_service_id'],
+  fuelAmount: (json['fuel_amount'] as num?)?.toInt(),
+  fuelTypeId: (json['fuel_type_id'] as num?)?.toInt(),
+  advertisementId: (json['advertisement_id'] as num?)?.toInt(),
+  fromDate: json['from_date'] as String?,
+  toDate: json['to_date'] as String?,
+  fuels: (json['fuels'] as List<dynamic>?)
+      ?.map((e) => Fuel.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  kg: json['kg'] as String?,
+  tn: json['tn'] as String?,
+  m3: json['m3'] as String?,
+  litr: json['litr'] as String?,
+  madeAt: json['made_at'] as String?,
+  transportNumber: json['transport_number'] as String?,
+  techPassportSeria: json['tech_passport_seria'] as String?,
+  techPassportNum: json['tech_passport_num'] as String?,
+);
 
 Map<String, dynamic> _$DetailsToJson(Details instance) => <String, dynamic>{
-      'transportation_type_id': instance.transportationTypeId,
-      'load_weight': instance.loadWeight,
-      'passenger_count': instance.passengerCount,
-      'transport_type_id': instance.transportTypeId,
-      'characteristics': instance.characteristics,
-      'tariffs': instance.tariffs,
-      'repair_type_id': instance.repairTypeId,
-      'load_type_list': instance.loadTypeList,
-      'company_name': instance.companyName,
-      'transport_specialist_id': instance.transportSpecialistId,
-      'specialist_first_name': instance.specialistFirstName,
-      'specialist_last_name': instance.specialistLastName,
-      'transport_count': instance.transportCount,
-      'area': instance.area,
-      'load_type_id': instance.loadTypeId,
-      'load_service_id': instance.loadServiceId,
-      'fuel_amount': instance.fuelAmount,
-      'fuel_type_id': instance.fuelTypeId,
-      'advertisement_id': instance.advertisementId,
-      'from_date': instance.fromDate,
-      'to_date': instance.toDate,
-      'fuels': instance.fuels,
-      'kg': instance.kg,
-      'tn': instance.tn,
-      'm3': instance.m3,
-      'litr': instance.litr,
-      'made_at': instance.madeAt,
-      'transport_number': instance.transportNumber,
-      'tech_passport_seria': instance.techPassportSeria,
-      'tech_passport_num': instance.techPassportNum,
-    };
+  'transportation_type_id': instance.transportationTypeId,
+  'load_weight': instance.loadWeight,
+  'passenger_count': instance.passengerCount,
+  'transport_type_id': instance.transportTypeId,
+  'characteristics': instance.characteristics,
+  'tariffs': instance.tariffs,
+  'repair_type_id': instance.repairTypeId,
+  'load_type_list': instance.loadTypeList,
+  'company_name': instance.companyName,
+  'transport_specialist_id': instance.transportSpecialistId,
+  'specialist_first_name': instance.specialistFirstName,
+  'specialist_last_name': instance.specialistLastName,
+  'transport_count': instance.transportCount,
+  'area': instance.area,
+  'load_type_id': instance.loadTypeId,
+  'load_service_id': instance.loadServiceId,
+  'fuel_amount': instance.fuelAmount,
+  'fuel_type_id': instance.fuelTypeId,
+  'advertisement_id': instance.advertisementId,
+  'from_date': instance.fromDate,
+  'to_date': instance.toDate,
+  'fuels': instance.fuels,
+  'kg': instance.kg,
+  'tn': instance.tn,
+  'm3': instance.m3,
+  'litr': instance.litr,
+  'made_at': instance.madeAt,
+  'transport_number': instance.transportNumber,
+  'tech_passport_seria': instance.techPassportSeria,
+  'tech_passport_num': instance.techPassportNum,
+};
 
 Characteristics _$CharacteristicsFromJson(Map<String, dynamic> json) =>
     Characteristics(
@@ -205,46 +207,41 @@ Map<String, dynamic> _$CharacteristicsToJson(Characteristics instance) =>
     };
 
 Fuel _$FuelFromJson(Map<String, dynamic> json) => Fuel(
-      id: (json['id'] as num?)?.toInt(),
-      type: json['type'] as String?,
-      price: json['price'] as String?,
-    );
+  id: (json['id'] as num?)?.toInt(),
+  type: json['type'] as String?,
+  price: json['price'] as String?,
+);
 
 Map<String, dynamic> _$FuelToJson(Fuel instance) => <String, dynamic>{
-      'id': instance.id,
-      'type': instance.type,
-      'price': instance.price,
-    };
+  'id': instance.id,
+  'type': instance.type,
+  'price': instance.price,
+};
 
-LoadWeight _$LoadWeightFromJson(Map<String, dynamic> json) => LoadWeight(
-      amount: json['amount'],
-      name: json['name'] as String?,
-    );
+LoadWeight _$LoadWeightFromJson(Map<String, dynamic> json) =>
+    LoadWeight(amount: json['amount'], name: json['name'] as String?);
 
 Map<String, dynamic> _$LoadWeightToJson(LoadWeight instance) =>
-    <String, dynamic>{
-      'amount': instance.amount,
-      'name': instance.name,
-    };
+    <String, dynamic>{'amount': instance.amount, 'name': instance.name};
 
 Tariff _$TariffFromJson(Map<String, dynamic> json) => Tariff(
-      day: (json['day'] as num).toInt(),
-      price: (json['price'] as num).toInt(),
-    );
+  day: (json['day'] as num).toInt(),
+  price: (json['price'] as num).toInt(),
+);
 
 Map<String, dynamic> _$TariffToJson(Tariff instance) => <String, dynamic>{
-      'day': instance.day,
-      'price': instance.price,
-    };
+  'day': instance.day,
+  'price': instance.price,
+};
 
 Location _$LocationFromJson(Map<String, dynamic> json) => Location(
-      lat: (json['lat'] as num).toDouble(),
-      lng: (json['lng'] as num).toDouble(),
-      name: json['name'] as String,
-    );
+  lat: (json['lat'] as num).toDouble(),
+  lng: (json['lng'] as num).toDouble(),
+  name: json['name'] as String,
+);
 
 Map<String, dynamic> _$LocationToJson(Location instance) => <String, dynamic>{
-      'lat': instance.lat,
-      'lng': instance.lng,
-      'name': instance.name,
-    };
+  'lat': instance.lat,
+  'lng': instance.lng,
+  'name': instance.name,
+};

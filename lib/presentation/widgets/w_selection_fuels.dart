@@ -15,10 +15,7 @@ import 'package:carting/presentation/widgets/w_shimmer.dart';
 import 'package:carting/utils/my_function.dart';
 
 class WSelectionFuels extends StatefulWidget {
-  const WSelectionFuels({
-    super.key,
-    required this.onTap,
-  });
+  const WSelectionFuels({super.key, required this.onTap});
   final Function(FuelsInfoModel model) onTap;
 
   @override
@@ -37,10 +34,7 @@ class _WSelectionFuelsState extends State<WSelectionFuels> {
     return BlocBuilder<AdvertisementBloc, AdvertisementState>(
       builder: (context, state) {
         if (state.statusFuels.isInProgress) {
-          return const WShimmer(
-            height: 80,
-            width: double.infinity,
-          );
+          return const WShimmer(height: 80, width: double.infinity);
         }
         if (state.fuelsModel.isNotEmpty) {
           return RawFlexDropDown(
@@ -56,7 +50,7 @@ class _WSelectionFuelsState extends State<WSelectionFuels> {
                 ),
                 child: ListTile(
                   onTap: onTap,
-                  title:  Text(AppLocalizations.of(context)!.company_list),
+                  title: Text(AppLocalizations.of(context)!.company_list),
                   subtitle: Text(state.fuelsModel[selIndex].companyName),
                   minVerticalPadding: 0,
                   titleTextStyle: TextStyle(

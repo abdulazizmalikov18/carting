@@ -113,7 +113,7 @@ class _OffersViewState extends State<OffersView> {
               color: red.withValues(alpha: 0.1),
               margin: const EdgeInsets.symmetric(vertical: 10),
               child: AppIcons.close.svg(color: red),
-            )
+            ),
           ],
         ),
         separatorBuilder: (context, index) => const SizedBox(height: 16),
@@ -158,9 +158,7 @@ class AcceptRejectModal extends StatelessWidget {
           decoration: BoxDecoration(
             color: context.color.scaffoldBackground,
             boxShadow: wboxShadow2,
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(24),
-            ),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
           ),
           child: Column(
             spacing: 24,
@@ -193,17 +191,19 @@ class AcceptRejectModal extends StatelessWidget {
                       builder: (context, state) {
                         return WButton(
                           onTap: () {
-                            bloc.add(ReplyOffersEvent(
-                              advertisementId: advertisementId,
-                              offerId: offerId,
-                              status: isAccept,
-                              onSuccess: () {
-                                Navigator.of(context)
-                                  ..pop()
-                                  ..pop()
-                                  ..pop(true);
-                              },
-                            ));
+                            bloc.add(
+                              ReplyOffersEvent(
+                                advertisementId: advertisementId,
+                                offerId: offerId,
+                                status: isAccept,
+                                onSuccess: () {
+                                  Navigator.of(context)
+                                    ..pop()
+                                    ..pop()
+                                    ..pop(true);
+                                },
+                              ),
+                            );
                           },
                           textColor: greyText,
                           color: greyBack,
@@ -211,13 +211,13 @@ class AcceptRejectModal extends StatelessWidget {
                         );
                       },
                     ),
-                  )
+                  ),
                 ],
               ),
-              const SizedBox()
+              const SizedBox(),
             ],
           ),
-        )
+        ),
       ],
     );
   }

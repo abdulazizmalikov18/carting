@@ -33,10 +33,7 @@ class WTabBar extends StatelessWidget {
         dividerColor: Colors.transparent,
         tabAlignment: isScrollable == true ? TabAlignment.start : null,
         padding: padding ?? const EdgeInsets.all(4),
-        labelPadding: const EdgeInsets.symmetric(
-          vertical: 12,
-          horizontal: 24,
-        ),
+        labelPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
         overlayColor: WidgetStateProperty.all<Color>(Colors.transparent),
         isScrollable: isScrollable ?? false,
         indicator: ShapeDecoration(
@@ -56,21 +53,18 @@ class WTabBar extends StatelessWidget {
             side: BorderSide(color: black.withValues(alpha: 0.04)),
             borderRadius: BorderRadius.circular(16),
           ),
-          color:color?? context.color.blackGrey,
+          color: color ?? context.color.blackGrey,
         ),
         controller: tabController,
         indicatorSize: TabBarIndicatorSize.tab,
         onTap: onTap,
         splashBorderRadius: BorderRadius.circular(8),
-        unselectedLabelStyle:
-            Theme.of(context).textTheme.displayLarge!.copyWith(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                ),
+        unselectedLabelStyle: Theme.of(context).textTheme.displayLarge!
+            .copyWith(fontSize: 16, fontWeight: FontWeight.w400),
         labelStyle: Theme.of(context).textTheme.displayLarge!.copyWith(
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-            ),
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+        ),
         unselectedLabelColor: shuttleGrey,
         labelColor: labelColor ?? white,
         tabs: tabs,

@@ -34,10 +34,8 @@ class _CarsTypeViewState extends State<CarsTypeView> {
           if (state.statusCars.isInProgress) {
             return ListView.separated(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              itemBuilder: (context, index) => const WShimmer(
-                height: 60,
-                width: double.infinity,
-              ),
+              itemBuilder: (context, index) =>
+                  const WShimmer(height: 60, width: double.infinity),
               separatorBuilder: (context, index) => const Divider(),
               itemCount: 12,
             );
@@ -57,14 +55,16 @@ class _CarsTypeViewState extends State<CarsTypeView> {
                 trailing: AppIcons.arrowForward.svg(color: context.color.iron),
                 onTap: () {
                   final bloc = context.read<AdvertisementBloc>();
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => BlocProvider.value(
-                      value: bloc,
-                      child: CarsRentalInfoView(
-                        model: state.carsModel[index],
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider.value(
+                        value: bloc,
+                        child: CarsRentalInfoView(
+                          model: state.carsModel[index],
+                        ),
                       ),
                     ),
-                  ));
+                  );
                 },
               ),
               separatorBuilder: (context, index) => const Padding(

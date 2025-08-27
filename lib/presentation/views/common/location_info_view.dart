@@ -78,12 +78,14 @@ class _LocationInfoViewState extends State<LocationInfoView> {
         Log.e(e);
       }
       result.routes!.asMap().forEach((i, route) {
-        mapObjects.add(PolylineMapObject(
-          mapId: const MapObjectId('route_polyline'),
-          polyline: route.geometry,
-          strokeColor: green,
-          strokeWidth: 5,
-        ));
+        mapObjects.add(
+          PolylineMapObject(
+            mapId: const MapObjectId('route_polyline'),
+            polyline: route.geometry,
+            strokeColor: green,
+            strokeWidth: 5,
+          ),
+        );
       });
     });
     _centerRouteOnMap();
@@ -133,25 +135,29 @@ class _LocationInfoViewState extends State<LocationInfoView> {
             onMapCreated: (controller) async {
               mapController = controller;
               if (widget.point1 != null) {
-                mapController.moveCamera(CameraUpdate.newCameraPosition(
-                  CameraPosition(
-                    target: Point(
-                      latitude: widget.point1!.lat,
-                      longitude: widget.point1!.lng,
+                mapController.moveCamera(
+                  CameraUpdate.newCameraPosition(
+                    CameraPosition(
+                      target: Point(
+                        latitude: widget.point1!.lat,
+                        longitude: widget.point1!.lng,
+                      ),
+                      zoom: 13,
                     ),
-                    zoom: 13,
                   ),
-                ));
+                );
               } else {
-                mapController.moveCamera(CameraUpdate.newCameraPosition(
-                  CameraPosition(
-                    target: Point(
-                      latitude: widget.point2!.lat,
-                      longitude: widget.point2!.lng,
+                mapController.moveCamera(
+                  CameraUpdate.newCameraPosition(
+                    CameraPosition(
+                      target: Point(
+                        latitude: widget.point2!.lat,
+                        longitude: widget.point2!.lng,
+                      ),
+                      zoom: 13,
                     ),
-                    zoom: 13,
                   ),
-                ));
+                );
               }
             },
             mapObjects: [

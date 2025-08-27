@@ -39,10 +39,7 @@ class _ProfileViewState extends State<ProfileView> {
       await launchUrl(url, mode: LaunchMode.externalApplication);
     } else {
       if (mounted) {
-        CustomSnackbar.show(
-          context,
-          "Telegram'ga yo‘naltirib bo‘lmadi.",
-        );
+        CustomSnackbar.show(context, "Telegram'ga yo‘naltirib bo‘lmadi.");
       }
     }
   }
@@ -78,9 +75,9 @@ class _ProfileViewState extends State<ProfileView> {
           appBar: AppBar(
             leading: IconButton(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const InfoView(),
-                ));
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const InfoView()),
+                );
               },
               icon: AppIcons.info.svg(),
             ),
@@ -162,16 +159,19 @@ class _ProfileViewState extends State<ProfileView> {
                                     Expanded(
                                       child: GestureDetector(
                                         onTap: () {
-                                          context
-                                              .push(AppRouteName.profileInfo);
+                                          context.push(
+                                            AppRouteName.profileInfo,
+                                          );
                                         },
                                         child: Container(
                                           height: 84,
                                           decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(24),
+                                            borderRadius: BorderRadius.circular(
+                                              24,
+                                            ),
                                             color: context
-                                                .color.scaffoldBackground,
+                                                .color
+                                                .scaffoldBackground,
                                           ),
                                           padding: const EdgeInsets.all(12),
                                           child: Column(
@@ -180,8 +180,9 @@ class _ProfileViewState extends State<ProfileView> {
                                             children: [
                                               AppIcons.user.svg(),
                                               Text(
-                                                AppLocalizations.of(context)!
-                                                    .personalInformation,
+                                                AppLocalizations.of(
+                                                  context,
+                                                )!.personalInformation,
                                                 textAlign: TextAlign.center,
                                                 style: const TextStyle(
                                                   fontSize: 10,
@@ -202,10 +203,12 @@ class _ProfileViewState extends State<ProfileView> {
                                         child: Container(
                                           height: 84,
                                           decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(24),
+                                            borderRadius: BorderRadius.circular(
+                                              24,
+                                            ),
                                             color: context
-                                                .color.scaffoldBackground,
+                                                .color
+                                                .scaffoldBackground,
                                           ),
                                           padding: const EdgeInsets.all(12),
                                           child: Column(
@@ -215,8 +218,9 @@ class _ProfileViewState extends State<ProfileView> {
                                               AppIcons.support.svg(),
                                               const SizedBox(height: 4),
                                               Text(
-                                                AppLocalizations.of(context)!
-                                                    .support,
+                                                AppLocalizations.of(
+                                                  context,
+                                                )!.support,
                                                 textAlign: TextAlign.center,
                                                 maxLines: 2,
                                                 style: const TextStyle(
@@ -233,19 +237,22 @@ class _ProfileViewState extends State<ProfileView> {
                                     Expanded(
                                       child: GestureDetector(
                                         onTap: () {
-                                          Navigator.of(context)
-                                              .push(MaterialPageRoute(
-                                            builder: (context) =>
-                                                const QuestView(),
-                                          ));
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const QuestView(),
+                                            ),
+                                          );
                                         },
                                         child: Container(
                                           height: 84,
                                           decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(24),
+                                            borderRadius: BorderRadius.circular(
+                                              24,
+                                            ),
                                             color: context
-                                                .color.scaffoldBackground,
+                                                .color
+                                                .scaffoldBackground,
                                           ),
                                           padding: const EdgeInsets.all(12),
                                           child: Column(
@@ -255,8 +262,9 @@ class _ProfileViewState extends State<ProfileView> {
                                               AppIcons.question.svg(),
                                               const SizedBox(height: 4),
                                               Text(
-                                                AppLocalizations.of(context)!
-                                                    .frequentlyAskedQuestions,
+                                                AppLocalizations.of(
+                                                  context,
+                                                )!.frequentlyAskedQuestions,
                                                 maxLines: 2,
                                                 textAlign: TextAlign.center,
                                                 style: const TextStyle(
@@ -270,7 +278,7 @@ class _ProfileViewState extends State<ProfileView> {
                                       ),
                                     ),
                                   ],
-                                )
+                                ),
                               ],
                             ),
                           );
@@ -308,19 +316,17 @@ class _ProfileViewState extends State<ProfileView> {
                 const SizedBox(height: 16),
                 WListTile(
                   title: AppLocalizations.of(context)!.my_vehicles,
-                  leading: AppIcons.car2.svg(
-                    height: 24,
-                    width: 24,
-                  ),
+                  leading: AppIcons.car2.svg(height: 24, width: 24),
                   onTap: () {
                     final bloc = context.read<AdvertisementBloc>();
-                    Navigator.of(context, rootNavigator: true)
-                        .push(MaterialPageRoute(
-                      builder: (context) => BlocProvider.value(
-                        value: bloc,
-                        child: const MyVehiclesView(),
+                    Navigator.of(context, rootNavigator: true).push(
+                      MaterialPageRoute(
+                        builder: (context) => BlocProvider.value(
+                          value: bloc,
+                          child: const MyVehiclesView(),
+                        ),
                       ),
-                    ));
+                    );
                   },
                 ),
                 const SizedBox(height: 8),
@@ -329,13 +335,14 @@ class _ProfileViewState extends State<ProfileView> {
                   leading: AppIcons.document.svg(height: 24, width: 24),
                   onTap: () {
                     final bloc = context.read<AdvertisementBloc>();
-                    Navigator.of(context, rootNavigator: true)
-                        .push(MaterialPageRoute(
-                      builder: (context) => BlocProvider.value(
-                        value: bloc,
-                        child: const MyOrdersView(),
+                    Navigator.of(context, rootNavigator: true).push(
+                      MaterialPageRoute(
+                        builder: (context) => BlocProvider.value(
+                          value: bloc,
+                          child: const MyOrdersView(),
+                        ),
                       ),
-                    ));
+                    );
                   },
                 ),
                 const SizedBox(height: 8),
@@ -344,13 +351,14 @@ class _ProfileViewState extends State<ProfileView> {
                   leading: AppIcons.shieldCheck.svg(height: 24, width: 24),
                   onTap: () {
                     final bloc = context.read<AdvertisementBloc>();
-                    Navigator.of(context, rootNavigator: true)
-                        .push(MaterialPageRoute(
-                      builder: (context) => BlocProvider.value(
-                        value: bloc,
-                        child: const MyServicesView(),
+                    Navigator.of(context, rootNavigator: true).push(
+                      MaterialPageRoute(
+                        builder: (context) => BlocProvider.value(
+                          value: bloc,
+                          child: const MyServicesView(),
+                        ),
                       ),
-                    ));
+                    );
                   },
                 ),
                 const SizedBox(height: 8),
@@ -359,14 +367,22 @@ class _ProfileViewState extends State<ProfileView> {
                   leading: AppIcons.lovely.svg(height: 24, width: 24),
                   onTap: () {
                     if (Platform.isAndroid) {
-                      launchUrl(Uri.parse(
-                          "https://play.google.com/store/apps/details?id=uz.realsoft.carting"));
+                      launchUrl(
+                        Uri.parse(
+                          "https://play.google.com/store/apps/details?id=uz.realsoft.carting",
+                        ),
+                      );
                     } else if (Platform.isIOS) {
-                      launchUrl(Uri.parse(
-                          "https://apps.apple.com/uz/app/carting/id6742141732"));
+                      launchUrl(
+                        Uri.parse(
+                          "https://apps.apple.com/uz/app/carting/id6742141732",
+                        ),
+                      );
                     } else {
                       CustomSnackbar.show(
-                          context, "Sizning qurulmangiz topilmadi");
+                        context,
+                        "Sizning qurulmangiz topilmadi",
+                      );
                     }
                   },
                 ),
@@ -402,13 +418,14 @@ class _ProfileViewState extends State<ProfileView> {
                   leading: AppIcons.chart.svg(height: 24, width: 24),
                   onTap: () {
                     final bloc = context.read<AdvertisementBloc>();
-                    Navigator.of(context, rootNavigator: true)
-                        .push(MaterialPageRoute(
-                      builder: (context) => BlocProvider.value(
-                        value: bloc,
-                        child: const ReferralProgramView(),
+                    Navigator.of(context, rootNavigator: true).push(
+                      MaterialPageRoute(
+                        builder: (context) => BlocProvider.value(
+                          value: bloc,
+                          child: const ReferralProgramView(),
+                        ),
                       ),
-                    ));
+                    );
                   },
                 ),
                 const SizedBox(height: 8),
@@ -446,7 +463,7 @@ class _ProfileViewState extends State<ProfileView> {
                                 ),
                               ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                     );
@@ -490,10 +507,7 @@ class WListTile extends StatelessWidget {
         leading: leading,
         title: Text(
           title,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-          ),
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
         ),
         trailing: trailing ?? AppIcons.chevronRight.svg(),
       ),

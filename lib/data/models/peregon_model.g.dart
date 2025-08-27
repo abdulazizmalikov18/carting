@@ -7,18 +7,18 @@ part of 'peregon_model.dart';
 // **************************************************************************
 
 PeregonModel _$PeregonModelFromJson(Map<String, dynamic> json) => PeregonModel(
-      advType: json['adv_type'] as String,
-      serviceTypeId: (json['service_type_id'] as num).toInt(),
-      serviceName: json['service_name'] as String,
-      shipmentDate: json['shipment_date'] as String,
-      fromLocation:
-          Location.fromJson(json['from_location'] as Map<String, dynamic>),
-      toLocation:
-          Location.fromJson(json['to_location'] as Map<String, dynamic>),
-      payType: json['pay_type'] as String,
-      price: (json['price'] as num).toInt(),
-      note: json['note'] as String,
-    );
+  advType: json['adv_type'] as String,
+  serviceTypeId: (json['service_type_id'] as num).toInt(),
+  serviceName: json['service_name'] as String,
+  shipmentDate: json['shipment_date'] as String,
+  fromLocation: Location.fromJson(
+    json['from_location'] as Map<String, dynamic>,
+  ),
+  toLocation: Location.fromJson(json['to_location'] as Map<String, dynamic>),
+  payType: json['pay_type'] as String,
+  price: (json['price'] as num).toInt(),
+  note: json['note'] as String,
+);
 
 Map<String, dynamic> _$PeregonModelToJson(PeregonModel instance) =>
     <String, dynamic>{
@@ -34,13 +34,13 @@ Map<String, dynamic> _$PeregonModelToJson(PeregonModel instance) =>
     };
 
 Location _$LocationFromJson(Map<String, dynamic> json) => Location(
-      lat: (json['lat'] as num).toDouble(),
-      lng: (json['lng'] as num).toDouble(),
-      name: json['name'] as String,
-    );
+  lat: (json['lat'] as num).toDouble(),
+  lng: (json['lng'] as num).toDouble(),
+  name: json['name'] as String,
+);
 
 Map<String, dynamic> _$LocationToJson(Location instance) => <String, dynamic>{
-      'lat': instance.lat,
-      'lng': instance.lng,
-      'name': instance.name,
-    };
+  'lat': instance.lat,
+  'lng': instance.lng,
+  'name': instance.name,
+};

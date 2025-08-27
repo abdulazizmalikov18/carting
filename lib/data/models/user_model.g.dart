@@ -7,71 +7,68 @@ part of 'user_model.dart';
 // **************************************************************************
 
 UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
-      id: (json['id'] as num?)?.toInt() ?? 0,
-      mail: json['mail'] as String? ?? '',
-      fullName: json['full_name'] as String? ?? '',
-      firstName: json['first_name'] as String? ?? '',
-      lastName: json['last_name'] as String? ?? '',
-      phoneNumber: json['phone_number'] as String? ?? '',
-      type: json['type'] as String? ?? '',
-      tgLink: json['tg_link'] as String? ?? '',
-      photo: json['photo'] as String? ?? '',
-      referredBy: json['referred_by'] as String? ?? '',
-      tin: (json['tin'] as num?)?.toInt(),
-      callPhone: json['call_phone'] as String? ?? '',
-      totalProfit: (json['total_profit'] as num?)?.toInt() ?? 0,
-      earnedProfit: (json['earned_profit'] as num?)?.toInt() ?? 0,
-      withdrawnProfit: (json['withdrawn_profit'] as num?)?.toInt() ?? 0,
-      referralCount: (json['referral_count'] as num?)?.toInt() ?? 0,
-      referralUsers: (json['referral_users'] as List<dynamic>?)
-              ?.map((e) => ReferralUser.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
-      referralCodes: (json['referral_codes'] as List<dynamic>?)
-              ?.map((e) => ReferralCode.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
-    );
+  id: (json['id'] as num?)?.toInt() ?? 0,
+  mail: json['mail'] as String? ?? '',
+  fullName: json['full_name'] as String? ?? '',
+  firstName: json['first_name'] as String? ?? '',
+  lastName: json['last_name'] as String? ?? '',
+  phoneNumber: json['phone_number'] as String? ?? '',
+  type: json['type'] as String? ?? '',
+  tgLink: json['tg_link'] as String? ?? '',
+  photo: json['photo'] as String? ?? '',
+  referredBy: json['referred_by'] as String? ?? '',
+  tin: (json['tin'] as num?)?.toInt(),
+  callPhone: json['call_phone'] as String? ?? '',
+  totalProfit: (json['total_profit'] as num?)?.toInt() ?? 0,
+  earnedProfit: (json['earned_profit'] as num?)?.toInt() ?? 0,
+  withdrawnProfit: (json['withdrawn_profit'] as num?)?.toInt() ?? 0,
+  referralCount: (json['referral_count'] as num?)?.toInt() ?? 0,
+  referralUsers:
+      (json['referral_users'] as List<dynamic>?)
+          ?.map((e) => ReferralUser.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+  referralCodes:
+      (json['referral_codes'] as List<dynamic>?)
+          ?.map((e) => ReferralCode.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+);
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
-      'id': instance.id,
-      'mail': instance.mail,
-      'full_name': instance.fullName,
-      'first_name': instance.firstName,
-      'last_name': instance.lastName,
-      'phone_number': instance.phoneNumber,
-      'type': instance.type,
-      'referred_by': instance.referredBy,
-      'tin': instance.tin,
-      'tg_link': instance.tgLink,
-      'photo': instance.photo,
-      'call_phone': instance.callPhone,
-      'total_profit': instance.totalProfit,
-      'earned_profit': instance.earnedProfit,
-      'withdrawn_profit': instance.withdrawnProfit,
-      'referral_count': instance.referralCount,
-      'referral_users': instance.referralUsers,
-      'referral_codes': instance.referralCodes,
-    };
+  'id': instance.id,
+  'mail': instance.mail,
+  'full_name': instance.fullName,
+  'first_name': instance.firstName,
+  'last_name': instance.lastName,
+  'phone_number': instance.phoneNumber,
+  'type': instance.type,
+  'referred_by': instance.referredBy,
+  'tin': instance.tin,
+  'tg_link': instance.tgLink,
+  'photo': instance.photo,
+  'call_phone': instance.callPhone,
+  'total_profit': instance.totalProfit,
+  'earned_profit': instance.earnedProfit,
+  'withdrawn_profit': instance.withdrawnProfit,
+  'referral_count': instance.referralCount,
+  'referral_users': instance.referralUsers,
+  'referral_codes': instance.referralCodes,
+};
 
-ReferralCode _$ReferralCodeFromJson(Map<String, dynamic> json) => ReferralCode(
-      code: json['code'] as String,
-      note: json['note'] as String,
-    );
+ReferralCode _$ReferralCodeFromJson(Map<String, dynamic> json) =>
+    ReferralCode(code: json['code'] as String, note: json['note'] as String);
 
 Map<String, dynamic> _$ReferralCodeToJson(ReferralCode instance) =>
-    <String, dynamic>{
-      'code': instance.code,
-      'note': instance.note,
-    };
+    <String, dynamic>{'code': instance.code, 'note': instance.note};
 
 ReferralUser _$ReferralUserFromJson(Map<String, dynamic> json) => ReferralUser(
-      id: (json['id'] as num).toInt(),
-      fullName: json['full_name'] as String,
-      clientType: json['client_type'] as String,
-      phoneNumber: json['phone_number'] as String,
-      photo: json['photo'] as String,
-    );
+  id: (json['id'] as num).toInt(),
+  fullName: json['full_name'] as String,
+  clientType: json['client_type'] as String,
+  phoneNumber: json['phone_number'] as String,
+  photo: json['photo'] as String,
+);
 
 Map<String, dynamic> _$ReferralUserToJson(ReferralUser instance) =>
     <String, dynamic>{

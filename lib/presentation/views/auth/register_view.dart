@@ -66,10 +66,7 @@ class _RegisterViewState extends State<RegisterView>
           children: [
             Text(
               AppLocalizations.of(context)!.register,
-              style: const TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w600,
-              ),
+              style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
             Text(
@@ -148,16 +145,18 @@ class _RegisterViewState extends State<RegisterView>
                   isDisabled:
                       controller.text.isEmpty || controller.text.length < 19,
                   onTap: () {
-                    context.read<AuthBloc>().add(SendCodeEvent(
-                          phone: _tabController.index == 0
-                              ? MyFunction.convertPhoneNumber(controller.text)
-                              : controller.text,
-                          isPhone: _tabController.index == 0,
-                          onError: (message) {
-                            CustomSnackbar.show(context, message);
-                          },
-                          onSucces: (model) {
-                            Navigator.of(context).push(MaterialPageRoute(
+                    context.read<AuthBloc>().add(
+                      SendCodeEvent(
+                        phone: _tabController.index == 0
+                            ? MyFunction.convertPhoneNumber(controller.text)
+                            : controller.text,
+                        isPhone: _tabController.index == 0,
+                        onError: (message) {
+                          CustomSnackbar.show(context, message);
+                        },
+                        onSucces: (model) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
                               builder: (context) => SmsView(
                                 isRegister: true,
                                 model: model,
@@ -166,10 +165,12 @@ class _RegisterViewState extends State<RegisterView>
                                   controller.text,
                                 ),
                               ),
-                            ));
-                          },
-                          isLogin: false,
-                        ));
+                            ),
+                          );
+                        },
+                        isLogin: false,
+                      ),
+                    );
                   },
                   text: AppLocalizations.of(context)!.enter,
                 );
@@ -199,7 +200,7 @@ class _RegisterViewState extends State<RegisterView>
                       color: blue,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ],

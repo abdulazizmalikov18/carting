@@ -22,9 +22,9 @@ class _MyOrdersViewState extends State<MyOrdersView> {
   @override
   void initState() {
     context.read<AdvertisementBloc>().add(GetAdvertisementsReceiveEvent());
-    context
-        .read<AdvertisementBloc>()
-        .add(GetAdvertisementsReceiveFinishEvent());
+    context.read<AdvertisementBloc>().add(
+      GetAdvertisementsReceiveFinishEvent(),
+    );
     super.initState();
   }
 
@@ -39,10 +39,12 @@ class _MyOrdersViewState extends State<MyOrdersView> {
             preferredSize: const Size(double.infinity, 72),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-              child: WTabBar(tabs: [
-                Text(AppLocalizations.of(context)!.active),
-                Text(AppLocalizations.of(context)!.completed),
-              ]),
+              child: WTabBar(
+                tabs: [
+                  Text(AppLocalizations.of(context)!.active),
+                  Text(AppLocalizations.of(context)!.completed),
+                ],
+              ),
             ),
           ),
         ),
@@ -53,10 +55,8 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                 if (state.statusRECEIVE.isInProgress) {
                   return ListView.separated(
                     padding: const EdgeInsets.all(16).copyWith(bottom: 100),
-                    itemBuilder: (context, index) => const WShimmer(
-                      height: 152,
-                      width: double.infinity,
-                    ),
+                    itemBuilder: (context, index) =>
+                        const WShimmer(height: 152, width: double.infinity),
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 16),
                     itemCount: 12,
@@ -100,15 +100,15 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 100)
+                      const SizedBox(height: 100),
                     ],
                   );
                 }
                 return RefreshIndicator.adaptive(
                   onRefresh: () async {
-                    context
-                        .read<AdvertisementBloc>()
-                        .add(GetAdvertisementsReceiveEvent());
+                    context.read<AdvertisementBloc>().add(
+                      GetAdvertisementsReceiveEvent(),
+                    );
                     Future.delayed(Duration.zero);
                   },
                   child: ListView.separated(
@@ -117,34 +117,39 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                       onTap: () {
                         final bloc = context.read<AdvertisementBloc>();
                         Navigator.of(context, rootNavigator: true)
-                            .push(MaterialPageRoute(
-                          builder: (_) => BlocProvider.value(
-                            value: bloc,
-                            child: AnnouncementInfoView(
-                              model: state.advertisementRECEIVE[index],
-                              isMe: true,
-                              isOffers: true,
-                              isEdit: (state.advertisementRECEIVE[index]
-                                          .serviceTypeId ==
-                                      1 ||
-                                  state.advertisementRECEIVE[index]
-                                          .serviceTypeId ==
-                                      2),
+                            .push(
+                              MaterialPageRoute(
+                                builder: (_) => BlocProvider.value(
+                                  value: bloc,
+                                  child: AnnouncementInfoView(
+                                    model: state.advertisementRECEIVE[index],
+                                    isMe: true,
+                                    isOffers: true,
+                                    isEdit:
+                                        (state
+                                                .advertisementRECEIVE[index]
+                                                .serviceTypeId ==
+                                            1 ||
+                                        state
+                                                .advertisementRECEIVE[index]
+                                                .serviceTypeId ==
+                                            2),
 
-                              // isEdit: true,
-                              // onEdit: () {
-                              //   context
-                              //       .read<AdvertisementBloc>()
-                              //       .add(GetAdvertisementsReceiveEvent());
-                              // },
-                            ),
-                          ),
-                        ))
+                                    // isEdit: true,
+                                    // onEdit: () {
+                                    //   context
+                                    //       .read<AdvertisementBloc>()
+                                    //       .add(GetAdvertisementsReceiveEvent());
+                                    // },
+                                  ),
+                                ),
+                              ),
+                            )
                             .then((value) {
-                          if (value != null) {
-                            bloc.add(GetAdvertisementsReceiveEvent());
-                          }
-                        });
+                              if (value != null) {
+                                bloc.add(GetAdvertisementsReceiveEvent());
+                              }
+                            });
                       },
                       child: AnnouncementsIteamNew(
                         model: state.advertisementRECEIVE[index],
@@ -163,10 +168,8 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                 if (state.statusRECEIVEFinish.isInProgress) {
                   return ListView.separated(
                     padding: const EdgeInsets.all(16).copyWith(bottom: 100),
-                    itemBuilder: (context, index) => const WShimmer(
-                      height: 152,
-                      width: double.infinity,
-                    ),
+                    itemBuilder: (context, index) =>
+                        const WShimmer(height: 152, width: double.infinity),
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 16),
                     itemCount: 12,
@@ -210,15 +213,15 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 100)
+                      const SizedBox(height: 100),
                     ],
                   );
                 }
                 return RefreshIndicator.adaptive(
                   onRefresh: () async {
-                    context
-                        .read<AdvertisementBloc>()
-                        .add(GetAdvertisementsReceiveFinishEvent());
+                    context.read<AdvertisementBloc>().add(
+                      GetAdvertisementsReceiveFinishEvent(),
+                    );
                     Future.delayed(Duration.zero);
                   },
                   child: ListView.separated(
@@ -227,20 +230,23 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                       onTap: () {
                         final bloc = context.read<AdvertisementBloc>();
                         Navigator.of(context, rootNavigator: true)
-                            .push(MaterialPageRoute(
-                          builder: (context) => BlocProvider.value(
-                            value: bloc,
-                            child: AnnouncementInfoView(
-                              model: state.advertisementRECEIVEFinish[index],
-                              isMe: true,
-                            ),
-                          ),
-                        ))
+                            .push(
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider.value(
+                                  value: bloc,
+                                  child: AnnouncementInfoView(
+                                    model:
+                                        state.advertisementRECEIVEFinish[index],
+                                    isMe: true,
+                                  ),
+                                ),
+                              ),
+                            )
                             .then((value) {
-                          if (value != null) {
-                            bloc.add(GetAdvertisementsReceiveFinishEvent());
-                          }
-                        });
+                              if (value != null) {
+                                bloc.add(GetAdvertisementsReceiveFinishEvent());
+                              }
+                            });
                       },
                       child: AnnouncementsIteamNew(
                         model: state.advertisementRECEIVEFinish[index],

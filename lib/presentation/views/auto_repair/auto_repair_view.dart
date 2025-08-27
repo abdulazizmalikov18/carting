@@ -12,10 +12,7 @@ import 'package:carting/utils/enum_filtr.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AutoRepairView extends StatelessWidget {
-  const AutoRepairView({
-    super.key,
-    this.isCreate = false,
-  });
+  const AutoRepairView({super.key, this.isCreate = false});
   final bool isCreate;
 
   @override
@@ -35,27 +32,31 @@ class AutoRepairView extends StatelessWidget {
               child: ListTile(
                 leading: AppImages.workshops.imgAsset(),
                 contentPadding: EdgeInsets.zero,
-                title:  Text(AppLocalizations.of(context)!.workshops),
+                title: Text(AppLocalizations.of(context)!.workshops),
                 trailing: AppIcons.arrowForward.svg(),
                 onTap: () {
                   final bloc = context.read<AdvertisementBloc>();
                   if (isCreate) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => BlocProvider.value(
-                        value: bloc,
-                        child: const AnnouncementCreateView(
-                          filter: TypeOfServiceEnum.workshops,
-                          carId: 0,
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => BlocProvider.value(
+                          value: bloc,
+                          child: const AnnouncementCreateView(
+                            filter: TypeOfServiceEnum.workshops,
+                            carId: 0,
+                          ),
                         ),
                       ),
-                    ));
+                    );
                   } else {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => BlocProvider.value(
-                        value: bloc,
-                        child: const WorkshopsView(),
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => BlocProvider.value(
+                          value: bloc,
+                          child: const WorkshopsView(),
+                        ),
                       ),
-                    ));
+                    );
                   }
                 },
               ),
@@ -70,19 +71,21 @@ class AutoRepairView extends StatelessWidget {
               child: ListTile(
                 leading: AppImages.masters.imgAsset(),
                 contentPadding: EdgeInsets.zero,
-                title:  Text(AppLocalizations.of(context)!.masters),
+                title: Text(AppLocalizations.of(context)!.masters),
                 trailing: AppIcons.arrowForward.svg(),
                 onTap: () {
                   final bloc = context.read<AdvertisementBloc>();
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => BlocProvider.value(
-                      value: bloc,
-                      child: MastersTypeView(isCreate: isCreate),
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider.value(
+                        value: bloc,
+                        child: MastersTypeView(isCreate: isCreate),
+                      ),
                     ),
-                  ));
+                  );
                 },
               ),
-            )
+            ),
           ],
         ),
       ),

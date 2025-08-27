@@ -60,7 +60,8 @@ class _AnnouncementsCreateInfoViewState
             expandedHeight: 400,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              background: (widget.model.images != null &&
+              background:
+                  (widget.model.images != null &&
                       widget.model.images!.isNotEmpty)
                   ? PageView.builder(
                       itemCount: widget.model.images!.length,
@@ -107,12 +108,12 @@ class _AnnouncementsCreateInfoViewState
                                     fontSize: 12,
                                     color: context.color.darkText,
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                   Text(
@@ -132,262 +133,276 @@ class _AnnouncementsCreateInfoViewState
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Builder(builder: (context) {
-                    switch (widget.filter) {
-                      case TypeOfServiceEnum.shipping:
-                        return InfoLocationField(
-                          point1: widget.model.fromLocation,
-                          point2: widget.model.toLocation,
-                        );
-                      case TypeOfServiceEnum.transportationOfPassengers ||
+                  Builder(
+                    builder: (context) {
+                      switch (widget.filter) {
+                        case TypeOfServiceEnum.shipping:
+                          return InfoLocationField(
+                            point1: widget.model.fromLocation,
+                            point2: widget.model.toLocation,
+                          );
+                        case TypeOfServiceEnum.transportationOfPassengers ||
                             TypeOfServiceEnum.transportTransfer ||
                             TypeOfServiceEnum.storageInWarehouse:
-                        return Column(
-                          children: [
-                            InfoLocationField(
-                              point1: widget.model.fromLocation,
-                              point2: widget.model.toLocation,
-                            ),
-                            const SizedBox(height: 16),
-                            Builder(builder: (context) {
-                              switch (widget.filter) {
-                                case TypeOfServiceEnum.storageInWarehouse:
-                                  return DecoratedBox(
-                                    decoration: BoxDecoration(
-                                      color: context.color.scaffoldBackground,
-                                      borderRadius: BorderRadius.circular(24),
-                                    ),
-                                    child: ListTile(
-                                      title: Text(
-                                        AppLocalizations.of(context)!.area,
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
+                          return Column(
+                            children: [
+                              InfoLocationField(
+                                point1: widget.model.fromLocation,
+                                point2: widget.model.toLocation,
+                              ),
+                              const SizedBox(height: 16),
+                              Builder(
+                                builder: (context) {
+                                  switch (widget.filter) {
+                                    case TypeOfServiceEnum.storageInWarehouse:
+                                      return DecoratedBox(
+                                        decoration: BoxDecoration(
+                                          color:
+                                              context.color.scaffoldBackground,
+                                          borderRadius: BorderRadius.circular(
+                                            24,
+                                          ),
                                         ),
-                                      ),
-                                      subtitle: Text(
-                                        widget.model.details?.area ??
-                                            AppLocalizations.of(context)!
-                                                .unknown,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w400,
+                                        child: ListTile(
+                                          title: Text(
+                                            AppLocalizations.of(context)!.area,
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(
+                                            widget.model.details?.area ??
+                                                AppLocalizations.of(
+                                                  context,
+                                                )!.unknown,
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          trailing: const Text(
+                                            "m2",
+                                            style: TextStyle(fontSize: 16),
+                                          ),
                                         ),
-                                      ),
-                                      trailing: const Text(
-                                        "m2",
-                                        style: TextStyle(
-                                          fontSize: 16,
+                                      );
+                                    case TypeOfServiceEnum.transportTransfer:
+                                      return DecoratedBox(
+                                        decoration: BoxDecoration(
+                                          color: scaffoldSecondaryBackground,
+                                          borderRadius: BorderRadius.circular(
+                                            24,
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  );
-                                case TypeOfServiceEnum.transportTransfer:
-                                  return DecoratedBox(
-                                    decoration: BoxDecoration(
-                                      color: scaffoldSecondaryBackground,
-                                      borderRadius: BorderRadius.circular(24),
-                                    ),
-                                    child: ListTile(
-                                      title: Text(
-                                        AppLocalizations.of(context)!
-                                            .maxTransportCount,
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                          color: context.color.darkText,
+                                        child: ListTile(
+                                          title: Text(
+                                            AppLocalizations.of(
+                                              context,
+                                            )!.maxTransportCount,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: context.color.darkText,
+                                            ),
+                                          ),
+                                          subtitle: Text(
+                                            "${widget.model.details?.transportCount ?? AppLocalizations.of(context)!.unknown}",
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                              color: dark,
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                      subtitle: Text(
-                                        "${widget.model.details?.transportCount ?? AppLocalizations.of(context)!.unknown}",
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w400,
-                                          color: dark,
-                                        ),
-                                      ),
-                                    ),
-                                  );
+                                      );
 
-                                default:
-                                  return DecoratedBox(
-                                    decoration: BoxDecoration(
-                                      color: scaffoldSecondaryBackground,
-                                      borderRadius: BorderRadius.circular(24),
-                                    ),
-                                    child: ListTile(
-                                      title: Text(
-                                        AppLocalizations.of(context)!
-                                            .maxPassengerCount,
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                          color: context.color.darkText,
+                                    default:
+                                      return DecoratedBox(
+                                        decoration: BoxDecoration(
+                                          color: scaffoldSecondaryBackground,
+                                          borderRadius: BorderRadius.circular(
+                                            24,
+                                          ),
                                         ),
+                                        child: ListTile(
+                                          title: Text(
+                                            AppLocalizations.of(
+                                              context,
+                                            )!.maxPassengerCount,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: context.color.darkText,
+                                            ),
+                                          ),
+                                          subtitle: Text(
+                                            "${widget.model.details?.passengerCount ?? AppLocalizations.of(context)!.unknown}",
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                              color: dark,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                  }
+                                },
+                              ),
+                            ],
+                          );
+                        case TypeOfServiceEnum.workshops:
+                          return Column(
+                            children: [
+                              const WTitle(title: 'Toifalar'),
+                              const SizedBox(height: 12),
+                              SizedBox(
+                                width: double.infinity,
+                                child: Wrap(
+                                  spacing: 8,
+                                  runSpacing: 8,
+                                  children: List.generate(
+                                    AppData.categories.length,
+                                    (index) => Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: scaffoldSecondaryBackground,
                                       ),
-                                      subtitle: Text(
-                                        "${widget.model.details?.passengerCount ?? AppLocalizations.of(context)!.unknown}",
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 4,
+                                        horizontal: 14,
+                                      ),
+                                      child: Text(
+                                        AppData.categories[index],
                                         style: const TextStyle(
-                                          fontSize: 16,
+                                          fontSize: 14,
                                           fontWeight: FontWeight.w400,
-                                          color: dark,
                                         ),
                                       ),
                                     ),
-                                  );
-                              }
-                            }),
-                          ],
-                        );
-                      case TypeOfServiceEnum.workshops:
-                        return Column(
-                          children: [
-                            const WTitle(title: 'Toifalar'),
-                            const SizedBox(height: 12),
-                            SizedBox(
-                              width: double.infinity,
-                              child: Wrap(
-                                spacing: 8,
-                                runSpacing: 8,
-                                children: List.generate(
-                                  AppData.categories.length,
-                                  (index) => Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: scaffoldSecondaryBackground,
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 4,
-                                      horizontal: 14,
-                                    ),
-                                    child: Text(
-                                      AppData.categories[index],
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              WTitle(
+                                title: AppLocalizations.of(context)!.services,
+                              ),
+                              const SizedBox(height: 12),
+                              SizedBox(
+                                width: double.infinity,
+                                child: Wrap(
+                                  spacing: 8,
+                                  runSpacing: 8,
+                                  children: List.generate(
+                                    AppData.services.length,
+                                    (index) => Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: scaffoldSecondaryBackground,
+                                      ),
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 4,
+                                        horizontal: 14,
+                                      ),
+                                      child: Text(
+                                        AppData.services[index],
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 16),
-                            WTitle(
-                                title: AppLocalizations.of(context)!.services),
-                            const SizedBox(height: 12),
-                            SizedBox(
-                              width: double.infinity,
-                              child: Wrap(
-                                spacing: 8,
-                                runSpacing: 8,
-                                children: List.generate(
-                                  AppData.services.length,
-                                  (index) => Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: scaffoldSecondaryBackground,
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 4,
-                                      horizontal: 14,
-                                    ),
-                                    child: Text(
-                                      AppData.services[index],
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
+                              const SizedBox(height: 32),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: scaffoldSecondaryBackground,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: ListTile(
+                                  onTap: () {},
+                                  leading: AppIcons.location.svg(
+                                    height: 24,
+                                    width: 24,
                                   ),
+                                  title: const Text(
+                                    "Toshkent, Yakkasaroy tumanihlar",
+                                    maxLines: 1,
+                                  ),
+                                  trailing: AppIcons.arrowCircle.svg(),
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 32),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: scaffoldSecondaryBackground,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: ListTile(
-                                onTap: () {},
-                                leading: AppIcons.location.svg(
-                                  height: 24,
-                                  width: 24,
-                                ),
-                                title: const Text(
-                                  "Toshkent, Yakkasaroy tumanihlar",
-                                  maxLines: 1,
-                                ),
-                                trailing: AppIcons.arrowCircle.svg(),
-                              ),
-                            ),
-                          ],
-                        );
+                            ],
+                          );
 
-                      case TypeOfServiceEnum.masters:
-                        return Column(
-                          children: [
-                            WTitle(
-                                title: AppLocalizations.of(context)!.services),
-                            const SizedBox(height: 12),
-                            SizedBox(
-                              width: double.infinity,
-                              child: Wrap(
-                                spacing: 8,
-                                runSpacing: 8,
-                                children: List.generate(
-                                  AppData.services.length,
-                                  (index) => Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: scaffoldSecondaryBackground,
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 4,
-                                      horizontal: 14,
-                                    ),
-                                    child: Text(
-                                      AppData.services[index],
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
+                        case TypeOfServiceEnum.masters:
+                          return Column(
+                            children: [
+                              WTitle(
+                                title: AppLocalizations.of(context)!.services,
+                              ),
+                              const SizedBox(height: 12),
+                              SizedBox(
+                                width: double.infinity,
+                                child: Wrap(
+                                  spacing: 8,
+                                  runSpacing: 8,
+                                  children: List.generate(
+                                    AppData.services.length,
+                                    (index) => Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: scaffoldSecondaryBackground,
+                                      ),
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 4,
+                                        horizontal: 14,
+                                      ),
+                                      child: Text(
+                                        AppData.services[index],
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 32),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: scaffoldSecondaryBackground,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: ListTile(
-                                onTap: () {},
-                                leading: AppIcons.location.svg(
-                                  height: 24,
-                                  width: 24,
+                              const SizedBox(height: 32),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: scaffoldSecondaryBackground,
+                                  borderRadius: BorderRadius.circular(20),
                                 ),
-                                title: const Text(
-                                  "Toshkent, Yakkasaroy tumanihlar",
-                                  maxLines: 1,
+                                child: ListTile(
+                                  onTap: () {},
+                                  leading: AppIcons.location.svg(
+                                    height: 24,
+                                    width: 24,
+                                  ),
+                                  title: const Text(
+                                    "Toshkent, Yakkasaroy tumanihlar",
+                                    maxLines: 1,
+                                  ),
+                                  trailing: AppIcons.arrowCircle.svg(),
                                 ),
-                                trailing: AppIcons.arrowCircle.svg(),
                               ),
-                            ),
-                          ],
-                        );
-                      case TypeOfServiceEnum.specialTechnique ||
+                            ],
+                          );
+                        case TypeOfServiceEnum.specialTechnique ||
                             TypeOfServiceEnum.fuelDelivery:
-                        return InfoLocationField(
-                          point1: widget.model.fromLocation,
-                          point2: widget.model.toLocation,
-                        );
-                      default:
-                        return const SizedBox();
-                    }
-                  }),
+                          return InfoLocationField(
+                            point1: widget.model.fromLocation,
+                            point2: widget.model.toLocation,
+                          );
+                        default:
+                          return const SizedBox();
+                      }
+                    },
+                  ),
                   const SizedBox(height: 16),
                   Container(
                     decoration: BoxDecoration(
@@ -396,20 +411,20 @@ class _AnnouncementsCreateInfoViewState
                     ),
                     child: ListTile(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => CommentsView(
-                            comments: widget.model.comments ?? [],
-                            id: widget.model.id,
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => CommentsView(
+                              comments: widget.model.comments ?? [],
+                              id: widget.model.id,
+                            ),
                           ),
-                        ));
+                        );
                       },
                       leading: AppIcons.message.svg(color: context.color.iron),
                       title: Row(
                         children: [
                           Expanded(
-                            child: Text(
-                              AppLocalizations.of(context)!.comments,
-                            ),
+                            child: Text(AppLocalizations.of(context)!.comments),
                           ),
                           if (widget.model.comments != null)
                             SizedBox(
@@ -419,23 +434,26 @@ class _AnnouncementsCreateInfoViewState
                                 children: [
                                   const CircleAvatar(
                                     radius: 12,
-                                    backgroundImage:
-                                        AssetImage(AppImages.avatar_1),
+                                    backgroundImage: AssetImage(
+                                      AppImages.avatar_1,
+                                    ),
                                   ),
                                   const Positioned(
                                     left: 16,
                                     child: CircleAvatar(
                                       radius: 12,
-                                      backgroundImage:
-                                          AssetImage(AppImages.avatar_2),
+                                      backgroundImage: AssetImage(
+                                        AppImages.avatar_2,
+                                      ),
                                     ),
                                   ),
                                   const Positioned(
                                     left: 32,
                                     child: CircleAvatar(
                                       radius: 12,
-                                      backgroundImage:
-                                          AssetImage(AppImages.avatar_3),
+                                      backgroundImage: AssetImage(
+                                        AppImages.avatar_3,
+                                      ),
                                     ),
                                   ),
                                   Positioned(
@@ -460,132 +478,134 @@ class _AnnouncementsCreateInfoViewState
                       trailing: AppIcons.arrowCircle.svg(),
                     ),
                   ),
-                  Builder(builder: (context) {
-                    switch (widget.filter) {
-                      case TypeOfServiceEnum.fuelDelivery:
-                        return Column(
-                          children: [
-                            const SizedBox(height: 16),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: scaffoldSecondaryBackground,
-                                borderRadius: BorderRadius.circular(24),
+                  Builder(
+                    builder: (context) {
+                      switch (widget.filter) {
+                        case TypeOfServiceEnum.fuelDelivery:
+                          return Column(
+                            children: [
+                              const SizedBox(height: 16),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: scaffoldSecondaryBackground,
+                                  borderRadius: BorderRadius.circular(24),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 12,
+                                ),
+                                width: double.infinity,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Yoqilg’i turi va narxi',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                        color: context.color.darkText,
+                                      ),
+                                    ),
+                                    RichText(
+                                      text: TextSpan(
+                                        text: 'AI 80',
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                          color: dark,
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                            text: ' - 8 500 so‘m',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                              color: context.color.darkText,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    RichText(
+                                      text: TextSpan(
+                                        text: 'AI 92',
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                          color: dark,
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                            text: ' - 13 000 so‘m',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                              color: context.color.darkText,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    RichText(
+                                      text: TextSpan(
+                                        text: 'AI 95',
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                          color: dark,
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                            text: ' - 15 000 so‘m',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                              color: context.color.darkText,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 12,
-                              ),
-                              width: double.infinity,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Yoqilg’i turi va narxi',
+                              const SizedBox(height: 16),
+                              DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: scaffoldSecondaryBackground,
+                                  borderRadius: BorderRadius.circular(24),
+                                ),
+                                child: ListTile(
+                                  title: Text(
+                                    "Yetkazib berish narxi",
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,
                                       color: context.color.darkText,
                                     ),
                                   ),
-                                  RichText(
-                                    text: TextSpan(
-                                      text: 'AI 80',
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
-                                        color: dark,
-                                      ),
-                                      children: [
-                                        TextSpan(
-                                          text: ' - 8 500 so‘m',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w400,
-                                            color: context.color.darkText,
-                                          ),
-                                        )
-                                      ],
+                                  subtitle: Text(
+                                    (widget.model.price != null ||
+                                            widget.model.price != 0)
+                                        ? "${MyFunction.priceFormat(widget.model.price ?? 0)} so'm"
+                                        : "Bepul",
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                      color: dark,
                                     ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  RichText(
-                                    text: TextSpan(
-                                      text: 'AI 92',
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
-                                        color: dark,
-                                      ),
-                                      children: [
-                                        TextSpan(
-                                          text: ' - 13 000 so‘m',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w400,
-                                            color: context.color.darkText,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  RichText(
-                                    text: TextSpan(
-                                      text: 'AI 95',
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
-                                        color: dark,
-                                      ),
-                                      children: [
-                                        TextSpan(
-                                          text: ' - 15 000 so‘m',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w400,
-                                            color: context.color.darkText,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            DecoratedBox(
-                              decoration: BoxDecoration(
-                                color: scaffoldSecondaryBackground,
-                                borderRadius: BorderRadius.circular(24),
-                              ),
-                              child: ListTile(
-                                title: Text(
-                                  "Yetkazib berish narxi",
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                    color: context.color.darkText,
-                                  ),
-                                ),
-                                subtitle: Text(
-                                  (widget.model.price != null ||
-                                          widget.model.price != 0)
-                                      ? "${MyFunction.priceFormat(widget.model.price ?? 0)} so'm"
-                                      : "Bepul",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                    color: dark,
                                   ),
                                 ),
                               ),
-                            )
-                          ],
-                        );
-                      default:
-                        return const SizedBox();
-                    }
-                  }),
+                            ],
+                          );
+                        default:
+                          return const SizedBox();
+                      }
+                    },
+                  ),
                   const SizedBox(height: 32),
                   Center(
                     child: Text(
@@ -650,8 +670,8 @@ class _AnnouncementsCreateInfoViewState
                                                   Navigator.pop(context);
                                                 },
                                                 text: AppLocalizations.of(
-                                                        context)!
-                                                    .no,
+                                                  context,
+                                                )!.no,
                                                 textColor: darkText,
                                                 color: const Color(0xFFF3F3F3),
                                               ),
@@ -661,14 +681,16 @@ class _AnnouncementsCreateInfoViewState
                                               child: WButton(
                                                 onTap: () {
                                                   Navigator.pop(context);
-                                                  bloc.add(DeactivetEvent(
-                                                    id: widget.model.id,
-                                                  ));
+                                                  bloc.add(
+                                                    DeactivetEvent(
+                                                      id: widget.model.id,
+                                                    ),
+                                                  );
                                                   Navigator.pop(context);
                                                 },
                                                 text: AppLocalizations.of(
-                                                        context)!
-                                                    .yes,
+                                                  context,
+                                                )!.yes,
                                                 textColor: darkText,
                                                 color: const Color(0xFFF3F3F3),
                                               ),
@@ -678,7 +700,7 @@ class _AnnouncementsCreateInfoViewState
                                         const SizedBox(height: 24),
                                       ],
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             );

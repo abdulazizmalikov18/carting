@@ -5,36 +5,12 @@ import 'package:flutter/material.dart';
 
 class AppData {
   static List<FuelsModel> fuels = [
-    FuelsModel(
-      id: 1,
-      type: 'AI 80',
-      price: '',
-    ),
-    FuelsModel(
-      id: 2,
-      type: 'AI 92',
-      price: '',
-    ),
-    FuelsModel(
-      id: 3,
-      type: 'AI 95',
-      price: '',
-    ),
-    FuelsModel(
-      id: 4,
-      type: 'AI 98',
-      price: '',
-    ),
-    FuelsModel(
-      id: 5,
-      type: 'AI 100',
-      price: '',
-    ),
-    FuelsModel(
-      id: 6,
-      type: 'Disel',
-      price: '',
-    ),
+    FuelsModel(id: 1, type: 'AI 80', price: ''),
+    FuelsModel(id: 2, type: 'AI 92', price: ''),
+    FuelsModel(id: 3, type: 'AI 95', price: ''),
+    FuelsModel(id: 4, type: 'AI 98', price: ''),
+    FuelsModel(id: 5, type: 'AI 100', price: ''),
+    FuelsModel(id: 6, type: 'Disel', price: ''),
   ];
   static List<TyperIteam> shippinglist = [
     TyperIteam(
@@ -175,28 +151,13 @@ class AppData {
   ];
 
   static List<CarType> carsList = [
-    CarType(
-      name: "Chevrolet Cobalt",
-      description: "Sedan, benzin",
-    ),
-    CarType(
-      name: "Chevrolet Lacetti",
-      description: "Sedan, benzin",
-    ),
-    CarType(
-      name: "BYD Chazor DMI",
-      description: "Sedan, elektr/benzin",
-    ),
+    CarType(name: "Chevrolet Cobalt", description: "Sedan, benzin"),
+    CarType(name: "Chevrolet Lacetti", description: "Sedan, benzin"),
+    CarType(name: "BYD Chazor DMI", description: "Sedan, elektr/benzin"),
   ];
   static List<CarType> carsList2 = [
-    CarType(
-      name: "Kia Sonet",
-      description: "Krossover, benzin",
-    ),
-    CarType(
-      name: "Chevrolet Tracker",
-      description: "Krossover, benzin",
-    ),
+    CarType(name: "Kia Sonet", description: "Krossover, benzin"),
+    CarType(name: "Chevrolet Tracker", description: "Krossover, benzin"),
   ];
 
   static List<CarType> mastersType = [
@@ -208,10 +169,7 @@ class AppData {
       name: "Avtoelektrik",
       description: "Elektrga oid barcha ishlar, fara, tablo",
     ),
-    CarType(
-      name: "Mator ustasi",
-      description: "dvigitel motor ishlari",
-    ),
+    CarType(name: "Mator ustasi", description: "dvigitel motor ishlari"),
   ];
 
   static List<String> categories = [
@@ -219,32 +177,21 @@ class AppData {
     "Avtoelektrika",
     "Kuzovchi",
     "Avtotuning",
-    'Hodovik'
+    'Hodovik',
   ];
-  static List<String> services = [
-    "Polirovka",
-    "Keramika",
-    "Bo’yoq",
-    "Myatina",
-  ];
+  static List<String> services = ["Polirovka", "Keramika", "Bo’yoq", "Myatina"];
 }
 
 class CarType {
   final String name;
   final String description;
 
-  CarType({
-    required this.name,
-    required this.description,
-  });
+  CarType({required this.name, required this.description});
 }
 
 class FuelType {
   final TextEditingController controllerName;
   final TextEditingController controllerPrice;
 
-  FuelType({
-    required this.controllerName,
-    required this.controllerPrice,
-  });
+  FuelType({required this.controllerName, required this.controllerPrice});
 }

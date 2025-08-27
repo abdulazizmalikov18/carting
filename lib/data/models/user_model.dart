@@ -122,10 +122,7 @@ class ReferralCode {
   @JsonKey(name: "note")
   final String note;
 
-  ReferralCode({
-    required this.code,
-    required this.note,
-  });
+  ReferralCode({required this.code, required this.note});
 
   factory ReferralCode.fromJson(Map<String, dynamic> json) =>
       _$ReferralCodeFromJson(json);

@@ -69,10 +69,7 @@ class _AuthViewState extends State<AuthView>
           children: [
             Text(
               AppLocalizations.of(context)!.enter,
-              style: const TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w600,
-              ),
+              style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
             Text(
@@ -151,25 +148,27 @@ class _AuthViewState extends State<AuthView>
                 return WButton(
                   isLoading: state.statusSms.isInProgress,
                   onTap: () {
-                    context.read<AuthBloc>().add(SendCodeEvent(
-                          phone: _tabController.index == 0
-                              ? MyFunction.convertPhoneNumber(
-                                  "+998 ${controller.text}",
-                                )
-                              : controllerEmail.text,
-                          isPhone: _tabController.index == 0,
-                          onError: (message) {
-                            if (message.contains('connection')) {
-                              CustomSnackbar.show(
-                                context,
-                                'Интернетга уланишда муаммо бор',
-                              );
-                            } else {
-                              CustomSnackbar.show(context, message);
-                            }
-                          },
-                          onSucces: (model) {
-                            Navigator.of(context).push(MaterialPageRoute(
+                    context.read<AuthBloc>().add(
+                      SendCodeEvent(
+                        phone: _tabController.index == 0
+                            ? MyFunction.convertPhoneNumber(
+                                "+998 ${controller.text}",
+                              )
+                            : controllerEmail.text,
+                        isPhone: _tabController.index == 0,
+                        onError: (message) {
+                          if (message.contains('connection')) {
+                            CustomSnackbar.show(
+                              context,
+                              'Интернетга уланишда муаммо бор',
+                            );
+                          } else {
+                            CustomSnackbar.show(context, "User topilmadi");
+                          }
+                        },
+                        onSucces: (model) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
                               builder: (context) => SmsView(
                                 isRegister: false,
                                 model: model,
@@ -180,10 +179,12 @@ class _AuthViewState extends State<AuthView>
                                       )
                                     : controllerEmail.text,
                               ),
-                            ));
-                          },
-                          isLogin: true,
-                        ));
+                            ),
+                          );
+                        },
+                        isLogin: true,
+                      ),
+                    );
                   },
                   isDisabled: _tabController.index == 0
                       ? controller.text.isEmpty || controller.text.length < 14

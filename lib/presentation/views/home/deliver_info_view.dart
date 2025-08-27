@@ -74,8 +74,9 @@ class DeliverInfoView extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     Text(
-                                      AppLocalizations.of(context)!
-                                          .cancelAnnouncement,
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.cancelAnnouncement,
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w400,
@@ -90,8 +91,9 @@ class DeliverInfoView extends StatelessWidget {
                                             onTap: () {
                                               Navigator.pop(context);
                                             },
-                                            text: AppLocalizations.of(context)!
-                                                .no,
+                                            text: AppLocalizations.of(
+                                              context,
+                                            )!.no,
                                             textColor: darkText,
                                             color: const Color(0xFFF3F3F3),
                                           ),
@@ -102,11 +104,13 @@ class DeliverInfoView extends StatelessWidget {
                                             onTap: () {
                                               Navigator.pop(context);
                                               bloc.add(
-                                                  DeactivetEvent(id: model.id));
+                                                DeactivetEvent(id: model.id),
+                                              );
                                               Navigator.pop(context);
                                             },
-                                            text: AppLocalizations.of(context)!
-                                                .yes,
+                                            text: AppLocalizations.of(
+                                              context,
+                                            )!.yes,
                                             textColor: darkText,
                                             color: const Color(0xFFF3F3F3),
                                           ),
@@ -116,7 +120,7 @@ class DeliverInfoView extends StatelessWidget {
                                     const SizedBox(height: 24),
                                   ],
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         );
@@ -193,13 +197,15 @@ class DeliverInfoView extends StatelessWidget {
                       ),
                       trailing: WScaleAnimation(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => LocationInfoView(
-                              point1: model.fromLocation,
-                              point2: model.toLocation,
-                              isFirst: true,
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => LocationInfoView(
+                                point1: model.fromLocation,
+                                point2: model.toLocation,
+                                isFirst: true,
+                              ),
                             ),
-                          ));
+                          );
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -242,13 +248,15 @@ class DeliverInfoView extends StatelessWidget {
                       ),
                       trailing: WScaleAnimation(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => LocationInfoView(
-                              point1: model.fromLocation,
-                              point2: model.toLocation,
-                              isFirst: false,
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => LocationInfoView(
+                                point1: model.fromLocation,
+                                point2: model.toLocation,
+                                isFirst: false,
+                              ),
                             ),
-                          ));
+                          );
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -412,6 +420,7 @@ class DeliverInfoView extends StatelessWidget {
                 // ),
               ],
             ),
+
             // const SizedBox(height: 8),
             // DecoratedBox(
             //   decoration: BoxDecoration(
@@ -466,14 +475,10 @@ class DeliverInfoView extends StatelessWidget {
             //         : null,
             //   ),
             // ),
-
             const SizedBox(height: 16),
             Text(
               '${AppLocalizations.of(context)!.cargoType}:',
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
             ),
             const SizedBox(height: 8),
             const Wrap(
@@ -486,10 +491,7 @@ class DeliverInfoView extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               '${AppLocalizations.of(context)!.loadWeight}:',
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
             ),
             const SizedBox(height: 8),
             const Row(
@@ -503,32 +505,20 @@ class DeliverInfoView extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               '${AppLocalizations.of(context)!.shipment_date_time}:',
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
             ),
             const SizedBox(height: 8),
             const Row(
               spacing: 16,
               children: [
-                WInfoContainer(
-                  text: "Ertaga 21 mart",
-                  icon: AppIcons.calendar,
-                ),
-                WInfoContainer(
-                  text: "09:00 - 17:00",
-                  icon: AppIcons.clock,
-                ),
+                WInfoContainer(text: "Ertaga 21 mart", icon: AppIcons.calendar),
+                WInfoContainer(text: "09:00 - 17:00", icon: AppIcons.clock),
               ],
             ),
             const SizedBox(height: 16),
             Text(
               '${AppLocalizations.of(context)!.transportType}:',
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
             ),
             const SizedBox(height: 8),
             Container(
@@ -536,10 +526,7 @@ class DeliverInfoView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(24),
                 color: context.color.grey.withValues(alpha: .5),
               ),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 4,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               child: Row(
                 children: [
                   Expanded(
@@ -557,17 +544,14 @@ class DeliverInfoView extends StatelessWidget {
                   CachedNetworkImage(
                     imageUrl: model.transportIcon!,
                     height: 48,
-                  )
+                  ),
                 ],
               ),
             ),
             const SizedBox(height: 16),
             Text(
               '${AppLocalizations.of(context)!.payment_type}:',
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
             ),
             const SizedBox(height: 8),
             WInfoContainer(
@@ -608,10 +592,7 @@ class DeliverInfoView extends StatelessWidget {
             const SizedBox(height: 16),
             const Text(
               'Maishiy texnika. Ehtiyotkorlik bilan tashish kerak. Yuklash va tushirishda haydovchi yordam berishi lozim.',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-              ),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
             ),
           ],
         ),

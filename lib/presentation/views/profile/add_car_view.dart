@@ -50,9 +50,9 @@ class _AddCarViewState extends State<AddCarView> {
   bool isDisabled = true;
   @override
   void initState() {
-    context
-        .read<AdvertisementBloc>()
-        .add(GetTransportationTypesEvent(serviceId: 1));
+    context.read<AdvertisementBloc>().add(
+      GetTransportationTypesEvent(serviceId: 1),
+    );
     controllerKg = TextEditingController();
     controllerm3 = TextEditingController();
     controllerLitr = TextEditingController();
@@ -107,7 +107,8 @@ class _AddCarViewState extends State<AddCarView> {
 
   void updateButtonState() {
     setState(() {
-      isDisabled = point1 == null ||
+      isDisabled =
+          point1 == null ||
           point2 == null ||
           (controllerKg.text.isEmpty &&
               controllerLitr.text.isEmpty &&
@@ -154,13 +155,13 @@ class _AddCarViewState extends State<AddCarView> {
                       transportNumber: controllerCarNumber.text,
                       kg: selectedUnit == AppLocalizations.of(context)!.unit_kg
                           ? controllerKg.text.isEmpty
-                              ? null
-                              : controllerKg.text
+                                ? null
+                                : controllerKg.text
                           : null,
                       tn: selectedUnit == AppLocalizations.of(context)!.unit_tn
                           ? controllerKg.text.isEmpty
-                              ? null
-                              : controllerKg.text
+                                ? null
+                                : controllerKg.text
                           : null,
                       litr: controllerLitr.text,
                       m3: controllerm3.text,
@@ -169,20 +170,23 @@ class _AddCarViewState extends State<AddCarView> {
                     ),
                   ).toJson();
 
-                  context.read<AdvertisementBloc>().add(CreateDeliveryEvent(
-                        model: model,
-                        images: images,
-                        onError: () {
-                          Navigator.of(context).pop(true);
-                        },
-                        onSucces: (id) {
-                          succesCreate(
+                  context.read<AdvertisementBloc>().add(
+                    CreateDeliveryEvent(
+                      model: model,
+                      images: images,
+                      onError: () {
+                        Navigator.of(context).pop(true);
+                      },
+                      onSucces: (id) {
+                        succesCreate(
+                          context,
+                          subtitle: AppLocalizations.of(
                             context,
-                            subtitle: AppLocalizations.of(context)!
-                                .soonClientsMessage,
-                          );
-                        },
-                      ));
+                          )!.soonClientsMessage,
+                        );
+                      },
+                    ),
+                  );
                 }
               },
               margin: EdgeInsets.fromLTRB(
@@ -210,9 +214,9 @@ class _AddCarViewState extends State<AddCarView> {
                 servisId = servis;
                 Log.i(servisId);
                 trTypeId.value = 0;
-                context
-                    .read<AdvertisementBloc>()
-                    .add(GetTransportationTypesEvent(serviceId: servis));
+                context.read<AdvertisementBloc>().add(
+                  GetTransportationTypesEvent(serviceId: servis),
+                );
                 setState(() {});
               },
             ),
@@ -278,7 +282,7 @@ class _AddCarViewState extends State<AddCarView> {
                       },
                     ),
                   ),
-                )
+                ),
               ],
             ),
             Container(
@@ -337,7 +341,7 @@ class _AddCarViewState extends State<AddCarView> {
                             }
                           },
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ],
@@ -345,294 +349,304 @@ class _AddCarViewState extends State<AddCarView> {
             ),
             switch (servisId) {
               1 => Container(
-                  decoration: BoxDecoration(
-                    color: context.color.contColor,
-                    borderRadius: BorderRadius.circular(24),
-                    boxShadow: wboxShadow2,
-                  ),
-                  padding: const EdgeInsets.all(12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 4,
-                    children: [
-                      Row(
-                        spacing: 24,
+                decoration: BoxDecoration(
+                  color: context.color.contColor,
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: wboxShadow2,
+                ),
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 4,
+                  children: [
+                    Row(
+                      spacing: 24,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            AppLocalizations.of(context)!.loadWeight,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: context.color.white,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            AppLocalizations.of(context)!.cargoVolume,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: context.color.white,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            "${AppLocalizations.of(context)!.cargoCapacity}:",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: context.color.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 24,
+                      child: Row(
                         children: [
                           Expanded(
-                            child: Text(
-                              AppLocalizations.of(context)!.loadWeight,
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: context.color.white,
-                              ),
+                            child: Row(
+                              spacing: 4,
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    controller: controllerKg,
+                                    keyboardType: TextInputType.number,
+                                    onChanged: (value) {
+                                      if (value.length <= 1) {
+                                        updateButtonState();
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      contentPadding: EdgeInsets.zero,
+                                      border: InputBorder.none,
+                                      hintText: '0',
+                                      hintStyle: TextStyle(
+                                        color: context.color.darkText,
+                                      ),
+                                    ),
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ),
+                                Builder(
+                                  builder: (context) => GestureDetector(
+                                    onTap: () async {
+                                      final RenderBox button =
+                                          context.findRenderObject()
+                                              as RenderBox;
+                                      final RenderBox overlay =
+                                          Overlay.of(
+                                                context,
+                                              ).context.findRenderObject()
+                                              as RenderBox;
+
+                                      final RelativeRect position =
+                                          RelativeRect.fromRect(
+                                            Rect.fromPoints(
+                                              button.localToGlobal(
+                                                Offset(0, button.size.height),
+                                                ancestor: overlay,
+                                              ),
+                                              button.localToGlobal(
+                                                button.size.bottomRight(
+                                                  Offset.zero,
+                                                ),
+                                                ancestor: overlay,
+                                              ),
+                                            ),
+                                            Offset.zero & overlay.size,
+                                          );
+
+                                      String? selected = await showMenu<String>(
+                                        context: context,
+                                        position: position,
+                                        color: white,
+                                        shadowColor: black.withValues(
+                                          alpha: .3,
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            16,
+                                          ),
+                                        ),
+                                        items:
+                                            [
+                                              AppLocalizations.of(
+                                                context,
+                                              )!.unit_kg,
+                                              AppLocalizations.of(
+                                                context,
+                                              )!.unit_tn,
+                                            ].map((choice) {
+                                              return PopupMenuItem<String>(
+                                                value: choice,
+                                                height: 40,
+                                                child: Row(
+                                                  children: [
+                                                    Text(
+                                                      choice,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),
+                                                    const Spacer(),
+                                                    SizedBox(
+                                                      height: 20,
+                                                      width: 20,
+                                                      child:
+                                                          choice == selectedUnit
+                                                          ? AppIcons
+                                                                .checkboxRadio
+                                                                .svg()
+                                                          : AppIcons
+                                                                .checkboxRadioDis
+                                                                .svg(),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            }).toList(),
+                                      );
+
+                                      if (selected != null) {
+                                        setState(() {
+                                          selectedUnit = selected;
+                                        });
+                                      }
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          selectedUnit,
+                                          style: TextStyle(
+                                            color: context.color.darkText,
+                                          ),
+                                        ),
+                                        AppIcons.arrowBottom.svg(
+                                          color: context.color.iron,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
+                          const VerticalDivider(width: 24),
                           Expanded(
-                            child: Text(
-                              AppLocalizations.of(context)!.cargoVolume,
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: context.color.white,
-                              ),
+                            child: Row(
+                              spacing: 4,
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    controller: controllerm3,
+                                    keyboardType: TextInputType.number,
+                                    onChanged: (value) {
+                                      if (value.length <= 1) {
+                                        updateButtonState();
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      contentPadding: EdgeInsets.zero,
+                                      border: InputBorder.none,
+                                      hintText: '0',
+                                      hintStyle: TextStyle(
+                                        color: context.color.darkText,
+                                      ),
+                                    ),
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ),
+                                Text(
+                                  AppLocalizations.of(context)!.unit_m3,
+                                  style: TextStyle(
+                                    color: context.color.darkText,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
+                          const VerticalDivider(width: 24),
                           Expanded(
-                            child: Text(
-                              "${AppLocalizations.of(context)!.cargoCapacity}:",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: context.color.white,
-                              ),
+                            child: Row(
+                              spacing: 4,
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    controller: controllerLitr,
+                                    keyboardType: TextInputType.number,
+                                    onChanged: (value) {
+                                      if (value.length <= 1) {
+                                        updateButtonState();
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      contentPadding: EdgeInsets.zero,
+                                      border: InputBorder.none,
+                                      hintText: '0',
+                                      hintStyle: TextStyle(
+                                        color: context.color.darkText,
+                                      ),
+                                    ),
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ),
+                                Text(
+                                  'litr',
+                                  style: TextStyle(
+                                    color: context.color.darkText,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 24,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Row(
-                                spacing: 4,
-                                children: [
-                                  Expanded(
-                                    child: TextField(
-                                      controller: controllerKg,
-                                      keyboardType: TextInputType.number,
-                                      onChanged: (value) {
-                                        if (value.length <= 1) {
-                                          updateButtonState();
-                                        }
-                                      },
-                                      decoration: InputDecoration(
-                                        isDense: true,
-                                        contentPadding: EdgeInsets.zero,
-                                        border: InputBorder.none,
-                                        hintText: '0',
-                                        hintStyle: TextStyle(
-                                          color: context.color.darkText,
-                                        ),
-                                      ),
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                  ),
-                                  Builder(
-                                    builder: (context) => GestureDetector(
-                                      onTap: () async {
-                                        final RenderBox button = context
-                                            .findRenderObject() as RenderBox;
-                                        final RenderBox overlay =
-                                            Overlay.of(context)
-                                                    .context
-                                                    .findRenderObject()
-                                                as RenderBox;
-
-                                        final RelativeRect position =
-                                            RelativeRect.fromRect(
-                                          Rect.fromPoints(
-                                            button.localToGlobal(
-                                                Offset(0, button.size.height),
-                                                ancestor: overlay),
-                                            button.localToGlobal(
-                                                button.size
-                                                    .bottomRight(Offset.zero),
-                                                ancestor: overlay),
-                                          ),
-                                          Offset.zero & overlay.size,
-                                        );
-
-                                        String? selected =
-                                            await showMenu<String>(
-                                          context: context,
-                                          position: position,
-                                          color: white,
-                                          shadowColor:
-                                              black.withValues(alpha: .3),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(16),
-                                          ),
-                                          items: [
-                                            AppLocalizations.of(context)!
-                                                .unit_kg,
-                                            AppLocalizations.of(context)!
-                                                .unit_tn
-                                          ].map((choice) {
-                                            return PopupMenuItem<String>(
-                                              value: choice,
-                                              height: 40,
-                                              child: Row(
-                                                children: [
-                                                  Text(
-                                                    choice,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: const TextStyle(
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                  const Spacer(),
-                                                  SizedBox(
-                                                    height: 20,
-                                                    width: 20,
-                                                    child: choice ==
-                                                            selectedUnit
-                                                        ? AppIcons.checkboxRadio
-                                                            .svg()
-                                                        : AppIcons
-                                                            .checkboxRadioDis
-                                                            .svg(),
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                          }).toList(),
-                                        );
-
-                                        if (selected != null) {
-                                          setState(() {
-                                            selectedUnit = selected;
-                                          });
-                                        }
-                                      },
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            selectedUnit,
-                                            style: TextStyle(
-                                              color: context.color.darkText,
-                                            ),
-                                          ),
-                                          AppIcons.arrowBottom.svg(
-                                            color: context.color.iron,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const VerticalDivider(width: 24),
-                            Expanded(
-                              child: Row(
-                                spacing: 4,
-                                children: [
-                                  Expanded(
-                                    child: TextField(
-                                      controller: controllerm3,
-                                      keyboardType: TextInputType.number,
-                                      onChanged: (value) {
-                                        if (value.length <= 1) {
-                                          updateButtonState();
-                                        }
-                                      },
-                                      decoration: InputDecoration(
-                                        isDense: true,
-                                        contentPadding: EdgeInsets.zero,
-                                        border: InputBorder.none,
-                                        hintText: '0',
-                                        hintStyle: TextStyle(
-                                            color: context.color.darkText),
-                                      ),
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                  ),
-                                  Text(
-                                    AppLocalizations.of(context)!.unit_m3,
-                                    style: TextStyle(
-                                        color: context.color.darkText),
-                                  )
-                                ],
-                              ),
-                            ),
-                            const VerticalDivider(width: 24),
-                            Expanded(
-                              child: Row(
-                                spacing: 4,
-                                children: [
-                                  Expanded(
-                                    child: TextField(
-                                      controller: controllerLitr,
-                                      keyboardType: TextInputType.number,
-                                      onChanged: (value) {
-                                        if (value.length <= 1) {
-                                          updateButtonState();
-                                        }
-                                      },
-                                      decoration: InputDecoration(
-                                        isDense: true,
-                                        contentPadding: EdgeInsets.zero,
-                                        border: InputBorder.none,
-                                        hintText: '0',
-                                        hintStyle: TextStyle(
-                                          color: context.color.darkText,
-                                        ),
-                                      ),
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                  ),
-                                  Text(
-                                    'litr',
-                                    style: TextStyle(
-                                        color: context.color.darkText),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
+              ),
               2 => Container(
-                  decoration: BoxDecoration(
-                    color: context.color.contColor,
-                    borderRadius: BorderRadius.circular(24),
-                    boxShadow: wboxShadow2,
-                  ),
-                  padding: const EdgeInsets.all(12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 4,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.maxPassengerCount,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: context.color.darkText,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 24,
-                        child: TextField(
-                          controller: controllerCount,
-                          keyboardType: TextInputType.number,
-                          onChanged: (value) {
-                            if (value.length <= 1) {
-                              updateButtonState();
-                            }
-                          },
-                          decoration: InputDecoration(
-                            isDense: true,
-                            contentPadding: EdgeInsets.zero,
-                            border: InputBorder.none,
-                            hintText: '0',
-                            hintStyle: TextStyle(
-                              color: context.color.darkText,
-                            ),
-                          ),
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                      )
-                    ],
-                  ),
+                decoration: BoxDecoration(
+                  color: context.color.contColor,
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: wboxShadow2,
                 ),
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 4,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.maxPassengerCount,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: context.color.darkText,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 24,
+                      child: TextField(
+                        controller: controllerCount,
+                        keyboardType: TextInputType.number,
+                        onChanged: (value) {
+                          if (value.length <= 1) {
+                            updateButtonState();
+                          }
+                        },
+                        decoration: InputDecoration(
+                          isDense: true,
+                          contentPadding: EdgeInsets.zero,
+                          border: InputBorder.none,
+                          hintText: '0',
+                          hintStyle: TextStyle(color: context.color.darkText),
+                        ),
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               int() => const SizedBox(),
             },
             WSelectionItam(
@@ -660,77 +674,75 @@ class _AddCarViewState extends State<AddCarView> {
                       color: context.color.darkText,
                     ),
                   ),
-                  ...List.generate(
-                    images.length + 1,
-                    (index) {
-                      if (images.length == index) {
-                        return WScaleAnimation(
-                          onTap: () {
-                            setState(() {
-                              imagesFile();
-                            });
-                          },
-                          child: SizedBox(
-                            height: 56,
-                            child: DottedBorder(
-                              options: const RoundedRectDottedBorderOptions(
-                                color: green,
-                                strokeWidth: 1,
-                                radius: Radius.circular(16),
-                              ),
-                              child: Center(child: AppIcons.upload.svg()),
+                  ...List.generate(images.length + 1, (index) {
+                    if (images.length == index) {
+                      return WScaleAnimation(
+                        onTap: () {
+                          setState(() {
+                            imagesFile();
+                          });
+                        },
+                        child: SizedBox(
+                          height: 56,
+                          child: DottedBorder(
+                            options: const RoundedRectDottedBorderOptions(
+                              color: green,
+                              strokeWidth: 1,
+                              radius: Radius.circular(16),
                             ),
-                          ),
-                        );
-                      }
-                      return DecoratedBox(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: context.color.scaffoldBackground,
-                        ),
-                        child: ListTile(
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 8),
-                          leading: Container(
-                            height: 48,
-                            width: 48,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              image: DecorationImage(
-                                image: FileImage(images[index]),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          title: Text(
-                            images[index].path.split('/').last,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          subtitle: FutureBuilder<int>(
-                            future: images[index].length(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const Text("Hajm yuklanmoqda...");
-                              } else if (snapshot.hasError) {
-                                return const Text("Xatolik yuz berdi.");
-                              } else {
-                                return Text(formatFileSize(snapshot.data!));
-                              }
-                            },
-                          ),
-                          trailing: IconButton(
-                            onPressed: () {
-                              images.removeAt(index);
-                              setState(() {});
-                            },
-                            icon: AppIcons.trash.svg(),
+                            child: Center(child: AppIcons.upload.svg()),
                           ),
                         ),
                       );
-                    },
-                  ),
+                    }
+                    return DecoratedBox(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: context.color.scaffoldBackground,
+                      ),
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                        ),
+                        leading: Container(
+                          height: 48,
+                          width: 48,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            image: DecorationImage(
+                              image: FileImage(images[index]),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        title: Text(
+                          images[index].path.split('/').last,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        subtitle: FutureBuilder<int>(
+                          future: images[index].length(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Text("Hajm yuklanmoqda...");
+                            } else if (snapshot.hasError) {
+                              return const Text("Xatolik yuz berdi.");
+                            } else {
+                              return Text(formatFileSize(snapshot.data!));
+                            }
+                          },
+                        ),
+                        trailing: IconButton(
+                          onPressed: () {
+                            images.removeAt(index);
+                            setState(() {});
+                          },
+                          icon: AppIcons.trash.svg(),
+                        ),
+                      ),
+                    );
+                  }),
                 ],
               ),
             ),

@@ -88,10 +88,7 @@ class _OfferBottomSheetState extends State<OfferBottomSheet> {
               children: [
                 Row(
                   children: [
-                    const SizedBox(
-                      width: 24,
-                      height: 24,
-                    ),
+                    const SizedBox(width: 24, height: 24),
                     Expanded(
                       child: Column(
                         children: [
@@ -130,10 +127,7 @@ class _OfferBottomSheetState extends State<OfferBottomSheet> {
                   bloc: widget.bloc,
                   builder: (context, state) {
                     if (state.statusMyCars.isInProgress) {
-                      return const WShimmer(
-                        height: 80,
-                        width: double.infinity,
-                      );
+                      return const WShimmer(height: 80, width: double.infinity);
                     }
                     if (state.advertisementMyCars.isEmpty) {
                       return const SizedBox();
@@ -155,19 +149,25 @@ class _OfferBottomSheetState extends State<OfferBottomSheet> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               CachedNetworkImage(
-                                imageUrl: state.advertisementMyCars[carId]
+                                imageUrl:
+                                    state
+                                        .advertisementMyCars[carId]
                                         .transportIcon ??
                                     "",
                                 height: 48,
                                 width: 86,
                               ),
                               CarNumberIteam(
-                                carNumberFirst: state.advertisementMyCars[carId]
-                                        .details?.transportNumber
+                                carNumberFirst:
+                                    state
+                                        .advertisementMyCars[carId]
+                                        .details
+                                        ?.transportNumber
                                         .toString()
                                         .substring(0, 2) ??
                                     "01",
-                                carNumberSecond: state
+                                carNumberSecond:
+                                    state
                                         .advertisementMyCars[carId]
                                         .details
                                         ?.transportNumber
@@ -207,8 +207,12 @@ class _OfferBottomSheetState extends State<OfferBottomSheet> {
                                 setState(() {});
                               },
                               child: Container(
-                                padding:
-                                    const EdgeInsets.fromLTRB(12, 4, 16, 4),
+                                padding: const EdgeInsets.fromLTRB(
+                                  12,
+                                  4,
+                                  16,
+                                  4,
+                                ),
                                 height: 56,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(24),
@@ -219,21 +223,25 @@ class _OfferBottomSheetState extends State<OfferBottomSheet> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     CachedNetworkImage(
-                                      imageUrl: state.advertisementMyCars[index]
+                                      imageUrl:
+                                          state
+                                              .advertisementMyCars[index]
                                               .transportIcon ??
                                           "",
                                       height: 48,
                                       width: 86,
                                     ),
                                     CarNumberIteam(
-                                      carNumberFirst: state
+                                      carNumberFirst:
+                                          state
                                               .advertisementMyCars[index]
                                               .details
                                               ?.transportNumber
                                               .toString()
                                               .substring(0, 2) ??
                                           "01",
-                                      carNumberSecond: state
+                                      carNumberSecond:
+                                          state
                                               .advertisementMyCars[index]
                                               .details
                                               ?.transportNumber
@@ -292,16 +300,18 @@ class _OfferBottomSheetState extends State<OfferBottomSheet> {
                     return WButton(
                       isDisabled: state.advertisementMyCars.isEmpty,
                       onTap: () {
-                        widget.bloc.add(SendOffersEvent(
-                          advertisementId: widget.model.id,
-                          fromAdvertisementId:
-                              state.advertisementMyCars[carId].id,
-                          fromMyAdvertisement: true,
-                          sum: int.tryParse(priceController.text) ?? 0,
-                          onSuccess: () {
-                            Navigator.of(context).pop(true);
-                          },
-                        ));
+                        widget.bloc.add(
+                          SendOffersEvent(
+                            advertisementId: widget.model.id,
+                            fromAdvertisementId:
+                                state.advertisementMyCars[carId].id,
+                            fromMyAdvertisement: true,
+                            sum: int.tryParse(priceController.text) ?? 0,
+                            onSuccess: () {
+                              Navigator.of(context).pop(true);
+                            },
+                          ),
+                        );
                       },
                       text: AppLocalizations.of(context)!.sendProposal,
                     );

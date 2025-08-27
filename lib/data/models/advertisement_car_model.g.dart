@@ -7,40 +7,40 @@ part of 'advertisement_car_model.dart';
 // **************************************************************************
 
 AdvertisementCarModel _$AdvertisementCarModelFromJson(
-        Map<String, dynamic> json) =>
-    AdvertisementCarModel(
-      advType: json['adv_type'] as String? ?? 'PROVIDE',
-      serviceTypeId: (json['service_type_id'] as num).toInt(),
-      fromLocation:
-          LocationCar.fromJson(json['from_location'] as Map<String, dynamic>),
-      toLocation:
-          LocationCar.fromJson(json['to_location'] as Map<String, dynamic>),
-      details: DetailsCar.fromJson(json['details'] as Map<String, dynamic>),
-      note: json['note'] as String,
-    );
+  Map<String, dynamic> json,
+) => AdvertisementCarModel(
+  advType: json['adv_type'] as String? ?? 'PROVIDE',
+  serviceTypeId: (json['service_type_id'] as num).toInt(),
+  fromLocation: LocationCar.fromJson(
+    json['from_location'] as Map<String, dynamic>,
+  ),
+  toLocation: LocationCar.fromJson(json['to_location'] as Map<String, dynamic>),
+  details: DetailsCar.fromJson(json['details'] as Map<String, dynamic>),
+  note: json['note'] as String,
+);
 
 Map<String, dynamic> _$AdvertisementCarModelToJson(
-        AdvertisementCarModel instance) =>
-    <String, dynamic>{
-      'service_type_id': instance.serviceTypeId,
-      'adv_type': instance.advType,
-      'from_location': instance.fromLocation,
-      'to_location': instance.toLocation,
-      'details': instance.details,
-      'note': instance.note,
-    };
+  AdvertisementCarModel instance,
+) => <String, dynamic>{
+  'service_type_id': instance.serviceTypeId,
+  'adv_type': instance.advType,
+  'from_location': instance.fromLocation,
+  'to_location': instance.toLocation,
+  'details': instance.details,
+  'note': instance.note,
+};
 
 DetailsCar _$DetailsCarFromJson(Map<String, dynamic> json) => DetailsCar(
-      transportationTypeId: (json['transportation_type_id'] as num).toInt(),
-      madeAt: json['made_at'] as String,
-      transportNumber: json['transport_number'] as String,
-      techPassportSeria: json['tech_passport_seria'] as String,
-      techPassportNum: json['tech_passport_num'] as String,
-      kg: json['kg'] as String?,
-      m3: json['m3'] as String?,
-      litr: json['litr'] as String?,
-      tn: json['tn'] as String?,
-    );
+  transportationTypeId: (json['transportation_type_id'] as num).toInt(),
+  madeAt: json['made_at'] as String,
+  transportNumber: json['transport_number'] as String,
+  techPassportSeria: json['tech_passport_seria'] as String,
+  techPassportNum: json['tech_passport_num'] as String,
+  kg: json['kg'] as String?,
+  m3: json['m3'] as String?,
+  litr: json['litr'] as String?,
+  tn: json['tn'] as String?,
+);
 
 Map<String, dynamic> _$DetailsCarToJson(DetailsCar instance) =>
     <String, dynamic>{
@@ -56,10 +56,10 @@ Map<String, dynamic> _$DetailsCarToJson(DetailsCar instance) =>
     };
 
 LocationCar _$LocationCarFromJson(Map<String, dynamic> json) => LocationCar(
-      lat: (json['lat'] as num).toDouble(),
-      lng: (json['lng'] as num).toDouble(),
-      name: json['name'] as String,
-    );
+  lat: (json['lat'] as num).toDouble(),
+  lng: (json['lng'] as num).toDouble(),
+  name: json['name'] as String,
+);
 
 Map<String, dynamic> _$LocationCarToJson(LocationCar instance) =>
     <String, dynamic>{

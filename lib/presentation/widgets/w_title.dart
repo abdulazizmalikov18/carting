@@ -2,11 +2,7 @@ import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:flutter/material.dart';
 
 class WTitle extends StatelessWidget {
-  const WTitle({
-    super.key,
-    required this.title,
-    this.color,
-  });
+  const WTitle({super.key, required this.title, this.color});
   final String title;
   final Color? color;
 
@@ -22,10 +18,7 @@ class WTitle extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
       child: Text(
         title,
-        style: TextStyle(
-          fontSize: 14,
-          color: context.color.darkText,
-        ),
+        style: TextStyle(fontSize: 14, color: context.color.darkText),
       ),
     );
   }

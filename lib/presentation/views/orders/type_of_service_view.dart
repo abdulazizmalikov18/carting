@@ -19,37 +19,25 @@ class _TypeOfServiceViewState extends State<TypeOfServiceView> {
     super.didChangeDependencies();
     list = [
       TypeOfService(
-        icon: AppIcons.shipping.svg(
-          height: 40,
-          width: 40,
-        ),
+        icon: AppIcons.shipping.svg(height: 40, width: 40),
         text: AppLocalizations.of(context)!.shipping,
         screen: const SizedBox(),
         serviceId: 1,
       ),
       TypeOfService(
-        icon: AppIcons.transportationOfPassengers.svg(
-          height: 40,
-          width: 40,
-        ),
+        icon: AppIcons.transportationOfPassengers.svg(height: 40, width: 40),
         text: AppLocalizations.of(context)!.passengerTransport,
         screen: const SizedBox(),
         serviceId: 2,
       ),
       TypeOfService(
-        icon: AppIcons.specialTechnique.svg(
-          height: 40,
-          width: 40,
-        ),
+        icon: AppIcons.specialTechnique.svg(height: 40, width: 40),
         text: AppLocalizations.of(context)!.specialTechServices,
         screen: const SizedBox(),
         serviceId: 3,
       ),
       TypeOfService(
-        icon: AppIcons.transportRental.svg(
-          height: 40,
-          width: 40,
-        ),
+        icon: AppIcons.transportRental.svg(height: 40, width: 40),
         text: AppLocalizations.of(context)!.carRental,
         screen: const SizedBox(),
         serviceId: 4,
@@ -96,9 +84,9 @@ class _TypeOfServiceViewState extends State<TypeOfServiceView> {
         itemCount: list.length,
         itemBuilder: (context, index) => GestureDetector(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => list[index].screen,
-            ));
+            Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (context) => list[index].screen));
           },
           child: Container(
             decoration: BoxDecoration(
@@ -118,7 +106,7 @@ class _TypeOfServiceViewState extends State<TypeOfServiceView> {
                   list[index].text,
                   textAlign: TextAlign.center,
                   maxLines: 2,
-                )
+                ),
               ],
             ),
           ),

@@ -22,9 +22,9 @@ class _MyServicesViewState extends State<MyServicesView> {
   @override
   void initState() {
     context.read<AdvertisementBloc>().add(GetAdvertisementsProvideEvent());
-    context
-        .read<AdvertisementBloc>()
-        .add(GetAdvertisementsProvideFinishEvent());
+    context.read<AdvertisementBloc>().add(
+      GetAdvertisementsProvideFinishEvent(),
+    );
     super.initState();
   }
 
@@ -42,7 +42,7 @@ class _MyServicesViewState extends State<MyServicesView> {
               child: WTabBar(
                 tabs: [
                   Text(AppLocalizations.of(context)!.active),
-                  Text(AppLocalizations.of(context)!.all)
+                  Text(AppLocalizations.of(context)!.all),
                 ],
               ),
             ),
@@ -55,10 +55,8 @@ class _MyServicesViewState extends State<MyServicesView> {
                 if (state.statusPROVIDE.isInProgress) {
                   return ListView.separated(
                     padding: const EdgeInsets.all(16).copyWith(bottom: 100),
-                    itemBuilder: (context, index) => const WShimmer(
-                      height: 152,
-                      width: double.infinity,
-                    ),
+                    itemBuilder: (context, index) =>
+                        const WShimmer(height: 152, width: double.infinity),
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 16),
                     itemCount: 12,
@@ -103,15 +101,15 @@ class _MyServicesViewState extends State<MyServicesView> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 100)
+                      const SizedBox(height: 100),
                     ],
                   );
                 }
                 return RefreshIndicator.adaptive(
                   onRefresh: () async {
-                    context
-                        .read<AdvertisementBloc>()
-                        .add(GetAdvertisementsProvideEvent());
+                    context.read<AdvertisementBloc>().add(
+                      GetAdvertisementsProvideEvent(),
+                    );
                     Future.delayed(Duration.zero);
                   },
                   child: ListView.separated(
@@ -119,28 +117,29 @@ class _MyServicesViewState extends State<MyServicesView> {
                     itemBuilder: (context, index) => GestureDetector(
                       onTap: () {
                         final bloc = context.read<AdvertisementBloc>();
-                        Navigator.of(context, rootNavigator: true)
-                            .push(MaterialPageRoute(
-                          builder: (_) => BlocProvider.value(
-                            value: bloc,
-                            child: AnnouncementInfoView(
-                              model: state.advertisementPROVIDE[index],
-                              isMe: true,
-                              isOffers: true,
-                              // isEdit: true,
-                              // onEdit: () {
-                              //   context
-                              //       .read<AdvertisementBloc>()
-                              //       .add(GetAdvertisementsProvideEvent());
-                              // },
+                        Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(
+                            builder: (_) => BlocProvider.value(
+                              value: bloc,
+                              child: AnnouncementInfoView(
+                                model: state.advertisementPROVIDE[index],
+                                isMe: true,
+                                isOffers: true,
+                                // isEdit: true,
+                                // onEdit: () {
+                                //   context
+                                //       .read<AdvertisementBloc>()
+                                //       .add(GetAdvertisementsProvideEvent());
+                                // },
+                              ),
                             ),
                           ),
-                        ));
+                        );
                       },
                       child: AnnouncementsIteamNew(
                         isMe: true,
-                        // isCarNumber: true,
 
+                        // isCarNumber: true,
                         model: state.advertisementPROVIDE[index],
                       ),
                     ),
@@ -156,10 +155,8 @@ class _MyServicesViewState extends State<MyServicesView> {
                 if (state.statusPROVIDEFinish.isInProgress) {
                   return ListView.separated(
                     padding: const EdgeInsets.all(16).copyWith(bottom: 100),
-                    itemBuilder: (context, index) => const WShimmer(
-                      height: 152,
-                      width: double.infinity,
-                    ),
+                    itemBuilder: (context, index) =>
+                        const WShimmer(height: 152, width: double.infinity),
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 16),
                     itemCount: 12,
@@ -203,15 +200,15 @@ class _MyServicesViewState extends State<MyServicesView> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 100)
+                      const SizedBox(height: 100),
                     ],
                   );
                 }
                 return RefreshIndicator.adaptive(
                   onRefresh: () async {
-                    context
-                        .read<AdvertisementBloc>()
-                        .add(GetAdvertisementsProvideFinishEvent());
+                    context.read<AdvertisementBloc>().add(
+                      GetAdvertisementsProvideFinishEvent(),
+                    );
                     Future.delayed(Duration.zero);
                   },
                   child: ListView.separated(
@@ -219,16 +216,17 @@ class _MyServicesViewState extends State<MyServicesView> {
                     itemBuilder: (context, index) => GestureDetector(
                       onTap: () {
                         final bloc = context.read<AdvertisementBloc>();
-                        Navigator.of(context, rootNavigator: true)
-                            .push(MaterialPageRoute(
-                          builder: (context) => BlocProvider.value(
-                            value: bloc,
-                            child: AnnouncementInfoView(
-                              model: state.advertisementPROVIDEFinish[index],
-                              isMe: true,
+                        Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(
+                            builder: (context) => BlocProvider.value(
+                              value: bloc,
+                              child: AnnouncementInfoView(
+                                model: state.advertisementPROVIDEFinish[index],
+                                isMe: true,
+                              ),
                             ),
                           ),
-                        ));
+                        );
                       },
                       child: AnnouncementsIteamNew(
                         model: state.advertisementPROVIDEFinish[index],

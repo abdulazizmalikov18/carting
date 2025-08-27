@@ -40,10 +40,7 @@ class _LendingViewState extends State<LendingView> {
           ),
           Text(
             AppLocalizations.of(context)!.welcome,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-            ),
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 12),
           Padding(
@@ -67,7 +64,7 @@ class _LendingViewState extends State<LendingView> {
               },
               text: AppLocalizations.of(context)!.start,
             ),
-          )
+          ),
         ],
       ),
     );

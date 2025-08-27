@@ -15,10 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class SpecialTechniqueView extends StatefulWidget {
-  const SpecialTechniqueView({
-    super.key,
-    this.isCreate = false,
-  });
+  const SpecialTechniqueView({super.key, this.isCreate = false});
   final bool isCreate;
 
   @override
@@ -28,18 +25,18 @@ class SpecialTechniqueView extends StatefulWidget {
 class _SpecialTechniqueViewState extends State<SpecialTechniqueView> {
   @override
   void initState() {
-    context.read<AdvertisementBloc>().add(GetTransportationTypesEvent(
-          serviceId: 3,
-          isRECEIVE: widget.isCreate,
-        ));
+    context.read<AdvertisementBloc>().add(
+      GetTransportationTypesEvent(serviceId: 3, isRECEIVE: widget.isCreate),
+    );
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          AppBar(title: Text(AppLocalizations.of(context)!.special_equipment)),
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.special_equipment),
+      ),
       body: BlocBuilder<AdvertisementBloc, AdvertisementState>(
         builder: (context, state) {
           if (state.statusTrTypes.isInProgress) {
@@ -71,32 +68,36 @@ class _SpecialTechniqueViewState extends State<SpecialTechniqueView> {
               onTap: () {
                 final bloc = context.read<AdvertisementBloc>();
                 if (widget.isCreate) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => BlocProvider.value(
-                      value: bloc,
-                      child: AnnouncementCreateView(
-                        filter: TypeOfServiceEnum.specialTechnique,
-                        carId: state.transportationTypes[index].id,
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider.value(
+                        value: bloc,
+                        child: AnnouncementCreateView(
+                          filter: TypeOfServiceEnum.specialTechnique,
+                          carId: state.transportationTypes[index].id,
+                        ),
                       ),
                     ),
-                  ));
+                  );
                 } else {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => BlocProvider.value(
-                      value: bloc,
-                      child: OrdersFilterView(
-                        model: state.transportationTypes[index],
-                        type: AppLocalizations.of(context)!.special_equipment,
-                        onTap: () {
-                          // Navigator.of(context).push(MaterialPageRoute(
-                          //   builder: (context) => OrderDetailView(
-                          //     title: state.transportationTypes[index].name,
-                          //   ),
-                          // ));
-                        },
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider.value(
+                        value: bloc,
+                        child: OrdersFilterView(
+                          model: state.transportationTypes[index],
+                          type: AppLocalizations.of(context)!.special_equipment,
+                          onTap: () {
+                            // Navigator.of(context).push(MaterialPageRoute(
+                            //   builder: (context) => OrderDetailView(
+                            //     title: state.transportationTypes[index].name,
+                            //   ),
+                            // ));
+                          },
+                        ),
                       ),
                     ),
-                  ));
+                  );
                 }
               },
               child: Container(

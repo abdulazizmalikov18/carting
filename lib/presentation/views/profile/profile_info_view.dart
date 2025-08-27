@@ -186,15 +186,15 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                             },
                             text: AppLocalizations.of(context)!.no,
                           ),
-                        )
+                        ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               );
             },
             icon: AppIcons.trash.svg(),
-          )
+          ),
         ],
       ),
       bottomNavigationBar: SafeArea(
@@ -267,41 +267,44 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                       margin: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                       onTap: () async {
                         if (checkInfo()) {
-                          final text =
-                              await MyFunction.convertFileToBase64(images);
+                          final text = await MyFunction.convertFileToBase64(
+                            images,
+                          );
                           if (context.mounted) {
-                            context.read<AuthBloc>().add(UpdateUserEvent(
-                                  name: controllerName.text,
-                                  lastName: controllerLastName.text,
-                                  phone: MyFunction.convertPhoneNumber(
-                                    controllerPhone.text,
-                                  ),
-                                  callPhone: MyFunction.convertPhoneNumber(
-                                    controllerCallPhone.text,
-                                  ),
-                                  email: controllerEmail.text.isEmpty ||
-                                          controllerEmail.text ==
-                                              state.userModel.mail
-                                      ? null
-                                      : controllerEmail.text,
-                                  userType:
-                                      isLegal.value ? 'LEGAL' : 'PHYSICAL',
-                                  images: images == null ? null : text,
-                                  tgName: controllerTG.text,
-                                  tin: controllerTin.text,
-                                  referredBy: controllerReferal.text,
-                                  orgName: controllerOrgName.text,
-                                  onSucces: () {
-                                    Navigator.pop(context);
-                                    CustomSnackbar.show(
-                                      context,
-                                      "Malumotlar yangilandi",
-                                    );
-                                  },
-                                  onError: (message) {
-                                    CustomSnackbar.show(context, message);
-                                  },
-                                ));
+                            context.read<AuthBloc>().add(
+                              UpdateUserEvent(
+                                name: controllerName.text,
+                                lastName: controllerLastName.text,
+                                phone: MyFunction.convertPhoneNumber(
+                                  controllerPhone.text,
+                                ),
+                                callPhone: MyFunction.convertPhoneNumber(
+                                  controllerCallPhone.text,
+                                ),
+                                email:
+                                    controllerEmail.text.isEmpty ||
+                                        controllerEmail.text ==
+                                            state.userModel.mail
+                                    ? null
+                                    : controllerEmail.text,
+                                userType: isLegal.value ? 'LEGAL' : 'PHYSICAL',
+                                images: images == null ? null : text,
+                                tgName: controllerTG.text,
+                                tin: controllerTin.text,
+                                referredBy: controllerReferal.text,
+                                orgName: controllerOrgName.text,
+                                onSucces: () {
+                                  Navigator.pop(context);
+                                  CustomSnackbar.show(
+                                    context,
+                                    "Malumotlar yangilandi",
+                                  );
+                                },
+                                onError: (message) {
+                                  CustomSnackbar.show(context, message);
+                                },
+                              ),
+                            );
                           }
                         } else {
                           if (controllerPhone.text.isEmpty) {
@@ -345,10 +348,10 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                           backgroundImage: images != null
                               ? FileImage(images!)
                               : state.userModel.photo.isEmpty
-                                  ? null
-                                  : CachedNetworkImageProvider(
-                                      'https://api.carting.uz/uploads/files/${state.userModel.photo}',
-                                    ),
+                              ? null
+                              : CachedNetworkImageProvider(
+                                  'https://api.carting.uz/uploads/files/${state.userModel.photo}',
+                                ),
                         ),
                       );
                     },
@@ -365,7 +368,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                       color: white,
                       child: AppIcons.camera.svg(),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -386,31 +389,33 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                 readOnly: true,
                 onPressed: () {
                   Navigator.of(context)
-                      .push(MaterialPageRoute(
-                    builder: (context) => IdentityChooseView(
-                      isLegal: isLegal.value,
-                    ),
-                  ))
+                      .push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              IdentityChooseView(isLegal: isLegal.value),
+                        ),
+                      )
                       .then((value) {
-                    if (value != null) {
-                      isChange.value = true;
-                      isLegal.value = value as bool;
-                    }
-                  });
+                        if (value != null) {
+                          isChange.value = true;
+                          isLegal.value = value as bool;
+                        }
+                      });
                 },
                 onsuffixIconPressed: () {
                   Navigator.of(context)
-                      .push(MaterialPageRoute(
-                    builder: (context) => IdentityChooseView(
-                      isLegal: isLegal.value,
-                    ),
-                  ))
+                      .push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              IdentityChooseView(isLegal: isLegal.value),
+                        ),
+                      )
                       .then((value) {
-                    if (value != null) {
-                      isChange.value = true;
-                      isLegal.value = value as bool;
-                    }
-                  });
+                        if (value != null) {
+                          isChange.value = true;
+                          isLegal.value = value as bool;
+                        }
+                      });
                 },
               );
             },

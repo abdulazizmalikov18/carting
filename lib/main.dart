@@ -35,12 +35,14 @@ void main() async {
   }
 
   await LocalNotificationService.initialize();
-  runApp(DependencyScope(
-    initialModel: AppScope(
-      themeMode: getTheme(StorageRepository.getString(StorageKeys.MODE)),
+  runApp(
+    DependencyScope(
+      initialModel: AppScope(
+        themeMode: getTheme(StorageRepository.getString(StorageKeys.MODE)),
+      ),
+      child: const MyApp(),
     ),
-    child: const MyApp(),
-  ));
+  );
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -121,7 +123,7 @@ class _MyAppState extends State<MyApp> {
                   }
                   return child ?? const SizedBox();
                 },
-              ), 
+              ),
             ),
           );
         },

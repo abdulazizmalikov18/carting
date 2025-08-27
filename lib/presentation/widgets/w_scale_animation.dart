@@ -17,8 +17,10 @@ class WScaleAnimation extends StatefulWidget {
     this.isDisabled = false,
     this.duration = const Duration(milliseconds: 150),
     this.scaleValue = 0.95,
-  })  : assert(scaleValue <= 1 && scaleValue >= 0,
-            'Range error: Range should be between [0,1]');
+  }) : assert(
+         scaleValue <= 1 && scaleValue >= 0,
+         'Range error: Range should be between [0,1]',
+       );
 
   @override
   State<WScaleAnimation> createState() => _WScaleAnimationState();
@@ -31,19 +33,11 @@ class _WScaleAnimationState extends State<WScaleAnimation>
 
   @override
   void initState() {
-    _controller = AnimationController(
-      vsync: this,
-      duration: widget.duration,
-    );
+    _controller = AnimationController(vsync: this, duration: widget.duration);
     _scaleAnimation = Tween<double>(
       begin: 1,
       end: widget.scaleValue,
-    ).animate(
-      CurvedAnimation(
-        curve: Curves.decelerate,
-        parent: _controller,
-      ),
-    );
+    ).animate(CurvedAnimation(curve: Curves.decelerate, parent: _controller));
     super.initState();
   }
 
@@ -55,30 +49,27 @@ class _WScaleAnimationState extends State<WScaleAnimation>
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () {
-          if (!widget.isDisabled) {
-            widget.onTap();
-          }
-        },
-        onPanDown: (details) {
-          if (!widget.isDisabled) {
-            _controller.forward();
-          }
-        },
-        onPanCancel: () {
-          if (!widget.isDisabled) {
-            _controller.reverse();
-          }
-        },
-        onPanEnd: (details) {
-          if (!widget.isDisabled) {
-            _controller.reverse();
-          }
-        },
-        child: ScaleTransition(
-          scale: _scaleAnimation,
-          child: widget.child,
-        ),
-      );
+    behavior: HitTestBehavior.opaque,
+    onTap: () {
+      if (!widget.isDisabled) {
+        widget.onTap();
+      }
+    },
+    onPanDown: (details) {
+      if (!widget.isDisabled) {
+        _controller.forward();
+      }
+    },
+    onPanCancel: () {
+      if (!widget.isDisabled) {
+        _controller.reverse();
+      }
+    },
+    onPanEnd: (details) {
+      if (!widget.isDisabled) {
+        _controller.reverse();
+      }
+    },
+    child: ScaleTransition(scale: _scaleAnimation, child: widget.child),
+  );
 }

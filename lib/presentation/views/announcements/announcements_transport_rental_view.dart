@@ -39,10 +39,8 @@ class _AnnouncementsTransportRentalViewState
           if (state.statusCars.isInProgress) {
             return ListView.separated(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              itemBuilder: (context, index) => const WShimmer(
-                height: 60,
-                width: double.infinity,
-              ),
+              itemBuilder: (context, index) =>
+                  const WShimmer(height: 60, width: double.infinity),
               separatorBuilder: (context, index) => const Divider(),
               itemCount: 12,
             );
@@ -59,15 +57,17 @@ class _AnnouncementsTransportRentalViewState
                 trailing: AppIcons.arrowForward.svg(color: context.color.iron),
                 onTap: () {
                   final bloc = context.read<AdvertisementBloc>();
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => BlocProvider.value(
-                      value: bloc,
-                      child: AnnouncementCreateView(
-                        filter: TypeOfServiceEnum.transportRental,
-                        carId: state.carsModel[index].id,
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider.value(
+                        value: bloc,
+                        child: AnnouncementCreateView(
+                          filter: TypeOfServiceEnum.transportRental,
+                          carId: state.carsModel[index].id,
+                        ),
                       ),
                     ),
-                  ));
+                  );
                 },
               ),
               separatorBuilder: (context, index) => const Padding(

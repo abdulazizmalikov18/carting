@@ -43,17 +43,14 @@ class _SmsViewState extends State<SmsView> with CodeAutoFill {
   late Timer _timer;
   void startTimer() {
     const oneSec = Duration(seconds: 1);
-    _timer = Timer.periodic(
-      oneSec,
-      (Timer timer) {
-        if (start.value == 0) {
-          timer.cancel();
-        } else {
-          start.value--;
-        }
-        setState(() {});
-      },
-    );
+    _timer = Timer.periodic(oneSec, (Timer timer) {
+      if (start.value == 0) {
+        timer.cancel();
+      } else {
+        start.value--;
+      }
+      setState(() {});
+    });
   }
 
   void resetAndStartTimer() {
@@ -123,9 +120,9 @@ class _SmsViewState extends State<SmsView> with CodeAutoFill {
                     ? AppLocalizations.of(context)!.confirmCodePhone(
                         MyFunction.maskPhoneNumber(widget.phone),
                       )
-                    : AppLocalizations.of(context)!.confirmCodeEmail(
-                        MyFunction.maskEmail(widget.phone),
-                      ),
+                    : AppLocalizations.of(
+                        context,
+                      )!.confirmCodeEmail(MyFunction.maskEmail(widget.phone)),
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
@@ -178,17 +175,19 @@ class _SmsViewState extends State<SmsView> with CodeAutoFill {
                     onTap: () {
                       if (widget.model.securityCode == controller.text ||
                           '5555' == controller.text) {
-                        context.read<AuthBloc>().add(VerifyEvent(
-                              phone: widget.phone,
-                              isPhone: widget.isPhone,
-                              onError: (message) {
-                                CustomSnackbar.show(context, message);
-                              },
-                              onSucces: () {},
-                              sessionToken: widget.model.sessionToken,
-                              securityCode: controller.text,
-                              isLogin: !widget.isRegister,
-                            ));
+                        context.read<AuthBloc>().add(
+                          VerifyEvent(
+                            phone: widget.phone,
+                            isPhone: widget.isPhone,
+                            onError: (message) {
+                              CustomSnackbar.show(context, message);
+                            },
+                            onSucces: () {},
+                            sessionToken: widget.model.sessionToken,
+                            securityCode: controller.text,
+                            isLogin: !widget.isRegister,
+                          ),
+                        );
                       } else {
                         CustomSnackbar.show(context, 'Kod hato kiritildi');
                       }
@@ -231,9 +230,9 @@ class _SmsViewState extends State<SmsView> with CodeAutoFill {
                         ),
                       );
                     },
-                  )
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),

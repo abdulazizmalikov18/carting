@@ -32,10 +32,8 @@ class _NotificationViewState extends State<NotificationView> {
               padding: const EdgeInsets.all(16),
               itemCount: 12,
               separatorBuilder: (context, index) => const SizedBox(height: 16),
-              itemBuilder: (context, index) => const WShimmer(
-                width: double.infinity,
-                height: 60,
-              ),
+              itemBuilder: (context, index) =>
+                  const WShimmer(width: double.infinity, height: 60),
             );
           }
           if (state.notifications.isEmpty) {
@@ -51,15 +49,15 @@ class _NotificationViewState extends State<NotificationView> {
                   children: [
                     WButton(
                       onTap: () {
-                        context
-                            .read<AdvertisementBloc>()
-                            .add(GetNotifications());
+                        context.read<AdvertisementBloc>().add(
+                          GetNotifications(),
+                        );
                       },
                       padding: const EdgeInsets.symmetric(horizontal: 24),
                       text: AppLocalizations.of(context)!.refresh,
                     ),
                   ],
-                )
+                ),
               ],
             );
           }
@@ -75,66 +73,78 @@ class _NotificationViewState extends State<NotificationView> {
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
                   final bloc = context.read<AdvertisementBloc>();
-                  bloc.add(GetAdvertisementsIdEvent(
-                    id: MyFunction.extractIdFromPath(
-                      state.notifications[index].mobileLink,
+                  bloc.add(
+                    GetAdvertisementsIdEvent(
+                      id: MyFunction.extractIdFromPath(
+                        state.notifications[index].mobileLink,
+                      ),
+                      onSucces: (model) {
+                        if (state.notifications[index].type == 'OFFER') {
+                          if (state.notifications[index].mobileLink.contains(
+                            'cars',
+                          )) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider.value(
+                                  value: bloc,
+                                  child: AnnouncementInfoView(
+                                    model: model,
+                                    isMe: true,
+                                    isMyCar: true,
+                                    isComments: true,
+                                    isOffers: true,
+                                  ),
+                                ),
+                              ),
+                            );
+                          } else {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider.value(
+                                  value: bloc,
+                                  child: AnnouncementInfoView(
+                                    model: model,
+                                    isMe: true,
+                                    isOffers: true,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                        } else {
+                          if (state.notifications[index].mobileLink.contains(
+                            'cars',
+                          )) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider.value(
+                                  value: bloc,
+                                  child: AnnouncementInfoView(
+                                    model: model,
+                                    isMe: false,
+                                    isComments: true,
+                                    isOnlyCar: true,
+                                  ),
+                                ),
+                              ),
+                            );
+                          } else {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider.value(
+                                  value: bloc,
+                                  child: AnnouncementInfoView(
+                                    model: model,
+                                    isMe: false,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                        }
+                      },
                     ),
-                    onSucces: (model) {
-                      if (state.notifications[index].type == 'OFFER') {
-                        if (state.notifications[index].mobileLink
-                            .contains('cars')) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => BlocProvider.value(
-                              value: bloc,
-                              child: AnnouncementInfoView(
-                                model: model,
-                                isMe: true,
-                                isMyCar: true,
-                                isComments: true,
-                                isOffers: true,
-                              ),
-                            ),
-                          ));
-                        } else {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => BlocProvider.value(
-                              value: bloc,
-                              child: AnnouncementInfoView(
-                                model: model,
-                                isMe: true,
-                                isOffers: true,
-                              ),
-                            ),
-                          ));
-                        }
-                      } else {
-                        if (state.notifications[index].mobileLink
-                            .contains('cars')) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => BlocProvider.value(
-                              value: bloc,
-                              child: AnnouncementInfoView(
-                                model: model,
-                                isMe: false,
-                                isComments: true,
-                                isOnlyCar: true,
-                              ),
-                            ),
-                          ));
-                        } else {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => BlocProvider.value(
-                              value: bloc,
-                              child: AnnouncementInfoView(
-                                model: model,
-                                isMe: false,
-                              ),
-                            ),
-                          ));
-                        }
-                      }
-                    },
-                  ));
+                  );
                 },
                 child: Container(
                   padding: const EdgeInsets.all(20),

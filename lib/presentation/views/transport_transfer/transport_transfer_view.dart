@@ -24,18 +24,18 @@ class TransportTransferView extends StatefulWidget {
 class _TransportTransferViewState extends State<TransportTransferView> {
   @override
   void initState() {
-    context.read<AdvertisementBloc>().add(GetTransportationTypesEvent(
-          serviceId: 6,
-          isRECEIVE: widget.isCreate,
-        ));
+    context.read<AdvertisementBloc>().add(
+      GetTransportationTypesEvent(serviceId: 6, isRECEIVE: widget.isCreate),
+    );
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          AppBar(title: Text(AppLocalizations.of(context)!.transportTransfer)),
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.transportTransfer),
+      ),
       body: BlocBuilder<AdvertisementBloc, AdvertisementState>(
         builder: (context, state) {
           if (state.statusTrTypes.isInProgress) {
@@ -67,34 +67,37 @@ class _TransportTransferViewState extends State<TransportTransferView> {
               onTap: () {
                 final bloc = context.read<AdvertisementBloc>();
                 if (widget.isCreate) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => BlocProvider.value(
-                      value: bloc,
-                      child: AnnouncementCreateView(
-                        filter: TypeOfServiceEnum.transportTransfer,
-                        carId: state.transportationTypes[index].id,
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider.value(
+                        value: bloc,
+                        child: AnnouncementCreateView(
+                          filter: TypeOfServiceEnum.transportTransfer,
+                          carId: state.transportationTypes[index].id,
+                        ),
                       ),
                     ),
-                  ));
+                  );
                 } else {
-                  Navigator.of(context, rootNavigator: true)
-                      .push(MaterialPageRoute(
-                    builder: (context) => BlocProvider.value(
-                      value: bloc,
-                      child: OrdersFilterView(
-                        model: state.transportationTypes[index],
-                        type: AppLocalizations.of(context)!.transportTransfer,
-                        onTap: () {
-                          // Navigator.of(context, rootNavigator: true)
-                          //     .push(MaterialPageRoute(
-                          //   builder: (context) => OrderDetailView(
-                          //     title: state.transportationTypes[index].name,
-                          //   ),
-                          // ));
-                        },
+                  Navigator.of(context, rootNavigator: true).push(
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider.value(
+                        value: bloc,
+                        child: OrdersFilterView(
+                          model: state.transportationTypes[index],
+                          type: AppLocalizations.of(context)!.transportTransfer,
+                          onTap: () {
+                            // Navigator.of(context, rootNavigator: true)
+                            //     .push(MaterialPageRoute(
+                            //   builder: (context) => OrderDetailView(
+                            //     title: state.transportationTypes[index].name,
+                            //   ),
+                            // ));
+                          },
+                        ),
                       ),
                     ),
-                  ));
+                  );
                 }
               },
               child: Container(

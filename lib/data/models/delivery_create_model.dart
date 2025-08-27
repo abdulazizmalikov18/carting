@@ -107,10 +107,7 @@ class LoadWeight {
   @JsonKey(name: "name")
   final String name;
 
-  LoadWeight({
-    required this.amount,
-    required this.name,
-  });
+  LoadWeight({required this.amount, required this.name});
 
   factory LoadWeight.fromJson(Map<String, dynamic> json) =>
       _$LoadWeightFromJson(json);

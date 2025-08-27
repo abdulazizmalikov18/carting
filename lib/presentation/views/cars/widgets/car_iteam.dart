@@ -88,7 +88,7 @@ class CarIteam extends StatelessWidget {
                       ),
                     ),
                   ),
-                ]
+                ],
               ],
             ),
           ),
@@ -112,8 +112,9 @@ class CarIteam extends StatelessWidget {
                           carNumberFirst: (model.details?.transportNumber ?? '')
                               .split(' ')[0],
                           carNumberSecond:
-                              (model.details?.transportNumber ?? '')
-                                  .substring(3),
+                              (model.details?.transportNumber ?? '').substring(
+                                3,
+                              ),
                         ),
                       Text(
                         model.transportName ??
@@ -191,28 +192,30 @@ class CarIteam extends StatelessWidget {
                     children: [
                       RowIcon(
                         text: MyFunction.servicesNema(
-                            model.serviceTypeId, context),
+                          model.serviceTypeId,
+                          context,
+                        ),
                         icon: switch (model.serviceTypeId) {
                           1 => AppIcons.shipping.svg(
-                              color: context.color.iron,
-                              height: 20,
-                            ),
+                            color: context.color.iron,
+                            height: 20,
+                          ),
                           2 => AppIcons.transportationOfPassengers.svg(
-                              color: context.color.iron,
-                              height: 20,
-                            ),
+                            color: context.color.iron,
+                            height: 20,
+                          ),
                           3 => AppIcons.specialTechnique.svg(
-                              color: context.color.iron,
-                              height: 20,
-                            ),
+                            color: context.color.iron,
+                            height: 20,
+                          ),
                           9 => AppIcons.shipping.svg(
-                              color: context.color.iron,
-                              height: 20,
-                            ),
+                            color: context.color.iron,
+                            height: 20,
+                          ),
                           int() => AppIcons.shipping.svg(
-                              color: context.color.iron,
-                              height: 20,
-                            ),
+                            color: context.color.iron,
+                            height: 20,
+                          ),
                         },
                       ),
                       if (model.serviceTypeId == 1)
@@ -277,33 +280,36 @@ class CarIteam extends StatelessWidget {
                           },
                           text: AppLocalizations.of(context)!.connection,
                           padding: const EdgeInsets.symmetric(horizontal: 24),
-                        )
+                        ),
                       ],
                     ),
-                  )
+                  ),
                 ],
                 if (model.oferrerAdvId != null)
                   InkWell(
                     onTap: () {
                       final bloc = context.read<AdvertisementBloc>();
-            
-                      bloc.add(GetAdvertisementsIdEvent(
-                        id: model.oferrerAdvId!,
-                        onSucces: (model) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => BlocProvider.value(
-                              value: bloc,
-                              child: AnnouncementInfoView(
-                                model: model,
-                                isMe: false,
-                                isOffersButton: false,
-                                isOffersFinish: true,
-                              
+
+                      bloc.add(
+                        GetAdvertisementsIdEvent(
+                          id: model.oferrerAdvId!,
+                          onSucces: (model) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider.value(
+                                  value: bloc,
+                                  child: AnnouncementInfoView(
+                                    model: model,
+                                    isMe: false,
+                                    isOffersButton: false,
+                                    isOffersFinish: true,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ));
-                        },
-                      ));
+                            );
+                          },
+                        ),
+                      );
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -316,21 +322,17 @@ class CarIteam extends StatelessWidget {
                       child: Row(
                         children: [
                           if (model.transportNumber == null)
-                            Expanded(
-                              child: Text('ID: ${model.oferrerAdvId}'),
-                            )
+                            Expanded(child: Text('ID: ${model.oferrerAdvId}'))
                           else
-                            Expanded(
-                              child: Text('ID: ${model.oferrerAdvId}'),
-                            ),
-                          AppIcons.arrowForward.svg()
+                            Expanded(child: Text('ID: ${model.oferrerAdvId}')),
+                          AppIcons.arrowForward.svg(),
                         ],
                       ),
                     ),
-                  )
+                  ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

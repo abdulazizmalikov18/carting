@@ -60,11 +60,7 @@ class Location {
   @JsonKey(name: "name")
   final String name;
 
-  Location({
-    required this.lat,
-    required this.lng,
-    required this.name,
-  });
+  Location({required this.lat, required this.lng, required this.name});
 
   factory Location.fromJson(Map<String, dynamic> json) =>
       _$LocationFromJson(json);

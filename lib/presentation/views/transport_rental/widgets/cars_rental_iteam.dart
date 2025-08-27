@@ -9,10 +9,7 @@ import 'package:carting/utils/my_function.dart';
 import 'package:flutter/material.dart';
 
 class CarsRentalIteam extends StatelessWidget {
-  const CarsRentalIteam({
-    super.key,
-    required this.model,
-  });
+  const CarsRentalIteam({super.key, required this.model});
   final AdvertisementModel model;
 
   @override
@@ -27,9 +24,7 @@ class CarsRentalIteam extends StatelessWidget {
       child: Column(
         children: [
           ClipRRect(
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(24),
-            ),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
             child: (model.images != null && model.images!.isNotEmpty)
                 ? CachedNetworkImage(
                     imageUrl:
@@ -46,10 +41,7 @@ class CarsRentalIteam extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 12,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -77,10 +69,7 @@ class CarsRentalIteam extends StatelessWidget {
                   const Spacer(),
                   Row(
                     children: [
-                      AppIcons.location.svg(
-                        height: 16,
-                        width: 16,
-                      ),
+                      AppIcons.location.svg(height: 16, width: 16),
                       const SizedBox(width: 4),
                       Expanded(
                         child: Text(
@@ -114,7 +103,7 @@ class CarsRentalIteam extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

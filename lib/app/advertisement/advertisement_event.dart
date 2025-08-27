@@ -5,10 +5,7 @@ sealed class AdvertisementEvent {}
 class FinishOffersEvent extends AdvertisementEvent {
   final int id;
   final VoidCallback onSuccess;
-  FinishOffersEvent({
-    required this.id,
-    required this.onSuccess,
-  });
+  FinishOffersEvent({required this.id, required this.onSuccess});
 }
 
 class AddNotificationEvent extends AdvertisementEvent {
@@ -91,10 +88,7 @@ class DeleteAdvertisementEvent extends AdvertisementEvent {
   final int id;
   final VoidCallback onSucces;
 
-  DeleteAdvertisementEvent({
-    required this.id,
-    required this.onSucces,
-  });
+  DeleteAdvertisementEvent({required this.id, required this.onSucces});
 }
 
 class GetAdvertisementsEvent extends AdvertisementEvent {
@@ -203,20 +197,14 @@ class ImageCreateEvent extends AdvertisementEvent {
   final ImageCreateModel model;
   final VoidCallback onSucces;
 
-  ImageCreateEvent({
-    required this.model,
-    required this.onSucces,
-  });
+  ImageCreateEvent({required this.model, required this.onSucces});
 }
 
 class GetAdvertisementsIdEvent extends AdvertisementEvent {
   final int id;
   final Function(AdvertisementModel) onSucces;
 
-  GetAdvertisementsIdEvent({
-    required this.id,
-    required this.onSucces,
-  });
+  GetAdvertisementsIdEvent({required this.id, required this.onSucces});
 }
 
 class GetCategoriesEvent extends AdvertisementEvent {}
@@ -253,10 +241,7 @@ class PostCommentEvent extends AdvertisementEvent {
   final Map<String, dynamic> model;
   final VoidCallback onSucces;
 
-  PostCommentEvent({
-    required this.model,
-    required this.onSucces,
-  });
+  PostCommentEvent({required this.model, required this.onSucces});
 }
 
 class TabIndexEvent extends AdvertisementEvent {

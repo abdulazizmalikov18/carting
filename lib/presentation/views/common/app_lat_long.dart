@@ -2,10 +2,7 @@ class AppLatLong {
   final double lat;
   final double long;
 
-  const AppLatLong({
-    required this.lat,
-    required this.long,
-  });
+  const AppLatLong({required this.lat, required this.long});
 }
 
 class TashketnLoaction extends AppLatLong {

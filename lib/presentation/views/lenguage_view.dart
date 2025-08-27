@@ -73,10 +73,7 @@ class _LenguageViewState extends State<LenguageView> {
             const Spacer(),
             Text(
               AppLocalizations.of(context)!.select_language,
-              style: const TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w600,
-              ),
+              style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 32),
             ValueListenableBuilder(
@@ -93,8 +90,10 @@ class _LenguageViewState extends State<LenguageView> {
                     child: ListTile(
                       onTap: () {
                         selectIndex.value = index;
-                        Provider.of<LocaleProvider>(context, listen: false)
-                            .setLocale(Locale(list[index].type));
+                        Provider.of<LocaleProvider>(
+                          context,
+                          listen: false,
+                        ).setLocale(Locale(list[index].type));
                       },
                       title: Text(list[index].title),
                       leading: list[index].icon,

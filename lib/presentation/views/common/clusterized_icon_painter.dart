@@ -20,17 +20,14 @@ class ClusterIconPainter {
     _paintTextCountPlacemarks(
       text: clusterSize.toString(),
       size: size,
-      canvas: _paintCirclePlacemark(
-        size: size,
-        recorder: recorder,
-      ),
+      canvas: _paintCirclePlacemark(size: size, recorder: recorder),
     );
 
     // преобразование в байтовый формат
     final image = await recorder.endRecording().toImage(
-          size.width.toInt(),
-          size.height.toInt(),
-        );
+      size.width.toInt(),
+      size.height.toInt(),
+    );
     final pngBytes = await image.toByteData(format: ImageByteFormat.png);
 
     return pngBytes!.buffer.asUint8List();
