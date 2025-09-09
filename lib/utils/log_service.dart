@@ -1,9 +1,13 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:logger/logger.dart';
 
 class Log {
-  static final Logger _logger = Logger(printer: PrettyPrinter());
+  static final Logger _logger = Logger(
+    printer: PrettyPrinter(
+      printEmojis: false,
+      colors: false,
+      dateTimeFormat: DateTimeFormat.none,
+    ),
+  );
 
   static void d(dynamic message) {
     _logger.d(message);
@@ -21,7 +25,7 @@ class Log {
     _logger.e(message);
   }
 
-  static void v(dynamic message) => _logger.v(message);
+  static void v(dynamic message) => _logger.t(message);
 
-  static void wtf(dynamic message) => _logger.wtf(message);
+  static void wtf(dynamic message) => _logger.f(message);
 }
