@@ -83,25 +83,14 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
         actions: [
           IconButton(
             onPressed: () async {
-              if (Platform.isAndroid) {
-                await SharePlus.instance.share(
-                  ShareParams(
-                    uri: Uri.parse(
-                      "https://play.google.com/store/apps/details?id=uz.realsoft.carting",
-                    ),
-                    subject: widget.model.note,
-                  ),
-                );
-              } else {
-                await SharePlus.instance.share(
-                  ShareParams(
-                    uri: Uri.parse(
-                      "https://apps.apple.com/uz/app/carting/id6742141732",
-                    ),
-                    subject: widget.model.note,
-                  ),
-                );
-              }
+              final shareText = widget.model.note;
+              final shareUrl = Platform.isAndroid
+                  ? "https://play.google.com/store/apps/details?id=uz.realsoft.carting"
+                  : "https://apps.apple.com/uz/app/carting/id6742141732";
+
+              await SharePlus.instance.share(
+                ShareParams(title: "Carting", text: "$shareText\n\n$shareUrl"),
+              );
             },
             icon: AppIcons.share.svg(color: context.color.white),
           ),
