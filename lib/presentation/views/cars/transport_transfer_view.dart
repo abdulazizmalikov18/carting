@@ -104,9 +104,11 @@ class _TransportTransferCreateViewState
                   SelectionLocationField(
                     onTap1: (point) {
                       point1 = point;
+                      setState(() {});
                     },
                     onTap2: (point) {
                       point2 = point;
+                      setState(() {});
                     },
                     onSucces: (point, point2) {
                       context.read<AdvertisementBloc>().add(

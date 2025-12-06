@@ -6,6 +6,9 @@ import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/announcements/announcement_info_view.dart';
 import 'package:carting/presentation/views/announcements/announcements_type_view.dart';
 import 'package:carting/presentation/views/announcements/widgets/announcements_iteam_new.dart';
+import 'package:carting/presentation/views/auto_repair/widgets/workshops_iteam.dart';
+import 'package:carting/presentation/views/storage_service/widgets/storage_service_iteam.dart';
+import 'package:carting/presentation/views/transport_rental/widgets/cars_rental_iteam.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_shimmer.dart';
 import 'package:carting/presentation/widgets/w_tabbar.dart';
@@ -153,12 +156,23 @@ class _MyServicesViewState extends State<MyServicesView> {
                           ),
                         );
                       },
-                      child: AnnouncementsIteamNew(
-                        isMe: true,
-
-                        // isCarNumber: true,
-                        model: state.advertisementPROVIDE[index],
-                      ),
+                      child: switch (state
+                          .advertisementPROVIDE[index]
+                          .serviceTypeId) {
+                        3 => CarsRentalIteam(
+                          model: state.advertisementPROVIDE[index],
+                        ),
+                        5 => WorkshopsIteam(
+                          model: state.advertisementPROVIDE[index],
+                        ),
+                        7 => StorageServiceIteam(
+                          model: state.advertisementPROVIDE[index],
+                        ),
+                        int() => AnnouncementsIteamNew(
+                          isMe: true,
+                          model: state.advertisementPROVIDE[index],
+                        ),
+                      },
                     ),
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 16),

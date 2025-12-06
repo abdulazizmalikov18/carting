@@ -1,20 +1,50 @@
-import 'dart:io';
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:carting/utils/log_service.dart';
 import 'package:mime/mime.dart'; // pubspec.yaml ga qo'shing: mime: ^1.0.4
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 class ImageConverter {
+  // 100 KB ga compress qiluvchi yordamchi funksiya
+  static Future<Uint8List?> _compressTo100KB(File file) async {
+    const targetSize = 100 * 1024; // 100 KB
+    int quality = 90;
+
+    Uint8List? result = await FlutterImageCompress.compressWithFile(
+      file.absolute.path,
+      quality: quality,
+    );
+
+    if (result == null) return null;
+
+    while ((result?.lengthInBytes ?? 0) > targetSize && quality > 10) {
+      quality -= 10;
+      result = await FlutterImageCompress.compressWithFile(
+        file.absolute.path,
+        quality: quality,
+      );
+    }
+
+    return result;
+  }
+
   /// Faylni Data URI formatida base64 ga o'zgartirish
   /// Natija: "data:image/jpeg;base64,/9j/4AAQSkZJRg..."
   static Future<String?> convertFileToBase64(File? file) async {
-    if (file == null) {
-      return null;
-    }
+    if (file == null) return null;
 
     try {
-      final bytes = File(file.path).readAsBytesSync();
+      // ➤ Avval 100 KB ga compress qilamiz
+      Uint8List? compressed = await _compressTo100KB(file);
 
-      String img64 = base64Encode(bytes);
+      if (compressed == null) {
+        Log.e("Compression failed");
+        return null;
+      }
+
+      // ➤ Base64 ga o‘tkazish
+      String img64 = base64Encode(compressed);
 
       return img64;
     } catch (e) {

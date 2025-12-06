@@ -62,8 +62,10 @@ class _FuelDeliveryViewState extends State<FuelDeliveryView> {
         child: Column(
           children: [
             SelectionLocationField(
+              isOne: true,
               onTap2: (point) {
-                point = point;
+                this.point = point;
+                setState(() {});
               },
             ),
             const SizedBox(height: 12),

@@ -186,12 +186,12 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
                       isOne: widget.isOne,
                       onTap: (mapPoint1, mapPoint2) {
                         Navigator.pop(context);
-                        if (mapPoint1 != null) {
+                        if (mapPoint1 != null && widget.onTap1 != null) {
                           mapPoint1 = mapPoint1;
                           widget.onTap1!(point1);
                           setState(() {});
                         }
-                        if (mapPoint2 != null) {
+                        if (mapPoint2 != null && widget.onTap2 != null) {
                           point2 = mapPoint2;
                           widget.onTap2!(point2);
                           setState(() {});

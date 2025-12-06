@@ -273,6 +273,9 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
                   top: false,
                   child: WButton(
                     onTap: () {
+                      Log.i(
+                        "Location selected: ${point1?.name ?? 'null'}, ${point2?.name ?? 'null'}",
+                      );
                       widget.onTap(point1, point2);
                     },
                     text: AppLocalizations.of(context)!.confirm,

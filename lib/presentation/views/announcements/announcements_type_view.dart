@@ -6,13 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/presentation/views/announcements/announcement_create_view.dart';
-import 'package:carting/presentation/views/announcements/announcements_shipping_type_view.dart';
 import 'package:carting/presentation/views/announcements/announcements_transport_rental_view.dart';
-import 'package:carting/presentation/views/announcements/announcements_transportation_of_passengers_view.dart';
 import 'package:carting/presentation/views/auto_repair/auto_repair_view.dart';
-import 'package:carting/presentation/views/cars/special_technique_view.dart';
 import 'package:carting/presentation/views/orders/type_of_service_view.dart';
-import 'package:carting/presentation/views/transport_transfer/transport_transfer_view.dart';
 import 'package:carting/utils/enum_filtr.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,42 +27,42 @@ class _AnnouncementsTypeViewState extends State<AnnouncementsTypeView> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     list = [
-      TypeOfService(
-        icon: AppIcons.shipping.svg(height: 40, width: 40),
-        text: AppLocalizations.of(context)!.shipping,
-        screen: const AnnouncementsShippingTypeView(),
-        serviceId: 1,
-      ),
-      TypeOfService(
-        icon: AppIcons.transportationOfPassengers.svg(height: 40, width: 40),
-        text: AppLocalizations.of(context)!.passengerTransport,
-        screen: const AnnouncementsTransportationOfPassengersView(),
-        serviceId: 2,
-      ),
+      // TypeOfService(
+      //   icon: AppIcons.shipping.svg(height: 40, width: 40),
+      //   text: AppLocalizations.of(context)!.shipping,
+      //   screen: const AnnouncementsShippingTypeView(),
+      //   serviceId: 1,
+      // ),
+      // TypeOfService(
+      //   icon: AppIcons.transportationOfPassengers.svg(height: 40, width: 40),
+      //   text: AppLocalizations.of(context)!.passengerTransport,
+      //   screen: const AnnouncementsTransportationOfPassengersView(),
+      //   serviceId: 2,
+      // ),
       TypeOfService(
         icon: AppIcons.car_3.svg(),
         text: AppLocalizations.of(context)!.carRental,
         screen: const AnnouncementsTransportRentalView(),
         serviceId: 3,
       ),
-      TypeOfService(
-        icon: AppIcons.specialTechnique.svg(height: 40, width: 40),
-        text: AppLocalizations.of(context)!.specialTechServices,
-        screen: const SpecialTechniqueView(isCreate: true),
-        serviceId: 3,
-      ),
+      // TypeOfService(
+      //   icon: AppIcons.specialTechnique.svg(height: 40, width: 40),
+      //   text: AppLocalizations.of(context)!.specialTechServices,
+      //   screen: const SpecialTechniqueView(isCreate: true),
+      //   serviceId: 3,
+      // ),
       TypeOfService(
         icon: AppIcons.autoRepair.svg(),
         text: AppLocalizations.of(context)!.autoRepair,
         screen: const AutoRepairView(isCreate: true),
         serviceId: 5,
       ),
-      TypeOfService(
-        icon: AppIcons.transportationTransfer.svg(),
-        text: AppLocalizations.of(context)!.transportTransfer,
-        screen: const TransportTransferView(isCreate: true),
-        serviceId: 6,
-      ),
+      // TypeOfService(
+      //   icon: AppIcons.transportationTransfer.svg(),
+      //   text: AppLocalizations.of(context)!.transportTransfer,
+      //   screen: const TransportTransferView(isCreate: true),
+      //   serviceId: 6,
+      // ),
       TypeOfService(
         icon: AppIcons.inTheWarehouseStorage.svg(),
         text: AppLocalizations.of(context)!.warehouseStorage,
