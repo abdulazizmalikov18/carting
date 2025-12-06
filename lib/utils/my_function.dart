@@ -15,7 +15,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 class MyFunction {
-  static authChek({
+  static void authChek({
     required BuildContext context,
     required Function() onTap,
     bool isFull = false,

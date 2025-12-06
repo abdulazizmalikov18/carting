@@ -207,7 +207,7 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
         ),
         ValueListenableBuilder(
           valueListenable: widget.priceOffer,
-          builder: (context, _, __) {
+          builder: (context, _, _) {
             return Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24),

@@ -53,7 +53,7 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
         color: context.color.scaffoldBackground,
         child: ValueListenableBuilder(
           valueListenable: isMap,
-          builder: (context, _, __) {
+          builder: (context, _, _) {
             if (isMap.value) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
@@ -288,7 +288,7 @@ class _LocationViewState extends State<LocationView> with LocotionMixin {
           // Google Map
           ValueListenableBuilder(
             valueListenable: isMap,
-            builder: (context, _, __) {
+            builder: (context, _, _) {
               return YandexMap(
                 onMapCreated: (controller) async {
                   _onMapCreated(controller);

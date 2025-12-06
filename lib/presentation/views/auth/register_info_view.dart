@@ -135,7 +135,7 @@ class _RegisterInfoViewState extends State<RegisterInfoView> {
                 children: [
                   ValueListenableBuilder(
                     valueListenable: isActive,
-                    builder: (context, value, __) {
+                    builder: (context, value, _) {
                       return GestureDetector(
                         onTap: () {
                           isActive.value = !value;
@@ -164,7 +164,7 @@ class _RegisterInfoViewState extends State<RegisterInfoView> {
               builder: (context, state) {
                 return ValueListenableBuilder(
                   valueListenable: isActive,
-                  builder: (context, value, __) {
+                  builder: (context, value, _) {
                     return WButton(
                       onTap: () {
                         if (checkInfo()) {

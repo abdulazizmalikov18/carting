@@ -103,7 +103,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
     super.dispose();
   }
 
-  getDateTime() {
+  void getDateTime() {
     final date = DateTime.now();
     selectedDate = date;
     selectedDate2 = date.add(const Duration(hours: 6));

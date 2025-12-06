@@ -190,7 +190,7 @@ class _OrderCreateViewState extends State<OrderCreateView> {
             width: double.infinity,
             child: ValueListenableBuilder(
               valueListenable: selIndex,
-              builder: (context, value, __) {
+              builder: (context, value, _) {
                 return ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) => GestureDetector(
@@ -276,7 +276,7 @@ class _OrderCreateViewState extends State<OrderCreateView> {
             hintText: AppLocalizations.of(context)!.loadingService,
             suffixIcon: ValueListenableBuilder(
               valueListenable: check,
-              builder: (context, valu, __) {
+              builder: (context, valu, _) {
                 return CupertinoSwitch(
                   value: valu,
                   activeTrackColor: green,

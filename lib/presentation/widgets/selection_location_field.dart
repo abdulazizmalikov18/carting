@@ -73,7 +73,7 @@ class _SelectionLocationFieldState extends State<SelectionLocationField> {
     }
   }
 
-  getLocation() async {
+  Future<void> getLocation() async {
     const defLocation = TashketnLoaction();
     try {
       if (!await LocationService().checkPermission()) {

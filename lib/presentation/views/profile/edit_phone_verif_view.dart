@@ -204,7 +204,7 @@ class _EditPhoneVerifViewState extends State<EditPhoneVerifView>
                   ),
                   ValueListenableBuilder(
                     valueListenable: start,
-                    builder: (context, value, __) {
+                    builder: (context, value, _) {
                       return GestureDetector(
                         onTap: () {
                           resetAndStartTimer();

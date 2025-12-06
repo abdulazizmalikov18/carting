@@ -68,7 +68,7 @@ class _PeregonServiceViewState extends State<PeregonServiceView> {
     super.dispose();
   }
 
-  getDateTime() {
+  void getDateTime() {
     final date = DateTime.now();
     selectedDate = date;
     selectedDate2 = date.add(const Duration(hours: 6));

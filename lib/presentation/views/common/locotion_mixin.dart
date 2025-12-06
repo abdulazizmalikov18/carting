@@ -60,7 +60,7 @@ mixin LocotionMixin on State<LocationView> {
     _close();
   }
 
-  getMerk() {
+  void getMerk() {
     if (widget.point1 != null) {
       Log.i('Kirdik');
       list.add(widget.point1!);
@@ -75,7 +75,7 @@ mixin LocotionMixin on State<LocationView> {
     // _isControllerDisposed = false; // Controller hali dispose bo‘lmadi
   }
 
-  diriv() async {
+  Future<void> diriv() async {
     var resultWithSession = await YandexDriving.requestRoutes(
       points: [
         RequestPoint(
@@ -95,8 +95,8 @@ mixin LocotionMixin on State<LocationView> {
       ],
       drivingOptions: const DrivingOptions(
         routesCount: 1,
-        avoidTolls: true,
-        avoidUnpaved: true,
+        // avoidTolls: true,
+        // avoidUnpaved: true,
       ),
     );
     session = resultWithSession.$1;

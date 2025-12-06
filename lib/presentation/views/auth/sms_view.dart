@@ -213,7 +213,7 @@ class _SmsViewState extends State<SmsView> with CodeAutoFill {
                   ),
                   ValueListenableBuilder(
                     valueListenable: start,
-                    builder: (context, value, __) {
+                    builder: (context, value, _) {
                       return GestureDetector(
                         onTap: () {
                           resetAndStartTimer();

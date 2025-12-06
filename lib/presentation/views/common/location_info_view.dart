@@ -32,7 +32,7 @@ class _LocationInfoViewState extends State<LocationInfoView> {
   DrivingSession? session;
   DrivingRoute? route;
 
-  diriv() async {
+  Future<void> diriv() async {
     var resultWithSession = await YandexDriving.requestRoutes(
       points: [
         RequestPoint(
@@ -52,8 +52,8 @@ class _LocationInfoViewState extends State<LocationInfoView> {
       ],
       drivingOptions: const DrivingOptions(
         routesCount: 1,
-        avoidTolls: true,
-        avoidUnpaved: true,
+        // avoidTolls: true,
+        // avoidUnpaved: true,
       ),
     );
     session = resultWithSession.$1;

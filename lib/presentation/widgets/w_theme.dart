@@ -75,7 +75,7 @@ class _WThemeState extends State<WTheme> {
           ),
           child: ValueListenableBuilder(
             valueListenable: selIndex,
-            builder: (context, value, __) {
+            builder: (context, value, _) {
               return Column(
                 children: [
                   ...List.generate(

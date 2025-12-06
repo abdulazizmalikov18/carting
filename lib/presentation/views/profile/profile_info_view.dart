@@ -262,7 +262,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
               builder: (context, state) {
                 return ValueListenableBuilder(
                   valueListenable: isChange,
-                  builder: (context, _, __) {
+                  builder: (context, _, _) {
                     return WButton(
                       margin: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                       onTap: () async {
@@ -376,7 +376,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
           const SizedBox(height: 24),
           ValueListenableBuilder(
             valueListenable: isLegal,
-            builder: (context, _, __) {
+            builder: (context, _, _) {
               return CustomTextField(
                 title: AppLocalizations.of(context)!.personal,
                 hintText: "",

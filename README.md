@@ -17,6 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 
 rename setAppName --targets ios,android --value "CARTING"  
 rename setBundleId --targets ios,android --value "uz.realsoft.carting"
+rename setBundleId --targets ios --value "com.anysoft.carting"
 
 build apk with low size:
 flutter build apk --split-per-abi
