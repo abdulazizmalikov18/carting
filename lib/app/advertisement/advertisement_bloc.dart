@@ -8,7 +8,8 @@ import 'package:carting/data/models/notification_model.dart';
 import 'package:carting/data/models/offers_model.dart';
 import 'package:carting/data/models/servis_model.dart';
 import 'package:carting/data/models/transport_specialists_model.dart';
-import 'package:carting/utils/my_function.dart';
+import 'package:carting/utils/image_converter.dart';
+import 'package:carting/utils/log_service.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -334,7 +335,7 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
         if (event.images.isNotEmpty) {
           List<ImageFiles> list = [];
           for (var element in event.images) {
-            final text = await MyFunction.convertFileToBase64(element);
+            final text = await ImageConverter.convertFileToBase64(element);
             list.add(
               ImageFiles(
                 fileName: element.uri.pathSegments.last,
@@ -388,6 +389,7 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
       if (event.page == null) {
         emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
       }
+      Log.wtf(event.serviceId?.join(","));
       final respons = await _repo.getAdvertisements(
         FilterModel(
           serviceId: event.serviceId?.join(","),

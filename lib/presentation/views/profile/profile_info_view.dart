@@ -5,6 +5,7 @@ import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/presentation/routes/route_name.dart';
 import 'package:carting/presentation/views/auth/identity_choose_view.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
+import 'package:carting/utils/image_converter.dart';
 import 'package:carting/utils/log_service.dart';
 import 'package:carting/utils/resize_image.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,9 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
       final images2 = File(image.path);
       final compressedFile = await resizeAndCompressImage(images2, 1000000);
       images = compressedFile;
-      Log.i('Siqilgan fayl: ${await MyFunction.convertFileToBase64(images)}');
+      Log.i(
+        'Siqilgan fayl: ${await ImageConverter.convertFileToBase64(images)}',
+      );
       Log.i('Yangi hajmi: ${compressedFile.lengthSync()} bayt');
       isChange.value = true;
       setState(() {});
@@ -267,7 +270,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                       margin: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                       onTap: () async {
                         if (checkInfo()) {
-                          final text = await MyFunction.convertFileToBase64(
+                          final text = await ImageConverter.convertFileToBase64(
                             images,
                           );
                           if (context.mounted) {

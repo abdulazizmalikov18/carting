@@ -1,6 +1,5 @@
 import 'package:carting/presentation/routes/route_name.dart';
 import 'package:carting/presentation/widgets/bottom_container.dart';
-import 'package:carting/utils/log_service.dart';
 import 'package:flex_dropdown/flex_dropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -816,7 +815,6 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
             bottom: MediaQuery.of(context).viewInsets.bottom,
             child: BlocBuilder<AdvertisementBloc, AdvertisementState>(
               builder: (context, state) {
-                Log.i(MediaQuery.of(context).viewInsets.bottom);
                 return WButton(
                   onTap: () {
                     List<String> missingFields = [];
@@ -912,20 +910,21 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                           Navigator.of(context).pop();
                           context.go(AppRouteName.announcements);
                         },
-                        onSucces: (id) {},
+                        onSucces: (id) {
+                          succesCreate(context).then((value) {
+                            if (context.mounted) {
+                              context.go(AppRouteName.announcements);
+                              context.read<AdvertisementBloc>().add(
+                                GetAdvertisementsEvent(isPROVIDE: false),
+                              );
+                            }
+                          });
+                        },
                       ),
                     );
-                    succesCreate(context).then((value) {
-                      if (context.mounted) {
-                        context.go(AppRouteName.announcements);
-                        context.read<AdvertisementBloc>().add(
-                          GetAdvertisementsEvent(isPROVIDE: false),
-                        );
-                      }
-                    });
                   },
                   isLoading: state.statusCreate.isInProgress,
-                  isDisabled: isDisabled,
+                  // isDisabled: isDisabled,
                   disabledColor: context.color.darkText,
                   text: AppLocalizations.of(context)!.confirm,
                 );

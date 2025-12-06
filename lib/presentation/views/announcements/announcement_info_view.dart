@@ -21,6 +21,7 @@ import 'package:carting/presentation/widgets/w_scale_animation.dart';
 import 'package:carting/presentation/widgets/w_shimmer.dart';
 import 'package:carting/utils/calculate_distance.dart';
 import 'package:carting/utils/caller.dart';
+import 'package:carting/utils/log_service.dart';
 import 'package:carting/utils/my_function.dart';
 import 'package:flex_dropdown/flex_dropdown.dart';
 import 'package:flutter/material.dart';
@@ -75,6 +76,7 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
 
   @override
   Widget build(BuildContext context) {
+    Log.wtf(widget.model.images);
     return Scaffold(
       appBar: AppBar(
         title: Text("ID ${widget.model.id}"),

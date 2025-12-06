@@ -1,8 +1,10 @@
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/assets/assets/icons.dart';
+import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/announcements/announcement_info_view.dart';
+import 'package:carting/presentation/views/announcements/announcements_type_view.dart';
 import 'package:carting/presentation/views/announcements/widgets/announcements_iteam_new.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
 import 'package:carting/presentation/widgets/w_shimmer.dart';
@@ -35,6 +37,21 @@ class _MyServicesViewState extends State<MyServicesView> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.myServices),
+          actions: [
+            IconButton(
+              onPressed: () {
+                final bloc = context.read<AdvertisementBloc>();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => AnnouncementsTypeView(bloc: bloc),
+                  ),
+                );
+              },
+              style: IconButton.styleFrom(backgroundColor: green),
+              icon: AppIcons.addCircle.svg(),
+            ),
+            const SizedBox(width: 8),
+          ],
           bottom: PreferredSize(
             preferredSize: const Size(double.infinity, 72),
             child: Padding(

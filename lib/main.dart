@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:provider/provider.dart';
 
 import 'package:carting/app/auth/auth_bloc.dart';
@@ -121,7 +122,7 @@ class _MyAppState extends State<MyApp> {
                       return const NoConnectView();
                     }
                   }
-                  return child ?? const SizedBox();
+                  return KeyboardDismisser(child: child ?? const SizedBox());
                 },
               ),
             ),
