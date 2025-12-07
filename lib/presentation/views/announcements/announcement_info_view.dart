@@ -8,6 +8,7 @@ import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
+import 'package:carting/presentation/views/announcements/edit_announcement_view.dart';
 import 'package:carting/presentation/views/announcements/offers_view.dart';
 import 'package:carting/presentation/views/announcements/widgets/car_offer_bottom_sheet.dart';
 import 'package:carting/presentation/views/announcements/widgets/offer_bottom_sheet.dart';
@@ -149,7 +150,9 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                                 MaterialPageRoute(
                                   builder: (context) => BlocProvider.value(
                                     value: bloc,
-                                    child: EditAdsView(model: widget.model),
+                                    child: EditAnnouncementView(
+                                      model: widget.model,
+                                    ),
                                   ),
                                 ),
                               )
@@ -716,7 +719,7 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 16),
                 child: ListTile(
-                  textColor: context.color.grey.withValues(alpha: .5),
+                  tileColor: context.color.grey.withValues(alpha: .5),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24),
                   ),
