@@ -593,78 +593,74 @@ class _CreateInfoViewState extends State<CreateInfoView> {
                   //   }
                   // }),
                   const SizedBox(height: 16),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: context.color.scaffoldBackground,
+                  ListTile(
+                    tileColor: context.color.scaffoldBackground,
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: ListTile(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => CommentsView(
-                              comments: widget.model.comments ?? [],
-                              id: widget.model.id,
-                            ),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => CommentsView(
+                            comments: widget.model.comments ?? [],
+                            id: widget.model.id,
                           ),
-                        );
-                      },
-                      leading: AppIcons.message.svg(color: context.color.iron),
-                      title: Row(
-                        children: [
-                          Expanded(
-                            child: Text(AppLocalizations.of(context)!.comments),
-                          ),
-                          const SizedBox(
-                            width: 72,
-                            height: 24,
-                            child: Stack(
-                              children: [
-                                CircleAvatar(
+                        ),
+                      );
+                    },
+                    leading: AppIcons.message.svg(color: context.color.iron),
+                    title: Row(
+                      children: [
+                        Expanded(
+                          child: Text(AppLocalizations.of(context)!.comments),
+                        ),
+                        const SizedBox(
+                          width: 72,
+                          height: 24,
+                          child: Stack(
+                            children: [
+                              CircleAvatar(
+                                radius: 12,
+                                backgroundImage: AssetImage(AppImages.avatar_1),
+                              ),
+                              Positioned(
+                                left: 16,
+                                child: CircleAvatar(
                                   radius: 12,
                                   backgroundImage: AssetImage(
-                                    AppImages.avatar_1,
+                                    AppImages.avatar_2,
                                   ),
                                 ),
-                                Positioned(
-                                  left: 16,
-                                  child: CircleAvatar(
-                                    radius: 12,
-                                    backgroundImage: AssetImage(
-                                      AppImages.avatar_2,
+                              ),
+                              Positioned(
+                                left: 32,
+                                child: CircleAvatar(
+                                  radius: 12,
+                                  backgroundImage: AssetImage(
+                                    AppImages.avatar_3,
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                right: 0,
+                                child: CircleAvatar(
+                                  radius: 12,
+                                  backgroundColor: white,
+                                  child: Text(
+                                    "+86",
+                                    style: TextStyle(
+                                      fontSize: 8,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                 ),
-                                Positioned(
-                                  left: 32,
-                                  child: CircleAvatar(
-                                    radius: 12,
-                                    backgroundImage: AssetImage(
-                                      AppImages.avatar_3,
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  right: 0,
-                                  child: CircleAvatar(
-                                    radius: 12,
-                                    backgroundColor: white,
-                                    child: Text(
-                                      "+86",
-                                      style: TextStyle(
-                                        fontSize: 8,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      trailing: AppIcons.arrowCircle.svg(),
+                        ),
+                      ],
                     ),
+                    trailing: AppIcons.arrowCircle.svg(),
                   ),
                   // Builder(builder: (context) {
                   //   switch (widget.filter) {

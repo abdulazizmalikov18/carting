@@ -494,23 +494,20 @@ class WListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: ListTile(
-        tileColor: context.color.contColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusGeometry.circular(24),
-        ),
-        onTap: onTap,
-        contentPadding: EdgeInsets.zero,
-        minVerticalPadding: 0,
-        leading: leading,
-        title: Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
-        ),
-        trailing: trailing ?? AppIcons.chevronRight.svg(),
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+      tileColor: context.color.contColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadiusGeometry.circular(24),
       ),
+      onTap: onTap,
+      minVerticalPadding: 0,
+      leading: leading,
+      title: Text(
+        title,
+        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+      ),
+      trailing: trailing ?? AppIcons.chevronRight.svg(),
     );
   }
 }

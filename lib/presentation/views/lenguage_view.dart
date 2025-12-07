@@ -82,25 +82,23 @@ class _LenguageViewState extends State<LenguageView> {
                 spacing: 16,
                 children: List.generate(
                   list.length,
-                  (index) => DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: context.color.contColor,
+                  (index) => ListTile(
+                    tileColor: context.color.contColor,
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
-                    child: ListTile(
-                      onTap: () {
-                        selectIndex.value = index;
-                        Provider.of<LocaleProvider>(
-                          context,
-                          listen: false,
-                        ).setLocale(Locale(list[index].type));
-                      },
-                      title: Text(list[index].title),
-                      leading: list[index].icon,
-                      trailing: index == value
-                          ? AppIcons.checkboxRadio.svg()
-                          : AppIcons.checkboxRadioDis.svg(),
-                    ),
+                    onTap: () {
+                      selectIndex.value = index;
+                      Provider.of<LocaleProvider>(
+                        context,
+                        listen: false,
+                      ).setLocale(Locale(list[index].type));
+                    },
+                    title: Text(list[index].title),
+                    leading: list[index].icon,
+                    trailing: index == value
+                        ? AppIcons.checkboxRadio.svg()
+                        : AppIcons.checkboxRadioDis.svg(),
                   ),
                 ),
               ),

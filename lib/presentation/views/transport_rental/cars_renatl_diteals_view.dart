@@ -169,22 +169,20 @@ class _CarsRenatlDitealsViewState extends State<CarsRenatlDitealsView> {
                   ),
                 ),
               const SizedBox(height: 24),
-              Container(
-                decoration: BoxDecoration(
-                  color: context.color.contGrey,
+              ListTile(
+                tileColor: context.color.contGrey,
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: ListTile(
-                  onTap: () {},
-                  leading: AppIcons.location.svg(height: 24, width: 24),
-                  title: Text(
-                    widget.model.fromLocation?.name ??
-                        AppLocalizations.of(context)!.unknown,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  trailing: AppIcons.arrowCircle.svg(),
+                onTap: () {},
+                leading: AppIcons.location.svg(height: 24, width: 24),
+                title: Text(
+                  widget.model.fromLocation?.name ??
+                      AppLocalizations.of(context)!.unknown,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
+                trailing: AppIcons.arrowCircle.svg(),
               ),
               const SizedBox(height: 24),
               Row(
@@ -421,26 +419,24 @@ class _CarsRenatlDitealsViewState extends State<CarsRenatlDitealsView> {
                 ),
               ),
               const SizedBox(height: 16),
-              Container(
-                decoration: BoxDecoration(
-                  color: context.color.contGrey,
+              ListTile(
+                tileColor: context.color.contGrey,
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: ListTile(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => CommentsView(
-                          comments: widget.model.comments ?? [],
-                          id: widget.model.id,
-                        ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => CommentsView(
+                        comments: widget.model.comments ?? [],
+                        id: widget.model.id,
                       ),
-                    );
-                  },
-                  leading: AppIcons.message.svg(color: context.color.iron),
-                  title: Text(AppLocalizations.of(context)!.comments),
-                  trailing: AppIcons.arrowCircle.svg(),
-                ),
+                    ),
+                  );
+                },
+                leading: AppIcons.message.svg(color: context.color.iron),
+                title: Text(AppLocalizations.of(context)!.comments),
+                trailing: AppIcons.arrowCircle.svg(),
               ),
               const SizedBox(height: 32),
               Builder(

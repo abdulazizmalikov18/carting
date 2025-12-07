@@ -23,68 +23,62 @@ class AutoRepairView extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: ListTile(
-                tileColor: context.color.contColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadiusGeometry.circular(12),
-                ),
-                leading: AppImages.workshops.imgAsset(),
-                contentPadding: EdgeInsets.zero,
-                title: Text(AppLocalizations.of(context)!.workshops),
-                trailing: AppIcons.arrowForward.svg(),
-                onTap: () {
-                  final bloc = context.read<AdvertisementBloc>();
-                  if (isCreate) {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => BlocProvider.value(
-                          value: bloc,
-                          child: const AnnouncementCreateView(
-                            filter: TypeOfServiceEnum.workshops,
-                            carId: 0,
-                          ),
-                        ),
-                      ),
-                    );
-                  } else {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => BlocProvider.value(
-                          value: bloc,
-                          child: const WorkshopsView(),
-                        ),
-                      ),
-                    );
-                  }
-                },
+            ListTile(
+              tileColor: context.color.contColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadiusGeometry.circular(12),
               ),
-            ),
-            const SizedBox(height: 12),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: ListTile(
-                tileColor: context.color.contColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadiusGeometry.circular(12),
-                ),
-                leading: AppImages.masters.imgAsset(),
-                contentPadding: EdgeInsets.zero,
-                title: Text(AppLocalizations.of(context)!.masters),
-                trailing: AppIcons.arrowForward.svg(),
-                onTap: () {
-                  final bloc = context.read<AdvertisementBloc>();
+              leading: AppImages.workshops.imgAsset(),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+              title: Text(AppLocalizations.of(context)!.workshops),
+              trailing: AppIcons.arrowForward.svg(),
+              onTap: () {
+                final bloc = context.read<AdvertisementBloc>();
+                if (isCreate) {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => BlocProvider.value(
                         value: bloc,
-                        child: MastersTypeView(isCreate: isCreate),
+                        child: const AnnouncementCreateView(
+                          filter: TypeOfServiceEnum.workshops,
+                          carId: 0,
+                        ),
                       ),
                     ),
                   );
-                },
+                } else {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider.value(
+                        value: bloc,
+                        child: const WorkshopsView(),
+                      ),
+                    ),
+                  );
+                }
+              },
+            ),
+            const SizedBox(height: 12),
+            ListTile(
+              tileColor: context.color.contColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadiusGeometry.circular(12),
               ),
+              leading: AppImages.masters.imgAsset(),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+              title: Text(AppLocalizations.of(context)!.masters),
+              trailing: AppIcons.arrowForward.svg(),
+              onTap: () {
+                final bloc = context.read<AdvertisementBloc>();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => BlocProvider.value(
+                      value: bloc,
+                      child: MastersTypeView(isCreate: isCreate),
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),

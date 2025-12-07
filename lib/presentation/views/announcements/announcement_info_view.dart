@@ -665,13 +665,13 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                     if (state.offersList.isEmpty) {
                       return const SizedBox();
                     }
-                    return Container(
-                      margin: const EdgeInsets.only(bottom: 12),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(24),
-                        color: context.color.grey.withValues(alpha: .5),
-                      ),
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
                       child: ListTile(
+                        tileColor: context.color.grey.withValues(alpha: .5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24),
+                        ),
                         onTap: () {
                           final bloc = context.read<AdvertisementBloc>();
                           Navigator.of(context).push(
@@ -713,13 +713,13 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                 ),
             ],
             if (widget.isComments) ...[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(24),
-                  color: context.color.grey.withValues(alpha: .5),
-                ),
-                margin: const EdgeInsets.only(bottom: 16),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16),
                 child: ListTile(
+                  textColor: context.color.grey.withValues(alpha: .5),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24),
+                  ),
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
