@@ -298,6 +298,7 @@ class _AnnouncementCreateViewState extends State<AnnouncementCreateView> {
                       ).toJson(),
                     TypeOfServiceEnum.fuelDelivery =>
                       ({} as Map<String, dynamic>),
+                    TypeOfServiceEnum.delivery => ({} as Map<String, dynamic>),
                   };
                   final bloc = context.read<AdvertisementBloc>();
                   bloc.add(

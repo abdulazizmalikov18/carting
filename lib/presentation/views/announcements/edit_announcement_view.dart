@@ -8,6 +8,7 @@ import 'package:carting/data/models/servis_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/common/map_point.dart';
+import 'package:carting/presentation/widgets/cargo_type_item.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/presentation/widgets/min_text_field.dart';
 import 'package:carting/presentation/widgets/selection_location_field.dart';
@@ -17,7 +18,10 @@ import 'package:carting/presentation/widgets/w_shimmer.dart';
 import 'package:carting/presentation/widgets/w_text_field.dart';
 import 'package:carting/utils/enum_filtr.dart';
 import 'package:carting/utils/formatters.dart';
+import 'package:carting/utils/my_function.dart';
 import 'package:carting/utils/price_formatters.dart';
+import 'package:carting/utils/log_service.dart';
+import 'package:flex_dropdown/flex_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,10 +58,19 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
   List<ServisModel> categoriesList = [];
   List<ServisModel> servicesList = [];
 
+  // Cargo type uchun
+  List<CargoTypeValu> list = [];
+  final overlayPortalController = OverlayPortalController();
+  final position = MenuPosition.bottomStart;
+  final dismissOnTapOutside = true;
+  final useButtonSize = true;
+
   TypeOfServiceEnum get serviceType {
     switch (widget.model.serviceTypeId) {
       case 1:
         return TypeOfServiceEnum.shipping;
+      case 9:
+        return TypeOfServiceEnum.delivery;
       case 2:
         return TypeOfServiceEnum.transportationOfPassengers;
       case 3:
@@ -77,16 +90,18 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
 
   @override
   void initState() {
-    context.read<AdvertisementBloc>().add(
-      GetTransportationTypesEvent(serviceId: widget.model.serviceTypeId),
-    );
+    // context.read<AdvertisementBloc>().add(
+    //   GetTransportationTypesEvent(serviceId: widget.model.serviceTypeId),
+    // );
 
     if (serviceType == TypeOfServiceEnum.workshops) {
       context.read<AdvertisementBloc>().add(GetCategoriesEvent());
       context.read<AdvertisementBloc>().add(GetServicesEvent());
     }
 
-    controllerKg = TextEditingController(text: widget.model.details?.kg);
+    controllerKg = TextEditingController(
+      text: widget.model.details?.kg ?? widget.model.details?.tn,
+    );
     controllerm3 = TextEditingController(text: widget.model.details?.m3);
     controllerLitr = TextEditingController(text: widget.model.details?.litr);
     controllerCarNumber = TextEditingController(
@@ -104,9 +119,10 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
     controllerCommet = TextEditingController(text: widget.model.note);
     controllerCount = TextEditingController(
       text:
-          widget.model.details?.passengerCount ??
-          widget.model.details?.transportCount ??
-          widget.model.details?.area,
+          (widget.model.details?.passengerCount ??
+              widget.model.details?.transportCount ??
+              widget.model.details?.area) ??
+          "",
     );
     controllerPrice = TextEditingController(
       text: widget.model.price?.toString(),
@@ -119,6 +135,14 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
     controllerCompany2 = TextEditingController(
       text: widget.model.details?.specialistLastName,
     );
+
+    // selectedUnit ni aniqlash
+    if (widget.model.details?.tn != null &&
+        widget.model.details!.tn!.isNotEmpty) {
+      selectedUnit = 'tn';
+    } else {
+      selectedUnit = 'kg';
+    }
 
     point1 = widget.model.fromLocation != null
         ? MapPoint(
@@ -135,6 +159,60 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
           )
         : null;
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final localization = AppLocalizations.of(context)!;
+
+    list = [
+      CargoTypeValu(
+        id: 1,
+        title: localization.household_appliances,
+        value: widget.model.details?.loadTypeList?.contains(1) ?? false,
+      ),
+      CargoTypeValu(
+        id: 2,
+        title: localization.construction_materials,
+        value: widget.model.details?.loadTypeList?.contains(2) ?? false,
+      ),
+      CargoTypeValu(
+        id: 3,
+        title: localization.food_products,
+        value: widget.model.details?.loadTypeList?.contains(3) ?? false,
+      ),
+      CargoTypeValu(
+        id: 4,
+        title: localization.agricultural_products,
+        value: widget.model.details?.loadTypeList?.contains(4) ?? false,
+      ),
+      CargoTypeValu(
+        id: 5,
+        title: localization.medical_equipment,
+        value: widget.model.details?.loadTypeList?.contains(5) ?? false,
+      ),
+      CargoTypeValu(
+        id: 6,
+        title: localization.moving_furniture,
+        value: widget.model.details?.loadTypeList?.contains(6) ?? false,
+      ),
+      CargoTypeValu(
+        id: 7,
+        title: localization.animal_transportation,
+        value: widget.model.details?.loadTypeList?.contains(7) ?? false,
+      ),
+      CargoTypeValu(
+        id: 9,
+        title: localization.additionalCargo,
+        value: widget.model.details?.loadTypeList?.contains(9) ?? false,
+      ),
+      CargoTypeValu(
+        id: 8,
+        title: localization.other,
+        value: widget.model.details?.loadTypeList?.contains(8) ?? false,
+      ),
+    ];
   }
 
   @override
@@ -208,7 +286,16 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
                   isValid = isValid && point1 != null;
                 }
 
-                if (serviceType != TypeOfServiceEnum.specialTechnique) {
+                if (serviceType == TypeOfServiceEnum.shipping) {
+                  isValid =
+                      isValid &&
+                      (controllerKg.text.isNotEmpty ||
+                          controllerLitr.text.isNotEmpty ||
+                          controllerm3.text.isNotEmpty);
+                }
+
+                if (serviceType != TypeOfServiceEnum.specialTechnique &&
+                    serviceType != TypeOfServiceEnum.shipping) {
                   isValid = isValid && controllerCount.text.isNotEmpty;
                 }
 
@@ -265,6 +352,7 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
               builder: (context) {
                 switch (serviceType) {
                   case TypeOfServiceEnum.shipping ||
+                      TypeOfServiceEnum.delivery ||
                       TypeOfServiceEnum.transportationOfPassengers ||
                       TypeOfServiceEnum.transportTransfer:
                     return SelectionLocationField(
@@ -293,63 +381,14 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
             ),
             const SizedBox(height: 24),
 
-            // Images Section
-            // WTitle(
-            //   title: "Rasmlari (10 tagacha)",
-            //   color: context.color.contColor,
-            // ),
-            // const SizedBox(height: 12),
-            // GridView.builder(
-            //   itemCount: images.length + 1,
-            //   shrinkWrap: true,
-            //   physics: const NeverScrollableScrollPhysics(),
-            //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            //     crossAxisCount: 3,
-            //     mainAxisSpacing: 8,
-            //     crossAxisSpacing: 8,
-            //   ),
-            //   itemBuilder: (context, index) {
-            //     if (images.length == index) {
-            //       return GestureDetector(
-            //         onTap: imagesFile,
-            //         child: DottedBorder(
-            //           options: const RoundedRectDottedBorderOptions(
-            //             color: green,
-            //             strokeWidth: 1,
-            //             radius: Radius.circular(20),
-            //           ),
-            //           child: Center(child: AppIcons.upload.svg()),
-            //         ),
-            //       );
-            //     }
-            //     return Badge(
-            //       label: GestureDetector(
-            //         onTap: () {
-            //           images.removeAt(index);
-            //           setState(() {});
-            //         },
-            //         child: const Icon(Icons.close, color: white, size: 16),
-            //       ),
-            //       child: Container(
-            //         decoration: BoxDecoration(
-            //           borderRadius: BorderRadius.circular(20),
-            //           image: DecorationImage(
-            //             image: FileImage(images[index]),
-            //             fit: BoxFit.cover,
-            //           ),
-            //         ),
-            //       ),
-            //     );
-            //   },
-            // ),
-            // const SizedBox(height: 12),
-
             // Service-specific fields
             Builder(
               builder: (context) {
                 switch (serviceType) {
                   case TypeOfServiceEnum.shipping:
-                    return _buildShippingFields();
+                    return _buildShippingFields(false);
+                  case TypeOfServiceEnum.delivery:
+                    return _buildShippingFields(true);
                   case TypeOfServiceEnum.transportationOfPassengers:
                     return _buildPassengerFields();
                   case TypeOfServiceEnum.specialTechnique:
@@ -373,40 +412,317 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
     );
   }
 
-  Widget _buildShippingFields() {
+  Widget _buildShippingFields(bool isDelivery) {
     return Column(
       children: [
-        MinTextField(
-          text: "Maksimal yuk sig'imi",
-          hintText: "0",
-          keyboardType: TextInputType.number,
-          controller: controllerCount,
-          formatter: [Formatters.numberFormat],
-          suffixIcon: Builder(
-            builder: (context) => GestureDetector(
-              onTap: () async {
-                final selected = await _showUnitMenu(context, [
-                  'kg',
-                  'm³',
-                  'litr',
-                ]);
-                if (selected != null) {
-                  setState(() {
-                    selectedUnit = selected;
-                  });
-                }
-              },
-              child: Row(
+        // Cargo Type Dropdown
+        if (!isDelivery) ...[
+          RawFlexDropDown(
+            controller: overlayPortalController,
+            menuPosition: position,
+            dismissOnTapOutside: dismissOnTapOutside,
+            buttonBuilder: (context, onTap) {
+              return Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: context.color.contColor,
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: wboxShadow2,
+                ),
+                child: GestureDetector(
+                  onTap: onTap,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 4,
+                    children: [
+                      Text(
+                        "${AppLocalizations.of(context)!.cargoType}:",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: context.color.white,
+                        ),
+                      ),
+                      Row(
+                        spacing: 12,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              MyFunction.listText(list).isEmpty
+                                  ? AppLocalizations.of(context)!.cargoType
+                                  : MyFunction.listText(list),
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: MyFunction.listText(list).isEmpty
+                                    ? context.color.darkText
+                                    : null,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          AppIcons.arrowBottom.svg(color: context.color.iron),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+            menuBuilder: (context, width) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: CargoTypeItem(
+                  width: useButtonSize ? width : 300,
+                  list: list,
+                  onItemTap: (listValue) {
+                    Log.e(listValue);
+                    setState(() {
+                      list = listValue;
+                    });
+                  },
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 8),
+        ],
+        // Load Weight, Volume, Capacity
+        Container(
+          decoration: BoxDecoration(
+            color: context.color.contColor,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: wboxShadow2,
+          ),
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 4,
+            children: [
+              Row(
+                spacing: 24,
                 children: [
-                  Text(selectedUnit),
-                  AppIcons.arrowBottom.svg(color: context.color.iron),
+                  Expanded(
+                    child: Text(
+                      "${AppLocalizations.of(context)!.loadWeight}:",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: context.color.white,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      "${AppLocalizations.of(context)!.cargoVolume}:",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: context.color.white,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      "${AppLocalizations.of(context)!.cargoCapacity}:",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: context.color.white,
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ),
+              SizedBox(
+                height: 24,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Row(
+                        spacing: 4,
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              controller: controllerKg,
+                              keyboardType: TextInputType.number,
+                              onChanged: (value) {
+                                updateButtonState();
+                              },
+                              decoration: InputDecoration(
+                                isDense: true,
+                                contentPadding: EdgeInsets.zero,
+                                border: InputBorder.none,
+                                hintText: '0',
+                                hintStyle: TextStyle(
+                                  color: context.color.darkText,
+                                ),
+                              ),
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                          ),
+                          Builder(
+                            builder: (context) => GestureDetector(
+                              onTap: () async {
+                                final RenderBox button =
+                                    context.findRenderObject() as RenderBox;
+                                final RenderBox overlay =
+                                    Overlay.of(
+                                          context,
+                                        ).context.findRenderObject()
+                                        as RenderBox;
+
+                                final RelativeRect position =
+                                    RelativeRect.fromRect(
+                                      Rect.fromPoints(
+                                        button.localToGlobal(
+                                          Offset(0, button.size.height),
+                                          ancestor: overlay,
+                                        ),
+                                        button.localToGlobal(
+                                          button.size.bottomRight(Offset.zero),
+                                          ancestor: overlay,
+                                        ),
+                                      ),
+                                      Offset.zero & overlay.size,
+                                    );
+
+                                String? selected = await showMenu<String>(
+                                  context: context,
+                                  position: position,
+                                  color: white,
+                                  shadowColor: black.withValues(alpha: .3),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  items:
+                                      [
+                                        AppLocalizations.of(context)!.unit_kg,
+                                        AppLocalizations.of(context)!.unit_tn,
+                                      ].map((choice) {
+                                        return PopupMenuItem<String>(
+                                          value: choice,
+                                          height: 40,
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                choice,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                              const Spacer(),
+                                              SizedBox(
+                                                height: 20,
+                                                width: 20,
+                                                child: choice == selectedUnit
+                                                    ? AppIcons.checkboxRadio
+                                                          .svg()
+                                                    : AppIcons.checkboxRadioDis
+                                                          .svg(),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      }).toList(),
+                                );
+
+                                if (selected != null) {
+                                  setState(() {
+                                    selectedUnit = selected;
+                                  });
+                                }
+                              },
+                              child: Row(
+                                children: [
+                                  Text(
+                                    selectedUnit,
+                                    style: TextStyle(
+                                      color: context.color.darkText,
+                                    ),
+                                  ),
+                                  AppIcons.arrowBottom.svg(
+                                    color: context.color.iron,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const VerticalDivider(width: 24),
+                    Expanded(
+                      child: Row(
+                        spacing: 4,
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              controller: controllerm3,
+                              keyboardType: TextInputType.number,
+                              onChanged: (value) {
+                                updateButtonState();
+                              },
+                              decoration: InputDecoration(
+                                isDense: true,
+                                contentPadding: EdgeInsets.zero,
+                                border: InputBorder.none,
+                                hintText: '0',
+                                hintStyle: TextStyle(
+                                  color: context.color.darkText,
+                                ),
+                              ),
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!.unit_m3,
+                            style: TextStyle(color: context.color.darkText),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const VerticalDivider(width: 24),
+                    Expanded(
+                      child: Row(
+                        spacing: 4,
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              controller: controllerLitr,
+                              keyboardType: TextInputType.number,
+                              onChanged: (value) {
+                                updateButtonState();
+                              },
+                              decoration: InputDecoration(
+                                isDense: true,
+                                contentPadding: EdgeInsets.zero,
+                                border: InputBorder.none,
+                                hintText: '0',
+                                hintStyle: TextStyle(
+                                  color: context.color.darkText,
+                                ),
+                              ),
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                          ),
+                          Text(
+                            'litr',
+                            style: TextStyle(color: context.color.darkText),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-          onChanged: (value) {},
         ),
         const SizedBox(height: 8),
+
         WTextField(
           title: AppLocalizations.of(context)!.description,
           hintText: 'Yuk haqida izoh qoldiring!',
@@ -803,56 +1119,6 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
     );
   }
 
-  Future<String?> _showUnitMenu(
-    BuildContext context,
-    List<String> units,
-  ) async {
-    final RenderBox button = context.findRenderObject() as RenderBox;
-    final RenderBox overlay =
-        Overlay.of(context).context.findRenderObject() as RenderBox;
-
-    final RelativeRect position = RelativeRect.fromRect(
-      Rect.fromPoints(
-        button.localToGlobal(Offset(0, button.size.height), ancestor: overlay),
-        button.localToGlobal(
-          button.size.bottomRight(Offset.zero),
-          ancestor: overlay,
-        ),
-      ),
-      Offset.zero & overlay.size,
-    );
-
-    return showMenu<String>(
-      context: context,
-      position: position,
-      color: white,
-      shadowColor: black.withValues(alpha: .3),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      items: units.map((String choice) {
-        return PopupMenuItem<String>(
-          value: choice,
-          height: 40,
-          child: SizedBox(
-            width: 140,
-            child: Row(
-              children: [
-                Text(choice),
-                const Spacer(),
-                SizedBox(
-                  height: 20,
-                  width: 20,
-                  child: choice == selectedUnit
-                      ? AppIcons.checkboxRadio.svg(height: 20, width: 20)
-                      : AppIcons.checkboxRadioDis.svg(height: 20, width: 20),
-                ),
-              ],
-            ),
-          ),
-        );
-      }).toList(),
-    );
-  }
-
   Map<String, dynamic> _buildUpdateModel() {
     final model = switch (serviceType) {
       TypeOfServiceEnum.storageInWarehouse => {
@@ -883,10 +1149,55 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
         'service_name': widget.model.serviceName,
         'details': {
           'transportation_type_id': widget.model.details?.transportationTypeId,
-          'load_weight': {
-            'amount': int.tryParse(controllerCount.text) ?? 0,
-            'name': selectedUnit,
-          },
+          'load_type_list': list
+              .where((item) => item.value == true)
+              .map((item) => item.id)
+              .toList(),
+          'kg': selectedUnit == AppLocalizations.of(context)!.unit_kg
+              ? controllerKg.text.isEmpty
+                    ? null
+                    : controllerKg.text
+              : null,
+          'tn': selectedUnit == AppLocalizations.of(context)!.unit_tn
+              ? controllerKg.text.isEmpty
+                    ? null
+                    : controllerKg.text
+              : null,
+          'm3': controllerm3.text.isEmpty ? null : controllerm3.text,
+          'litr': controllerLitr.text.isEmpty ? null : controllerLitr.text,
+        },
+        'adv_type': widget.model.advType,
+        'service_type_id': widget.model.serviceTypeId,
+        'note': controllerCommet.text,
+        'price': int.tryParse(controllerPrice.text.replaceAll(' ', '')) ?? 0,
+      },
+      TypeOfServiceEnum.delivery => {
+        'id': widget.model.id,
+        'to_location': {
+          'lat': point2!.latitude,
+          'lng': point2!.longitude,
+          'name': point2!.name,
+        },
+        'from_location': {
+          'lat': point1!.latitude,
+          'lng': point1!.longitude,
+          'name': point1!.name,
+        },
+        'service_name': widget.model.serviceName,
+        'details': {
+          'transportation_type_id': widget.model.details?.transportationTypeId,
+          'kg': selectedUnit == AppLocalizations.of(context)!.unit_kg
+              ? controllerKg.text.isEmpty
+                    ? null
+                    : controllerKg.text
+              : null,
+          'tn': selectedUnit == AppLocalizations.of(context)!.unit_tn
+              ? controllerKg.text.isEmpty
+                    ? null
+                    : controllerKg.text
+              : null,
+          'm3': controllerm3.text.isEmpty ? null : controllerm3.text,
+          'litr': controllerLitr.text.isEmpty ? null : controllerLitr.text,
         },
         'adv_type': widget.model.advType,
         'service_type_id': widget.model.serviceTypeId,
@@ -988,7 +1299,7 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
           'transport_count': int.tryParse(controllerCount.text) ?? 0,
         },
         'adv_type': widget.model.advType,
-        'service_type_id': widget.model.serviceName,
+        'service_type_id': widget.model.serviceTypeId,
         'note': controllerCommet.text,
         'price': int.tryParse(controllerPrice.text.replaceAll(' ', '')) ?? 0,
       },

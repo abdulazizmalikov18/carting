@@ -8,6 +8,7 @@ enum FilterType {
 
 enum TypeOfServiceEnum {
   shipping,
+  delivery,
   transportationOfPassengers,
   specialTechnique,
   transportRental,

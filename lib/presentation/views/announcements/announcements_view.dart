@@ -226,7 +226,7 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
                         context.read<AdvertisementBloc>().add(
                           GetAdvertisementsEvent(
                             isPROVIDE: false,
-                            serviceId: activeId(),
+                            serviceId: activeId().isEmpty ? null : activeId(),
                             maxPrice: toPrice,
                             minPrice: fromPrice,
                             bdate: dateTime != null
