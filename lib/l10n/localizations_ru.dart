@@ -958,4 +958,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get tomorrow => 'Завтра';
+
+  @override
+  String get additionalCargo => 'Дополнительный груз';
 }

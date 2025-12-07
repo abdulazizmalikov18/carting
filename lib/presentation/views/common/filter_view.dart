@@ -87,7 +87,7 @@ class _FilterViewState extends State<FilterView> {
               listActive = [true, true, true, true, true];
               servisIndex = 0;
               for (var i = 0; i < servicesList.length; i++) {
-                servicesList[i].isActive = true;
+                servicesList[i].isActive = false;
               }
               dateTime.clear();
               dateTime2.clear();

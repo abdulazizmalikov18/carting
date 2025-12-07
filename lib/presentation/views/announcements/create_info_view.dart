@@ -129,27 +129,25 @@ class _CreateInfoViewState extends State<CreateInfoView> {
                   if (widget.model.details?.area != null)
                     Padding(
                       padding: const EdgeInsets.only(top: 16),
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: context.color.scaffoldBackground,
-                          borderRadius: BorderRadius.circular(24),
+                      child: ListTile(
+                        tileColor: context.color.scaffoldBackground,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusGeometry.circular(24),
                         ),
-                        child: ListTile(
-                          title: Text(
-                            AppLocalizations.of(context)!.area,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: context.color.darkText,
-                            ),
+                        title: Text(
+                          AppLocalizations.of(context)!.area,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: context.color.darkText,
                           ),
-                          subtitle: Text(
-                            "${widget.model.details?.area ?? AppLocalizations.of(context)!.unknown} m2",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: context.color.white,
-                            ),
+                        ),
+                        subtitle: Text(
+                          "${widget.model.details?.area ?? AppLocalizations.of(context)!.unknown} m2",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: context.color.white,
                           ),
                         ),
                       ),
@@ -157,29 +155,27 @@ class _CreateInfoViewState extends State<CreateInfoView> {
                   if (widget.model.details?.transportCount != null)
                     Padding(
                       padding: const EdgeInsets.only(top: 16),
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: context.color.scaffoldBackground,
-                          borderRadius: BorderRadius.circular(24),
+                      child: ListTile(
+                        tileColor: context.color.scaffoldBackground,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusGeometry.circular(24),
                         ),
-                        child: ListTile(
-                          title: Text(
-                            AppLocalizations.of(context)!.maxTransportCount,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: context.color.darkText,
-                            ),
+                        title: Text(
+                          AppLocalizations.of(context)!.maxTransportCount,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: context.color.darkText,
                           ),
-                          subtitle: Text(
-                            MyFunction.priceFormat(
-                              widget.model.details?.transportCount ?? 0,
-                            ),
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: context.color.white,
-                            ),
+                        ),
+                        subtitle: Text(
+                          MyFunction.priceFormat(
+                            widget.model.details?.transportCount ?? 0,
+                          ),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: context.color.white,
                           ),
                         ),
                       ),

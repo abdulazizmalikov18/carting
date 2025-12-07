@@ -124,7 +124,7 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
                       context.read<AdvertisementBloc>().add(
                         GetAdvertisementsEvent(
                           isPROVIDE: false,
-                          serviceId: activeId(),
+                          serviceId: activeId().isEmpty ? null : activeId(),
                           maxPrice: toPrice,
                           minPrice: fromPrice,
                           bdate: dateTime != null
@@ -143,7 +143,8 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
               children: [
                 Badge(
                   isLabelVisible:
-                      activeId().length != servicesModel.length ||
+                      activeId().isNotEmpty &&
+                          activeId().length != servicesModel.length ||
                       (dateTime != null || dateTime2 != null),
                   child: AppIcons.filter.svg(color: context.color.iron),
                 ),
@@ -294,6 +295,7 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
                             child: AnnouncementInfoView(
                               model: state.advertisement[index],
                               isMe: state.advertisement[index].isOwner,
+                              isEdit: state.advertisement[index].isOwner,
                             ),
                           ),
                         ),

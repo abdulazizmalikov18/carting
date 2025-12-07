@@ -494,13 +494,13 @@ class WListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
-        color: context.color.contColor,
-      ),
+    return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: ListTile(
+        tileColor: context.color.contColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadiusGeometry.circular(24),
+        ),
         onTap: onTap,
         contentPadding: EdgeInsets.zero,
         minVerticalPadding: 0,

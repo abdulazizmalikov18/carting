@@ -120,7 +120,7 @@ class _CarsNewViewState extends State<CarsNewView> {
                         GetAdvertisementsFilterEvent(
                           isPROVIDE: false,
                           status: "ACTIVE",
-                          serviceId: activeId(),
+                          serviceId: activeId().isEmpty ? null : activeId(),
                           bdate: dateTime != null
                               ? MyFunction.dateFormat2(dateTime!)
                               : null,
@@ -137,7 +137,8 @@ class _CarsNewViewState extends State<CarsNewView> {
               children: [
                 Badge(
                   isLabelVisible:
-                      activeId().length != servicesModel.length ||
+                      activeId().isNotEmpty &&
+                          activeId().length != servicesModel.length ||
                       (dateTime != null || dateTime2 != null),
                   child: AppIcons.filter.svg(color: context.color.iron),
                 ),
@@ -288,9 +289,11 @@ class _CarsNewViewState extends State<CarsNewView> {
                             value: bloc,
                             child: AnnouncementInfoView(
                               model: state.advertisementFilter[index],
-                              isMe: false,
+                              isMe: state.advertisementFilter[index].isOwner,
                               isComments: true,
                               isOnlyCar: true,
+                              isEdit: state.advertisementFilter[index].isOwner,
+                              onEdit: () {},
                             ),
                           ),
                         ),

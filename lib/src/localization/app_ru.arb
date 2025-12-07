@@ -308,5 +308,6 @@
   "today": "Сегодня",
   "postedToday": "Размещено сегодня",
   "postedYesterday": "Размещено вчера",
-  "tomorrow": "Завтра"
+  "tomorrow": "Завтра",
+  "additionalCargo": "Дополнительный груз"
 }

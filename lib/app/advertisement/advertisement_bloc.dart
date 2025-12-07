@@ -463,7 +463,11 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
     on<GetAdvertisementsProvideEvent>((event, emit) async {
       emit(state.copyWith(statusPROVIDE: FormzSubmissionStatus.inProgress));
       final respons = await _repo.getAdvertisementsMe(
-        FilterModel(advType: 'PROVIDE', statusString: 'ACTIVE'),
+        FilterModel(
+          advType: 'PROVIDE',
+          statusString: 'ACTIVE',
+          serviceId: event.serviceId?.join(','),
+        ),
       );
       if (respons.isRight) {
         emit(
@@ -482,7 +486,7 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
         state.copyWith(statusPROVIDEFinish: FormzSubmissionStatus.inProgress),
       );
       final respons = await _repo.getAdvertisementsMe(
-        FilterModel(advType: 'PROVIDE'),
+        FilterModel(advType: 'PROVIDE', serviceId: event.serviceId?.join(',')),
       );
       if (respons.isRight) {
         emit(

@@ -5,6 +5,6 @@ class ServicesFiltrModel {
   ServicesFiltrModel({
     required this.name,
     required this.serviceId,
-    this.isActive = true,
+    this.isActive = false,
   });
 }

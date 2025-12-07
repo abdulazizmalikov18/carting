@@ -145,9 +145,17 @@ class GetAdvertisementsFilterEvent extends AdvertisementEvent {
 
 class GetAdvertisementsMyCarsEvent extends AdvertisementEvent {}
 
-class GetAdvertisementsProvideEvent extends AdvertisementEvent {}
+class GetAdvertisementsProvideEvent extends AdvertisementEvent {
+  final List<int>? serviceId;
 
-class GetAdvertisementsProvideFinishEvent extends AdvertisementEvent {}
+  GetAdvertisementsProvideEvent({this.serviceId});
+}
+
+class GetAdvertisementsProvideFinishEvent extends AdvertisementEvent {
+  final List<int>? serviceId;
+
+  GetAdvertisementsProvideFinishEvent({this.serviceId});
+}
 
 class GetAdvertisementsReceiveEvent extends AdvertisementEvent {}
 

@@ -23,13 +23,13 @@ class AutoRepairView extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: context.color.contColor,
-              ),
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: ListTile(
+                tileColor: context.color.contColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadiusGeometry.circular(12),
+                ),
                 leading: AppImages.workshops.imgAsset(),
                 contentPadding: EdgeInsets.zero,
                 title: Text(AppLocalizations.of(context)!.workshops),
@@ -62,13 +62,13 @@ class AutoRepairView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: context.color.contColor,
-              ),
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: ListTile(
+                tileColor: context.color.contColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadiusGeometry.circular(12),
+                ),
                 leading: AppImages.masters.imgAsset(),
                 contentPadding: EdgeInsets.zero,
                 title: Text(AppLocalizations.of(context)!.masters),

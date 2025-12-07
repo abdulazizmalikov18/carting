@@ -1955,6 +1955,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tomorrow'**
   String get tomorrow;
+
+  /// No description provided for @additionalCargo.
+  ///
+  /// In en, this message translates to:
+  /// **'Additional cargo'**
+  String get additionalCargo;
 }
 
 class _AppLocalizationsDelegate

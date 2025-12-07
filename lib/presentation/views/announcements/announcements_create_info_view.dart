@@ -155,94 +155,85 @@ class _AnnouncementsCreateInfoViewState
                                 builder: (context) {
                                   switch (widget.filter) {
                                     case TypeOfServiceEnum.storageInWarehouse:
-                                      return DecoratedBox(
-                                        decoration: BoxDecoration(
-                                          color:
-                                              context.color.scaffoldBackground,
-                                          borderRadius: BorderRadius.circular(
-                                            24,
+                                      return ListTile(
+                                        tileColor:
+                                            context.color.scaffoldBackground,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadiusGeometry.circular(24),
+                                        ),
+                                        title: Text(
+                                          AppLocalizations.of(context)!.area,
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400,
                                           ),
                                         ),
-                                        child: ListTile(
-                                          title: Text(
-                                            AppLocalizations.of(context)!.area,
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400,
-                                            ),
+                                        subtitle: Text(
+                                          widget.model.details?.area ??
+                                              AppLocalizations.of(
+                                                context,
+                                              )!.unknown,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400,
                                           ),
-                                          subtitle: Text(
-                                            widget.model.details?.area ??
-                                                AppLocalizations.of(
-                                                  context,
-                                                )!.unknown,
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                          trailing: const Text(
-                                            "m2",
-                                            style: TextStyle(fontSize: 16),
-                                          ),
+                                        ),
+                                        trailing: const Text(
+                                          "m2",
+                                          style: TextStyle(fontSize: 16),
                                         ),
                                       );
                                     case TypeOfServiceEnum.transportTransfer:
-                                      return DecoratedBox(
-                                        decoration: BoxDecoration(
-                                          color: scaffoldSecondaryBackground,
-                                          borderRadius: BorderRadius.circular(
-                                            24,
+                                      return ListTile(
+                                        tileColor: scaffoldSecondaryBackground,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadiusGeometry.circular(24),
+                                        ),
+                                        title: Text(
+                                          AppLocalizations.of(
+                                            context,
+                                          )!.maxTransportCount,
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400,
+                                            color: context.color.darkText,
                                           ),
                                         ),
-                                        child: ListTile(
-                                          title: Text(
-                                            AppLocalizations.of(
-                                              context,
-                                            )!.maxTransportCount,
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400,
-                                              color: context.color.darkText,
-                                            ),
-                                          ),
-                                          subtitle: Text(
-                                            "${widget.model.details?.transportCount ?? AppLocalizations.of(context)!.unknown}",
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w400,
-                                              color: dark,
-                                            ),
+                                        subtitle: Text(
+                                          "${widget.model.details?.transportCount ?? AppLocalizations.of(context)!.unknown}",
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400,
+                                            color: dark,
                                           ),
                                         ),
                                       );
 
                                     default:
-                                      return DecoratedBox(
-                                        decoration: BoxDecoration(
-                                          color: scaffoldSecondaryBackground,
-                                          borderRadius: BorderRadius.circular(
-                                            24,
+                                      return ListTile(
+                                        tileColor: scaffoldSecondaryBackground,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadiusGeometry.circular(24),
+                                        ),
+                                        title: Text(
+                                          AppLocalizations.of(
+                                            context,
+                                          )!.maxPassengerCount,
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400,
+                                            color: context.color.darkText,
                                           ),
                                         ),
-                                        child: ListTile(
-                                          title: Text(
-                                            AppLocalizations.of(
-                                              context,
-                                            )!.maxPassengerCount,
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400,
-                                              color: context.color.darkText,
-                                            ),
-                                          ),
-                                          subtitle: Text(
-                                            "${widget.model.details?.passengerCount ?? AppLocalizations.of(context)!.unknown}",
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w400,
-                                              color: dark,
-                                            ),
+                                        subtitle: Text(
+                                          "${widget.model.details?.passengerCount ?? AppLocalizations.of(context)!.unknown}",
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400,
+                                            color: dark,
                                           ),
                                         ),
                                       );
@@ -316,23 +307,23 @@ class _AnnouncementsCreateInfoViewState
                                 ),
                               ),
                               const SizedBox(height: 32),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: scaffoldSecondaryBackground,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: ListTile(
-                                  onTap: () {},
-                                  leading: AppIcons.location.svg(
-                                    height: 24,
-                                    width: 24,
+                              ListTile(
+                                tileColor: scaffoldSecondaryBackground,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadiusGeometry.circular(
+                                    20,
                                   ),
-                                  title: const Text(
-                                    "Toshkent, Yakkasaroy tumanihlar",
-                                    maxLines: 1,
-                                  ),
-                                  trailing: AppIcons.arrowCircle.svg(),
                                 ),
+                                onTap: () {},
+                                leading: AppIcons.location.svg(
+                                  height: 24,
+                                  width: 24,
+                                ),
+                                title: const Text(
+                                  "Toshkent, Yakkasaroy tumanihlar",
+                                  maxLines: 1,
+                                ),
+                                trailing: AppIcons.arrowCircle.svg(),
                               ),
                             ],
                           );
@@ -372,23 +363,23 @@ class _AnnouncementsCreateInfoViewState
                                 ),
                               ),
                               const SizedBox(height: 32),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: scaffoldSecondaryBackground,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: ListTile(
-                                  onTap: () {},
-                                  leading: AppIcons.location.svg(
-                                    height: 24,
-                                    width: 24,
+                              ListTile(
+                                tileColor: scaffoldSecondaryBackground,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadiusGeometry.circular(
+                                    20,
                                   ),
-                                  title: const Text(
-                                    "Toshkent, Yakkasaroy tumanihlar",
-                                    maxLines: 1,
-                                  ),
-                                  trailing: AppIcons.arrowCircle.svg(),
                                 ),
+                                onTap: () {},
+                                leading: AppIcons.location.svg(
+                                  height: 24,
+                                  width: 24,
+                                ),
+                                title: const Text(
+                                  "Toshkent, Yakkasaroy tumanihlar",
+                                  maxLines: 1,
+                                ),
+                                trailing: AppIcons.arrowCircle.svg(),
                               ),
                             ],
                           );
@@ -404,79 +395,77 @@ class _AnnouncementsCreateInfoViewState
                     },
                   ),
                   const SizedBox(height: 16),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: context.color.scaffoldBackground,
-                      borderRadius: BorderRadius.circular(20),
+                  ListTile(
+                    tileColor: context.color.scaffoldBackground,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadiusGeometry.circular(20),
                     ),
-                    child: ListTile(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => CommentsView(
-                              comments: widget.model.comments ?? [],
-                              id: widget.model.id,
-                            ),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => CommentsView(
+                            comments: widget.model.comments ?? [],
+                            id: widget.model.id,
                           ),
-                        );
-                      },
-                      leading: AppIcons.message.svg(color: context.color.iron),
-                      title: Row(
-                        children: [
-                          Expanded(
-                            child: Text(AppLocalizations.of(context)!.comments),
-                          ),
-                          if (widget.model.comments != null)
-                            SizedBox(
-                              width: 72,
-                              height: 24,
-                              child: Stack(
-                                children: [
-                                  const CircleAvatar(
+                        ),
+                      );
+                    },
+                    leading: AppIcons.message.svg(color: context.color.iron),
+                    title: Row(
+                      children: [
+                        Expanded(
+                          child: Text(AppLocalizations.of(context)!.comments),
+                        ),
+                        if (widget.model.comments != null)
+                          SizedBox(
+                            width: 72,
+                            height: 24,
+                            child: Stack(
+                              children: [
+                                const CircleAvatar(
+                                  radius: 12,
+                                  backgroundImage: AssetImage(
+                                    AppImages.avatar_1,
+                                  ),
+                                ),
+                                const Positioned(
+                                  left: 16,
+                                  child: CircleAvatar(
                                     radius: 12,
                                     backgroundImage: AssetImage(
-                                      AppImages.avatar_1,
+                                      AppImages.avatar_2,
                                     ),
                                   ),
-                                  const Positioned(
-                                    left: 16,
-                                    child: CircleAvatar(
-                                      radius: 12,
-                                      backgroundImage: AssetImage(
-                                        AppImages.avatar_2,
+                                ),
+                                const Positioned(
+                                  left: 32,
+                                  child: CircleAvatar(
+                                    radius: 12,
+                                    backgroundImage: AssetImage(
+                                      AppImages.avatar_3,
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  right: 0,
+                                  child: CircleAvatar(
+                                    radius: 12,
+                                    backgroundColor: white,
+                                    child: Text(
+                                      "+${widget.model.comments?.length ?? 0}",
+                                      style: const TextStyle(
+                                        fontSize: 8,
+                                        fontWeight: FontWeight.w400,
                                       ),
                                     ),
                                   ),
-                                  const Positioned(
-                                    left: 32,
-                                    child: CircleAvatar(
-                                      radius: 12,
-                                      backgroundImage: AssetImage(
-                                        AppImages.avatar_3,
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    right: 0,
-                                    child: CircleAvatar(
-                                      radius: 12,
-                                      backgroundColor: white,
-                                      child: Text(
-                                        "+${widget.model.comments?.length ?? 0}",
-                                        style: const TextStyle(
-                                          fontSize: 8,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                        ],
-                      ),
-                      trailing: AppIcons.arrowCircle.svg(),
+                          ),
+                      ],
                     ),
+                    trailing: AppIcons.arrowCircle.svg(),
                   ),
                   Builder(
                     builder: (context) {
@@ -572,30 +561,30 @@ class _AnnouncementsCreateInfoViewState
                                 ),
                               ),
                               const SizedBox(height: 16),
-                              DecoratedBox(
-                                decoration: BoxDecoration(
-                                  color: scaffoldSecondaryBackground,
-                                  borderRadius: BorderRadius.circular(24),
-                                ),
-                                child: ListTile(
-                                  title: Text(
-                                    "Yetkazib berish narxi",
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color: context.color.darkText,
-                                    ),
+                              ListTile(
+                                tileColor: scaffoldSecondaryBackground,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadiusGeometry.circular(
+                                    24,
                                   ),
-                                  subtitle: Text(
-                                    (widget.model.price != null ||
-                                            widget.model.price != 0)
-                                        ? "${MyFunction.priceFormat(widget.model.price ?? 0)} so'm"
-                                        : "Bepul",
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
-                                      color: dark,
-                                    ),
+                                ),
+                                title: Text(
+                                  "Yetkazib berish narxi",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                    color: context.color.darkText,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  (widget.model.price != null ||
+                                          widget.model.price != 0)
+                                      ? "${MyFunction.priceFormat(widget.model.price ?? 0)} so'm"
+                                      : "Bepul",
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    color: dark,
                                   ),
                                 ),
                               ),

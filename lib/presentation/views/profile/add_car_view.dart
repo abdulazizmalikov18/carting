@@ -695,51 +695,47 @@ class _AddCarViewState extends State<AddCarView> {
                         ),
                       );
                     }
-                    return DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: context.color.scaffoldBackground,
+                    return ListTile(
+                      tileColor: context.color.scaffoldBackground,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusGeometry.circular(12),
                       ),
-                      child: ListTile(
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                        ),
-                        leading: Container(
-                          height: 48,
-                          width: 48,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            image: DecorationImage(
-                              image: FileImage(images[index]),
-                              fit: BoxFit.cover,
-                            ),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+                      leading: Container(
+                        height: 48,
+                        width: 48,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          image: DecorationImage(
+                            image: FileImage(images[index]),
+                            fit: BoxFit.cover,
                           ),
                         ),
-                        title: Text(
-                          images[index].path.split('/').last,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        subtitle: FutureBuilder<int>(
-                          future: images[index].length(),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return const Text("Hajm yuklanmoqda...");
-                            } else if (snapshot.hasError) {
-                              return const Text("Xatolik yuz berdi.");
-                            } else {
-                              return Text(formatFileSize(snapshot.data!));
-                            }
-                          },
-                        ),
-                        trailing: IconButton(
-                          onPressed: () {
-                            images.removeAt(index);
-                            setState(() {});
-                          },
-                          icon: AppIcons.trash.svg(),
-                        ),
+                      ),
+                      title: Text(
+                        images[index].path.split('/').last,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      subtitle: FutureBuilder<int>(
+                        future: images[index].length(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Text("Hajm yuklanmoqda...");
+                          } else if (snapshot.hasError) {
+                            return const Text("Xatolik yuz berdi.");
+                          } else {
+                            return Text(formatFileSize(snapshot.data!));
+                          }
+                        },
+                      ),
+                      trailing: IconButton(
+                        onPressed: () {
+                          images.removeAt(index);
+                          setState(() {});
+                        },
+                        icon: AppIcons.trash.svg(),
                       ),
                     );
                   }),

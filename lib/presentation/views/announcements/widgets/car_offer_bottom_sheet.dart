@@ -137,25 +137,23 @@ class _CarOfferBottomSheetState extends State<CarOfferBottomSheet> {
                       dismissOnTapOutside: dismissOnTapOutside,
                       buttonBuilder: (context, onTap) => GestureDetector(
                         onTap: onTap,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(24),
-                            color: context.color.contColor,
+                        child: ListTile(
+                          tileColor: context.color.contColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadiusGeometry.circular(24),
                           ),
-                          child: ListTile(
-                            leading: Text(
-                              'E’lon:',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: context.color.darkText,
-                              ),
+                          leading: Text(
+                            'E’lon:',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: context.color.darkText,
                             ),
-                            title: Text(
-                              "ID ${state.advertisementRECEIVE[carId].id}",
-                            ),
-                            trailing: AppIcons.arrowBottom.svg(),
                           ),
+                          title: Text(
+                            "ID ${state.advertisementRECEIVE[carId].id}",
+                          ),
+                          trailing: AppIcons.arrowBottom.svg(),
                         ),
                       ),
                       menuBuilder: (context, width) => Padding(
@@ -184,30 +182,30 @@ class _CarOfferBottomSheetState extends State<CarOfferBottomSheet> {
                                 _controller.hide();
                                 setState(() {});
                               },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(24),
-                                  color: context.color.contColor,
+                              child: ListTile(
+                                tileColor: context.color.contColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadiusGeometry.circular(
+                                    24,
+                                  ),
                                 ),
-                                child: ListTile(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                  ),
-                                  leading: Text(
-                                    'E’lon:',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      color: context.color.darkText,
-                                    ),
-                                  ),
-                                  title: Text(
-                                    "ID ${state.advertisementRECEIVE[index].id}",
-                                  ),
-                                  trailing: carId == index
-                                      ? AppIcons.checkboxRadio.svg()
-                                      : AppIcons.checkboxRadioDis.svg(),
+                                contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
                                 ),
+                                leading: Text(
+                                  'E’lon:',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color: context.color.darkText,
+                                  ),
+                                ),
+                                title: Text(
+                                  "ID ${state.advertisementRECEIVE[index].id}",
+                                ),
+                                trailing: carId == index
+                                    ? AppIcons.checkboxRadio.svg()
+                                    : AppIcons.checkboxRadioDis.svg(),
                               ),
                             ),
                             separatorBuilder: (context, index) =>

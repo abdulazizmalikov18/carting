@@ -958,4 +958,7 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get tomorrow => 'Ertaga';
+
+  @override
+  String get additionalCargo => 'Qo\'shimcha yuk';
 }

@@ -137,53 +137,49 @@ class _OrderDetailViewState extends State<OrderDetailView> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                Container(
-                  decoration: BoxDecoration(
-                    color: context.color.scaffoldBackground,
-                    borderRadius: BorderRadius.circular(20),
+                ListTile(
+                  tileColor: context.color.scaffoldBackground,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(20),
                   ),
-                  child: ListTile(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => LocationInfoView(
-                            isFirst: false,
-                            // point1: widget.model.toLocation,
-                            point2: widget.model.fromLocation,
-                          ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => LocationInfoView(
+                          isFirst: false,
+                          // point1: widget.model.toLocation,
+                          point2: widget.model.fromLocation,
                         ),
-                      );
-                    },
-                    leading: AppIcons.location.svg(height: 24, width: 24),
-                    title: Text(
-                      widget.model.fromLocation?.name ??
-                          AppLocalizations.of(context)!.unknown,
-                      maxLines: 1,
-                    ),
-                    trailing: AppIcons.arrowCircle.svg(),
+                      ),
+                    );
+                  },
+                  leading: AppIcons.location.svg(height: 24, width: 24),
+                  title: Text(
+                    widget.model.fromLocation?.name ??
+                        AppLocalizations.of(context)!.unknown,
+                    maxLines: 1,
                   ),
+                  trailing: AppIcons.arrowCircle.svg(),
                 ),
                 const SizedBox(height: 8),
-                Container(
-                  decoration: BoxDecoration(
-                    color: context.color.scaffoldBackground,
-                    borderRadius: BorderRadius.circular(20),
+                ListTile(
+                  tileColor: context.color.scaffoldBackground,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(20),
                   ),
-                  child: ListTile(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => CommentsView(
-                            comments: widget.model.comments ?? [],
-                            id: widget.model.id,
-                          ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CommentsView(
+                          comments: widget.model.comments ?? [],
+                          id: widget.model.id,
                         ),
-                      );
-                    },
-                    leading: AppIcons.message.svg(color: context.color.iron),
-                    title: Text(AppLocalizations.of(context)!.comments),
-                    trailing: AppIcons.arrowCircle.svg(),
-                  ),
+                      ),
+                    );
+                  },
+                  leading: AppIcons.message.svg(color: context.color.iron),
+                  title: Text(AppLocalizations.of(context)!.comments),
+                  trailing: AppIcons.arrowCircle.svg(),
                 ),
                 const SizedBox(height: 32),
                 if (widget.model.createdByPhone != null)

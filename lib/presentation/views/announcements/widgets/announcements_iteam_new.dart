@@ -149,7 +149,7 @@ class AnnouncementsIteamNew extends StatelessWidget {
                           ),
                           RowIcon(
                             text:
-                                '${AppLocalizations.of(context)!.loadWeight}:${model.details?.kg == null ? '' : ' ${model.details?.kg} kg'}${model.details?.litr == null ? '' : ' ${model.details?.litr} litr'}${model.details?.m3 == null ? '' : ' ${model.details?.m3} m3'}',
+                                '${AppLocalizations.of(context)!.loadWeight}:  ${model.details?.kg ?? 0} kg${(model.details?.m3 != null && (model.details?.m3 ?? '').isNotEmpty) ? ', ${model.details?.m3} m3' : ''}${(model.details?.litr != null && (model.details?.litr ?? '').isNotEmpty) ? ', ${model.details?.litr} litr' : ''}',
                             icon: AppIcons.box.svg(
                               color: context.color.iron,
                               height: 20,

@@ -226,6 +226,7 @@ class MyFunction {
   }
 
   static String listText(List<CargoTypeValu> list) {
+    Log.e(list);
     List<String> titles = [];
     for (var element in list) {
       if (element.value) {

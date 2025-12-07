@@ -208,53 +208,49 @@ class _WorkshopsInfoViewState extends State<WorkshopsInfoView> {
                 ),
               ),
               const SizedBox(height: 32),
-              Container(
-                decoration: BoxDecoration(
-                  color: context.color.contColor,
-                  borderRadius: BorderRadius.circular(20),
+              ListTile(
+                tileColor: context.color.contColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadiusGeometry.circular(20),
                 ),
-                child: ListTile(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => LocationInfoView(
-                          point2: widget.model.fromLocation,
-                          isFirst: false,
-                        ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => LocationInfoView(
+                        point2: widget.model.fromLocation,
+                        isFirst: false,
                       ),
-                    );
-                  },
-                  leading: AppIcons.location.svg(height: 24, width: 24),
-                  title: Text(
-                    widget.model.fromLocation?.name ??
-                        AppLocalizations.of(context)!.unknown,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  trailing: AppIcons.arrowCircle.svg(),
+                    ),
+                  );
+                },
+                leading: AppIcons.location.svg(height: 24, width: 24),
+                title: Text(
+                  widget.model.fromLocation?.name ??
+                      AppLocalizations.of(context)!.unknown,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
+                trailing: AppIcons.arrowCircle.svg(),
               ),
               const SizedBox(height: 8),
-              Container(
-                decoration: BoxDecoration(
-                  color: context.color.contColor,
-                  borderRadius: BorderRadius.circular(20),
+              ListTile(
+                tileColor: context.color.contColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadiusGeometry.circular(20),
                 ),
-                child: ListTile(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => CommentsView(
-                          comments: widget.model.comments ?? [],
-                          id: widget.model.id,
-                        ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => CommentsView(
+                        comments: widget.model.comments ?? [],
+                        id: widget.model.id,
                       ),
-                    );
-                  },
-                  leading: AppIcons.message.svg(color: context.color.iron),
-                  title: Text(AppLocalizations.of(context)!.comments),
-                  trailing: AppIcons.arrowCircle.svg(),
-                ),
+                    ),
+                  );
+                },
+                leading: AppIcons.message.svg(color: context.color.iron),
+                title: Text(AppLocalizations.of(context)!.comments),
+                trailing: AppIcons.arrowCircle.svg(),
               ),
               const SizedBox(height: 32),
               Row(

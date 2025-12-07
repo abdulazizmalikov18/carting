@@ -308,5 +308,6 @@
   "today": "Today",
   "postedToday": "Posted today",
   "postedYesterday": "Posted yesterday",
-  "tomorrow": "Tomorrow"
+  "tomorrow": "Tomorrow",
+  "additionalCargo": "Additional cargo"
 }

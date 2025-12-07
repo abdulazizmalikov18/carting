@@ -959,4 +959,7 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get tomorrow => 'Эртага';
+
+  @override
+  String get additionalCargo => 'Қушимча йук';
 }

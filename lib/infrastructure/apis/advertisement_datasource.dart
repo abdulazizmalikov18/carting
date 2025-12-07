@@ -95,6 +95,9 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
     if (model.advType != null) {
       queryParameters['adv_type'] = model.advType;
     }
+    if (model.serviceId != null) {
+      queryParameters['service_id'] = model.serviceId;
+    }
     return _handle.apiCantrol(
       request: () => dio.get(
         'user/advertisement',

@@ -994,8 +994,24 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                 ],
               ),
             ],
-            const SizedBox(height: 16),
-            if (!widget.isMyCar && !widget.isOnlyCar) ...[
+            // const SizedBox(height: 16),
+            if (widget.model.details?.area != null) ...[
+              Text(
+                '${AppLocalizations.of(context)!.area}:',
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const SizedBox(height: 8),
+              WInfoContainer(
+                text:
+                    "${widget.model.details?.area ?? AppLocalizations.of(context)!.unknown} m2",
+              ),
+              // const SizedBox(height: 16),
+            ],
+            if ((!widget.isMyCar && !widget.isOnlyCar) &&
+                widget.model.serviceTypeId != 7) ...[
               Text(
                 '${AppLocalizations.of(context)!.shipment_date_time}:',
                 style: const TextStyle(

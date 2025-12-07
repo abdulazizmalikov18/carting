@@ -26,9 +26,11 @@ class MyServicesView extends StatefulWidget {
 class _MyServicesViewState extends State<MyServicesView> {
   @override
   void initState() {
-    context.read<AdvertisementBloc>().add(GetAdvertisementsProvideEvent());
     context.read<AdvertisementBloc>().add(
-      GetAdvertisementsProvideFinishEvent(),
+      GetAdvertisementsProvideEvent(serviceId: [3, 5, 7, 8]),
+    );
+    context.read<AdvertisementBloc>().add(
+      GetAdvertisementsProvideFinishEvent(serviceId: [3, 5, 7, 8]),
     );
     super.initState();
   }
@@ -145,12 +147,13 @@ class _MyServicesViewState extends State<MyServicesView> {
                                 model: state.advertisementPROVIDE[index],
                                 isMe: true,
                                 isOffers: true,
-                                // isEdit: true,
-                                // onEdit: () {
-                                //   context
-                                //       .read<AdvertisementBloc>()
-                                //       .add(GetAdvertisementsProvideEvent());
-                                // },
+                                isComments: true,
+                                isEdit: true,
+                                onEdit: () {
+                                  context.read<AdvertisementBloc>().add(
+                                    GetAdvertisementsProvideEvent(),
+                                  );
+                                },
                               ),
                             ),
                           ),

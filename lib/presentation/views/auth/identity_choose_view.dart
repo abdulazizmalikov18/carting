@@ -60,22 +60,20 @@ class _IdentityChooseViewState extends State<IdentityChooseView> {
             ValueListenableBuilder(
               valueListenable: isLegal,
               builder: (context, value, _) {
-                return DecoratedBox(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: context.color.contColor,
+                return ListTile(
+                  tileColor: context.color.contColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(16),
                   ),
-                  child: ListTile(
-                    onTap: () {
-                      isLegal.value = true;
-                    },
-                    splashColor: Colors.transparent,
-                    title: Text(AppLocalizations.of(context)!.legalEntity),
-                    titleTextStyle: TextStyle(color: context.color.darkText),
-                    trailing: value
-                        ? AppIcons.checkboxRadio.svg()
-                        : AppIcons.checkboxRadioDis.svg(),
-                  ),
+                  onTap: () {
+                    isLegal.value = true;
+                  },
+                  splashColor: Colors.transparent,
+                  title: Text(AppLocalizations.of(context)!.legalEntity),
+                  titleTextStyle: TextStyle(color: context.color.darkText),
+                  trailing: value
+                      ? AppIcons.checkboxRadio.svg()
+                      : AppIcons.checkboxRadioDis.svg(),
                 );
               },
             ),
@@ -83,22 +81,20 @@ class _IdentityChooseViewState extends State<IdentityChooseView> {
             ValueListenableBuilder(
               valueListenable: isLegal,
               builder: (context, value, _) {
-                return DecoratedBox(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: context.color.contColor,
+                return ListTile(
+                  tileColor: context.color.contColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(16),
                   ),
-                  child: ListTile(
-                    onTap: () {
-                      isLegal.value = false;
-                    },
-                    splashColor: Colors.transparent,
-                    title: Text(AppLocalizations.of(context)!.individual),
-                    titleTextStyle: TextStyle(color: context.color.darkText),
-                    trailing: !value
-                        ? AppIcons.checkboxRadio.svg()
-                        : AppIcons.checkboxRadioDis.svg(),
-                  ),
+                  onTap: () {
+                    isLegal.value = false;
+                  },
+                  splashColor: Colors.transparent,
+                  title: Text(AppLocalizations.of(context)!.individual),
+                  titleTextStyle: TextStyle(color: context.color.darkText),
+                  trailing: !value
+                      ? AppIcons.checkboxRadio.svg()
+                      : AppIcons.checkboxRadioDis.svg(),
                 );
               },
             ),

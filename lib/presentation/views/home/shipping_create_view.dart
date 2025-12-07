@@ -1,5 +1,6 @@
 import 'package:carting/presentation/routes/route_name.dart';
 import 'package:carting/presentation/widgets/bottom_container.dart';
+import 'package:carting/utils/log_service.dart';
 import 'package:flex_dropdown/flex_dropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -81,6 +82,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
         title: localization.animal_transportation,
         value: false,
       ),
+      CargoTypeValu(id: 9, title: localization.additionalCargo, value: false),
       CargoTypeValu(id: 8, title: localization.other, value: false),
     ];
   }
@@ -242,8 +244,10 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                           width: useButtonSize ? width : 300,
                           list: list,
                           onItemTap: (listValue) {
-                            list = listValue;
-                            setState(() {});
+                            Log.e(listValue);
+                            setState(() {
+                              list = listValue;
+                            });
                           },
                         ),
                       );
