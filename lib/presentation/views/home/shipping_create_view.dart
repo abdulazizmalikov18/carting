@@ -1,3 +1,4 @@
+import 'package:carting/data/models/advertisement_model.dart' hide Details;
 import 'package:carting/presentation/routes/route_name.dart';
 import 'package:carting/presentation/widgets/bottom_container.dart';
 import 'package:carting/utils/log_service.dart';
@@ -30,7 +31,8 @@ import 'package:carting/utils/my_function.dart';
 import 'package:go_router/go_router.dart';
 
 class ShippingCreateView extends StatefulWidget {
-  const ShippingCreateView({super.key});
+  const ShippingCreateView({super.key, this.model});
+  final AdvertisementModel? model;
 
   @override
   State<ShippingCreateView> createState() => _ShippingCreateViewState();
@@ -842,6 +844,7 @@ class _ShippingCreateViewState extends State<ShippingCreateView>
                       return;
                     }
                     final model = DeliveryCreateModel(
+                      
                       toLocation: LocationModel(
                         lat: point2!.latitude,
                         lng: point2!.longitude,

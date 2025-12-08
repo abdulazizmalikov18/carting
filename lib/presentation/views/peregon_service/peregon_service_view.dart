@@ -384,6 +384,7 @@ class _PeregonServiceViewState extends State<PeregonServiceView> {
                 );
               },
               margin: EdgeInsets.fromLTRB(16, 16, 16, Platform.isIOS ? 0 : 16),
+
               text: AppLocalizations.of(context)!.confirm,
             ),
           ),

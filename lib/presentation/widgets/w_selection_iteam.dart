@@ -138,7 +138,68 @@ class _WSelectionItamState extends State<WSelectionItam> {
             },
           );
         }
-        return const SizedBox();
+        return Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: context.color.contColor,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: wboxShadow2,
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Expanded(
+                child: SizedBox(
+                  height: 48,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "${AppLocalizations.of(context)!.transportType}:",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: context.color.white,
+                        ),
+                      ),
+                      RichText(
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        text: TextSpan(
+                          text: "Transport topilmadi?",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: context.color.white,
+                          ),
+                          // children: [
+                          //   TextSpan(
+                          //     text:
+                          //         "state.transportationTypes[selIndex].volume",
+                          //     style: TextStyle(
+                          //       fontSize: 16,
+                          //       fontWeight: FontWeight.w400,
+                          //       color: context.color.darkText,
+                          //     ),
+                          //   ),
+                          // ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              CachedNetworkImage(
+                imageUrl: "state.transportationTypes[selIndex].icon",
+                height: 48,
+                width: 86,
+                errorWidget: (context, url, error) => const SizedBox(),
+              ),
+              AppIcons.arrowBottom.svg(color: context.color.darkText),
+            ],
+          ),
+        );
       },
     );
   }

@@ -1015,6 +1015,7 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
             ],
             if ((!widget.isMyCar && !widget.isOnlyCar) &&
                 widget.model.serviceTypeId != 7) ...[
+              const SizedBox(height: 16),
               Text(
                 '${AppLocalizations.of(context)!.shipment_date_time}:',
                 style: const TextStyle(
@@ -1180,16 +1181,14 @@ class _AnnouncementInfoViewState extends State<AnnouncementInfoView> {
                         context: context,
                         builder: (context) => Stack(
                           children: [
-                            Center(
+                            InteractiveViewer(
                               child: SizedBox(
                                 width: double.infinity,
                                 height: double.infinity,
-                                child: InteractiveViewer(
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        'https://api.carting.uz/uploads/files/${widget.model.images![index]}',
-                                    fit: BoxFit.contain,
-                                  ),
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                      'https://api.carting.uz/uploads/files/${widget.model.images![index]}',
+                                  fit: BoxFit.contain,
                                 ),
                               ),
                             ),

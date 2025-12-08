@@ -439,6 +439,7 @@ class _TransportTransferCreateViewState
                     16,
                     Platform.isIOS ? 0 : 16,
                   ),
+                  isDisabled: state.transportationTypes.isEmpty,
                   text: AppLocalizations.of(context)!.confirm,
                 );
               },

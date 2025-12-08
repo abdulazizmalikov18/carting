@@ -8,6 +8,7 @@ import 'package:carting/data/models/servis_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/views/common/map_point.dart';
+import 'package:carting/presentation/views/peregon_service/additional_information_view.dart';
 import 'package:carting/presentation/widgets/cargo_type_item.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/presentation/widgets/min_text_field.dart';
@@ -19,7 +20,6 @@ import 'package:carting/presentation/widgets/w_text_field.dart';
 import 'package:carting/utils/enum_filtr.dart';
 import 'package:carting/utils/formatters.dart';
 import 'package:carting/utils/my_function.dart';
-import 'package:carting/utils/price_formatters.dart';
 import 'package:carting/utils/log_service.dart';
 import 'package:flex_dropdown/flex_dropdown.dart';
 import 'package:flutter/material.dart';
@@ -57,6 +57,9 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
   bool isDisabled = true;
   List<ServisModel> categoriesList = [];
   List<ServisModel> servicesList = [];
+
+  late ValueNotifier<bool> priceOffer;
+  late ValueNotifier<int> payDate;
 
   // Cargo type uchun
   List<CargoTypeValu> list = [];
@@ -119,10 +122,17 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
     controllerCommet = TextEditingController(text: widget.model.note);
     controllerCount = TextEditingController(
       text:
-          (widget.model.details?.passengerCount ??
-              widget.model.details?.transportCount ??
-              widget.model.details?.area) ??
-          "",
+          widget.model.details?.passengerCount?.toString() ??
+          widget.model.details?.transportCount?.toString() ??
+          widget.model.details?.area?.toString(),
+    );
+    payDate = ValueNotifier(switch (widget.model.payType) {
+      'CASH' => 1,
+      'CARD' => 2,
+      String() => 0,
+    });
+    priceOffer = ValueNotifier(
+      (widget.model.price == null || widget.model.price == 0),
     );
     controllerPrice = TextEditingController(
       text: widget.model.price?.toString(),
@@ -379,7 +389,7 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
                 }
               },
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
 
             // Service-specific fields
             Builder(
@@ -405,6 +415,16 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
                     return const SizedBox();
                 }
               },
+            ),
+            const SizedBox(height: 8),
+            AdditionalInformationView(
+              payDate: payDate,
+              onSave: (List<File> images) {},
+              images: [],
+              priceOffer: priceOffer,
+              isImage: false,
+              controllerCommet: controllerCommet,
+              controllerPrice: controllerPrice,
             ),
           ],
         ),
@@ -721,27 +741,6 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
             ],
           ),
         ),
-        const SizedBox(height: 8),
-
-        WTextField(
-          title: AppLocalizations.of(context)!.description,
-          hintText: 'Yuk haqida izoh qoldiring!',
-          noHeight: true,
-          minLines: 5,
-          maxLines: 5,
-          expands: false,
-          controller: controllerCommet,
-          onChanged: (value) {},
-        ),
-        const SizedBox(height: 8),
-        WTextField(
-          title: AppLocalizations.of(context)!.price,
-          hintText: AppLocalizations.of(context)!.enterPrice,
-          controller: controllerPrice,
-          keyboardType: TextInputType.number,
-          formatter: [PriceFormatter()],
-          onChanged: (value) {},
-        ),
       ],
     );
   }
@@ -757,52 +756,12 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
           formatter: [Formatters.numberFormat],
           onChanged: (value) {},
         ),
-        const SizedBox(height: 8),
-        WTextField(
-          title: AppLocalizations.of(context)!.description,
-          hintText: 'Yuk haqida izoh qoldiring!',
-          noHeight: true,
-          minLines: 5,
-          maxLines: 5,
-          expands: false,
-          controller: controllerCommet,
-          onChanged: (value) {},
-        ),
-        const SizedBox(height: 8),
-        WTextField(
-          title: AppLocalizations.of(context)!.price,
-          hintText: AppLocalizations.of(context)!.enterPrice,
-          controller: controllerPrice,
-          keyboardType: TextInputType.number,
-          formatter: [PriceFormatter()],
-          onChanged: (value) {},
-        ),
       ],
     );
   }
 
   Widget _buildSpecialTechniqueFields() {
-    return Column(
-      children: [
-        WTextField(
-          title: AppLocalizations.of(context)!.description,
-          hintText: 'Yuk haqida izoh qoldiring!',
-          noHeight: true,
-          minLines: 5,
-          maxLines: 5,
-          expands: false,
-          controller: controllerCommet,
-          onChanged: (value) {},
-        ),
-        const SizedBox(height: 8),
-        WTextField(
-          title: AppLocalizations.of(context)!.price,
-          hintText: AppLocalizations.of(context)!.enterPrice,
-          controller: controllerPrice,
-          keyboardType: TextInputType.number,
-          formatter: [PriceFormatter()],
-          onChanged: (value) {},
-        ),
+    return Column(children: [
       ],
     );
   }
@@ -816,26 +775,6 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
           controller: controllerCount,
           keyboardType: TextInputType.number,
           formatter: [Formatters.numberFormat],
-          onChanged: (value) {},
-        ),
-        const SizedBox(height: 8),
-        WTextField(
-          title: AppLocalizations.of(context)!.description,
-          hintText: 'Yuk haqida izoh qoldiring!',
-          noHeight: true,
-          minLines: 5,
-          maxLines: 5,
-          expands: false,
-          controller: controllerCommet,
-          onChanged: (value) {},
-        ),
-        const SizedBox(height: 8),
-        WTextField(
-          title: AppLocalizations.of(context)!.price,
-          hintText: AppLocalizations.of(context)!.enterPrice,
-          controller: controllerPrice,
-          keyboardType: TextInputType.number,
-          formatter: [PriceFormatter()],
           onChanged: (value) {},
         ),
       ],
@@ -855,26 +794,6 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
           ),
           controller: controllerCount,
           formatter: [Formatters.numberFormat],
-          onChanged: (value) {},
-        ),
-        const SizedBox(height: 8),
-        WTextField(
-          title: AppLocalizations.of(context)!.description,
-          hintText: 'Yuk haqida izoh qoldiring!',
-          noHeight: true,
-          minLines: 5,
-          maxLines: 5,
-          expands: false,
-          controller: controllerCommet,
-          onChanged: (value) {},
-        ),
-        const SizedBox(height: 8),
-        WTextField(
-          title: AppLocalizations.of(context)!.price,
-          hintText: AppLocalizations.of(context)!.enterPrice,
-          controller: controllerPrice,
-          keyboardType: TextInputType.number,
-          formatter: [PriceFormatter()],
           onChanged: (value) {},
         ),
       ],
@@ -1000,26 +919,6 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
           controller: controllerCompany,
           onChanged: (value) {},
         ),
-        const SizedBox(height: 12),
-        WTextField(
-          title: AppLocalizations.of(context)!.description,
-          hintText: 'Yuk haqida izoh qoldiring!',
-          noHeight: true,
-          minLines: 5,
-          maxLines: 5,
-          expands: false,
-          controller: controllerCommet,
-          onChanged: (value) {},
-        ),
-        const SizedBox(height: 8),
-        WTextField(
-          title: AppLocalizations.of(context)!.price,
-          hintText: AppLocalizations.of(context)!.enterPrice,
-          controller: controllerPrice,
-          keyboardType: TextInputType.number,
-          formatter: [PriceFormatter()],
-          onChanged: (value) {},
-        ),
       ],
     );
   }
@@ -1093,26 +992,6 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
           title: 'Familiya',
           hintText: 'Shermatov',
           controller: controllerCompany2,
-          onChanged: (value) {},
-        ),
-        const SizedBox(height: 12),
-        WTextField(
-          title: AppLocalizations.of(context)!.description,
-          hintText: 'Yuk haqida izoh qoldiring!',
-          noHeight: true,
-          minLines: 5,
-          maxLines: 5,
-          expands: false,
-          controller: controllerCommet,
-          onChanged: (value) {},
-        ),
-        const SizedBox(height: 8),
-        WTextField(
-          title: AppLocalizations.of(context)!.price,
-          hintText: AppLocalizations.of(context)!.enterPrice,
-          controller: controllerPrice,
-          keyboardType: TextInputType.number,
-          formatter: [PriceFormatter()],
           onChanged: (value) {},
         ),
       ],

@@ -6,6 +6,7 @@ import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
 import 'package:carting/presentation/widgets/custom_text_field.dart';
 import 'package:carting/presentation/widgets/imaga_bottom.dart';
+import 'package:carting/presentation/widgets/price_offer_iteam.dart';
 import 'package:carting/presentation/widgets/w_scale_animation.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -205,93 +206,9 @@ class _AdditionalInformationViewState extends State<AdditionalInformationView> {
             ],
           ),
         ),
-        ValueListenableBuilder(
-          valueListenable: widget.priceOffer,
-          builder: (context, _, _) {
-            return Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                color: context.color.contColor,
-                boxShadow: wboxShadow2,
-              ),
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                spacing: 4,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "${AppLocalizations.of(context)!.price}:",
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  Row(
-                    spacing: 12,
-                    children: [
-                      Expanded(
-                        child: CustomTextField(
-                          hintText: '0',
-                          readOnly: widget.priceOffer.value,
-                          fillColor: widget.priceOffer.value
-                              ? context.color.scaffoldBackground
-                              : context.color.contColor,
-                          height: 48,
-                          controller: widget.controllerPrice,
-                          keyboardType: TextInputType.number,
-                          suffixIcon: Container(
-                            height: 32,
-                            width: 44,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: context.color.scaffoldBackground,
-                            ),
-                            alignment: Alignment.center,
-                            child: const Text(
-                              'UZS',
-                              style: TextStyle(
-                                color: Color(0xFFA9ABAD),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: WScaleAnimation(
-                            onTap: () {
-                              widget.priceOffer.value =
-                                  !widget.priceOffer.value;
-                            },
-                            child: Row(
-                              spacing: 12,
-                              children: [
-                                !widget.priceOffer.value
-                                    ? AppIcons.checkbox.svg()
-                                    : AppIcons.checkboxActiv.svg(),
-                                Expanded(
-                                  child: Text(
-                                    AppLocalizations.of(context)!.offerByPrice,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            );
-          },
+        PriceOfferIteam(
+          priceOffer: widget.priceOffer,
+          controller: widget.controllerPrice,
         ),
         if (widget.isImage!)
           Container(

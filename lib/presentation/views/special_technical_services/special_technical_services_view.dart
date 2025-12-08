@@ -276,6 +276,7 @@ class _SpecialTechnicalServicesViewState
                     16,
                     Platform.isIOS ? 0 : 16,
                   ),
+                  isDisabled: state.transportationTypes.isEmpty,
                   text: AppLocalizations.of(context)!.confirm,
                 );
               },
