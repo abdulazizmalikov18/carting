@@ -32,6 +32,8 @@ class PeregonModel {
   final int price;
   @JsonKey(name: "note")
   final String note;
+  @JsonKey(name: "details")
+  final Map<String, dynamic> details;
 
   PeregonModel({
     required this.advType,
@@ -43,6 +45,7 @@ class PeregonModel {
     required this.payType,
     required this.price,
     required this.note,
+    required this.details,
   });
 
   factory PeregonModel.fromJson(Map<String, dynamic> json) =>

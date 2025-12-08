@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
-import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/data/models/location_model.dart';
 import 'package:carting/data/models/passenger_transportation_create_model.dart';
 import 'package:carting/l10n/localizations.dart';
@@ -12,11 +11,11 @@ import 'package:carting/presentation/widgets/bottom_container.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/presentation/widgets/min_text_field.dart';
 import 'package:carting/presentation/widgets/selection_location_field.dart';
+import 'package:carting/presentation/widgets/shipping_date_iteam.dart';
+import 'package:carting/presentation/widgets/shipping_time_iteam.dart';
 import 'package:carting/presentation/widgets/succes_dialog.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
-import 'package:carting/presentation/widgets/w_claendar.dart';
 import 'package:carting/presentation/widgets/w_selection_iteam.dart';
-import 'package:carting/presentation/widgets/w_time.dart';
 import 'package:carting/utils/formatters.dart';
 import 'package:carting/utils/my_function.dart';
 import 'package:flutter/material.dart';
@@ -35,8 +34,8 @@ class PassengersTransportView extends StatefulWidget {
 class _PassengersTransportViewState extends State<PassengersTransportView> {
   List<File> images = [];
   late TextEditingController controller;
-  late TextEditingController controllerTime;
-  late TextEditingController controllerTime2;
+  late TextEditingController controllerTimeFrom;
+  late TextEditingController controllerTimeTo;
   late TextEditingController controllerCount;
   late TextEditingController controllerCommet;
   late TextEditingController controllerPrice;
@@ -45,13 +44,13 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
   ValueNotifier<int> trTypeId = ValueNotifier(0);
   MapPoint? point1;
   MapPoint? point2;
-  DateTime selectedDate = DateTime.now();
-  DateTime selectedDate2 = DateTime.now();
+  ValueNotifier<DateTime> selectedDateFrom = ValueNotifier(DateTime.now());
+  ValueNotifier<DateTime> selectedDateTo = ValueNotifier(DateTime.now());
   @override
   void initState() {
     controller = TextEditingController();
-    controllerTime = TextEditingController();
-    controllerTime2 = TextEditingController();
+    controllerTimeFrom = TextEditingController();
+    controllerTimeTo = TextEditingController();
     controllerCommet = TextEditingController();
     controllerPrice = TextEditingController();
     controllerCount = TextEditingController();
@@ -66,7 +65,8 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
 
   @override
   void dispose() {
-    controllerTime.dispose();
+    controllerTimeFrom.dispose();
+    controllerTimeTo.dispose();
     controller.dispose();
     controllerCommet.dispose();
     controllerPrice.dispose();
@@ -78,10 +78,10 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
 
   void getDateTime() {
     final date = DateTime.now();
-    selectedDate = date;
-    selectedDate2 = date.add(const Duration(hours: 6));
-    controllerTime.text = MyFunction.formattedTime(date);
-    controllerTime2.text = MyFunction.formattedTime(selectedDate2);
+    selectedDateFrom.value = date;
+    selectedDateTo.value = date.add(const Duration(hours: 6));
+    controllerTimeFrom.text = MyFunction.formattedTime(date);
+    controllerTimeTo.text = MyFunction.formattedTime(selectedDateTo.value);
     controller.text = MyFunction.dateFormat(date);
   }
 
@@ -132,191 +132,19 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
                     formatter: [Formatters.numberFormat],
                     onChanged: (value) {},
                   ),
-
-                  MinTextField(
-                    text: "Kuni:",
-                    hintText: "",
-                    keyboardType: TextInputType.datetime,
+                  ShippingDateIteam(
                     controller: controller,
-                    readOnly: true,
-                    formatter: [Formatters.dateFormatter],
-                    onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        builder: (context) =>
-                            WClaendar(selectedDate: selectedDate),
-                      ).then((value) {
-                        if (value != null) {
-                          selectedDate = value;
-                          selectedDate2 = value;
-                          controller.text = MyFunction.dateFormat(value);
-                        }
-                      });
-                    },
-                    prefixIcon: GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          backgroundColor: Colors.transparent,
-                          builder: (context) =>
-                              WClaendar(selectedDate: selectedDate),
-                        ).then((value) {
-                          if (value != null) {
-                            selectedDate = value;
-                            selectedDate2 = value;
-                            controller.text = MyFunction.dateFormat(value);
-                          }
-                        });
-                      },
-                      child: AppIcons.calendar.svg(height: 24, width: 24),
-                    ),
-                    onChanged: (value) {},
+                    selectedDateFrom: selectedDateFrom,
+                    selectedDateTo: selectedDateTo,
+                    controllerTimeFrom: controllerTimeFrom,
+                    controllerTimeTo: controllerTimeTo,
                   ),
-                  Row(
-                    spacing: 8,
-                    children: [
-                      Expanded(
-                        child: MinTextField(
-                          text:
-                              "${AppLocalizations.of(context)!.time} (${AppLocalizations.of(context)!.from_in}):",
-                          hintText: "",
-                          keyboardType: TextInputType.datetime,
-                          controller: controllerTime,
-                          readOnly: true,
-                          formatter: [Formatters.dateFormatter],
-                          onPressed: () {
-                            showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              builder: (context) =>
-                                  WTime(selectedDate: selectedDate),
-                            ).then((value) {
-                              if (value != null) {
-                                selectedDate = value;
-                                controllerTime.text = MyFunction.formattedTime(
-                                  value,
-                                );
-                              }
-                            });
-                          },
-                          prefixIcon: GestureDetector(
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                backgroundColor: Colors.transparent,
-                                builder: (context) =>
-                                    WTime(selectedDate: selectedDate),
-                              ).then((value) {
-                                if (value != null) {
-                                  selectedDate = value;
-                                  controllerTime.text =
-                                      MyFunction.formattedTime(value);
-                                }
-                              });
-                            },
-                            child: AppIcons.clock.svg(height: 24, width: 24),
-                          ),
-                          onChanged: (value) {},
-                        ),
-                      ),
-                      Expanded(
-                        child: MinTextField(
-                          text:
-                              "${AppLocalizations.of(context)!.time}  (${AppLocalizations.of(context)!.to_in}):",
-                          hintText: "",
-                          keyboardType: TextInputType.datetime,
-                          controller: controllerTime2,
-                          readOnly: true,
-                          formatter: [Formatters.dateFormatter],
-                          onPressed: () {
-                            showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              builder: (context) => WTime(
-                                selectedDate: selectedDate2,
-                                minimumDate: selectedDate,
-                              ),
-                            ).then((value) {
-                              if (value != null) {
-                                selectedDate2 = value;
-                                controllerTime2.text = MyFunction.formattedTime(
-                                  value,
-                                );
-                              }
-                            });
-                          },
-                          prefixIcon: GestureDetector(
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                backgroundColor: Colors.transparent,
-                                builder: (context) => WTime(
-                                  selectedDate: selectedDate2,
-                                  minimumDate: selectedDate,
-                                ),
-                              ).then((value) {
-                                if (value != null) {
-                                  selectedDate2 = value;
-                                  controllerTime2.text =
-                                      MyFunction.formattedTime(value);
-                                }
-                              });
-                            },
-                            child: AppIcons.clock.svg(height: 24, width: 24),
-                          ),
-                          onChanged: (value) {},
-                        ),
-                      ),
-                    ],
+                  ShippingTimeIteam(
+                    controllerTimeFrom: controllerTimeFrom,
+                    selectedDateFrom: selectedDateFrom,
+                    controllerTimeTo: controllerTimeTo,
+                    selectedDateTo: selectedDateTo,
                   ),
-
-                  // Container(
-                  //   decoration: BoxDecoration(
-                  //     color: context.color.contColor,
-                  //     borderRadius: BorderRadius.circular(24),
-                  //   ),
-                  //   child: ListTile(
-                  //     onTap: () {
-                  //       Navigator.of(context).push(MaterialPageRoute(
-                  //         builder: (context) => ,
-                  //       ));
-                  //     },
-                  //     minVerticalPadding: 0,
-                  //     title: Text(
-                  //       AppLocalizations.of(context)!.additionalInfo,
-                  //       style: TextStyle(
-                  //         fontSize: 12,
-                  //         fontWeight: FontWeight.w400,
-                  //         color: context.color.darkText,
-                  //       ),
-                  //     ),
-                  //     subtitle: Text(
-                  //       controllerCommet.text.isNotEmpty ||
-                  //               controllerPrice.text.isNotEmpty
-                  //           ? "${controllerCommet.text.isNotEmpty ? AppLocalizations.of(context)!.description : ""} ${controllerPrice.text.isNotEmpty ? "${AppLocalizations.of(context)!.price}, ${AppLocalizations.of(context)!.paymentType}" : ""} ${images.isEmpty ? "" : AppLocalizations.of(context)!.cargoImages}"
-                  //           : AppLocalizations.of(context)!.enter_info,
-                  //       maxLines: 1,
-                  //       overflow: TextOverflow.ellipsis,
-                  //       style: TextStyle(
-                  //         fontSize: 16,
-                  //         fontWeight: FontWeight.w400,
-                  //         color: controllerCommet.text.isNotEmpty ||
-                  //                 controllerPrice.text.isNotEmpty ||
-                  //                 images.isNotEmpty
-                  //             ? context.color.white
-                  //             : context.color.darkText,
-                  //       ),
-                  //     ),
-                  //     trailing: AppIcons.arrowForward.svg(),
-                  //   ),
-                  // ),
                   WSelectionItam(
                     onTap: (int index) {
                       trTypeId.value = index;
@@ -383,6 +211,8 @@ class _PassengersTransportViewState extends State<PassengersTransportView> {
                         transportationTypeId:
                             state.transportationTypes[trTypeId.value].id,
                         passengerCount: int.tryParse(controllerCount.text) ?? 0,
+                        fromDate: selectedDateFrom.value.toString(),
+                        toDate: selectedDateTo.value.toString(),
                       ),
                       advType: 'RECEIVE',
                       serviceTypeId: 2,

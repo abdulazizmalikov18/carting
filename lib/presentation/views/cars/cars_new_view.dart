@@ -78,6 +78,13 @@ class _CarsNewViewState extends State<CarsNewView> {
     ];
   }
 
+  List<int> deActiveId() {
+    return servicesModel
+        .where((item) => item.isActive == false)
+        .map((item) => item.serviceId)
+        .toList();
+  }
+
   List<int> activeId() {
     return servicesModel
         .where((item) => item.isActive == true)
@@ -120,7 +127,9 @@ class _CarsNewViewState extends State<CarsNewView> {
                         GetAdvertisementsFilterEvent(
                           isPROVIDE: false,
                           status: "ACTIVE",
-                          serviceId: activeId().isEmpty ? null : activeId(),
+                          serviceId: activeId().isEmpty
+                              ? deActiveId()
+                              : activeId(),
                           bdate: dateTime != null
                               ? MyFunction.dateFormat2(dateTime!)
                               : null,
@@ -221,7 +230,9 @@ class _CarsNewViewState extends State<CarsNewView> {
                           GetAdvertisementsFilterEvent(
                             status: "ACTIVE",
                             isPROVIDE: true,
-                            serviceId: activeId(),
+                            serviceId: activeId().isEmpty
+                                ? deActiveId()
+                                : activeId(),
                             bdate: dateTime != null
                                 ? MyFunction.dateFormat2(dateTime!)
                                 : null,
@@ -242,7 +253,7 @@ class _CarsNewViewState extends State<CarsNewView> {
                   context.read<AdvertisementBloc>().add(
                     GetAdvertisementsFilterEvent(
                       status: "ACTIVE",
-                      serviceId: activeId(),
+                      serviceId: activeId().isEmpty ? deActiveId() : activeId(),
                       bdate: dateTime != null
                           ? MyFunction.dateFormat2(dateTime!)
                           : null,
@@ -256,11 +267,12 @@ class _CarsNewViewState extends State<CarsNewView> {
                 },
                 child: PaginatorList(
                   fetchMoreFunction: () {
-                    page++;
                     context.read<AdvertisementBloc>().add(
                       GetAdvertisementsFilterEvent(
                         status: "ACTIVE",
-                        serviceId: activeId(),
+                        serviceId: activeId().isEmpty
+                            ? deActiveId()
+                            : activeId(),
                         bdate: dateTime != null
                             ? MyFunction.dateFormat2(dateTime!)
                             : null,
@@ -292,7 +304,7 @@ class _CarsNewViewState extends State<CarsNewView> {
                               isMe: state.advertisementFilter[index].isOwner,
                               isComments: true,
                               isOnlyCar: true,
-                              isEdit: state.advertisementFilter[index].isOwner,
+                              isMyCar: state.advertisementFilter[index].isOwner,
                               onEdit: () {},
                             ),
                           ),

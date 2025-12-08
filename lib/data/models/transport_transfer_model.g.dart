@@ -44,10 +44,14 @@ DetailsTransfer _$DetailsTransferFromJson(Map<String, dynamic> json) =>
     DetailsTransfer(
       transportationTypeId: (json['transportation_type_id'] as num).toInt(),
       transportCount: (json['transport_count'] as num).toInt(),
+      fromDate: json['from_date'] as String?,
+      toDate: json['to_date'] as String?,
     );
 
 Map<String, dynamic> _$DetailsTransferToJson(DetailsTransfer instance) =>
     <String, dynamic>{
       'transportation_type_id': instance.transportationTypeId,
       'transport_count': instance.transportCount,
+      'from_date': instance.fromDate,
+      'to_date': instance.toDate,
     };

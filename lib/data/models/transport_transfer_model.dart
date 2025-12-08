@@ -62,10 +62,16 @@ class DetailsTransfer {
   final int transportationTypeId;
   @JsonKey(name: "transport_count")
   final int transportCount;
+  @JsonKey(name: "from_date")
+  final String? fromDate;
+  @JsonKey(name: "to_date")
+  final String? toDate;
 
   DetailsTransfer({
     required this.transportationTypeId,
     required this.transportCount,
+    this.fromDate,
+    this.toDate,
   });
 
   factory DetailsTransfer.fromJson(Map<String, dynamic> json) =>

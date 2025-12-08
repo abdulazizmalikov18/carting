@@ -66,10 +66,16 @@ class DetailsModel {
   final int transportationTypeId;
   @JsonKey(name: "passenger_count")
   final int passengerCount;
+  @JsonKey(name: "from_date")
+  final String? fromDate;
+  @JsonKey(name: "to_date")
+  final String? toDate;
 
   DetailsModel({
     required this.transportationTypeId,
     required this.passengerCount,
+    this.fromDate,
+    this.toDate,
   });
 
   factory DetailsModel.fromJson(Map<String, dynamic> json) =>

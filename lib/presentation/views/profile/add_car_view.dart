@@ -10,6 +10,7 @@ import 'package:carting/presentation/views/common/map_point.dart';
 import 'package:carting/presentation/views/common/w_select_servis_iteam.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
 import 'package:carting/presentation/widgets/custom_text_field.dart';
+import 'package:carting/presentation/widgets/load_weight_iteam.dart';
 import 'package:carting/presentation/widgets/selection_location_field.dart';
 import 'package:carting/presentation/widgets/succes_dialog.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
@@ -45,7 +46,7 @@ class _AddCarViewState extends State<AddCarView> {
   late TextEditingController controllerCommet;
   late TextEditingController controllerCount;
   ValueNotifier<int> trTypeId = ValueNotifier(0);
-  String selectedUnit = 'kg';
+  ValueNotifier<String> selectedUnit = ValueNotifier('kg');
   List<File> images = [];
   bool isDisabled = true;
   @override
@@ -153,12 +154,16 @@ class _AddCarViewState extends State<AddCarView> {
                           state.transportationTypes[trTypeId.value].id,
                       madeAt: controllerCarYear.text,
                       transportNumber: controllerCarNumber.text,
-                      kg: selectedUnit == AppLocalizations.of(context)!.unit_kg
+                      kg:
+                          selectedUnit.value ==
+                              AppLocalizations.of(context)!.unit_kg
                           ? controllerKg.text.isEmpty
                                 ? null
                                 : controllerKg.text
                           : null,
-                      tn: selectedUnit == AppLocalizations.of(context)!.unit_tn
+                      tn:
+                          selectedUnit.value ==
+                              AppLocalizations.of(context)!.unit_tn
                           ? controllerKg.text.isEmpty
                                 ? null
                                 : controllerKg.text
@@ -348,262 +353,14 @@ class _AddCarViewState extends State<AddCarView> {
               ),
             ),
             switch (servisId) {
-              1 => Container(
-                decoration: BoxDecoration(
-                  color: context.color.contColor,
-                  borderRadius: BorderRadius.circular(24),
-                  boxShadow: wboxShadow2,
-                ),
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 4,
-                  children: [
-                    Row(
-                      spacing: 24,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            AppLocalizations.of(context)!.loadWeight,
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: context.color.white,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            AppLocalizations.of(context)!.cargoVolume,
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: context.color.white,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "${AppLocalizations.of(context)!.cargoCapacity}:",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: context.color.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 24,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Row(
-                              spacing: 4,
-                              children: [
-                                Expanded(
-                                  child: TextField(
-                                    controller: controllerKg,
-                                    keyboardType: TextInputType.number,
-                                    onChanged: (value) {
-                                      if (value.length <= 1) {
-                                        updateButtonState();
-                                      }
-                                    },
-                                    decoration: InputDecoration(
-                                      isDense: true,
-                                      contentPadding: EdgeInsets.zero,
-                                      border: InputBorder.none,
-                                      hintText: '0',
-                                      hintStyle: TextStyle(
-                                        color: context.color.darkText,
-                                      ),
-                                    ),
-                                    style: const TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                                Builder(
-                                  builder: (context) => GestureDetector(
-                                    onTap: () async {
-                                      final RenderBox button =
-                                          context.findRenderObject()
-                                              as RenderBox;
-                                      final RenderBox overlay =
-                                          Overlay.of(
-                                                context,
-                                              ).context.findRenderObject()
-                                              as RenderBox;
-
-                                      final RelativeRect position =
-                                          RelativeRect.fromRect(
-                                            Rect.fromPoints(
-                                              button.localToGlobal(
-                                                Offset(0, button.size.height),
-                                                ancestor: overlay,
-                                              ),
-                                              button.localToGlobal(
-                                                button.size.bottomRight(
-                                                  Offset.zero,
-                                                ),
-                                                ancestor: overlay,
-                                              ),
-                                            ),
-                                            Offset.zero & overlay.size,
-                                          );
-
-                                      String? selected = await showMenu<String>(
-                                        context: context,
-                                        position: position,
-                                        color: white,
-                                        shadowColor: black.withValues(
-                                          alpha: .3,
-                                        ),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            16,
-                                          ),
-                                        ),
-                                        items:
-                                            [
-                                              AppLocalizations.of(
-                                                context,
-                                              )!.unit_kg,
-                                              AppLocalizations.of(
-                                                context,
-                                              )!.unit_tn,
-                                            ].map((choice) {
-                                              return PopupMenuItem<String>(
-                                                value: choice,
-                                                height: 40,
-                                                child: Row(
-                                                  children: [
-                                                    Text(
-                                                      choice,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: const TextStyle(
-                                                        fontSize: 14,
-                                                      ),
-                                                    ),
-                                                    const Spacer(),
-                                                    SizedBox(
-                                                      height: 20,
-                                                      width: 20,
-                                                      child:
-                                                          choice == selectedUnit
-                                                          ? AppIcons
-                                                                .checkboxRadio
-                                                                .svg()
-                                                          : AppIcons
-                                                                .checkboxRadioDis
-                                                                .svg(),
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-                                            }).toList(),
-                                      );
-
-                                      if (selected != null) {
-                                        setState(() {
-                                          selectedUnit = selected;
-                                        });
-                                      }
-                                    },
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          selectedUnit,
-                                          style: TextStyle(
-                                            color: context.color.darkText,
-                                          ),
-                                        ),
-                                        AppIcons.arrowBottom.svg(
-                                          color: context.color.iron,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const VerticalDivider(width: 24),
-                          Expanded(
-                            child: Row(
-                              spacing: 4,
-                              children: [
-                                Expanded(
-                                  child: TextField(
-                                    controller: controllerm3,
-                                    keyboardType: TextInputType.number,
-                                    onChanged: (value) {
-                                      if (value.length <= 1) {
-                                        updateButtonState();
-                                      }
-                                    },
-                                    decoration: InputDecoration(
-                                      isDense: true,
-                                      contentPadding: EdgeInsets.zero,
-                                      border: InputBorder.none,
-                                      hintText: '0',
-                                      hintStyle: TextStyle(
-                                        color: context.color.darkText,
-                                      ),
-                                    ),
-                                    style: const TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                                Text(
-                                  AppLocalizations.of(context)!.unit_m3,
-                                  style: TextStyle(
-                                    color: context.color.darkText,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const VerticalDivider(width: 24),
-                          Expanded(
-                            child: Row(
-                              spacing: 4,
-                              children: [
-                                Expanded(
-                                  child: TextField(
-                                    controller: controllerLitr,
-                                    keyboardType: TextInputType.number,
-                                    onChanged: (value) {
-                                      if (value.length <= 1) {
-                                        updateButtonState();
-                                      }
-                                    },
-                                    decoration: InputDecoration(
-                                      isDense: true,
-                                      contentPadding: EdgeInsets.zero,
-                                      border: InputBorder.none,
-                                      hintText: '0',
-                                      hintStyle: TextStyle(
-                                        color: context.color.darkText,
-                                      ),
-                                    ),
-                                    style: const TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                                Text(
-                                  'litr',
-                                  style: TextStyle(
-                                    color: context.color.darkText,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+              1 => LoadWeightIteam(
+                controllerKg: controllerKg,
+                controllerm3: controllerm3,
+                controllerLitr: controllerLitr,
+                onUpdateButtonState: () {
+                  updateButtonState();
+                },
+                selectedUnit: selectedUnit,
               ),
               2 => Container(
                 decoration: BoxDecoration(

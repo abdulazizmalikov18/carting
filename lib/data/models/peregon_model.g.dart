@@ -18,6 +18,7 @@ PeregonModel _$PeregonModelFromJson(Map<String, dynamic> json) => PeregonModel(
   payType: json['pay_type'] as String,
   price: (json['price'] as num).toInt(),
   note: json['note'] as String,
+  details: json['details'] as Map<String, dynamic>,
 );
 
 Map<String, dynamic> _$PeregonModelToJson(PeregonModel instance) =>
@@ -31,6 +32,7 @@ Map<String, dynamic> _$PeregonModelToJson(PeregonModel instance) =>
       'pay_type': instance.payType,
       'price': instance.price,
       'note': instance.note,
+      'details': instance.details,
     };
 
 Location _$LocationFromJson(Map<String, dynamic> json) => Location(

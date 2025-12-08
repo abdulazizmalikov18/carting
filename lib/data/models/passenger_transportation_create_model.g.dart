@@ -43,10 +43,14 @@ Map<String, dynamic> _$PassengerTransportationCreateModelToJson(
 DetailsModel _$DetailsModelFromJson(Map<String, dynamic> json) => DetailsModel(
   transportationTypeId: (json['transportation_type_id'] as num).toInt(),
   passengerCount: (json['passenger_count'] as num).toInt(),
+  fromDate: json['from_date'] as String?,
+  toDate: json['to_date'] as String?,
 );
 
 Map<String, dynamic> _$DetailsModelToJson(DetailsModel instance) =>
     <String, dynamic>{
       'transportation_type_id': instance.transportationTypeId,
       'passenger_count': instance.passengerCount,
+      'from_date': instance.fromDate,
+      'to_date': instance.toDate,
     };

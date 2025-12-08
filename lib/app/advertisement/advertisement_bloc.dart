@@ -386,14 +386,16 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
     });
 
     on<GetAdvertisementsEvent>((event, emit) async {
-      if (event.page == null) {
+      if (event.isMore == null) {
         emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
       }
       Log.wtf(event.serviceId?.join(","));
       final respons = await _repo.getAdvertisements(
         FilterModel(
           serviceId: event.serviceId?.join(","),
-          page: event.page,
+          page: event.isMore == true
+              ? (state.advertisement.length / 10).ceil() + 1
+              : 1,
           bdate: event.bdate,
           edate: event.edate,
           minPrice: event.minPrice,
@@ -410,7 +412,7 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
         emit(
           state.copyWith(
             status: FormzSubmissionStatus.success,
-            advertisement: event.page != null
+            advertisement: event.isMore != null
                 ? [...state.advertisement, ...respons.right.data.datas]
                 : respons.right.data.datas,
             advertisementCount: respons.right.data.allCount,

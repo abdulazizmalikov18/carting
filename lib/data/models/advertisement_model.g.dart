@@ -79,7 +79,7 @@ Map<String, dynamic> _$AdvertisementModelToJson(AdvertisementModel instance) =>
       'workshop_categories': instance.workshopCategories,
       'car_name': instance.carName,
       'rating': instance.rating,
-      'offerrer_adv_id': instance.oferrerAdvId,
+      'oferrer_adv_id': instance.oferrerAdvId,
       'transport_number': instance.transportNumber,
       'transport_image': instance.transportImage,
     };

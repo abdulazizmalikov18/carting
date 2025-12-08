@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:carting/app/advertisement/advertisement_bloc.dart';
-import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/colors/colors.dart';
 import 'package:carting/data/models/advertisement_model.dart';
 import 'package:carting/data/models/servis_model.dart';
@@ -11,16 +10,20 @@ import 'package:carting/presentation/views/common/map_point.dart';
 import 'package:carting/presentation/views/peregon_service/additional_information_view.dart';
 import 'package:carting/presentation/widgets/cargo_type_item.dart';
 import 'package:carting/presentation/widgets/custom_snackbar.dart';
+import 'package:carting/presentation/widgets/load_type_iteam.dart';
+import 'package:carting/presentation/widgets/load_weight_iteam.dart';
 import 'package:carting/presentation/widgets/min_text_field.dart';
 import 'package:carting/presentation/widgets/selection_location_field.dart';
+import 'package:carting/presentation/widgets/shipping_date_iteam.dart';
+import 'package:carting/presentation/widgets/shipping_time_iteam.dart';
 import 'package:carting/presentation/widgets/succes_dialog.dart';
 import 'package:carting/presentation/widgets/w_button.dart';
+import 'package:carting/presentation/widgets/w_selection_iteam.dart';
 import 'package:carting/presentation/widgets/w_shimmer.dart';
 import 'package:carting/presentation/widgets/w_text_field.dart';
 import 'package:carting/utils/enum_filtr.dart';
 import 'package:carting/utils/formatters.dart';
 import 'package:carting/utils/my_function.dart';
-import 'package:carting/utils/log_service.dart';
 import 'package:flex_dropdown/flex_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -39,6 +42,10 @@ class EditAnnouncementView extends StatefulWidget {
 class _EditAnnouncementViewState extends State<EditAnnouncementView> {
   MapPoint? point1;
   MapPoint? point2;
+
+  late TextEditingController controller;
+  late TextEditingController controllerTimeFrom;
+  late TextEditingController controllerTimeTo;
   late TextEditingController controllerKg;
   late TextEditingController controllerm3;
   late TextEditingController controllerLitr;
@@ -51,13 +58,14 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
   late TextEditingController controllerPrice;
   late TextEditingController controllerCompany;
   late TextEditingController controllerCompany2;
-  ValueNotifier<int> trTypeId = ValueNotifier(0);
-  String selectedUnit = 'kg';
+  late ValueNotifier<int> trTypeId;
+  ValueNotifier<String> selectedUnit = ValueNotifier('kg');
   List<File> images = [];
   bool isDisabled = true;
   List<ServisModel> categoriesList = [];
   List<ServisModel> servicesList = [];
-
+  late ValueNotifier<DateTime> selectedDateFrom;
+  late ValueNotifier<DateTime> selectedDateTo;
   late ValueNotifier<bool> priceOffer;
   late ValueNotifier<int> payDate;
 
@@ -96,11 +104,40 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
     // context.read<AdvertisementBloc>().add(
     //   GetTransportationTypesEvent(serviceId: widget.model.serviceTypeId),
     // );
+    if (widget.model.details?.transportationTypeId != null) {
+      context.read<AdvertisementBloc>().add(
+        GetTransportationTypesEvent(serviceId: widget.model.serviceTypeId),
+      );
+    }
 
     if (serviceType == TypeOfServiceEnum.workshops) {
       context.read<AdvertisementBloc>().add(GetCategoriesEvent());
       context.read<AdvertisementBloc>().add(GetServicesEvent());
     }
+
+    controller = TextEditingController(
+      text: MyFunction.dateFormat(
+        DateTime.tryParse(widget.model.shipmentDate ?? "") ?? DateTime.now(),
+      ),
+    );
+    trTypeId = ValueNotifier(widget.model.details?.transportationTypeId ?? 0);
+    controllerTimeFrom = TextEditingController(
+      text: MyFunction.formattedTime(
+        DateTime.tryParse(widget.model.details?.fromDate ?? "") ??
+            DateTime.now(),
+      ),
+    );
+    controllerTimeTo = TextEditingController(
+      text: MyFunction.formattedTime(
+        DateTime.tryParse(widget.model.details?.toDate ?? "") ?? DateTime.now(),
+      ),
+    );
+    selectedDateFrom = ValueNotifier(
+      DateTime.tryParse(widget.model.details?.fromDate ?? "") ?? DateTime.now(),
+    );
+    selectedDateTo = ValueNotifier(
+      DateTime.tryParse(widget.model.details!.toDate ?? "") ?? DateTime.now(),
+    );
 
     controllerKg = TextEditingController(
       text: widget.model.details?.kg ?? widget.model.details?.tn,
@@ -149,9 +186,9 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
     // selectedUnit ni aniqlash
     if (widget.model.details?.tn != null &&
         widget.model.details!.tn!.isNotEmpty) {
-      selectedUnit = 'tn';
+      selectedUnit.value = 'tn';
     } else {
-      selectedUnit = 'kg';
+      selectedUnit.value = 'kg';
     }
 
     point1 = widget.model.fromLocation != null
@@ -389,7 +426,7 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
                 }
               },
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 8),
 
             // Service-specific fields
             Builder(
@@ -416,6 +453,15 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
                 }
               },
             ),
+            if (widget.model.details?.transportationTypeId != null) ...[
+              const SizedBox(height: 8),
+              WSelectionItam(
+                selectedIndex: widget.model.details?.transportationTypeId,
+                onTap: (int index) {
+                  trTypeId.value = index;
+                },
+              ),
+            ],
             const SizedBox(height: 8),
             AdditionalInformationView(
               payDate: payDate,
@@ -437,309 +483,40 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
       children: [
         // Cargo Type Dropdown
         if (!isDelivery) ...[
-          RawFlexDropDown(
-            controller: overlayPortalController,
-            menuPosition: position,
-            dismissOnTapOutside: dismissOnTapOutside,
-            buttonBuilder: (context, onTap) {
-              return Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: context.color.contColor,
-                  borderRadius: BorderRadius.circular(24),
-                  boxShadow: wboxShadow2,
-                ),
-                child: GestureDetector(
-                  onTap: onTap,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 4,
-                    children: [
-                      Text(
-                        "${AppLocalizations.of(context)!.cargoType}:",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: context.color.white,
-                        ),
-                      ),
-                      Row(
-                        spacing: 12,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              MyFunction.listText(list).isEmpty
-                                  ? AppLocalizations.of(context)!.cargoType
-                                  : MyFunction.listText(list),
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: MyFunction.listText(list).isEmpty
-                                    ? context.color.darkText
-                                    : null,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          AppIcons.arrowBottom.svg(color: context.color.iron),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-            menuBuilder: (context, width) {
-              return Padding(
-                padding: const EdgeInsets.only(top: 4),
-                child: CargoTypeItem(
-                  width: useButtonSize ? width : 300,
-                  list: list,
-                  onItemTap: (listValue) {
-                    Log.e(listValue);
-                    setState(() {
-                      list = listValue;
-                    });
-                  },
-                ),
-              );
+          LoadTypeIteam(
+            list: list,
+            onItemTap: (listValue) {
+              setState(() {
+                list = listValue;
+              });
             },
           ),
           const SizedBox(height: 8),
         ],
         // Load Weight, Volume, Capacity
-        Container(
-          decoration: BoxDecoration(
-            color: context.color.contColor,
-            borderRadius: BorderRadius.circular(24),
-            boxShadow: wboxShadow2,
-          ),
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 4,
-            children: [
-              Row(
-                spacing: 24,
-                children: [
-                  Expanded(
-                    child: Text(
-                      "${AppLocalizations.of(context)!.loadWeight}:",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: context.color.white,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      "${AppLocalizations.of(context)!.cargoVolume}:",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: context.color.white,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      "${AppLocalizations.of(context)!.cargoCapacity}:",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: context.color.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 24,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        spacing: 4,
-                        children: [
-                          Expanded(
-                            child: TextField(
-                              controller: controllerKg,
-                              keyboardType: TextInputType.number,
-                              onChanged: (value) {
-                                updateButtonState();
-                              },
-                              decoration: InputDecoration(
-                                isDense: true,
-                                contentPadding: EdgeInsets.zero,
-                                border: InputBorder.none,
-                                hintText: '0',
-                                hintStyle: TextStyle(
-                                  color: context.color.darkText,
-                                ),
-                              ),
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ),
-                          Builder(
-                            builder: (context) => GestureDetector(
-                              onTap: () async {
-                                final RenderBox button =
-                                    context.findRenderObject() as RenderBox;
-                                final RenderBox overlay =
-                                    Overlay.of(
-                                          context,
-                                        ).context.findRenderObject()
-                                        as RenderBox;
-
-                                final RelativeRect position =
-                                    RelativeRect.fromRect(
-                                      Rect.fromPoints(
-                                        button.localToGlobal(
-                                          Offset(0, button.size.height),
-                                          ancestor: overlay,
-                                        ),
-                                        button.localToGlobal(
-                                          button.size.bottomRight(Offset.zero),
-                                          ancestor: overlay,
-                                        ),
-                                      ),
-                                      Offset.zero & overlay.size,
-                                    );
-
-                                String? selected = await showMenu<String>(
-                                  context: context,
-                                  position: position,
-                                  color: white,
-                                  shadowColor: black.withValues(alpha: .3),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  items:
-                                      [
-                                        AppLocalizations.of(context)!.unit_kg,
-                                        AppLocalizations.of(context)!.unit_tn,
-                                      ].map((choice) {
-                                        return PopupMenuItem<String>(
-                                          value: choice,
-                                          height: 40,
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                choice,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                ),
-                                              ),
-                                              const Spacer(),
-                                              SizedBox(
-                                                height: 20,
-                                                width: 20,
-                                                child: choice == selectedUnit
-                                                    ? AppIcons.checkboxRadio
-                                                          .svg()
-                                                    : AppIcons.checkboxRadioDis
-                                                          .svg(),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      }).toList(),
-                                );
-
-                                if (selected != null) {
-                                  setState(() {
-                                    selectedUnit = selected;
-                                  });
-                                }
-                              },
-                              child: Row(
-                                children: [
-                                  Text(
-                                    selectedUnit,
-                                    style: TextStyle(
-                                      color: context.color.darkText,
-                                    ),
-                                  ),
-                                  AppIcons.arrowBottom.svg(
-                                    color: context.color.iron,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const VerticalDivider(width: 24),
-                    Expanded(
-                      child: Row(
-                        spacing: 4,
-                        children: [
-                          Expanded(
-                            child: TextField(
-                              controller: controllerm3,
-                              keyboardType: TextInputType.number,
-                              onChanged: (value) {
-                                updateButtonState();
-                              },
-                              decoration: InputDecoration(
-                                isDense: true,
-                                contentPadding: EdgeInsets.zero,
-                                border: InputBorder.none,
-                                hintText: '0',
-                                hintStyle: TextStyle(
-                                  color: context.color.darkText,
-                                ),
-                              ),
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!.unit_m3,
-                            style: TextStyle(color: context.color.darkText),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const VerticalDivider(width: 24),
-                    Expanded(
-                      child: Row(
-                        spacing: 4,
-                        children: [
-                          Expanded(
-                            child: TextField(
-                              controller: controllerLitr,
-                              keyboardType: TextInputType.number,
-                              onChanged: (value) {
-                                updateButtonState();
-                              },
-                              decoration: InputDecoration(
-                                isDense: true,
-                                contentPadding: EdgeInsets.zero,
-                                border: InputBorder.none,
-                                hintText: '0',
-                                hintStyle: TextStyle(
-                                  color: context.color.darkText,
-                                ),
-                              ),
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ),
-                          Text(
-                            'litr',
-                            style: TextStyle(color: context.color.darkText),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+        LoadWeightIteam(
+          controllerKg: controllerKg,
+          controllerm3: controllerm3,
+          controllerLitr: controllerLitr,
+          onUpdateButtonState: () {
+            updateButtonState();
+          },
+          selectedUnit: selectedUnit,
+        ),
+        const SizedBox(height: 8),
+        ShippingDateIteam(
+          controller: controller,
+          selectedDateFrom: selectedDateFrom,
+          selectedDateTo: selectedDateTo,
+          controllerTimeFrom: controllerTimeFrom,
+          controllerTimeTo: controllerTimeTo,
+        ),
+        const SizedBox(height: 8),
+        ShippingTimeIteam(
+          controllerTimeFrom: controllerTimeFrom,
+          selectedDateFrom: selectedDateFrom,
+          controllerTimeTo: controllerTimeTo,
+          selectedDateTo: selectedDateTo,
         ),
       ],
     );
@@ -755,6 +532,21 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
           keyboardType: TextInputType.number,
           formatter: [Formatters.numberFormat],
           onChanged: (value) {},
+        ),
+        const SizedBox(height: 8),
+        ShippingDateIteam(
+          controller: controller,
+          selectedDateFrom: selectedDateFrom,
+          selectedDateTo: selectedDateTo,
+          controllerTimeFrom: controllerTimeFrom,
+          controllerTimeTo: controllerTimeTo,
+        ),
+        const SizedBox(height: 8),
+        ShippingTimeIteam(
+          controllerTimeFrom: controllerTimeFrom,
+          selectedDateFrom: selectedDateFrom,
+          controllerTimeTo: controllerTimeTo,
+          selectedDateTo: selectedDateTo,
         ),
       ],
     );
@@ -1011,7 +803,15 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
         'adv_type': widget.model.advType,
         'service_type_id': widget.model.serviceTypeId,
         'note': controllerCommet.text,
-        'price': int.tryParse(controllerPrice.text.replaceAll(' ', '')) ?? 0,
+        'pay_type': switch (payDate.value) {
+          0 => null,
+          1 => 'CASH',
+          2 => 'CARD',
+          int() => null,
+        },
+        'price': priceOffer.value
+            ? 0
+            : int.tryParse(controllerPrice.text.replaceAll(' ', '')) ?? 0,
       },
       TypeOfServiceEnum.shipping => {
         'id': widget.model.id,
@@ -1027,17 +827,19 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
         },
         'service_name': widget.model.serviceName,
         'details': {
-          'transportation_type_id': widget.model.details?.transportationTypeId,
+          'transportation_type_id': trTypeId.value,
           'load_type_list': list
               .where((item) => item.value == true)
               .map((item) => item.id)
               .toList(),
-          'kg': selectedUnit == AppLocalizations.of(context)!.unit_kg
+          'from_date': selectedDateFrom.value.toString(),
+          'to_date': selectedDateTo.value.toString(),
+          'kg': selectedUnit.value == AppLocalizations.of(context)!.unit_kg
               ? controllerKg.text.isEmpty
                     ? null
                     : controllerKg.text
               : null,
-          'tn': selectedUnit == AppLocalizations.of(context)!.unit_tn
+          'tn': selectedUnit.value == AppLocalizations.of(context)!.unit_tn
               ? controllerKg.text.isEmpty
                     ? null
                     : controllerKg.text
@@ -1047,8 +849,17 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
         },
         'adv_type': widget.model.advType,
         'service_type_id': widget.model.serviceTypeId,
+        'shipment_date': controller.text,
         'note': controllerCommet.text,
-        'price': int.tryParse(controllerPrice.text.replaceAll(' ', '')) ?? 0,
+        'pay_type': switch (payDate.value) {
+          0 => null,
+          1 => 'CASH',
+          2 => 'CARD',
+          int() => null,
+        },
+        'price': priceOffer.value
+            ? 0
+            : int.tryParse(controllerPrice.text.replaceAll(' ', '')) ?? 0,
       },
       TypeOfServiceEnum.delivery => {
         'id': widget.model.id,
@@ -1064,13 +875,15 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
         },
         'service_name': widget.model.serviceName,
         'details': {
-          'transportation_type_id': widget.model.details?.transportationTypeId,
-          'kg': selectedUnit == AppLocalizations.of(context)!.unit_kg
+          'transportation_type_id': trTypeId.value,
+          'from_date': selectedDateFrom.value.toString(),
+          'to_date': selectedDateTo.value.toString(),
+          'kg': selectedUnit.value == AppLocalizations.of(context)!.unit_kg
               ? controllerKg.text.isEmpty
                     ? null
                     : controllerKg.text
               : null,
-          'tn': selectedUnit == AppLocalizations.of(context)!.unit_tn
+          'tn': selectedUnit.value == AppLocalizations.of(context)!.unit_tn
               ? controllerKg.text.isEmpty
                     ? null
                     : controllerKg.text
@@ -1080,8 +893,17 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
         },
         'adv_type': widget.model.advType,
         'service_type_id': widget.model.serviceTypeId,
+        'shipment_date': controller.text,
         'note': controllerCommet.text,
-        'price': int.tryParse(controllerPrice.text.replaceAll(' ', '')) ?? 0,
+        'pay_type': switch (payDate.value) {
+          0 => null,
+          1 => 'CASH',
+          2 => 'CARD',
+          int() => null,
+        },
+        'price': priceOffer.value
+            ? 0
+            : int.tryParse(controllerPrice.text.replaceAll(' ', '')) ?? 0,
       },
       TypeOfServiceEnum.transportationOfPassengers => {
         'id': widget.model.id,
@@ -1097,15 +919,24 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
         },
         'service_name': widget.model.serviceName,
         'details': {
-          'transportation_type_id': widget.model.details?.transportationTypeId,
+          'transportation_type_id': trTypeId.value,
           'passenger_count': int.tryParse(controllerCount.text) ?? 0,
+          'from_date': selectedDateFrom.value.toString(),
+          'to_date': selectedDateTo.value.toString(),
         },
         'adv_type': widget.model.advType,
         'service_type_id': widget.model.serviceTypeId,
-        'shipment_date': '',
+        'shipment_date': controller.text,
         'note': controllerCommet.text,
-        'pay_type': 'CASH',
-        'price': int.tryParse(controllerPrice.text.replaceAll(' ', '')) ?? 0,
+        'pay_type': switch (payDate.value) {
+          0 => null,
+          1 => 'CASH',
+          2 => 'CARD',
+          int() => null,
+        },
+        'price': priceOffer.value
+            ? 0
+            : int.tryParse(controllerPrice.text.replaceAll(' ', '')) ?? 0,
       },
       TypeOfServiceEnum.specialTechnique => {
         'id': widget.model.id,
@@ -1115,12 +946,23 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
           'name': point2!.name,
         },
         'details': {
-          'transportation_type_id': widget.model.details?.transportationTypeId,
+          'transportation_type_id': trTypeId.value,
+          'from_date': selectedDateFrom.value.toString(),
+          'to_date': selectedDateTo.value.toString(),
         },
         'adv_type': widget.model.advType,
         'service_type_id': widget.model.serviceTypeId,
+        'shipment_date': controller.text,
         'note': controllerCommet.text,
-        'price': int.tryParse(controllerPrice.text.replaceAll(' ', '')) ?? 0,
+        'pay_type': switch (payDate.value) {
+          0 => null,
+          1 => 'CASH',
+          2 => 'CARD',
+          int() => null,
+        },
+        'price': priceOffer.value
+            ? 0
+            : int.tryParse(controllerPrice.text.replaceAll(' ', '')) ?? 0,
       },
       TypeOfServiceEnum.workshops => {
         'id': widget.model.id,
@@ -1174,13 +1016,24 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
         },
         'service_name': widget.model.serviceName,
         'details': {
-          'transportation_type_id': widget.model.details?.transportationTypeId,
+          'transportation_type_id': trTypeId.value,
           'transport_count': int.tryParse(controllerCount.text) ?? 0,
+          'from_date': selectedDateFrom.value.toString(),
+          'to_date': selectedDateTo.value.toString(),
         },
         'adv_type': widget.model.advType,
         'service_type_id': widget.model.serviceTypeId,
+        'shipment_date': controller.text,
         'note': controllerCommet.text,
-        'price': int.tryParse(controllerPrice.text.replaceAll(' ', '')) ?? 0,
+        'pay_type': switch (payDate.value) {
+          0 => null,
+          1 => 'CASH',
+          2 => 'CARD',
+          int() => null,
+        },
+        'price': priceOffer.value
+            ? 0
+            : int.tryParse(controllerPrice.text.replaceAll(' ', '')) ?? 0,
       },
       TypeOfServiceEnum.transportRental => ({} as Map<String, dynamic>),
       TypeOfServiceEnum.fuelDelivery => ({} as Map<String, dynamic>),

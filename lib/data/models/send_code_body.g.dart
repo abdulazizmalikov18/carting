@@ -16,8 +16,8 @@ SendCodeBody _$SendCodeBodyFromJson(Map<String, dynamic> json) => SendCodeBody(
 
 Map<String, dynamic> _$SendCodeBodyToJson(SendCodeBody instance) =>
     <String, dynamic>{
-      if (instance.mail case final value?) 'mail': value,
-      if (instance.phoneNumber case final value?) 'phone_number': value,
+      'mail': ?instance.mail,
+      'phone_number': ?instance.phoneNumber,
       'sms_type': instance.smsType,
       'type': instance.type,
       'hash': instance.hash,

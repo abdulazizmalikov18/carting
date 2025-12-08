@@ -94,7 +94,7 @@ class DeleteAdvertisementEvent extends AdvertisementEvent {
 class GetAdvertisementsEvent extends AdvertisementEvent {
   final List<int>? serviceId;
   final bool? isPROVIDE;
-  final int? page;
+  final bool? isMore;
   final String? bdate;
   final String? edate;
   final String? status;
@@ -104,7 +104,7 @@ class GetAdvertisementsEvent extends AdvertisementEvent {
   GetAdvertisementsEvent({
     this.serviceId,
     this.isPROVIDE,
-    this.page,
+    this.isMore,
     this.bdate,
     this.edate,
     this.minPrice,

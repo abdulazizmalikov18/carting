@@ -16,8 +16,8 @@ VerifyBody _$VerifyBodyFromJson(Map<String, dynamic> json) => VerifyBody(
 
 Map<String, dynamic> _$VerifyBodyToJson(VerifyBody instance) =>
     <String, dynamic>{
-      if (instance.mail case final value?) 'mail': value,
-      if (instance.phoneNumber case final value?) 'phone_number': value,
+      'mail': ?instance.mail,
+      'phone_number': ?instance.phoneNumber,
       'sms_type': instance.smsType,
       'session_token': instance.sessionToken,
       'security_code': instance.securityCode,

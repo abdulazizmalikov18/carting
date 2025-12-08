@@ -30,7 +30,7 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
   List<bool> active = [true, true, true, true, true];
   String selectedUnit = 'Barchasi';
   String selectedUnit2 = 'Barchasi';
-  int page = 1;
+  // int page = 1;
   late List<ServicesFiltrModel> servicesModel;
   DateTime? dateTime;
   DateTime? dateTime2;
@@ -40,7 +40,11 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
   @override
   void initState() {
     context.read<AdvertisementBloc>().add(
-      GetAdvertisementsEvent(isPROVIDE: false, status: 'ACTIVE'),
+      GetAdvertisementsEvent(
+        isPROVIDE: false,
+        status: 'ACTIVE',
+        serviceId: [1, 9, 10, 2, 3, 6],
+      ),
     );
     if (context.read<AdvertisementBloc>().state.advertisementMyCars.isEmpty) {
       context.read<AdvertisementBloc>().add(GetAdvertisementsMyCarsEvent());
@@ -77,6 +81,13 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
         serviceId: 6,
       ),
     ];
+  }
+
+  List<int> deActiveId() {
+    return servicesModel
+        .where((item) => item.isActive == false)
+        .map((item) => item.serviceId)
+        .toList();
   }
 
   List<int> activeId() {
@@ -124,7 +135,9 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
                       context.read<AdvertisementBloc>().add(
                         GetAdvertisementsEvent(
                           isPROVIDE: false,
-                          serviceId: activeId().isEmpty ? null : activeId(),
+                          serviceId: activeId().isEmpty
+                              ? deActiveId()
+                              : activeId(),
                           maxPrice: toPrice,
                           minPrice: fromPrice,
                           bdate: dateTime != null
@@ -226,7 +239,9 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
                         context.read<AdvertisementBloc>().add(
                           GetAdvertisementsEvent(
                             isPROVIDE: false,
-                            serviceId: activeId().isEmpty ? null : activeId(),
+                            serviceId: activeId().isEmpty
+                                ? deActiveId()
+                                : activeId(),
                             maxPrice: toPrice,
                             minPrice: fromPrice,
                             bdate: dateTime != null
@@ -249,7 +264,8 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
                   context.read<AdvertisementBloc>().add(
                     GetAdvertisementsEvent(
                       isPROVIDE: false,
-                      serviceId: activeId().isEmpty ? null : activeId(),
+                      status: 'ACTIVE',
+                      serviceId: activeId().isEmpty ? deActiveId() : activeId(),
                       maxPrice: toPrice,
                       minPrice: fromPrice,
                       bdate: dateTime != null
@@ -260,16 +276,17 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
                           : null,
                     ),
                   );
-                  Future.delayed(Duration.zero);
+                  await Future.delayed(Duration.zero);
                 },
                 child: PaginatorList(
                   fetchMoreFunction: () {
-                    page++;
                     context.read<AdvertisementBloc>().add(
                       GetAdvertisementsEvent(
-                        page: page,
+                        isMore: true,
                         isPROVIDE: false,
-                        serviceId: activeId(),
+                        serviceId: activeId().isEmpty
+                            ? deActiveId()
+                            : activeId(),
                         maxPrice: toPrice,
                         minPrice: fromPrice,
                         bdate: dateTime != null
