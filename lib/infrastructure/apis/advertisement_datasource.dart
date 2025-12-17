@@ -126,9 +126,15 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
     bool isRECEIVE = false,
   }) {
     {
+      final local = switch (StorageRepository.getString(StorageKeys.LANGUAGE)) {
+        'uz' => 'uz',
+        'ru' => 'ru',
+        'en' => 'en',
+        _ => 'uz',
+      };
       return _handle.apiCantrol(
         request: () => dio.get(
-          'list/transportation_types?service_id=$servisId&adv_type=${isRECEIVE ? 'PROVIDE' : 'RECEIVE'}',
+          'list/transportation_types?service_id=$servisId&adv_type=${isRECEIVE ? 'PROVIDE' : 'RECEIVE'}&locale=$local',
           options: Options(
             headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
                 ? {
