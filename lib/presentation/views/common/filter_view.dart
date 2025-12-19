@@ -1,6 +1,9 @@
 import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/colors/colors.dart';
+import 'package:carting/app/advertisement/advertisement_bloc.dart';
 import 'package:carting/data/models/region_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:carting/data/models/services_filtr_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
@@ -23,6 +26,8 @@ class FilterView extends StatefulWidget {
     this.dateTime2,
     this.fromPrice,
     this.toPrice,
+    this.regionFrom,
+    this.regionTo,
     required this.onSaved,
   });
   final FilterType filterType;
@@ -32,11 +37,15 @@ class FilterView extends StatefulWidget {
   final DateTime? dateTime2;
   final int? fromPrice;
   final int? toPrice;
+  final RegionModel? regionFrom;
+  final RegionModel? regionTo;
   final Function(
     DateTime? dateTime,
     DateTime? dateTime2,
     int? fromPrice,
     int? toPrice,
+    RegionModel? regionFrom,
+    RegionModel? regionTo,
   )
   onSaved;
 
@@ -78,8 +87,12 @@ class _FilterViewState extends State<FilterView> {
     toPrice = TextEditingController(
       text: widget.toPrice == null ? '' : widget.toPrice.toString(),
     );
-    fromRegion = TextEditingController();
-    toRegion = TextEditingController();
+    fromRegion = TextEditingController(
+      text: widget.regionFrom == null ? '' : widget.regionFrom?.nameUz,
+    );
+    toRegion = TextEditingController(
+      text: widget.regionTo == null ? "" : widget.regionTo?.nameUz,
+    );
     super.initState();
   }
 
@@ -123,6 +136,8 @@ class _FilterViewState extends State<FilterView> {
                   : MyFunction.stringToDate(dateTime2.text),
               int.tryParse(fromPrice.text),
               int.tryParse(toPrice.text),
+              regionFrom,
+              regionTo,
             );
             Navigator.of(context).pop(true);
           },
@@ -547,6 +562,32 @@ class _FilterViewState extends State<FilterView> {
     );
   }
 
+  void _showRegionBottomSheet(
+    BuildContext context,
+    TextEditingController controller,
+    Function(RegionModel) onRegionSelected,
+  ) {
+    final bloc = context.read<AdvertisementBloc>();
+    if (bloc.state.regionList.isEmpty) {
+      bloc.add(GetRegionEvent());
+    }
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => BlocProvider.value(
+        value: bloc,
+        child: RegionBottomSheet(
+          onRegionSelected: (region) {
+            Navigator.pop(context);
+            controller.text = region.nameUz;
+            onRegionSelected(region);
+          },
+        ),
+      ),
+    );
+  }
+
   Row _fromToRegion(BuildContext context) {
     return Row(
       spacing: 12,
@@ -568,20 +609,10 @@ class _FilterViewState extends State<FilterView> {
               expands: false,
               title: AppLocalizations.of(context)!.from,
               readOnly: true,
-              onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  backgroundColor: Colors.transparent,
-                  builder: (context) => WClaendar(
-                    selectedDate: MyFunction.stringToDate(fromRegion.text),
-                  ),
-                ).then((value) {
-                  if (value != null) {
-                    fromRegion.text = MyFunction.dateFormat(value);
-                  }
-                });
-              },
+              onPressed: () =>
+                  _showRegionBottomSheet(context, fromRegion, (region) {
+                    regionFrom = region;
+                  }),
               suffixIcon: AppIcons.arrowBottom.svg(),
             ),
           ),
@@ -598,20 +629,10 @@ class _FilterViewState extends State<FilterView> {
               height: 48,
               borderRadius: 16,
               readOnly: true,
-              onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  backgroundColor: Colors.transparent,
-                  builder: (context) => WClaendar(
-                    selectedDate: MyFunction.stringToDate(toRegion.text),
-                  ),
-                ).then((value) {
-                  if (value != null) {
-                    toRegion.text = MyFunction.dateFormat(value);
-                  }
-                });
-              },
+              onPressed: () =>
+                  _showRegionBottomSheet(context, toRegion, (region) {
+                    regionTo = region;
+                  }),
               fillColor: context.color.contColor,
               hintText: AppLocalizations.of(context)!.select,
               maxLines: 1,
@@ -622,6 +643,73 @@ class _FilterViewState extends State<FilterView> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class RegionBottomSheet extends StatelessWidget {
+  final Function(RegionModel) onRegionSelected;
+
+  const RegionBottomSheet({super.key, required this.onRegionSelected});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.6,
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 8, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Viloyatni tanlang',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          Expanded(
+            child: BlocBuilder<AdvertisementBloc, AdvertisementState>(
+              builder: (context, state) {
+                if (state.statusRegion == FormzSubmissionStatus.inProgress) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state.statusRegion ==
+                    FormzSubmissionStatus.failure) {
+                  return Center(
+                    child: Text('Xatolik yuz berdi. Qaytadan urinib ko\'ring.'),
+                  );
+                } else if (state.regionList.isEmpty) {
+                  return const Center(child: Text('Viloyatlar topilmadi'));
+                }
+
+                return ListView.builder(
+                  itemCount: state.regionList.length,
+                  itemBuilder: (context, index) {
+                    final region = state.regionList[index];
+                    return ListTile(
+                      title: Text(region.nameUz),
+                      onTap: () => onRegionSelected(region),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

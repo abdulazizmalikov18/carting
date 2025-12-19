@@ -102,6 +102,8 @@ class GetAdvertisementsEvent extends AdvertisementEvent {
   final String? status;
   final int? minPrice;
   final int? maxPrice;
+  final int? fromRegion;
+  final int? toRegion;
 
   GetAdvertisementsEvent({
     this.serviceId,
@@ -112,6 +114,8 @@ class GetAdvertisementsEvent extends AdvertisementEvent {
     this.minPrice,
     this.maxPrice,
     this.status,
+    this.fromRegion,
+    this.toRegion,
   });
 }
 

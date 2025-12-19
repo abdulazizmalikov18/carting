@@ -113,7 +113,7 @@ class _CarsNewViewState extends State<CarsNewView> {
                         servicesList: servicesModel,
                         dateTime2: dateTime2,
                         dateTime: dateTime,
-                        onSaved: (a1, a2, b1, b2) {
+                        onSaved: (a1, a2, b1, b2, regionFrom, regionTo) {
                           dateTime = a1;
                           dateTime2 = a2;
                           setState(() {});

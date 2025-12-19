@@ -43,7 +43,15 @@ class _WorkshopsViewState extends State<WorkshopsView> {
                   builder: (context) => FilterView(
                     filterType: FilterType.workshopCategories,
                     list: active,
-                    onSaved: (dateTime, dateTime2, fromPrice, toPrice) {},
+                    onSaved:
+                        (
+                          dateTime,
+                          dateTime2,
+                          fromPrice,
+                          toPrice, 
+                          regionFrom,
+                          regionTo,
+                        ) {},
                   ),
                 ),
               );

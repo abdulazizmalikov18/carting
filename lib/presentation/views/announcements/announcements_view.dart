@@ -1,4 +1,5 @@
 import 'package:carting/app/auth/auth_bloc.dart';
+import 'package:carting/data/models/region_model.dart';
 import 'package:carting/data/models/services_filtr_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
@@ -36,6 +37,8 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
   DateTime? dateTime2;
   int? fromPrice;
   int? toPrice;
+  RegionModel? fromRegion;
+  RegionModel? toRegion;
 
   @override
   void initState() {
@@ -109,24 +112,32 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
         actions: [
           IconButton(
             onPressed: () {
+              final bloc = context.read<AdvertisementBloc>();
               Navigator.of(context, rootNavigator: true)
                   .push(
                     MaterialPageRoute(
-                      builder: (context) => FilterView(
-                        filterType: FilterType.searchAd,
-                        list: active,
-                        servicesList: servicesModel,
-                        fromPrice: fromPrice,
-                        toPrice: toPrice,
-                        dateTime2: dateTime2,
-                        dateTime: dateTime,
-                        onSaved: (a1, a2, b1, b2) {
-                          dateTime = a1;
-                          dateTime2 = a2;
-                          fromPrice = b1;
-                          toPrice = b2;
-                          setState(() {});
-                        },
+                      builder: (context) => BlocProvider.value(
+                        value: bloc,
+                        child: FilterView(
+                          filterType: FilterType.searchAd,
+                          list: active,
+                          servicesList: servicesModel,
+                          fromPrice: fromPrice,
+                          toPrice: toPrice,
+                          dateTime2: dateTime2,
+                          dateTime: dateTime,
+                          regionFrom: fromRegion,
+                          regionTo: toRegion,
+                          onSaved: (a1, a2, b1, b2, regionFrom, regionTo) {
+                            dateTime = a1;
+                            dateTime2 = a2;
+                            fromPrice = b1;
+                            toPrice = b2;
+                            fromRegion = regionFrom;
+                            toRegion = regionTo;
+                            setState(() {});
+                          },
+                        ),
                       ),
                     ),
                   )
@@ -140,6 +151,8 @@ class _AnnouncementsViewState extends State<AnnouncementsView> {
                               : activeId(),
                           maxPrice: toPrice,
                           minPrice: fromPrice,
+                          fromRegion: fromRegion?.id,
+                          toRegion: toRegion?.id,
                           bdate: dateTime != null
                               ? MyFunction.dateFormat2(dateTime!)
                               : null,

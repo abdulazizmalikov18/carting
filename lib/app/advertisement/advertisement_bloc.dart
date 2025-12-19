@@ -417,6 +417,8 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
           minPrice: event.minPrice,
           maxPrice: event.maxPrice,
           status: event.status,
+          fromRegionId: event.fromRegion,
+          toRegionId: event.toRegion,
           advType: event.isPROVIDE == null
               ? null
               : event.isPROVIDE == true

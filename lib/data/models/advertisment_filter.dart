@@ -13,6 +13,8 @@ class FilterModel {
   String? edate;
   int? minPrice;
   int? maxPrice;
+  int? fromRegionId;
+  int? toRegionId;
 
   FilterModel({
     this.advId,
@@ -29,6 +31,8 @@ class FilterModel {
     this.edate,
     this.minPrice,
     this.maxPrice,
+    this.fromRegionId,
+    this.toRegionId,
   });
 
   FilterModel.fromJson(Map<String, dynamic> json) {
@@ -53,7 +57,8 @@ class FilterModel {
     if (edate != null) data['edate'] = edate;
     if (minPrice != null) data['min_price'] = minPrice;
     if (maxPrice != null) data['max_price'] = maxPrice;
-
+    if (fromRegionId != null) data['from_region_id'] = fromRegionId;
+    if (toRegionId != null) data['to_region_id'] = toRegionId;
     return data;
   }
 }

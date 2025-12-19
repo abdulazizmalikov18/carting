@@ -44,7 +44,15 @@ class _MastersListViewState extends State<MastersListView> {
                   builder: (context) => FilterView(
                     filterType: FilterType.workshopServices,
                     list: active,
-                    onSaved: (dateTime, dateTime2, fromPrice, toPrice) {},
+                    onSaved:
+                        (
+                          dateTime,
+                          dateTime2,
+                          fromPrice,
+                          toPrice, 
+                          regionFrom,
+                          regionTo,
+                        ) {},
                   ),
                 ),
               );

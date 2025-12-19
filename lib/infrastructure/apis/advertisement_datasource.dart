@@ -100,6 +100,12 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
     if (model.serviceId != null) {
       queryParameters['service_id'] = model.serviceId;
     }
+    if (model.fromRegionId != null) {
+      queryParameters['from_region_id'] = model.fromRegionId;
+    }
+    if (model.toRegionId != null) {
+      queryParameters['to_region_id'] = model.toRegionId;
+    }
     return _handle.apiCantrol(
       request: () => dio.get(
         'user/advertisement',
@@ -677,7 +683,7 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
   Future<ResponseModel<List<RegionModel>>> getRegions() {
     return _handle.apiCantrol(
       request: () => dio.get(
-        'mobile/region/list',
+        'https://api.carting.uz/api/v1/mobile/region/list',
         options: Options(
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
