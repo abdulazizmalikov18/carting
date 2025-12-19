@@ -8,6 +8,7 @@ import 'package:carting/data/models/location_history_model.dart';
 import 'package:carting/data/models/notification_model.dart';
 import 'package:carting/data/models/offers_model.dart';
 import 'package:carting/data/models/page_model.dart';
+import 'package:carting/data/models/region_model.dart';
 import 'package:carting/data/models/response_model.dart';
 import 'package:carting/data/models/servis_model.dart';
 import 'package:carting/data/models/transport_specialists_model.dart';
@@ -467,6 +468,22 @@ class AdvertisementRepo implements IAdvertisementRepo {
   Future<Either<Failure, bool>> finishOffer(int id) async {
     try {
       final result = await dataSourcheImpl.finishOffer(id);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, ResponseModel<List<RegionModel>>>> getRegions() async {
+    try {
+      final result = await dataSourcheImpl.getRegions();
       return Right(result);
     } on DioException {
       return Left(DioFailure());

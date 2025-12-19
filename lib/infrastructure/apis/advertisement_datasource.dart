@@ -9,6 +9,7 @@ import 'package:carting/data/models/location_history_model.dart';
 import 'package:carting/data/models/notification_model.dart';
 import 'package:carting/data/models/offers_model.dart';
 import 'package:carting/data/models/page_model.dart';
+import 'package:carting/data/models/region_model.dart';
 import 'package:carting/data/models/response_model.dart';
 import 'package:carting/data/models/servis_model.dart';
 import 'package:carting/data/models/transport_specialists_model.dart';
@@ -40,6 +41,7 @@ abstract class AdvertisementDatasource {
   Future<ResponseModel<Map<String, dynamic>>> createImage(
     ImageCreateModel model,
   );
+  Future<ResponseModel<List<RegionModel>>> getRegions();
   Future<ResponseModel<List<ServisModel>>> getCategories();
   Future<ResponseModel<List<ServisModel>>> getServices();
   Future<ResponseModel<List<LocationHistoryModel>>> getLocationHistory();
@@ -668,6 +670,29 @@ class AdvertisementDatasourceImpl implements AdvertisementDatasource {
         ),
       ),
       body: (response) => true,
+    );
+  }
+
+  @override
+  Future<ResponseModel<List<RegionModel>>> getRegions() {
+    return _handle.apiCantrol(
+      request: () => dio.get(
+        'mobile/region/list',
+        options: Options(
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
+              ? {
+                  'Authorization':
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
+                }
+              : {},
+        ),
+      ),
+      body: (response) => ResponseModel.fromJson(
+        response,
+        (p0) => (p0 as List)
+            .map((e) => RegionModel.fromJson(e as Map<String, dynamic>))
+            .toList(),
+      ),
     );
   }
 }

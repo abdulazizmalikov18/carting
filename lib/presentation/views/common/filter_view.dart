@@ -1,5 +1,6 @@
 import 'package:carting/assets/assets/icons.dart';
 import 'package:carting/assets/colors/colors.dart';
+import 'package:carting/data/models/region_model.dart';
 import 'package:carting/data/models/services_filtr_model.dart';
 import 'package:carting/infrastructure/core/context_extension.dart';
 import 'package:carting/l10n/localizations.dart';
@@ -50,6 +51,10 @@ class _FilterViewState extends State<FilterView> {
   late TextEditingController dateTime2;
   late TextEditingController fromPrice;
   late TextEditingController toPrice;
+  late TextEditingController fromRegion;
+  late TextEditingController toRegion;
+  RegionModel? regionFrom;
+  RegionModel? regionTo;
   List<String> list = ["Polirovka", "Keramika", "Bo’yoq", "Myatina"];
   int servisIndex = 0;
 
@@ -73,6 +78,8 @@ class _FilterViewState extends State<FilterView> {
     toPrice = TextEditingController(
       text: widget.toPrice == null ? '' : widget.toPrice.toString(),
     );
+    fromRegion = TextEditingController();
+    toRegion = TextEditingController();
     super.initState();
   }
 
@@ -355,6 +362,8 @@ class _FilterViewState extends State<FilterView> {
                             ],
                           ),
                         ),
+                        const SizedBox(height: 12),
+                        _fromToRegion(context),
                       ],
                     );
                   case FilterType.searchTransport:
@@ -531,6 +540,84 @@ class _FilterViewState extends State<FilterView> {
                   '${AppLocalizations.of(context)!.date} (${AppLocalizations.of(context)!.to_in})',
               keyboardType: TextInputType.datetime,
               prefixIcon: AppIcons.calendar.svg(),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row _fromToRegion(BuildContext context) {
+    return Row(
+      spacing: 12,
+      children: [
+        Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              color: context.color.contColor,
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: CustomTextField(
+              controller: fromRegion,
+              height: 48,
+              borderRadius: 16,
+              fillColor: context.color.contColor,
+              hintText: AppLocalizations.of(context)!.select,
+              maxLines: 1,
+              expands: false,
+              title: AppLocalizations.of(context)!.from,
+              readOnly: true,
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  builder: (context) => WClaendar(
+                    selectedDate: MyFunction.stringToDate(fromRegion.text),
+                  ),
+                ).then((value) {
+                  if (value != null) {
+                    fromRegion.text = MyFunction.dateFormat(value);
+                  }
+                });
+              },
+              suffixIcon: AppIcons.arrowBottom.svg(),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              color: context.color.contColor,
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: CustomTextField(
+              controller: toRegion,
+              height: 48,
+              borderRadius: 16,
+              readOnly: true,
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  builder: (context) => WClaendar(
+                    selectedDate: MyFunction.stringToDate(toRegion.text),
+                  ),
+                ).then((value) {
+                  if (value != null) {
+                    toRegion.text = MyFunction.dateFormat(value);
+                  }
+                });
+              },
+              fillColor: context.color.contColor,
+              hintText: AppLocalizations.of(context)!.select,
+              maxLines: 1,
+              expands: false,
+              title: AppLocalizations.of(context)!.to,
+              suffixIcon: AppIcons.arrowBottom.svg(),
             ),
           ),
         ),

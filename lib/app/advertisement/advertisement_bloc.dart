@@ -6,6 +6,7 @@ import 'package:carting/data/models/image_create_model.dart';
 import 'package:carting/data/models/location_history_model.dart';
 import 'package:carting/data/models/notification_model.dart';
 import 'package:carting/data/models/offers_model.dart';
+import 'package:carting/data/models/region_model.dart';
 import 'package:carting/data/models/servis_model.dart';
 import 'package:carting/data/models/transport_specialists_model.dart';
 import 'package:carting/utils/image_converter.dart';
@@ -26,6 +27,21 @@ part 'advertisement_state.dart';
 class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
   final AdvertisementRepo _repo;
   AdvertisementBloc(this._repo) : super(const AdvertisementState()) {
+    on<GetRegionEvent>((event, emit) async {
+      emit(state.copyWith(statusRegion: FormzSubmissionStatus.inProgress));
+      final respons = await _repo.getRegions();
+      if (respons.isRight) {
+        emit(
+          state.copyWith(
+            statusRegion: FormzSubmissionStatus.success,
+            regionList: respons.right.data,
+          ),
+        );
+      } else {
+        emit(state.copyWith(statusRegion: FormzSubmissionStatus.failure));
+      }
+    });
+
     on<FinishOffersEvent>((event, emit) async {
       emit(state.copyWith(statusCreate: FormzSubmissionStatus.inProgress));
       final respons = await _repo.finishOffer(event.id);

@@ -7,6 +7,7 @@ import 'package:carting/data/models/location_history_model.dart';
 import 'package:carting/data/models/notification_model.dart';
 import 'package:carting/data/models/offers_model.dart';
 import 'package:carting/data/models/page_model.dart';
+import 'package:carting/data/models/region_model.dart';
 import 'package:carting/data/models/response_model.dart';
 import 'package:carting/data/models/servis_model.dart';
 import 'package:carting/data/models/transport_specialists_model.dart';
@@ -57,4 +58,5 @@ abstract class IAdvertisementRepo {
   getLocationHistory();
   Future<Either<Failure, int>> getLoanMode(Map<String, dynamic> model);
   Future<Either<Failure, int>> getAvgPrice(Map<String, dynamic> model);
+  Future<Either<Failure, ResponseModel<List<RegionModel>>>> getRegions();
 }

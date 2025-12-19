@@ -2,6 +2,8 @@ part of 'advertisement_bloc.dart';
 
 sealed class AdvertisementEvent {}
 
+class GetRegionEvent extends AdvertisementEvent {}
+
 class FinishOffersEvent extends AdvertisementEvent {
   final int id;
   final VoidCallback onSuccess;
